@@ -1,0 +1,248 @@
+inherited frmMasterRegister: TfrmMasterRegister
+  Caption = 'frmMasterRegister'
+  ClientHeight = 580
+  ClientWidth = 1036
+  Font.Color = clBlack
+  Font.Height = -16
+  Font.Name = 'Calibri'
+  ExplicitWidth = 1052
+  ExplicitHeight = 619
+  PixelsPerInch = 96
+  TextHeight = 19
+  object pnlTitle: TPanel
+    Left = 0
+    Top = 0
+    Width = 1036
+    Height = 41
+    Align = alTop
+    Caption = 'TITLE'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -19
+    Font.Name = 'Calibri'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+  end
+  object pnlBottom: TPanel
+    Left = 0
+    Top = 550
+    Width = 1036
+    Height = 30
+    Align = alBottom
+    TabOrder = 1
+    ExplicitTop = 539
+  end
+  object pnlMain: TPanel
+    Left = 0
+    Top = 153
+    Width = 150
+    Height = 397
+    Align = alLeft
+    TabOrder = 2
+    ExplicitLeft = -1
+    ExplicitTop = 155
+    object pnButtonInsert: TPanel
+      Left = 1
+      Top = 1
+      Width = 148
+      Height = 41
+      Align = alTop
+      Caption = 'Incluir'
+      TabOrder = 0
+      ExplicitTop = 2
+    end
+    object pnButtonEdit: TPanel
+      Left = 1
+      Top = 42
+      Width = 148
+      Height = 41
+      Align = alTop
+      Caption = 'Alterar'
+      TabOrder = 1
+      ExplicitTop = 48
+    end
+    object pnButtonDelete: TPanel
+      Left = 1
+      Top = 83
+      Width = 148
+      Height = 41
+      Align = alTop
+      Caption = 'Excluir'
+      TabOrder = 2
+      ExplicitTop = 89
+    end
+    object pnButtonRefresh: TPanel
+      Left = 1
+      Top = 124
+      Width = 148
+      Height = 41
+      Align = alTop
+      Caption = 'Atualizar'
+      TabOrder = 3
+      ExplicitTop = 130
+    end
+    object pnButtonPrint: TPanel
+      Left = 1
+      Top = 165
+      Width = 148
+      Height = 41
+      Align = alTop
+      Caption = 'Imprimir'
+      TabOrder = 4
+      ExplicitTop = 171
+    end
+    object pnButtonClose: TPanel
+      Left = 1
+      Top = 206
+      Width = 148
+      Height = 41
+      Align = alTop
+      Caption = 'Fechar'
+      TabOrder = 5
+      ExplicitTop = 245
+    end
+  end
+  object pnlGeneral: TPanel
+    Left = 150
+    Top = 153
+    Width = 886
+    Height = 397
+    Align = alClient
+    TabOrder = 3
+    ExplicitLeft = 156
+    ExplicitTop = 155
+    object pgcGeneral: TPageControl
+      Left = 1
+      Top = 1
+      Width = 884
+      Height = 395
+      ActivePage = tabGrid
+      Align = alClient
+      TabOrder = 0
+      object tabGrid: TTabSheet
+        Caption = 'Consulta'
+        ExplicitTop = 29
+        object grdSearch: TDBGrid
+          Left = 0
+          Top = 0
+          Width = 876
+          Height = 361
+          Align = alClient
+          DataSource = dtsSearch
+          TabOrder = 0
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clBlack
+          TitleFont.Height = -16
+          TitleFont.Name = 'Calibri'
+          TitleFont.Style = []
+        end
+      end
+      object tabRegister: TTabSheet
+        Caption = 'Cadastro'
+        ImageIndex = 1
+        ExplicitLeft = 5
+        ExplicitTop = 29
+        object pnlMainRegister: TPanel
+          Left = 0
+          Top = 320
+          Width = 876
+          Height = 41
+          Align = alBottom
+          TabOrder = 0
+          ExplicitLeft = 1
+          ExplicitTop = 322
+          object pnlButtonSave: TPanel
+            Left = 581
+            Top = 1
+            Width = 147
+            Height = 39
+            Align = alRight
+            Caption = 'Salvar'
+            TabOrder = 0
+            ExplicitLeft = 728
+          end
+          object pnlButtonCancel: TPanel
+            Left = 728
+            Top = 1
+            Width = 147
+            Height = 39
+            Align = alRight
+            Caption = 'Cancelar'
+            TabOrder = 1
+            ExplicitLeft = 749
+          end
+        end
+        object pgcRegister: TPageControl
+          Left = 0
+          Top = 0
+          Width = 876
+          Height = 320
+          ActivePage = tabRegisterBasic
+          Align = alClient
+          TabOrder = 1
+          object tabRegisterBasic: TTabSheet
+            Caption = 'B'#225'sico'
+            ExplicitLeft = 1
+            ExplicitTop = 28
+            object pnlRegisterBasic: TPanel
+              Left = 0
+              Top = 0
+              Width = 868
+              Height = 286
+              Align = alClient
+              TabOrder = 0
+              ExplicitLeft = 344
+              ExplicitTop = 120
+              ExplicitWidth = 185
+              ExplicitHeight = 41
+            end
+          end
+        end
+      end
+    end
+  end
+  object pgcSearch: TPageControl
+    Left = 0
+    Top = 41
+    Width = 1036
+    Height = 112
+    ActivePage = tabSearch
+    Align = alTop
+    TabOrder = 4
+    object tabSearch: TTabSheet
+      Caption = 'Search'
+      ExplicitLeft = 8
+      ExplicitTop = 28
+      ExplicitHeight = 62
+      object pnlSearch: TPanel
+        Left = 0
+        Top = 0
+        Width = 1028
+        Height = 78
+        Align = alClient
+        TabOrder = 0
+        ExplicitTop = -2
+        object lb1: TLabel
+          Left = 16
+          Top = 6
+          Width = 63
+          Height = 19
+          Caption = 'Pesquisar'
+        end
+        object edtSearch: TEdit
+          Left = 16
+          Top = 31
+          Width = 217
+          Height = 27
+          TabOrder = 0
+          Text = 'edtSearch'
+        end
+      end
+    end
+  end
+  object dtsSearch: TDataSource
+    Left = 512
+    Top = 296
+  end
+end

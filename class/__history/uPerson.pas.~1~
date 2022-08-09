@@ -1,0 +1,25 @@
+unit uPerson;
+
+interface
+
+type TTypePerson = (tpProvider, tpCustomer);
+
+type TPerson = class
+  private
+    FId: string;
+    FName: string;
+    FPhone: string;
+    FEmail: string;
+    FTypePerson: TTypePerson;
+
+  public
+    property Id: string read FId write FId;
+    property Name: string read FName write FName;
+    property Phone: string read FPhone write FPhone;
+    property Email: string read FEmail write FEmail;
+    property TypePerson: TTypePerson read FTypePerson write FTypePerson;
+end;
+
+implementation
+
+end.

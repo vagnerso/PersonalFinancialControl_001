@@ -1,0 +1,55 @@
+unit fMasterRegister;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.ComCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids;
+
+type
+  TfrmMasterRegister = class(TfrmBase)
+    pnlTitle: TPanel;
+    pnlBottom: TPanel;
+    pnlMain: TPanel;
+    pnlGeneral: TPanel;
+    pgcSearch: TPageControl;
+    tabSearch: TTabSheet;
+    pnlSearch: TPanel;
+    lb1: TLabel;
+    edtSearch: TEdit;
+    pgcGeneral: TPageControl;
+    tabGrid: TTabSheet;
+    tabRegister: TTabSheet;
+    pnButtonInsert: TPanel;
+    pnButtonEdit: TPanel;
+    pnButtonDelete: TPanel;
+    pnButtonPrint: TPanel;
+    pnButtonClose: TPanel;
+    grdSearch: TDBGrid;
+    dtsSearch: TDataSource;
+    pnlMainRegister: TPanel;
+    pgcRegister: TPageControl;
+    tabRegisterBasic: TTabSheet;
+    pnlRegisterBasic: TPanel;
+    pnlButtonSave: TPanel;
+    pnlButtonCancel: TPanel;
+    pnButtonSearchExecute: TPanel;
+  private
+    { Private declarations }
+    procedure insertRegister; virtual; abstract;
+    procedure editRegister; virtual; abstract;
+    procedure deleteRegister; virtual; abstract;
+    procedure printRegister; virtual; abstract;
+    procedure closeForm; virtual; abstract;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmMasterRegister: TfrmMasterRegister;
+
+implementation
+
+{$R *.dfm}
+
+end.

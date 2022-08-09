@@ -1,0 +1,17 @@
+unit uCategory;
+
+interface
+
+type TCategory = class
+  private
+    Fid: string;
+    Fname: string;
+
+  public
+    property id: string read Fid write Fid;
+    property name: string read Fname write Fname;
+end;
+
+implementation
+
+end.

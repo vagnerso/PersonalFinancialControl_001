@@ -1,0 +1,9 @@
+inherited frmLogin: TfrmLogin
+  Caption = 'frmLogin'
+  ClientHeight = 304
+  ClientWidth = 576
+  ExplicitWidth = 592
+  ExplicitHeight = 343
+  PixelsPerInch = 96
+  TextHeight = 13
+end
