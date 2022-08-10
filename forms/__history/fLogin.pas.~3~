@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Imaging.pngimage;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, Vcl.ExtCtrls, Vcl.StdCtrls;
 
 type
   TfrmLogin = class(TfrmBase)
@@ -15,7 +15,6 @@ type
     lblPassword: TLabel;
     edtUser: TEdit;
     edtPassword: TEdit;
-    imIconApp: TImage;
   private
     { Private declarations }
   public
