@@ -17,8 +17,9 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TfrmLogin, frmLogin);
   Application.CreateForm(TfrmMain, frmMain);
-
+  Application.CreateForm(TfrmBase, frmBase);
+  Application.CreateForm(TfrmMasterRegister, frmMasterRegister);
+  Application.CreateForm(TfrmLogin, frmLogin);
   Application.Run;
 end.
