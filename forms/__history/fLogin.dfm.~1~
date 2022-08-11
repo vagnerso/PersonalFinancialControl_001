@@ -1,5 +1,0 @@
-inherited frmLogin: TfrmLogin
-  Caption = 'frmLogin'
-  PixelsPerInch = 96
-  TextHeight = 13
-end

@@ -16,6 +16,12 @@ type
     edtUser: TEdit;
     edtPassword: TEdit;
     imIconApp: TImage;
+    lblTitle: TLabel;
+    lblDeveloper: TLabel;
+    pnlButtonConfirm: TPanel;
+    pnlButtonCancel: TPanel;
+    procedure pnlButtonCancelClick(Sender: TObject);
+    procedure pnlButtonConfirmClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -28,5 +34,25 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmLogin.pnlButtonCancelClick(Sender: TObject);
+begin
+  inherited;
+  Application.Terminate;
+end;
+
+procedure TfrmLogin.pnlButtonConfirmClick(Sender: TObject);
+begin
+  inherited;
+
+  if (edtUser.Text = 'admin') and (edtPassword.Text = 'admin') then
+  begin
+    ModalResult := mrOk;
+  end
+  else
+  begin
+    ShowMessage('Atenção! Usuário e/ou senha inválidos. Por gentileza verifique e tente novamente.');
+  end;
+end;
 
 end.

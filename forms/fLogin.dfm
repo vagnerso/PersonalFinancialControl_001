@@ -1,10 +1,13 @@
 inherited frmLogin: TfrmLogin
+  BorderIcons = []
+  BorderStyle = bsSingle
   Caption = 'Login'
-  ClientHeight = 561
-  ClientWidth = 684
+  ClientHeight = 571
+  ClientWidth = 694
   Font.Color = clBlack
   Font.Height = -16
   Font.Name = 'Calibri'
+  Position = poScreenCenter
   ExplicitWidth = 700
   ExplicitHeight = 600
   PixelsPerInch = 96
@@ -13,9 +16,10 @@ inherited frmLogin: TfrmLogin
     Left = 0
     Top = 0
     Width = 400
-    Height = 561
+    Height = 571
     Align = alLeft
     TabOrder = 0
+    ExplicitHeight = 561
     object imIconApp: TImage
       Left = 16
       Top = 104
@@ -12857,49 +12861,102 @@ inherited frmLogin: TfrmLogin
       Proportional = True
       Stretch = True
     end
+    object lblTitle: TLabel
+      Left = 24
+      Top = 24
+      Width = 356
+      Height = 40
+      Caption = 'Personal Financial Control'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -33
+      Font.Name = 'Calibri'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lblDeveloper: TLabel
+      Left = 8
+      Top = 544
+      Width = 155
+      Height = 13
+      Caption = 'Desenvolvido por Vagner Oliveira'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
+    end
   end
   object pnlLogin: TPanel
     Left = 400
     Top = 0
-    Width = 284
-    Height = 561
+    Width = 294
+    Height = 571
     Align = alClient
     TabOrder = 1
+    ExplicitLeft = 406
     object lb1: TLabel
-      Left = 104
+      Left = 64
       Top = 88
-      Width = 116
-      Height = 19
+      Width = 152
+      Height = 26
       Caption = 'Seja bem vindo(a)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -21
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
     end
     object lblUser: TLabel
-      Left = 16
+      Left = 24
       Top = 144
       Width = 50
       Height = 19
       Caption = 'Usu'#225'rio'
     end
     object lblPassword: TLabel
-      Left = 16
+      Left = 24
       Top = 216
       Width = 39
       Height = 19
       Caption = 'Senha'
     end
     object edtUser: TEdit
-      Left = 16
+      Left = 24
       Top = 169
       Width = 249
       Height = 27
       TabOrder = 0
     end
     object edtPassword: TEdit
-      Left = 16
+      Left = 24
       Top = 241
       Width = 249
       Height = 27
       PasswordChar = '*'
       TabOrder = 1
+    end
+    object pnlButtonConfirm: TPanel
+      Left = 24
+      Top = 288
+      Width = 249
+      Height = 41
+      Cursor = crHandPoint
+      Caption = 'Confirmar'
+      TabOrder = 2
+      OnClick = pnlButtonConfirmClick
+    end
+    object pnlButtonCancel: TPanel
+      Left = 24
+      Top = 336
+      Width = 249
+      Height = 41
+      Cursor = crHandPoint
+      Caption = 'Cancelar'
+      TabOrder = 3
+      OnClick = pnlButtonCancelClick
     end
   end
 end
