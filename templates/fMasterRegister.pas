@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.ComCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids,
-  Vcl.Imaging.pngimage;
+  Vcl.Imaging.pngimage, uSystemManager;
 
 type
   TfrmMasterRegister = class(TfrmBase)
@@ -41,6 +41,7 @@ type
     procedure pnButtonDeleteClick(Sender: TObject);
     procedure pnButtonPrintClick(Sender: TObject);
     procedure pnButtonCloseClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     procedure insertRegister; virtual; abstract;
@@ -59,6 +60,15 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmMasterRegister.FormShow(Sender: TObject);
+begin
+  inherited;
+
+  FormCloseWithEsc := True;
+  pnlTitle.Color := TSystemManager.GetInstance.LayoutConfiguration.TitleColor;
+  pnlTitle.Font.Color := TSystemManager.GetInstance.LayoutConfiguration.TitleFontColor;
+end;
 
 procedure TfrmMasterRegister.imButtonSearchExecuteClick(Sender: TObject);
 begin

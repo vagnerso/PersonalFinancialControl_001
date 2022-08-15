@@ -5,6 +5,8 @@ inherited frmMasterRegister: TfrmMasterRegister
   Font.Color = clBlack
   Font.Height = -16
   Font.Name = 'Calibri'
+  Position = poScreenCenter
+  OnShow = FormShow
   ExplicitWidth = 1061
   ExplicitHeight = 659
   PixelsPerInch = 96
@@ -21,6 +23,7 @@ inherited frmMasterRegister: TfrmMasterRegister
     Font.Height = -19
     Font.Name = 'Calibri'
     Font.Style = []
+    ParentBackground = False
     ParentFont = False
     TabOrder = 0
   end
@@ -191,7 +194,6 @@ inherited frmMasterRegister: TfrmMasterRegister
         Height = 78
         Align = alClient
         TabOrder = 0
-        ExplicitTop = -1
         object lb1: TLabel
           Left = 16
           Top = 6

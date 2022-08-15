@@ -1,0 +1,18 @@
+unit uLayoutConfiguration;
+
+interface
+
+uses
+  System.UITypes;
+
+type TLayoutConfiguration = class
+  private
+    FtitleColor: TColor;
+
+  public
+  property titleColor: TColor read FtitleColor write FtitleColor;
+end;
+
+implementation
+
+end.

@@ -1,0 +1,34 @@
+unit uSystemManager;
+
+interface
+
+uses
+  uLayoutConfiguration;
+
+type TSystemManager=class
+  private
+    FLayoutConfiguration: TLayoutConfiguration;
+
+  public
+   constructor Create;
+   destructor Destroy; override;
+
+   property LayoutConfiguration: TLayoutConfiguration read FLayoutConfiguration write FLayoutConfiguration;
+end;
+
+implementation
+
+{ TSystemManager }
+
+constructor TSystemManager.Create;
+begin
+   FLayoutConfiguration := TLayoutConfiguration.Create;
+end;
+
+destructor TSystemManager.Destroy;
+begin
+  FLayoutConfiguration.Free;
+  inherited;
+end;
+
+end.

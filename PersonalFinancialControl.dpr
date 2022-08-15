@@ -10,14 +10,22 @@ uses
   uSubCategory in 'class\uSubCategory.pas',
   uPerson in 'class\uPerson.pas',
   uProvider in 'class\uProvider.pas',
-  fLogin in 'forms\fLogin.pas' {frmLogin};
+  fLogin in 'forms\fLogin.pas' {frmLogin},
+  uLayoutConfiguration in 'class\uLayoutConfiguration.pas',
+  uSystemManager in 'class\uSystemManager.pas',
+  Vcl.Graphics,
+  fCategory in 'forms\fCategory.pas' {frmCategory};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TfrmMain, frmMain);
 
+  TSystemManager.GetInstance.LayoutConfiguration.TitleColor := clblack;
+  TSystemManager.GetInstance.LayoutConfiguration.TitleFontColor := clWhite;
+
+  Application.CreateForm(TfrmMain, frmMain);
+  Application.CreateForm(TfrmCategory, frmCategory);
   Application.Run;
 end.
