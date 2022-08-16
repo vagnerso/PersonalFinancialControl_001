@@ -1,0 +1,26 @@
+inherited frmCategory: TfrmCategory
+  Caption = 'frmCategory'
+  PixelsPerInch = 96
+  TextHeight = 19
+  inherited pnlTitle: TPanel
+    Caption = 'CATEGORIAS'
+  end
+  inherited pnlGeneral: TPanel
+    inherited pgcGeneral: TPageControl
+      inherited tabRegister: TTabSheet
+        ExplicitLeft = 4
+        ExplicitTop = 30
+        ExplicitWidth = 885
+        ExplicitHeight = 401
+        inherited pgcRegister: TPageControl
+          inherited tabRegisterBasic: TTabSheet
+            ExplicitLeft = 4
+            ExplicitTop = 30
+            ExplicitWidth = 877
+            ExplicitHeight = 326
+          end
+        end
+      end
+    end
+  end
+end

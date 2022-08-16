@@ -6,6 +6,7 @@ inherited frmMasterRegister: TfrmMasterRegister
   Font.Height = -16
   Font.Name = 'Calibri'
   Position = poScreenCenter
+  OnCreate = FormCreate
   OnShow = FormShow
   ExplicitWidth = 1061
   ExplicitHeight = 659
@@ -143,6 +144,7 @@ inherited frmMasterRegister: TfrmMasterRegister
             Align = alRight
             Caption = 'Salvar'
             TabOrder = 0
+            OnClick = pnlButtonSaveClick
           end
           object pnlButtonCancel: TPanel
             Left = 737
@@ -202,7 +204,7 @@ inherited frmMasterRegister: TfrmMasterRegister
           Caption = 'Pesquisar'
         end
         object imButtonSearchExecute: TImage
-          Left = 239
+          Left = 271
           Top = 30
           Width = 30
           Height = 30
@@ -230,10 +232,10 @@ inherited frmMasterRegister: TfrmMasterRegister
         object edtSearch: TEdit
           Left = 16
           Top = 31
-          Width = 217
+          Width = 250
           Height = 27
           TabOrder = 0
-          Text = 'edtSearch'
+          TextHint = 'Digite aqui o que deseja pesquisar'
         end
       end
     end

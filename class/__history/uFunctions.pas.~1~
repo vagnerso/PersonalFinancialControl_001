@@ -1,0 +1,13 @@
+unit uFunctions;
+
+interface
+
+type TFunctions=class
+  private
+
+  public
+end;
+
+implementation
+
+end.

@@ -1,0 +1,58 @@
+unit uCategory;
+
+interface
+
+uses
+  uCrudInterface, uDataBaseConnection;
+
+type TCategory = class(TInterfacedObject, ICrudInterface)
+  private
+    FId: Integer;
+    FUniqueId: string;
+    FName: string;
+    FDataSet : TMyQuery;
+  public
+   constructor Create;
+
+    procedure InsertRegister;
+    procedure UpdateRegister;
+    procedure DeleteRegister;
+    destructor Destroy; override;
+
+    property Id: Integer read FId write FId;
+    property UniqueId: string read FUniqueId write FUniqueId;
+    property Name: string read FName write FName;
+
+end;
+
+implementation
+
+{ TCategory }
+
+constructor TCategory.Create;
+begin
+  FDataSet := TMyQuery.Create(nil);
+end;
+
+procedure TCategory.DeleteRegister;
+begin
+
+end;
+
+destructor TCategory.Destroy;
+begin
+  FDataSet.Free;
+  inherited;
+end;
+
+procedure TCategory.InsertRegister;
+begin
+
+end;
+
+procedure TCategory.UpdateRegister;
+begin
+
+end;
+
+end.

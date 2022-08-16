@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.ComCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids,
-  Vcl.Imaging.pngimage, uSystemManager;
+  Vcl.Imaging.pngimage, uSystemManager, uDataBaseConnection;
 
 type
   TfrmMasterRegister = class(TfrmBase)
@@ -42,15 +42,23 @@ type
     procedure pnButtonPrintClick(Sender: TObject);
     procedure pnButtonCloseClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure pnlButtonSaveClick(Sender: TObject);
   private
+    FQuerySearch: TMyQuery;
     { Private declarations }
+
+  protected
     procedure insertRegister; virtual; abstract;
     procedure editRegister; virtual; abstract;
     procedure deleteRegister; virtual; abstract;
     procedure printRegister; virtual; abstract;
     procedure closeForm; virtual; abstract;
     procedure searchExecute; virtual; abstract;
+    procedure saveRegister; virtual; abstract;
+
   public
+    property QuerySearch: TMyQuery read FQuerySearch write FQuerySearch;
     { Public declarations }
   end;
 
@@ -60,6 +68,13 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmMasterRegister.FormCreate(Sender: TObject);
+begin
+  inherited;
+  FQuerySearch := TMyQuery.Create(Self);
+  dtsSearch.DataSet := FQuerySearch;
+end;
 
 procedure TfrmMasterRegister.FormShow(Sender: TObject);
 begin
@@ -104,6 +119,12 @@ procedure TfrmMasterRegister.pnButtonPrintClick(Sender: TObject);
 begin
   inherited;
   printRegister;
+end;
+
+procedure TfrmMasterRegister.pnlButtonSaveClick(Sender: TObject);
+begin
+  inherited;
+  saveRegister;
 end;
 
 end.

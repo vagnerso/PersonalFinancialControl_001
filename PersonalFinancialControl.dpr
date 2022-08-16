@@ -14,7 +14,11 @@ uses
   uLayoutConfiguration in 'class\uLayoutConfiguration.pas',
   uSystemManager in 'class\uSystemManager.pas',
   Vcl.Graphics,
-  fCategory in 'forms\fCategory.pas' {frmCategory};
+  fCategory in 'forms\fCategory.pas' {frmCategory},
+  uDataBaseConnection in 'class\uDataBaseConnection.pas',
+  uAppConstants in 'class\uAppConstants.pas',
+  uFunctions in 'class\uFunctions.pas',
+  uCrudInterface in 'interfaces\uCrudInterface.pas';
 
 {$R *.res}
 
