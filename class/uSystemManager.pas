@@ -38,7 +38,7 @@ end;
 
 destructor TSystemManager.Destroy;
 begin
-
+  FLayoutConfiguration.Free;
   inherited;
 end;
 

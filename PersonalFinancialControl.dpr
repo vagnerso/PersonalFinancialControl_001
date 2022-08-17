@@ -18,13 +18,15 @@ uses
   uDataBaseConnection in 'class\uDataBaseConnection.pas',
   uAppConstants in 'class\uAppConstants.pas',
   uFunctions in 'class\uFunctions.pas',
-  uCrudInterface in 'interfaces\uCrudInterface.pas';
+  uCrudInterface in 'interfaces\uCrudInterface.pas',
+  uEnumTypes in 'class\uEnumTypes.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
+  ReportMemoryLeaksOnShutdown := true;
 
   TSystemManager.GetInstance.LayoutConfiguration.TitleColor := clblack;
   TSystemManager.GetInstance.LayoutConfiguration.TitleFontColor := clWhite;

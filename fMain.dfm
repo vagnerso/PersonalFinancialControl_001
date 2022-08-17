@@ -24,4 +24,14 @@ object frmMain: TfrmMain
     TabOrder = 0
     OnClick = Panel1Click
   end
+  object FDPhysSQLiteDriverLink1: TFDPhysSQLiteDriverLink
+    DriverID = 'SQLite'
+    Left = 392
+    Top = 256
+  end
+  object FDGUIxWaitCursor1: TFDGUIxWaitCursor
+    Provider = 'Forms'
+    Left = 336
+    Top = 336
+  end
 end

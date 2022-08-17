@@ -8,6 +8,7 @@ type ICrudInterface = interface
   procedure InsertRegister;
   procedure UpdateRegister;
   procedure DeleteRegister;
+  procedure Clear;
 end;
 
 implementation

@@ -1,5 +1,6 @@
 inherited frmCategory: TfrmCategory
   Caption = 'frmCategory'
+  OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 19
   inherited pnlTitle: TPanel
@@ -9,19 +10,14 @@ inherited frmCategory: TfrmCategory
     inherited pgcGeneral: TPageControl
       ActivePage = tabRegister
       inherited tabRegister: TTabSheet
-        ExplicitLeft = 4
-        ExplicitTop = 30
-        ExplicitWidth = 885
-        ExplicitHeight = 401
+        inherited pnlMainRegister: TPanel
+          inherited pnlButtonCancel: TPanel
+            OnClick = pnlButtonCancelClick
+          end
+        end
         inherited pgcRegister: TPageControl
           inherited tabRegisterBasic: TTabSheet
-            ExplicitLeft = 4
-            ExplicitTop = 30
-            ExplicitWidth = 877
-            ExplicitHeight = 326
             inherited pnlRegisterBasic: TPanel
-              ExplicitLeft = -3
-              ExplicitTop = -1
               object lb2: TLabel
                 Left = 8
                 Top = 31

@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.ComCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids,
-  Vcl.Imaging.pngimage, uSystemManager, uDataBaseConnection;
+  Vcl.Imaging.pngimage, uSystemManager, uDataBaseConnection, uEnumTypes;
 
 type
   TfrmMasterRegister = class(TfrmBase)
@@ -45,10 +45,14 @@ type
     procedure FormCreate(Sender: TObject);
     procedure pnlButtonSaveClick(Sender: TObject);
   private
-    FQuerySearch: TMyQuery;
+
+
     { Private declarations }
 
   protected
+    FQuerySearch: TMyQuery;
+    FOperationType : TOperationType;
+
     procedure insertRegister; virtual; abstract;
     procedure editRegister; virtual; abstract;
     procedure deleteRegister; virtual; abstract;

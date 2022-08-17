@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fMasterRegister, Data.DB, Vcl.StdCtrls,
   Vcl.Imaging.pngimage, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls,
-  uCategory;
+  uCategory, uDataBaseConnection, uEnumTypes;
 
 type
   TfrmCategory = class(TfrmMasterRegister)
@@ -14,8 +14,12 @@ type
     edtName: TEdit;
     lb2: TLabel;
     lb3: TLabel;
-    procedure pnButtonInsertClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure pnlButtonCancelClick(Sender: TObject);
   private
+    FRegisterObject: TCategory;
     { Private declarations }
   public
     { Public declarations }
@@ -26,6 +30,8 @@ type
     procedure closeForm; override;
     procedure searchExecute; override;
     procedure saveRegister; override;
+
+    property RegisterObject: TCategory read FRegisterObject write FRegisterObject;
   end;
 
 var
@@ -37,7 +43,8 @@ implementation
 
 procedure TfrmCategory.closeForm;
 begin
-
+  // save log
+  Close;
 end;
 
 procedure TfrmCategory.deleteRegister;
@@ -50,16 +57,42 @@ begin
 
 end;
 
+procedure TfrmCategory.FormCreate(Sender: TObject);
+begin
+  inherited;
+  FRegisterObject := TCategory.Create;
+end;
+
+procedure TfrmCategory.FormDestroy(Sender: TObject);
+begin
+  inherited;
+  FRegisterObject.Free;
+end;
+
+procedure TfrmCategory.FormShow(Sender: TObject);
+begin
+  inherited;
+  tabSearch.TabVisible := True;
+  tabRegister.TabVisible := False;
+  tabRegisterBasic.TabVisible := False;
+end;
+
 procedure TfrmCategory.insertRegister;
 begin
+  tabSearch.TabVisible := False;
+  tabRegister.TabVisible := True;
+  tabRegisterBasic.TabVisible := True;
+  tabRegisterBasic.Show;
+  FRegisterObject.Clear;
 
 end;
 
-procedure TfrmCategory.pnButtonInsertClick(Sender: TObject);
-
+procedure TfrmCategory.pnlButtonCancelClick(Sender: TObject);
 begin
   inherited;
-  tabRegisterBasic.Show;
+  tabSearch.TabVisible := True;
+  tabRegister.TabVisible := False;
+  tabRegisterBasic.TabVisible := False;
 end;
 
 procedure TfrmCategory.printRegister;
@@ -68,26 +101,29 @@ begin
 end;
 
 procedure TfrmCategory.saveRegister;
-var
-  lCategory: TCategory;
 begin
   inherited;
-  lCategory := TCategory.Create;
-  try
-    lCategory.UniqueId := edtUniqueId.Text;
-    lCategory.Name := edtName.Text;
-    lCategory.InsertRegister;
-  finally
-    lCategory.Free;
+
+  FRegisterObject.UniqueId := edtUniqueId.Text;
+  FRegisterObject.Name := edtName.Text;
+
+  case FOperationType of
+    otInsert:
+    begin
+      FRegisterObject.InsertRegister;
+    end;
+    otUpdate:
+    begin
+      FRegisterObject.UpdateRegister;
+    end;
   end;
+
 end;
 
 procedure TfrmCategory.searchExecute;
 begin
-  QuerySearch.Close;
-  QuerySearch.SQL.Clear;
-  QuerySearch.SQL.Add('select * from category order by id desc');
-  QuerySearch.Open;
+  TDatabaseConnection.GetInstance.NewConnection;
+  FRegisterObject.Search(FQuerySearch);
 end;
 
 end.

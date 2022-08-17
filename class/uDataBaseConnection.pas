@@ -20,11 +20,15 @@ uses
   uFunctions,
   uAppConstants,
   Vcl.Dialogs,
-  FireDAC.Phys.SQLite, System.Classes;
+  FireDAC.Phys.SQLite,
+  FireDAC.Stan.ExprFuncs,
+  FireDAC.Phys.SQLiteDef,
+  FireDAC.Comp.UI,
+  System.Classes;
 
 type TDataBaseConnection = class
   private
-
+    FDGUIxWaitCursor : TFDGUIxWaitCursor;
     FDPhysSQLiteDriverLink: TFDPhysSQLiteDriverLink;
     FConnection: TFDConnection;
 
@@ -54,23 +58,20 @@ implementation
 { TDataBaseConnection }
 
 function TDataBaseConnection.NewConnection: Boolean;
-var
-  FDPhysSQLiteDriverLink: TFDPhysSQLiteDriverLink;
 begin
-    FDPhysSQLiteDriverLink := TFDPhysSQLiteDriverLink.Create(nil);
-    FConnection.Params.DriverID := 'SQLITE';
-    FConnection.DriverName := 'SQLITE';
-    FConnection.Params.Database := TFunctions.DataBasePath + DATABASE_NAME;
 
-    try
+  FConnection.DriverName := 'SQLite';
+  FConnection.Params.Database := TFunctions.DataBasePath + DATABASE_NAME;
 
-      FConnection.Connected := True;
+  try
 
-    except on e: Exception do
-      begin
-        showmessage('Erro ao tentar conectar no banco de dados.');
-      end;
+    FConnection.Connected := True;
+
+  except on e: Exception do
+    begin
+      showmessage('Erro ao tentar conectar no banco de dados.');
     end;
+  end;
 
 end;
 
@@ -83,7 +84,9 @@ constructor TDataBaseConnection.CreatePrivate;
 begin
   inherited Create;
   FConnection := TFDConnection.Create(nil);
-  FDPhysSQLiteDriverLink := TFDPhysSQLiteDriverLink.Create(nil);
+  FConnection.DriverName := 'SQLite';
+  FDPhysSQLiteDriverLink := TFDPhysSQLiteDriverLink.Create(FConnection);
+  FDPhysSQLiteDriverLink.DriverID := 'SQLite';
 end;
 
 destructor TDataBaseConnection.Destroy;
