@@ -16,22 +16,12 @@ object frmMain: TfrmMain
   PixelsPerInch = 96
   TextHeight = 19
   object Panel1: TPanel
-    Left = 64
-    Top = 96
+    Left = 80
+    Top = 88
     Width = 185
     Height = 41
     Caption = 'Categorias'
     TabOrder = 0
     OnClick = Panel1Click
-  end
-  object FDPhysSQLiteDriverLink1: TFDPhysSQLiteDriverLink
-    DriverID = 'SQLite'
-    Left = 392
-    Top = 256
-  end
-  object FDGUIxWaitCursor1: TFDGUIxWaitCursor
-    Provider = 'Forms'
-    Left = 336
-    Top = 336
   end
 end

@@ -1,0 +1,19 @@
+unit uFormPayment;
+
+interface
+
+uses
+  uCrudInterface;
+
+type TFormPayment = class(TInterfacedObject, ICrudInterface)
+  private
+
+  protected
+
+  public
+
+end;
+
+implementation
+
+end.

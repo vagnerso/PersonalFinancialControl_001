@@ -10,9 +10,7 @@ uses
 
 type
   TfrmCategory = class(TfrmMasterRegister)
-    edtUniqueId: TEdit;
     edtName: TEdit;
-    lb2: TLabel;
     lb3: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -49,7 +47,14 @@ end;
 
 procedure TfrmCategory.deleteRegister;
 begin
+  if Application.MessageBox(PChar('Deseja realmente excluir o registro?'),
+     PChar(Application.Title), MB_USEGLYPHCHARS + MB_DEFBUTTON2) = ID_NO then
+  begin
+    Abort;
+  end;
 
+  FRegisterObject.UniqueId := dtsSearch.DataSet.FieldByName('UNIQUE_ID').AsString;
+  FRegisterObject.DeleteRegister;
 end;
 
 procedure TfrmCategory.editRegister;
@@ -71,15 +76,17 @@ end;
 
 procedure TfrmCategory.FormShow(Sender: TObject);
 begin
+  FTitleForm := 'Categorias';
   inherited;
-  tabSearch.TabVisible := True;
+  tabGrid.TabVisible := True;
   tabRegister.TabVisible := False;
   tabRegisterBasic.TabVisible := False;
+  searchExecute;
 end;
 
 procedure TfrmCategory.insertRegister;
 begin
-  tabSearch.TabVisible := False;
+  tabGrid.TabVisible := False;
   tabRegister.TabVisible := True;
   tabRegisterBasic.TabVisible := True;
   tabRegisterBasic.Show;
@@ -90,7 +97,7 @@ end;
 procedure TfrmCategory.pnlButtonCancelClick(Sender: TObject);
 begin
   inherited;
-  tabSearch.TabVisible := True;
+  tabGrid.TabVisible := True;
   tabRegister.TabVisible := False;
   tabRegisterBasic.TabVisible := False;
 end;
@@ -104,7 +111,6 @@ procedure TfrmCategory.saveRegister;
 begin
   inherited;
 
-  FRegisterObject.UniqueId := edtUniqueId.Text;
   FRegisterObject.Name := edtName.Text;
 
   case FOperationType of
@@ -114,16 +120,24 @@ begin
     end;
     otUpdate:
     begin
+      FRegisterObject.UniqueId := dtsSearch.DataSet.FieldByName('UNIQUE_ID').AsString;
       FRegisterObject.UpdateRegister;
     end;
   end;
 
+  tabGrid.TabVisible := True;
+  tabRegister.TabVisible := False;
+  tabRegisterBasic.TabVisible := False;
+  searchExecute;
 end;
 
 procedure TfrmCategory.searchExecute;
 begin
   TDatabaseConnection.GetInstance.NewConnection;
   FRegisterObject.Search(FQuerySearch);
+
+  grdSearch.Columns[0].Visible := False;
+  grdSearch.Columns[1].Width := 400;
 end;
 
 end.

@@ -1,0 +1,163 @@
+unit fMasterRegister;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.ComCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  Vcl.Imaging.pngimage, uSystemManager, uDataBaseConnection, uEnumTypes;
+
+type
+  TfrmMasterRegister = class(TfrmBase)
+    pnlTitle: TPanel;
+    pnlBottom: TPanel;
+    pnlMain: TPanel;
+    pnlGeneral: TPanel;
+    pgcSearch: TPageControl;
+    tabSearch: TTabSheet;
+    pnlSearch: TPanel;
+    lb1: TLabel;
+    edtSearch: TEdit;
+    pgcGeneral: TPageControl;
+    tabGrid: TTabSheet;
+    tabRegister: TTabSheet;
+    pnlButtonInsert: TPanel;
+    pnlButtonEdit: TPanel;
+    pnlButtonDelete: TPanel;
+    pnlButtonPrint: TPanel;
+    pnlButtonClose: TPanel;
+    grdSearch: TDBGrid;
+    dtsSearch: TDataSource;
+    pnlMainRegister: TPanel;
+    pgcRegister: TPageControl;
+    tabRegisterBasic: TTabSheet;
+    pnlRegisterBasic: TPanel;
+    pnlButtonSave: TPanel;
+    pnlButtonCancel: TPanel;
+    imButtonSearchExecute: TImage;
+    procedure imButtonSearchExecuteClick(Sender: TObject);
+    procedure pnlButtonInsertClick(Sender: TObject);
+    procedure pnlButtonEditClick(Sender: TObject);
+    procedure pnlButtonDeleteClick(Sender: TObject);
+    procedure pnlButtonPrintClick(Sender: TObject);
+    procedure pnlButtonCloseClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure pnlButtonSaveClick(Sender: TObject);
+    procedure pnlButtonInsertMouseEnter(Sender: TObject);
+    procedure pnlButtonInsertMouseLeave(Sender: TObject);
+  private
+    { Private declarations }
+    procedure SetButtonColors;
+
+  protected
+    FQuerySearch: TMyQuery;
+    FOperationType : TOperationType;
+
+    procedure insertRegister; virtual; abstract;
+    procedure editRegister; virtual; abstract;
+    procedure deleteRegister; virtual; abstract;
+    procedure printRegister; virtual; abstract;
+    procedure closeForm; virtual; abstract;
+    procedure searchExecute; virtual; abstract;
+    procedure saveRegister; virtual; abstract;
+
+  public
+    property QuerySearch: TMyQuery read FQuerySearch write FQuerySearch;
+    { Public declarations }
+  end;
+
+var
+  frmMasterRegister: TfrmMasterRegister;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmMasterRegister.FormCreate(Sender: TObject);
+begin
+  inherited;
+  FQuerySearch := TMyQuery.Create(Self);
+  dtsSearch.DataSet := FQuerySearch;
+end;
+
+procedure TfrmMasterRegister.FormShow(Sender: TObject);
+begin
+  inherited;
+
+  FormCloseWithEsc := True;
+  SetButtonColors;
+  pnlTitle.Color := TSystemManager.GetInstance.LayoutConfiguration.TitleColor;
+  pnlTitle.Font.Color := TSystemManager.GetInstance.LayoutConfiguration.TitleFontColor;
+end;
+
+procedure TfrmMasterRegister.imButtonSearchExecuteClick(Sender: TObject);
+begin
+  inherited;
+  searchExecute;
+end;
+
+procedure TfrmMasterRegister.pnlButtonCloseClick(Sender: TObject);
+begin
+  inherited;
+  closeForm;
+end;
+
+procedure TfrmMasterRegister.pnlButtonDeleteClick(Sender: TObject);
+begin
+  inherited;
+  deleteRegister;
+end;
+
+procedure TfrmMasterRegister.pnlButtonEditClick(Sender: TObject);
+begin
+  inherited;
+  editRegister;
+end;
+
+procedure TfrmMasterRegister.pnlButtonInsertClick(Sender: TObject);
+begin
+  inherited;
+  insertRegister;
+end;
+
+procedure TfrmMasterRegister.pnlButtonInsertMouseEnter(Sender: TObject);
+begin
+  inherited;
+  pnlButtonInsert.Color := TSystemManager.GetInstance.LayoutConfiguration.HoverActionButtonColor;
+end;
+
+procedure TfrmMasterRegister.pnlButtonInsertMouseLeave(Sender: TObject);
+begin
+  inherited;
+  pnlButtonInsert.Color := TSystemManager.GetInstance.LayoutConfiguration.ActionButtonColor;
+end;
+
+procedure TfrmMasterRegister.pnlButtonPrintClick(Sender: TObject);
+begin
+  inherited;
+  printRegister;
+end;
+
+procedure TfrmMasterRegister.pnlButtonSaveClick(Sender: TObject);
+begin
+  inherited;
+  saveRegister;
+end;
+
+procedure TfrmMasterRegister.SetButtonColors;
+var
+  lActionButtonColor: TColor;
+begin
+  lActionButtonColor := TSystemManager.GetInstance.LayoutConfiguration.ActionButtonColor;
+
+  pnlButtonInsert.Color := lActionButtonColor;
+  pnlButtonEdit.Color := lActionButtonColor;
+  pnlButtonDelete.Color := lActionButtonColor;
+  pnlButtonPrint.Color := lActionButtonColor;
+  pnlButtonClose.Color := lActionButtonColor;
+  pnlButtonSave.Color := lActionButtonColor;
+  pnlButtonCancel.Color := lActionButtonColor;
+end;
+
+end.

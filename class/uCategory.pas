@@ -4,7 +4,7 @@ interface
 
 uses
   uCrudInterface, uDataBaseConnection, System.SysUtils, Vcl.Dialogs,
-  uAppConstants;
+  uAppConstants, uFunctions;
 
 type TCategory = class(TInterfacedObject, ICrudInterface)
   private
@@ -12,6 +12,8 @@ type TCategory = class(TInterfacedObject, ICrudInterface)
     FUniqueId: string;
     FName: string;
     FDataSet : TMyQuery;
+    function GetUniqueId: string;
+    procedure SetUniqueId(const Value: string);
   public
    constructor Create;
 
@@ -23,7 +25,7 @@ type TCategory = class(TInterfacedObject, ICrudInterface)
     destructor Destroy; override;
 
     property Id: Integer read FId write FId;
-    property UniqueId: string read FUniqueId write FUniqueId;
+    property UniqueId: string read GetUniqueId write SetUniqueId;
     property Name: string read FName write FName;
 
 end;
@@ -45,13 +47,32 @@ end;
 
 procedure TCategory.DeleteRegister;
 begin
-
+  try
+    TDataBaseConnection.GetInstance.NewConnection;
+    FDataSet.Close;
+    FDataSet.SQL.Clear;
+    FDataSet.SQL.Add('DELETE FROM CATEGORY         ');
+    FDataSet.SQL.Add('WHERE UNIQUE_ID = :UNIQUE_ID ');
+    FDataSet.ParamByName('UNIQUE_ID').AsString := FUniqueId;
+    FDataSet.ExecSQL;
+    FDataSet.Connection.Commit;
+  except on E: Exception do
+    begin
+      FDataSet.Connection.Rollback;
+      Showmessage(MSG_ERROR_CATEGORY_DELETE);
+    end;
+  end;
 end;
 
 destructor TCategory.Destroy;
 begin
   FDataSet.Free;
   inherited;
+end;
+
+function TCategory.GetUniqueId: string;
+begin
+  Result := FUniqueId;
 end;
 
 procedure TCategory.InsertRegister;
@@ -87,9 +108,30 @@ begin
   ADataSet.Open;
 end;
 
+procedure TCategory.SetUniqueId(const Value: string);
+begin
+  FUniqueId := TFunctions.GenerateUUID;
+end;
+
 procedure TCategory.UpdateRegister;
 begin
-
+  try
+    TDataBaseConnection.GetInstance.NewConnection;
+    FDataSet.Close;
+    FDataSet.SQL.Clear;
+    FDataSet.SQL.Add('UPDATE CATEGORY SET          ');
+    FDataSet.SQL.Add(' NAME = :NAME                ');
+    FDataSet.SQL.Add('WHERE UNIQUE_ID = :UNIQUE_ID ');
+    FDataSet.ParamByName('UNIQUE_ID').AsString := FUniqueId;
+    FDataSet.ParamByName('NAME').AsString := FName;
+    FDataSet.ExecSQL;
+    FDataSet.Connection.Commit;
+  except on E: Exception do
+    begin
+      FDataSet.Connection.Rollback;
+      Showmessage(MSG_ERROR_CATEGORY_INSERT);
+    end;
+  end;
 end;
 
 end.
