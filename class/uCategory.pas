@@ -3,8 +3,19 @@ unit uCategory;
 interface
 
 uses
-  uCrudInterface, uDataBaseConnection, System.SysUtils, Vcl.Dialogs,
-  uAppConstants, uFunctions;
+  uCrudInterface,
+  uDataBaseConnection,
+  System.SysUtils,
+  Vcl.Dialogs,
+  uAppConstants,
+  uFunctions,
+  uSearchFilters, System.Classes;
+
+type TSearchFiltersCustomized = class(TSearchFilters)
+  private
+
+  public
+end;
 
 type TCategory = class(TInterfacedObject, ICrudInterface)
   private
@@ -12,10 +23,9 @@ type TCategory = class(TInterfacedObject, ICrudInterface)
     FUniqueId: string;
     FName: string;
     FDataSet : TMyQuery;
-    function GetUniqueId: string;
-    procedure SetUniqueId(const Value: string);
+    FSearchFiltersCustomized: TSearchFiltersCustomized;
   public
-   constructor Create;
+    constructor Create;
 
     procedure InsertRegister;
     procedure UpdateRegister;
@@ -24,8 +34,9 @@ type TCategory = class(TInterfacedObject, ICrudInterface)
     procedure Search(ADataSet: TMyQuery);
     destructor Destroy; override;
 
+    property SearchFiltersCustomized: TSearchFiltersCustomized read FSearchFiltersCustomized write FSearchFiltersCustomized;
     property Id: Integer read FId write FId;
-    property UniqueId: string read GetUniqueId write SetUniqueId;
+    property UniqueId: string read FUniqueId write FUniqueId;
     property Name: string read FName write FName;
 
 end;
@@ -43,6 +54,7 @@ end;
 constructor TCategory.Create;
 begin
   FDataSet := TMyQuery.Create(nil);
+  FSearchFiltersCustomized := TSearchFiltersCustomized.Create;
 end;
 
 procedure TCategory.DeleteRegister;
@@ -70,11 +82,6 @@ begin
   inherited;
 end;
 
-function TCategory.GetUniqueId: string;
-begin
-  Result := FUniqueId;
-end;
-
 procedure TCategory.InsertRegister;
 begin
   try
@@ -88,7 +95,7 @@ begin
     FDataSet.SQL.Add('   :UNIQUE_ID           ');
     FDataSet.SQL.Add(' , :NAME                ');
     FDataSet.SQL.Add(' )                      ');
-    FDataSet.ParamByName('UNIQUE_ID').AsString := FUniqueId;
+    FDataSet.ParamByName('UNIQUE_ID').AsString := TFunctions.GenerateUUID;
     FDataSet.ParamByName('NAME').AsString := FName;
     FDataSet.ExecSQL;
     FDataSet.Connection.Commit;
@@ -101,16 +108,36 @@ begin
 end;
 
 procedure TCategory.Search(ADataSet: TMyQuery);
+var
+  lSQL: TStringList;
 begin
-  ADataSet.Close;
-  ADataSet.SQL.Clear;
-  ADataSet.SQL.Add('select UNIQUE_ID Unique_Id, NAME Name from category order by id desc');
-  ADataSet.Open;
-end;
 
-procedure TCategory.SetUniqueId(const Value: string);
-begin
-  FUniqueId := TFunctions.GenerateUUID;
+  TDatabaseConnection.GetInstance.NewConnection;
+
+  lSQL := TStringList.Create;
+  try
+    lSQL.Clear;
+    lSQL.Add('SELECT                 ');
+    lSQL.Add('  UNIQUE_ID Unique_Id, ');
+    lSQL.Add('  NAME Name            ');
+    lSQL.Add('FROM CATEGORY          ');
+
+    if (Length(Trim(FSearchFiltersCustomized.ValueSearch)) > 0) then
+    begin
+      lSQL.Add('WHERE NAME LIKE ' + QuotedStr('%' + FSearchFiltersCustomized.ValueSearch + '%'));
+    end;
+
+    lSQL.Add('ORDER BY NAME DESC   ');
+
+    ADataSet.Close;
+    ADataSet.SQL.Clear;
+    ADataSet.SQL.Add(lSQL.Text);
+    ADataSet.Open;
+
+  finally
+    lSQL.Free;
+  end;
+
 end;
 
 procedure TCategory.UpdateRegister;

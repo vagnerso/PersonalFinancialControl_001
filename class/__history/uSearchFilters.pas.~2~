@@ -1,0 +1,17 @@
+unit uSearchFilters;
+
+interface
+
+type TSearchFilters = class
+  private
+    FValueSearch: string;
+    FOrderBy: Int8;
+
+  public
+    property ValueSearch: string read FValueSearch write FValueSearch;
+    property OrderBy: Int8 read FOrderBy write FOrderBy;
+end;
+
+implementation
+
+end.

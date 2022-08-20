@@ -5,8 +5,10 @@ inherited frmMasterRegister: TfrmMasterRegister
   Font.Color = clBlack
   Font.Height = -16
   Font.Name = 'Calibri'
+  KeyPreview = True
   Position = poScreenCenter
   OnCreate = FormCreate
+  OnKeyPress = FormKeyPress
   OnShow = FormShow
   ExplicitWidth = 1061
   ExplicitHeight = 659
@@ -79,6 +81,8 @@ inherited frmMasterRegister: TfrmMasterRegister
       OnClick = pnlButtonEditClick
       OnMouseEnter = pnlButtonEditMouseEnter
       OnMouseLeave = pnlButtonEditMouseLeave
+      ExplicitLeft = 2
+      ExplicitTop = 47
     end
     object pnlButtonDelete: TPanel
       Left = 0
@@ -142,7 +146,7 @@ inherited frmMasterRegister: TfrmMasterRegister
       Top = 0
       Width = 895
       Height = 437
-      ActivePage = tabGrid
+      ActivePage = tabRegister
       Align = alClient
       TabOrder = 0
       ExplicitLeft = 1
@@ -162,6 +166,7 @@ inherited frmMasterRegister: TfrmMasterRegister
           BorderStyle = bsNone
           DataSource = dtsSearch
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+          PopupMenu = pmActionMenu
           ReadOnly = True
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
@@ -214,8 +219,11 @@ inherited frmMasterRegister: TfrmMasterRegister
             Caption = 'Cancelar'
             ParentBackground = False
             TabOrder = 1
+            OnClick = pnlButtonCancelClick
             OnMouseEnter = pnlButtonCancelMouseEnter
             OnMouseLeave = pnlButtonCancelMouseLeave
+            ExplicitLeft = 746
+            ExplicitTop = -2
           end
         end
         object pgcRegister: TPageControl
@@ -257,7 +265,7 @@ inherited frmMasterRegister: TfrmMasterRegister
     Align = alTop
     TabOrder = 4
     object tabSearch: TTabSheet
-      Caption = 'Search'
+      Caption = 'Op'#231#245'es de pesquisa'
       object pnlSearch: TPanel
         Left = 0
         Top = 0
@@ -274,11 +282,14 @@ inherited frmMasterRegister: TfrmMasterRegister
           Caption = 'Pesquisar'
         end
         object imButtonSearchExecute: TImage
-          Left = 271
+          Left = 308
           Top = 30
           Width = 30
           Height = 30
+          Cursor = crHandPoint
+          Hint = 'Clique aqui para executar a pesquisa'
           Center = True
+          ParentShowHint = False
           Picture.Data = {
             0954506E67496D61676589504E470D0A1A0A0000000D49484452000000180000
             00180806000000E0773DF80000000467414D410000B18F0BFC61050000000662
@@ -297,7 +308,33 @@ inherited frmMasterRegister: TfrmMasterRegister
             31323A34373A34372B30303A30309647D7A10000002574455874646174653A6D
             6F6469667900323032322D30382D30365431323A34373A34372B30303A3030E7
             1A6F1D0000000049454E44AE426082}
+          ShowHint = True
           OnClick = imButtonSearchExecuteClick
+        end
+        object imButtonClearEdtSearch: TImage
+          Left = 272
+          Top = 30
+          Width = 30
+          Height = 30
+          Cursor = crHandPoint
+          Hint = 'Clique aqui para limpar o campo de pesquisa'
+          Center = True
+          ParentShowHint = False
+          Picture.Data = {
+            0954506E67496D61676589504E470D0A1A0A0000000D49484452000000180000
+            00180806000000E0773DF80000000467414D410000B18F0BFC61050000000662
+            4B4744000000000000F943BB7F0000000970485973000000600000006000F06B
+            42CF0000009C4944415478DA6364A031601CB560D05AA001C4D3813812885F10
+            3043148857007101105F26D682BD40EC04C457A0F46B3C86EF03621D28ED4CAC
+            05A2504B7481F806103B62F109316AF0C6013E0388329C9005B80CFA4BACE1C4
+            58801ECE57A0623036BEF821DA02749F3010E3F24165014D8388A6914CD3644A
+            F38C46F3A202A4612210473010884406446197CF80480444C50155C0A805036F
+            01006B284419F40874B80000002574455874646174653A637265617465003230
+            32322D30382D32305430323A33313A31342B30303A3030D1C8BEC90000002574
+            455874646174653A6D6F6469667900323032322D30382D32305430323A33313A
+            31342B30303A3030A09506750000000049454E44AE426082}
+          ShowHint = True
+          OnClick = imButtonClearEdtSearchClick
         end
         object edtSearch: TEdit
           Left = 16
@@ -306,6 +343,7 @@ inherited frmMasterRegister: TfrmMasterRegister
           Height = 27
           TabOrder = 0
           TextHint = 'Digite aqui o que deseja pesquisar'
+          OnKeyPress = edtSearchKeyPress
         end
       end
     end
@@ -313,5 +351,32 @@ inherited frmMasterRegister: TfrmMasterRegister
   object dtsSearch: TDataSource
     Left = 392
     Top = 392
+  end
+  object pmActionMenu: TPopupMenu
+    Left = 520
+    Top = 312
+    object Incluir1: TMenuItem
+      Caption = 'Incluir'
+      OnClick = Incluir1Click
+    end
+    object Alterar1: TMenuItem
+      Caption = 'Alterar'
+      OnClick = Alterar1Click
+    end
+    object Excluir1: TMenuItem
+      Caption = 'Excluir'
+      OnClick = Excluir1Click
+    end
+    object Imprimir1: TMenuItem
+      Caption = 'Imprimir'
+      OnClick = Imprimir1Click
+    end
+    object N1: TMenuItem
+      Caption = '-'
+    end
+    object Fechar1: TMenuItem
+      Caption = 'Fechar'
+      OnClick = Fechar1Click
+    end
   end
 end

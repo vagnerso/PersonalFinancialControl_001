@@ -18,8 +18,11 @@ inherited frmLogin: TfrmLogin
     Width = 400
     Height = 571
     Align = alLeft
+    BevelOuter = bvNone
+    Color = clWhite
+    ParentBackground = False
     TabOrder = 0
-    ExplicitHeight = 561
+    ExplicitLeft = -6
     object imIconApp: TImage
       Left = 16
       Top = 104
@@ -12894,8 +12897,11 @@ inherited frmLogin: TfrmLogin
     Width = 294
     Height = 571
     Align = alClient
+    BevelOuter = bvNone
+    Color = 8444893
+    ParentBackground = False
     TabOrder = 1
-    ExplicitLeft = 406
+    ExplicitLeft = 392
     object lb1: TLabel
       Left = 64
       Top = 88
@@ -12940,21 +12946,39 @@ inherited frmLogin: TfrmLogin
     end
     object pnlButtonConfirm: TPanel
       Left = 24
-      Top = 288
+      Top = 289
       Width = 249
       Height = 41
       Cursor = crHandPoint
+      BevelOuter = bvNone
       Caption = 'Confirmar'
+      Color = 6009689
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -19
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentBackground = False
+      ParentFont = False
       TabOrder = 2
       OnClick = pnlButtonConfirmClick
     end
     object pnlButtonCancel: TPanel
       Left = 24
-      Top = 336
+      Top = 344
       Width = 249
       Height = 41
       Cursor = crHandPoint
+      BevelOuter = bvNone
       Caption = 'Cancelar'
+      Color = clWhite
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 6009689
+      Font.Height = -19
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentBackground = False
+      ParentFont = False
       TabOrder = 3
       OnClick = pnlButtonCancelClick
     end

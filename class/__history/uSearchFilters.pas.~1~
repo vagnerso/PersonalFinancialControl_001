@@ -1,0 +1,14 @@
+unit uSearchFilters;
+
+interface
+
+type TSearchFilters = class
+  private
+
+  public
+
+end;
+
+implementation
+
+end.

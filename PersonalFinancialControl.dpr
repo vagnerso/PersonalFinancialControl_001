@@ -20,20 +20,23 @@ uses
   uFunctions in 'class\uFunctions.pas',
   uCrudInterface in 'interfaces\uCrudInterface.pas',
   uEnumTypes in 'class\uEnumTypes.pas',
-  uFormPayment in 'class\uFormPayment.pas';
+  uFormPayment in 'class\uFormPayment.pas',
+  uSearchFilters in 'class\uSearchFilters.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  ReportMemoryLeaksOnShutdown := true;
+  ReportMemoryLeaksOnShutdown := False;
   Application.Title := 'Personal Financial Control';
 
   TSystemManager.GetInstance.LayoutConfiguration.TitleColor := clblack;
   TSystemManager.GetInstance.LayoutConfiguration.TitleFontColor := clWhite;
   TSystemManager.GetInstance.LayoutConfiguration.ActionButtonColor := clWhite;
   TSystemManager.GetInstance.LayoutConfiguration.HoverActionButtonColor := clDkGray;
+  TSystemManager.GetInstance.LayoutConfiguration.ActionButtonFontColor := clBlack;
+  TSystemManager.GetInstance.LayoutConfiguration.ActionButtonHoverFontColor := clWhite;
 
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TfrmCategory, frmCategory);

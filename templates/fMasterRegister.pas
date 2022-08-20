@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.ComCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids,
   Vcl.Imaging.pngimage, uSystemManager, uDataBaseConnection, uEnumTypes,
-  uFunctions;
+  uFunctions, Vcl.Menus;
 
 type
   TfrmMasterRegister = class(TfrmBase)
@@ -36,6 +36,14 @@ type
     pnlButtonSave: TPanel;
     pnlButtonCancel: TPanel;
     imButtonSearchExecute: TImage;
+    pmActionMenu: TPopupMenu;
+    Incluir1: TMenuItem;
+    Alterar1: TMenuItem;
+    Excluir1: TMenuItem;
+    Imprimir1: TMenuItem;
+    N1: TMenuItem;
+    Fechar1: TMenuItem;
+    imButtonClearEdtSearch: TImage;
     procedure imButtonSearchExecuteClick(Sender: TObject);
     procedure pnlButtonInsertClick(Sender: TObject);
     procedure pnlButtonEditClick(Sender: TObject);
@@ -59,10 +67,21 @@ type
     procedure pnlButtonCloseMouseLeave(Sender: TObject);
     procedure pnlButtonSaveMouseLeave(Sender: TObject);
     procedure pnlButtonCancelMouseLeave(Sender: TObject);
+    procedure Incluir1Click(Sender: TObject);
+    procedure Alterar1Click(Sender: TObject);
+    procedure Excluir1Click(Sender: TObject);
+    procedure Imprimir1Click(Sender: TObject);
+    procedure Fechar1Click(Sender: TObject);
+    procedure pnlButtonCancelClick(Sender: TObject);
+    procedure imButtonClearEdtSearchClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure edtSearchKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
     FActionButtonColor : TColor;
     FHoverActionButtonColor: TColor;
+    FActionButtonFontColor : TColor;
+    FActionButtonHoverColor: TColor;
 
     procedure SetButtonColors;
 
@@ -78,6 +97,7 @@ type
     procedure closeForm; virtual; abstract;
     procedure searchExecute; virtual; abstract;
     procedure saveRegister; virtual; abstract;
+    procedure cancelRegister; virtual; abstract;
 
   public
     property QuerySearch: TMyQuery read FQuerySearch write FQuerySearch;
@@ -91,11 +111,48 @@ implementation
 
 {$R *.dfm}
 
+procedure TfrmMasterRegister.Alterar1Click(Sender: TObject);
+begin
+  inherited;
+  editRegister;
+end;
+
+procedure TfrmMasterRegister.edtSearchKeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if Key = #13 then
+  begin
+    searchExecute;
+  end;
+end;
+
+procedure TfrmMasterRegister.Excluir1Click(Sender: TObject);
+begin
+  inherited;
+  deleteRegister;
+end;
+
+procedure TfrmMasterRegister.Fechar1Click(Sender: TObject);
+begin
+  inherited;
+  closeForm;
+end;
+
 procedure TfrmMasterRegister.FormCreate(Sender: TObject);
 begin
   inherited;
   FQuerySearch := TMyQuery.Create(Self);
   dtsSearch.DataSet := FQuerySearch;
+end;
+
+procedure TfrmMasterRegister.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if (Key = #13) and not (UpperCase(Screen.ActiveControl.Name) = 'EDTSEARCH') then
+  begin
+    Key := #0;
+    Perform(Wm_NextDlgCtl,0,0);
+  end;
 end;
 
 procedure TfrmMasterRegister.FormShow(Sender: TObject);
@@ -110,22 +167,48 @@ begin
   Caption := TFunctions.AppName + ' - Versão: ' + TFunctions.AppVersion + ' - ' + FTitleForm;
 end;
 
+procedure TfrmMasterRegister.imButtonClearEdtSearchClick(Sender: TObject);
+begin
+  inherited;
+  edtSearch.Text := EmptyStr;
+end;
+
 procedure TfrmMasterRegister.imButtonSearchExecuteClick(Sender: TObject);
 begin
   inherited;
   searchExecute;
 end;
 
+procedure TfrmMasterRegister.Imprimir1Click(Sender: TObject);
+begin
+  inherited;
+  printRegister;
+end;
+
+procedure TfrmMasterRegister.Incluir1Click(Sender: TObject);
+begin
+  inherited;
+  insertRegister;
+end;
+
+procedure TfrmMasterRegister.pnlButtonCancelClick(Sender: TObject);
+begin
+  inherited;
+  cancelRegister;
+end;
+
 procedure TfrmMasterRegister.pnlButtonCancelMouseEnter(Sender: TObject);
 begin
   inherited;
   TPanel(Sender).Color := FHoverActionButtonColor;
+  TPanel(Sender).Font.Color := FActionButtonHoverColor;
 end;
 
 procedure TfrmMasterRegister.pnlButtonCancelMouseLeave(Sender: TObject);
 begin
   inherited;
   TPanel(Sender).Color := FActionButtonColor;
+  TPanel(Sender).Font.Color := FActionButtonFontColor;
 end;
 
 procedure TfrmMasterRegister.pnlButtonCloseClick(Sender: TObject);
@@ -138,12 +221,14 @@ procedure TfrmMasterRegister.pnlButtonCloseMouseEnter(Sender: TObject);
 begin
   inherited;
   TPanel(Sender).Color := FHoverActionButtonColor;
+  TPanel(Sender).Font.Color := FActionButtonHoverColor;
 end;
 
 procedure TfrmMasterRegister.pnlButtonCloseMouseLeave(Sender: TObject);
 begin
   inherited;
   TPanel(Sender).Color := FActionButtonColor;
+  TPanel(Sender).Font.Color := FActionButtonFontColor;
 end;
 
 procedure TfrmMasterRegister.pnlButtonDeleteClick(Sender: TObject);
@@ -156,12 +241,14 @@ procedure TfrmMasterRegister.pnlButtonDeleteMouseEnter(Sender: TObject);
 begin
   inherited;
   TPanel(Sender).Color := FHoverActionButtonColor;
+  TPanel(Sender).Font.Color := FActionButtonHoverColor;
 end;
 
 procedure TfrmMasterRegister.pnlButtonDeleteMouseLeave(Sender: TObject);
 begin
   inherited;
   TPanel(Sender).Color := FActionButtonColor;
+  TPanel(Sender).Font.Color := FActionButtonFontColor;
 end;
 
 procedure TfrmMasterRegister.pnlButtonEditClick(Sender: TObject);
@@ -174,12 +261,14 @@ procedure TfrmMasterRegister.pnlButtonEditMouseEnter(Sender: TObject);
 begin
   inherited;
   TPanel(Sender).Color := FHoverActionButtonColor;
+  TPanel(Sender).Font.Color := FActionButtonHoverColor;
 end;
 
 procedure TfrmMasterRegister.pnlButtonEditMouseLeave(Sender: TObject);
 begin
   inherited;
   TPanel(Sender).Color := FActionButtonColor;
+  TPanel(Sender).Font.Color := FActionButtonFontColor;
 end;
 
 procedure TfrmMasterRegister.pnlButtonInsertClick(Sender: TObject);
@@ -192,12 +281,14 @@ procedure TfrmMasterRegister.pnlButtonInsertMouseEnter(Sender: TObject);
 begin
   inherited;
   TPanel(Sender).Color := FHoverActionButtonColor;
+  TPanel(Sender).Font.Color := FActionButtonHoverColor;
 end;
 
 procedure TfrmMasterRegister.pnlButtonInsertMouseLeave(Sender: TObject);
 begin
   inherited;
   TPanel(Sender).Color := FActionButtonColor;
+  TPanel(Sender).Font.Color := FActionButtonFontColor;
 end;
 
 procedure TfrmMasterRegister.pnlButtonPrintClick(Sender: TObject);
@@ -210,12 +301,14 @@ procedure TfrmMasterRegister.pnlButtonPrintMouseEnter(Sender: TObject);
 begin
   inherited;
   TPanel(Sender).Color := FHoverActionButtonColor;
+  TPanel(Sender).Font.Color := FActionButtonHoverColor;
 end;
 
 procedure TfrmMasterRegister.pnlButtonPrintMouseLeave(Sender: TObject);
 begin
   inherited;
   TPanel(Sender).Color := FActionButtonColor;
+  TPanel(Sender).Font.Color := FActionButtonFontColor;
 end;
 
 procedure TfrmMasterRegister.pnlButtonSaveClick(Sender: TObject);
@@ -228,18 +321,22 @@ procedure TfrmMasterRegister.pnlButtonSaveMouseEnter(Sender: TObject);
 begin
   inherited;
   TPanel(Sender).Color := FHoverActionButtonColor;
+  TPanel(Sender).Font.Color := FActionButtonHoverColor;
 end;
 
 procedure TfrmMasterRegister.pnlButtonSaveMouseLeave(Sender: TObject);
 begin
   inherited;
   TPanel(Sender).Color := FActionButtonColor;
+  TPanel(Sender).Font.Color := FActionButtonFontColor;
 end;
 
 procedure TfrmMasterRegister.SetButtonColors;
 begin
   FActionButtonColor := TSystemManager.GetInstance.LayoutConfiguration.ActionButtonColor;
   FHoverActionButtonColor:= TSystemManager.GetInstance.LayoutConfiguration.HoverActionButtonColor;
+  FActionButtonFontColor := TSystemManager.GetInstance.LayoutConfiguration.ActionButtonFontColor;
+  FActionButtonHoverColor:= TSystemManager.GetInstance.LayoutConfiguration.ActionButtonHoverFontColor;
 
   pnlButtonInsert.Color := FActionButtonColor;
   pnlButtonEdit.Color := FActionButtonColor;

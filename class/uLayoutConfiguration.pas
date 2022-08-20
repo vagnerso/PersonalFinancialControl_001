@@ -14,6 +14,8 @@ type TLayoutConfiguration = class
     FDetailColor: TColor;
     FHoverActionButtonColor: TColor;
     FActionButtonColor: TColor;
+    FActionButtonFontColor: TColor;
+    FActionButtonHoverFontColor: TColor;
 
   public
     property TitleColor: TColor read FtitleColor write FtitleColor;
@@ -23,6 +25,8 @@ type TLayoutConfiguration = class
     property DetailColor: TColor read FDetailColor write FDetailColor;
     property HoverActionButtonColor: TColor read FHoverActionButtonColor write FHoverActionButtonColor;
     property ActionButtonColor: TColor read FActionButtonColor write FActionButtonColor;
+    property ActionButtonFontColor: TColor read FActionButtonFontColor write FActionButtonFontColor;
+    property ActionButtonHoverFontColor: TColor read FActionButtonHoverFontColor write FActionButtonHoverFontColor;
 end;
 
 implementation
