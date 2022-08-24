@@ -48,8 +48,6 @@ inherited frmMasterRegister: TfrmMasterRegister
     Align = alLeft
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitLeft = -2
-    ExplicitTop = 155
     object pnlButtonInsert: TPanel
       Left = 0
       Top = 0
@@ -81,8 +79,6 @@ inherited frmMasterRegister: TfrmMasterRegister
       OnClick = pnlButtonEditClick
       OnMouseEnter = pnlButtonEditMouseEnter
       OnMouseLeave = pnlButtonEditMouseLeave
-      ExplicitLeft = 2
-      ExplicitTop = 47
     end
     object pnlButtonDelete: TPanel
       Left = 0
@@ -146,17 +142,11 @@ inherited frmMasterRegister: TfrmMasterRegister
       Top = 0
       Width = 895
       Height = 437
-      ActivePage = tabRegister
+      ActivePage = tabGrid
       Align = alClient
       TabOrder = 0
-      ExplicitLeft = 1
-      ExplicitTop = 1
-      ExplicitWidth = 893
-      ExplicitHeight = 435
       object tabGrid: TTabSheet
         Caption = 'Consulta'
-        ExplicitWidth = 885
-        ExplicitHeight = 401
         object grdSearch: TDBGrid
           Left = 0
           Top = 0
@@ -174,13 +164,13 @@ inherited frmMasterRegister: TfrmMasterRegister
           TitleFont.Height = -16
           TitleFont.Name = 'Calibri'
           TitleFont.Style = []
+          OnDrawColumnCell = grdSearchDrawColumnCell
+          OnDblClick = grdSearchDblClick
         end
       end
       object tabRegister: TTabSheet
         Caption = 'Cadastro'
         ImageIndex = 1
-        ExplicitWidth = 885
-        ExplicitHeight = 401
         object pnlMainRegister: TPanel
           Left = 0
           Top = 362
@@ -189,8 +179,6 @@ inherited frmMasterRegister: TfrmMasterRegister
           Align = alBottom
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitTop = 360
-          ExplicitWidth = 885
           object pnlButtonSave: TPanel
             Left = 593
             Top = 0
@@ -222,8 +210,6 @@ inherited frmMasterRegister: TfrmMasterRegister
             OnClick = pnlButtonCancelClick
             OnMouseEnter = pnlButtonCancelMouseEnter
             OnMouseLeave = pnlButtonCancelMouseLeave
-            ExplicitLeft = 746
-            ExplicitTop = -2
           end
         end
         object pgcRegister: TPageControl
@@ -234,12 +220,8 @@ inherited frmMasterRegister: TfrmMasterRegister
           ActivePage = tabRegisterBasic
           Align = alClient
           TabOrder = 1
-          ExplicitWidth = 885
-          ExplicitHeight = 360
           object tabRegisterBasic: TTabSheet
             Caption = 'B'#225'sico'
-            ExplicitWidth = 877
-            ExplicitHeight = 326
             object pnlRegisterBasic: TPanel
               Left = 0
               Top = 0
@@ -248,8 +230,6 @@ inherited frmMasterRegister: TfrmMasterRegister
               Align = alClient
               BevelOuter = bvNone
               TabOrder = 0
-              ExplicitWidth = 877
-              ExplicitHeight = 326
             end
           end
         end

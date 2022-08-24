@@ -2,38 +2,37 @@ object frmMain: TfrmMain
   Left = 0
   Top = 0
   Caption = 'Personal Financial Control'
-  ClientHeight = 389
-  ClientWidth = 691
-  Color = 8444893
+  ClientHeight = 482
+  ClientWidth = 843
+  Color = 3490359
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -16
   Font.Name = 'Calibri'
   Font.Style = []
   OldCreateOrder = False
-  WindowState = wsMaximized
+  Position = poScreenCenter
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 19
   object pnlDetail: TPanel
-    Left = 291
+    Left = 443
     Top = 0
     Width = 400
-    Height = 389
+    Height = 482
     Align = alRight
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitLeft = 0
-    ExplicitTop = -182
-    ExplicitHeight = 571
+    ExplicitLeft = 291
+    ExplicitHeight = 389
     DesignSize = (
       400
-      389)
+      482)
     object imIconApp: TImage
       Left = 24
       Top = 70
       Width = 370
-      Height = 293
+      Height = 386
       Anchors = [akLeft, akTop, akRight, akBottom]
       Center = True
       Picture.Data = {
@@ -12870,6 +12869,7 @@ object frmMain: TfrmMain
         6C3D2E0000000049454E44AE426082}
       Proportional = True
       Stretch = True
+      ExplicitHeight = 293
     end
     object lblTitle: TLabel
       Left = 24
@@ -12878,7 +12878,7 @@ object frmMain: TfrmMain
       Height = 40
       Caption = 'Personal Financial Control'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
+      Font.Color = clWhite
       Font.Height = -33
       Font.Name = 'Calibri'
       Font.Style = [fsBold]
@@ -12886,22 +12886,23 @@ object frmMain: TfrmMain
     end
     object lblDeveloper: TLabel
       Left = 240
-      Top = 372
+      Top = 465
       Width = 155
       Height = 13
       Anchors = [akRight, akBottom]
       Caption = 'Desenvolvido por Vagner Oliveira'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
+      Font.Color = clWhite
       Font.Height = -11
       Font.Name = 'Calibri'
       Font.Style = []
       ParentFont = False
+      ExplicitTop = 372
     end
   end
   object pnlMenuCategory: TPanel
     Left = 24
-    Top = 127
+    Top = 181
     Width = 240
     Height = 40
     Cursor = crHandPoint
@@ -12920,7 +12921,7 @@ object frmMain: TfrmMain
   end
   object pnlMenuSubCategory: TPanel
     Left = 23
-    Top = 175
+    Top = 231
     Width = 240
     Height = 40
     Cursor = crHandPoint
@@ -12956,7 +12957,7 @@ object frmMain: TfrmMain
   end
   object pnlMenuFormPayment: TPanel
     Left = 24
-    Top = 78
+    Top = 131
     Width = 240
     Height = 40
     Cursor = crHandPoint
@@ -12971,5 +12972,25 @@ object frmMain: TfrmMain
     ParentBackground = False
     ParentFont = False
     TabOrder = 4
+    OnClick = pnlMenuFormPaymentClick
+  end
+  object pnlMenuTypePayment: TPanel
+    Left = 23
+    Top = 80
+    Width = 240
+    Height = 40
+    Cursor = crHandPoint
+    BevelOuter = bvNone
+    Caption = 'Tipos de Pagamento'
+    Color = clGray
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWhite
+    Font.Height = -16
+    Font.Name = 'Calibri'
+    Font.Style = []
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 5
+    OnClick = pnlMenuTypePaymentClick
   end
 end

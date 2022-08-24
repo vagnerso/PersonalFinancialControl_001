@@ -1,0 +1,205 @@
+unit uTypePayment;
+
+interface
+
+uses
+  uCrudInterface,
+  uDataBaseConnection,
+  System.SysUtils,
+  Vcl.Dialogs,
+  uAppConstants,
+  uFunctions,
+  uSearchFilters,
+  System.Classes;
+
+type TSearchFiltersCustomized = class(TSearchFilters)
+  private
+
+  public
+end;
+
+type TTypePayment = class(TInterfacedObject, ICrudInterface)
+  private
+    FId: Integer;
+    FUniqueId: string;
+    FName: string;
+    FDataSet : TMyQuery;
+    FSearchFiltersCustomized: TSearchFiltersCustomized;
+    FAllowsInstallment: Boolean;
+  public
+   constructor Create;
+
+    procedure InsertRegister;
+    procedure UpdateRegister;
+    procedure DeleteRegister;
+    procedure Clear;
+    procedure GetById;
+    procedure Search(ADataSet: TMyQuery);
+    destructor Destroy; override;
+
+    property SearchFiltersCustomized: TSearchFiltersCustomized read FSearchFiltersCustomized write FSearchFiltersCustomized;
+    property Id: Integer read FId write FId;
+    property UniqueId: string read FUniqueId write FUniqueId;
+    property Name: string read FName write FName;
+    property AllowsInstallment: Boolean read FAllowsInstallment write FAllowsInstallment;
+end;
+
+implementation
+
+{ TTypePayment }
+
+procedure TTypePayment.Clear;
+begin
+  FUniqueId := EmptyStr;
+  FName := EmptyStr;
+  FAllowsInstallment := False;
+end;
+
+constructor TTypePayment.Create;
+begin
+  FDataSet := TMyQuery.Create(nil);
+  FSearchFiltersCustomized := TSearchFiltersCustomized.Create;
+end;
+
+procedure TTypePayment.DeleteRegister;
+begin
+  try
+    TDataBaseConnection.GetInstance.NewConnection;
+    FDataSet.Close;
+    FDataSet.SQL.Clear;
+    FDataSet.SQL.Add('DELETE FROM TYPE_PAYMENT     ');
+    FDataSet.SQL.Add('WHERE UNIQUE_ID = :UNIQUE_ID ');
+    FDataSet.ParamByName('UNIQUE_ID').AsString := FUniqueId;
+    FDataSet.ExecSQL;
+    FDataSet.Connection.Commit;
+  except on E: Exception do
+    begin
+      FDataSet.Connection.Rollback;
+      Showmessage(MSG_ERROR_TYPE_PAYMENT_DELETE);
+    end;
+  end;
+end;
+
+destructor TTypePayment.Destroy;
+begin
+  FSearchFiltersCustomized.Free;
+  FDataSet.Free;
+  inherited;
+end;
+
+procedure TTypePayment.GetById;
+begin
+  try
+    TDataBaseConnection.GetInstance.NewConnection;
+    FDataSet.Close;
+    FDataSet.SQL.Clear;
+    FDataSet.SQL.Add('SELECT                ');
+    FDataSet.SQL.Add('   ID                 ');
+    FDataSet.SQL.Add(' , UNIQUE_ID          ');
+    FDataSet.SQL.Add(' , NAME               ');
+    FDataSet.SQL.Add(' , ALLOWS_INSTALLMENT ');
+    FDataSet.SQL.Add(' FROM TYPE_PAYMENT    ');
+    FDataSet.SQL.Add('WHERE ID = :ID        ');
+    FDataSet.ParamByName('ID').AsInteger := FId;
+    FDataSet.Open;
+
+    if not (FDataSet.IsEmpty) then
+    begin
+      FId := FDataSet.FieldByName('ID').AsInteger;
+      FUniqueId := FDataSet.FieldByName('UNIQUE_ID').AsString;
+      FName := FDataSet.FieldByName('NAME').AsString;
+      FAllowsInstallment := FDataSet.FieldByName('ALLOWS_INSTALLMENT').AsBoolean;
+    end;
+
+  except on E: Exception do
+    begin
+      FDataSet.Connection.Rollback;
+      Showmessage(MSG_ERROR_TYPE_PAYMENT_SEARCH);
+    end;
+  end;
+end;
+
+procedure TTypePayment.InsertRegister;
+begin
+  try
+    TDataBaseConnection.GetInstance.NewConnection;
+    FDataSet.Close;
+    FDataSet.SQL.Clear;
+    FDataSet.SQL.Add('INSERT INTO TYPE_PAYMENT (  ');
+    FDataSet.SQL.Add('   UNIQUE_ID                ');
+    FDataSet.SQL.Add(' , NAME                     ');
+    FDataSet.SQL.Add(' , ALLOWS_INSTALLMENT       ');
+    FDataSet.SQL.Add(' ) VALUES (                 ');
+    FDataSet.SQL.Add('   :UNIQUE_ID               ');
+    FDataSet.SQL.Add(' , :NAME                    ');
+    FDataSet.SQL.Add(' , :ALLOWS_INSTALLMENT      ');
+    FDataSet.SQL.Add(' )                          ');
+    FDataSet.ParamByName('UNIQUE_ID').AsString := TFunctions.GenerateUUID;
+    FDataSet.ParamByName('NAME').AsString := FName;
+    FDataSet.ParamByName('ALLOWS_INSTALLMENT').AsBoolean := FAllowsInstallment;
+    FDataSet.ExecSQL;
+    FDataSet.Connection.Commit;
+  except on E: Exception do
+    begin
+      FDataSet.Connection.Rollback;
+      Showmessage(MSG_ERROR_TYPE_PAYMENT_INSERT);
+    end;
+  end;
+end;
+
+procedure TTypePayment.Search(ADataSet: TMyQuery);
+var
+  lSQL: TStringList;
+begin
+  TDatabaseConnection.GetInstance.NewConnection;
+
+  lSQL := TStringList.Create;
+  try
+    lSQL.Clear;
+    lSQL.Add('SELECT                 ');
+    lSQL.Add('   UNIQUE_ID           ');
+    lSQL.Add(' , NAME Nome           ');
+    lSQL.Add(' , ALLOWS_INSTALLMENT  ');
+    lSQL.Add('FROM TYPE_PAYMENT      ');
+
+    if (Length(Trim(FSearchFiltersCustomized.ValueSearch)) > 0) then
+    begin
+      lSQL.Add('WHERE NAME LIKE ' + QuotedStr('%' + FSearchFiltersCustomized.ValueSearch + '%'));
+    end;
+
+    lSQL.Add('ORDER BY NAME DESC   ');
+
+    ADataSet.Close;
+    ADataSet.SQL.Clear;
+    ADataSet.SQL.Add(lSQL.Text);
+    ADataSet.Open;
+
+  finally
+    lSQL.Free;
+  end;
+end;
+
+procedure TTypePayment.UpdateRegister;
+begin
+  try
+    TDataBaseConnection.GetInstance.NewConnection;
+    FDataSet.Close;
+    FDataSet.SQL.Clear;
+    FDataSet.SQL.Add('UPDATE TYPE_PAYMENT SET                     ');
+    FDataSet.SQL.Add('   NAME               = :NAME               ');
+    FDataSet.SQL.Add(' , ALLOWS_INSTALLMENT = :ALLOWS_INSTALLMENT ');
+    FDataSet.SQL.Add('WHERE UNIQUE_ID = :UNIQUE_ID                ');
+    FDataSet.ParamByName('UNIQUE_ID').AsString := FUniqueId;
+    FDataSet.ParamByName('NAME').AsString := FName;
+    FDataSet.ParamByName('ALLOWS_INSTALLMENT').AsBoolean := FAllowsInstallment;
+    FDataSet.ExecSQL;
+    FDataSet.Connection.Commit;
+  except on E: Exception do
+    begin
+      FDataSet.Connection.Rollback;
+      Showmessage(MSG_ERROR_TYPE_PAYMENT_INSERT);
+    end;
+  end;
+end;
+
+end.

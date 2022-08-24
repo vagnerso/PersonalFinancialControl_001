@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fMasterRegister, Data.DB, Vcl.StdCtrls,
   Vcl.Imaging.pngimage, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls,
-  uCategory, uDataBaseConnection, uEnumTypes, Vcl.Menus;
+  uCategory, uDataBaseConnection, uEnumTypes, Vcl.Menus, uFunctions;
 
 type
   TfrmCategory = class(TfrmMasterRegister)
@@ -22,14 +22,15 @@ type
     { Private declarations }
   public
     { Public declarations }
-    procedure insertRegister; override;
-    procedure editRegister; override;
-    procedure deleteRegister; override;
-    procedure printRegister; override;
-    procedure closeForm; override;
-    procedure searchExecute; override;
-    procedure saveRegister; override;
-    procedure cancelRegister; override;
+    procedure InsertRegister; override;
+    procedure EditRegister; override;
+    procedure DeleteRegister; override;
+    procedure PrintRegister; override;
+    procedure CloseForm; override;
+    procedure SearchExecute; override;
+    procedure SaveRegister; override;
+    procedure CancelRegister; override;
+    procedure ClearFields;
 
     property RegisterObject: TCategory read FRegisterObject write FRegisterObject;
   end;
@@ -41,10 +42,15 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrmCategory.cancelRegister;
+procedure TfrmCategory.CancelRegister;
 begin
   inherited;
   DisabledRegister;
+end;
+
+procedure TfrmCategory.ClearFields;
+begin
+  TFunctions.clearFormFields(Self);
 end;
 
 procedure TfrmCategory.closeForm;
@@ -53,7 +59,7 @@ begin
   Close;
 end;
 
-procedure TfrmCategory.deleteRegister;
+procedure TfrmCategory.DeleteRegister;
 begin
   if Application.MessageBox(PChar('Deseja realmente excluir o registro?'),
      PChar(Application.Title), MB_USEGLYPHCHARS + MB_DEFBUTTON2) = ID_NO then
@@ -63,15 +69,15 @@ begin
 
   FRegisterObject.UniqueId := dtsSearch.DataSet.FieldByName('UNIQUE_ID').AsString;
   FRegisterObject.DeleteRegister;
-  searchExecute;
+  SearchExecute;
 end;
 
-procedure TfrmCategory.editRegister;
+procedure TfrmCategory.EditRegister;
 begin
   FOperationType := otUpdate;
   EnabledRegister;
   FRegisterObject.Clear;
-  edtName.Text := dtsSearch.DataSet.FieldByName('NAME').AsString;
+  edtName.Text := dtsSearch.DataSet.FieldByName('Nome').AsString;
   edtName.SetFocus;
 end;
 
@@ -97,20 +103,21 @@ begin
   searchExecute;
 end;
 
-procedure TfrmCategory.insertRegister;
+procedure TfrmCategory.InsertRegister;
 begin
   FOperationType := otInsert;
   EnabledRegister;
   FRegisterObject.Clear;
+  ClearFields;
   edtName.SetFocus;
 end;
 
-procedure TfrmCategory.printRegister;
+procedure TfrmCategory.PrintRegister;
 begin
 
 end;
 
-procedure TfrmCategory.saveRegister;
+procedure TfrmCategory.SaveRegister;
 begin
   inherited;
 
@@ -129,7 +136,7 @@ begin
     end;
   end;
   DisabledRegister;
-  searchExecute;
+  SearchExecute;
 end;
 
 procedure TfrmCategory.DisabledRegister;
@@ -151,7 +158,7 @@ begin
   tabRegisterBasic.Show;
 end;
 
-procedure TfrmCategory.searchExecute;
+procedure TfrmCategory.SearchExecute;
 begin
 
   FRegisterObject.SearchFiltersCustomized.ValueSearch := edtSearch.Text;

@@ -8,6 +8,7 @@ inherited frmLogin: TfrmLogin
   Font.Height = -16
   Font.Name = 'Calibri'
   Position = poScreenCenter
+  OnShow = FormShow
   ExplicitWidth = 700
   ExplicitHeight = 600
   PixelsPerInch = 96
@@ -22,7 +23,6 @@ inherited frmLogin: TfrmLogin
     Color = clWhite
     ParentBackground = False
     TabOrder = 0
-    ExplicitLeft = -6
     object imIconApp: TImage
       Left = 16
       Top = 104
@@ -12898,10 +12898,9 @@ inherited frmLogin: TfrmLogin
     Height = 571
     Align = alClient
     BevelOuter = bvNone
-    Color = 8444893
+    Color = 5728859
     ParentBackground = False
     TabOrder = 1
-    ExplicitLeft = 392
     object lb1: TLabel
       Left = 64
       Top = 88
@@ -12909,7 +12908,7 @@ inherited frmLogin: TfrmLogin
       Height = 26
       Caption = 'Seja bem vindo(a)'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
+      Font.Color = clWhite
       Font.Height = -21
       Font.Name = 'Calibri'
       Font.Style = []
@@ -12921,6 +12920,12 @@ inherited frmLogin: TfrmLogin
       Width = 50
       Height = 19
       Caption = 'Usu'#225'rio'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -16
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
     end
     object lblPassword: TLabel
       Left = 24
@@ -12928,6 +12933,12 @@ inherited frmLogin: TfrmLogin
       Width = 39
       Height = 19
       Caption = 'Senha'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -16
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
     end
     object edtUser: TEdit
       Left = 24

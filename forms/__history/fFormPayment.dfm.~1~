@@ -1,0 +1,8 @@
+inherited frmFormPayment: TfrmFormPayment
+  Caption = 'frmFormPayment'
+  PixelsPerInch = 96
+  TextHeight = 19
+  inherited pnlTitle: TPanel
+    Caption = 'FORMAS DE PAGAMENTO'
+  end
+end

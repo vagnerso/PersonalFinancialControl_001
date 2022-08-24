@@ -3,7 +3,8 @@ unit uFunctions;
 interface
 
 uses
-  Vcl.Forms, System.SysUtils;
+  Vcl.Forms,
+  System.SysUtils, Vcl.StdCtrls;
 
 type TFunctions=class
   private
@@ -16,6 +17,7 @@ type TFunctions=class
   class function AppNameExec: string;
   class function GenerateUUID: String;
   class function AppVersion: string;
+  class procedure clearFormFields(AForm: TForm);
 end;
 
 implementation
@@ -56,6 +58,21 @@ end;
 class function TFunctions.AppVersion: string;
 begin
   Result := '1.1.1';
+end;
+
+class procedure TFunctions.clearFormFields(AForm: TForm);
+var
+  i: Integer;
+begin
+
+  for i := 0 to AForm.ComponentCount - 1 do
+  begin
+    if AForm.Components[i] is TEdit then
+    begin
+      TEdit(AForm.Components[i]).Text := EmptyStr;
+    end;
+  end;
+
 end;
 
 class function TFunctions.DataBasePath: string;

@@ -76,6 +76,9 @@ type
     procedure imButtonClearEdtSearchClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure edtSearchKeyPress(Sender: TObject; var Key: Char);
+    procedure grdSearchDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn;
+      State: TGridDrawState);
+    procedure grdSearchDblClick(Sender: TObject);
   private
     { Private declarations }
     FActionButtonColor : TColor;
@@ -90,14 +93,14 @@ type
     FOperationType : TOperationType;
     FTitleForm: string;
 
-    procedure insertRegister; virtual; abstract;
-    procedure editRegister; virtual; abstract;
-    procedure deleteRegister; virtual; abstract;
-    procedure printRegister; virtual; abstract;
-    procedure closeForm; virtual; abstract;
-    procedure searchExecute; virtual; abstract;
-    procedure saveRegister; virtual; abstract;
-    procedure cancelRegister; virtual; abstract;
+    procedure InsertRegister; virtual; abstract;
+    procedure EditRegister; virtual; abstract;
+    procedure DeleteRegister; virtual; abstract;
+    procedure PrintRegister; virtual; abstract;
+    procedure CloseForm; virtual; abstract;
+    procedure SearchExecute; virtual; abstract;
+    procedure SaveRegister; virtual; abstract;
+    procedure CancelRegister; virtual; abstract;
 
   public
     property QuerySearch: TMyQuery read FQuerySearch write FQuerySearch;
@@ -165,6 +168,24 @@ begin
   pnlTitle.Font.Color := TSystemManager.GetInstance.LayoutConfiguration.TitleFontColor;
   pnlTitle.Caption := FTitleForm;
   Caption := TFunctions.AppName + ' - Versão: ' + TFunctions.AppVersion + ' - ' + FTitleForm;
+end;
+
+procedure TfrmMasterRegister.grdSearchDblClick(Sender: TObject);
+begin
+  inherited;
+  editRegister;
+end;
+
+procedure TfrmMasterRegister.grdSearchDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer;
+  Column: TColumn; State: TGridDrawState);
+begin
+  inherited;
+
+  if gdSelected in State then
+  begin
+    TDBGrid(Sender).Canvas.Brush.Color := TSystemManager.GetInstance.LayoutConfiguration.TitleColor;
+  end;
+
 end;
 
 procedure TfrmMasterRegister.imButtonClearEdtSearchClick(Sender: TObject);

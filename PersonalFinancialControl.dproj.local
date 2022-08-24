@@ -21,8 +21,8 @@
     <Transaction>2022/08/04 16:02:25.000.707,C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\templates\fBase.dfm=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\templates\fMaster.dfm</Transaction>
     <Transaction>2022/08/04 16:02:25.000.707,C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\templates\fBase.pas=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\templates\fMaster.pas</Transaction>
     <Transaction>2022/08/04 16:06:01.000.793,=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\Unit1.pas</Transaction>
-    <Transaction>2022/08/04 16:24:10.000.963,C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\Unit1.pas=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\templates\fMasterRegister.pas</Transaction>
     <Transaction>2022/08/04 16:24:10.000.963,C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\Unit1.dfm=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\templates\fMasterRegister.dfm</Transaction>
+    <Transaction>2022/08/04 16:24:10.000.963,C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\Unit1.pas=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\templates\fMasterRegister.pas</Transaction>
     <Transaction>2022/08/05 17:54:32.000.335,=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\Unit1.pas</Transaction>
     <Transaction>2022/08/05 17:56:29.000.544,C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\class\uCategory.pas=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\Unit1.pas</Transaction>
     <Transaction>2022/08/05 17:56:37.000.003,=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\Unit1.pas</Transaction>
@@ -53,7 +53,15 @@
     <Transaction>2022/08/17 08:40:36.000.652,C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\Unit1.pas=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\class\uEnumTypes.pas</Transaction>
     <Transaction>2022/08/18 16:25:42.000.001,=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\Unit1.pas</Transaction>
     <Transaction>2022/08/18 16:28:01.000.061,C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\class\uFormPayment.pas=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\Unit1.pas</Transaction>
-    <Transaction>2022/08/19 22:19:42.084,=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\Unit1.pas</Transaction>
-    <Transaction>2022/08/19 22:22:21.823,C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\class\uSearchFilters.pas=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\Unit1.pas</Transaction>
+    <Transaction>2022/08/19 22:19:42.000.084,=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\Unit1.pas</Transaction>
+    <Transaction>2022/08/19 22:22:21.000.823,C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\class\uSearchFilters.pas=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\Unit1.pas</Transaction>
+    <Transaction>2022/08/22 11:28:54.000.822,=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\Unit1.pas</Transaction>
+    <Transaction>2022/08/22 11:29:50.000.334,C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\Unit1.pas=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\class\uTypePayment.pas</Transaction>
+    <Transaction>2022/08/22 22:56:02.000.522,=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\Unit1.pas</Transaction>
+    <Transaction>2022/08/22 22:57:09.000.721,C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\Unit1.dfm=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\forms\fTypePayment.dfm</Transaction>
+    <Transaction>2022/08/22 22:57:09.000.721,C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\Unit1.pas=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\forms\fTypePayment.pas</Transaction>
+    <Transaction>2022/08/24 08:52:46.000.638,=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\Unit1.pas</Transaction>
+    <Transaction>2022/08/24 08:53:29.000.123,C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\forms\fFormPayment.dfm=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\Unit1.dfm</Transaction>
+    <Transaction>2022/08/24 08:53:29.000.123,C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\forms\fFormPayment.pas=C:\Users\Fernando Mattos\OneDrive\Documentos\TesteVagner\PersonalFinancialControl\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>

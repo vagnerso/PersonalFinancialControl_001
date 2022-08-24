@@ -4,7 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Imaging.pngimage;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Imaging.pngimage,
+  uSystemManager;
 
 type
   TfrmLogin = class(TfrmBase)
@@ -22,6 +23,7 @@ type
     pnlButtonCancel: TPanel;
     procedure pnlButtonCancelClick(Sender: TObject);
     procedure pnlButtonConfirmClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -34,6 +36,12 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmLogin.FormShow(Sender: TObject);
+begin
+  inherited;
+  pnlLogin.Color := TSystemManager.GetInstance.LayoutConfiguration.BackgroundColor;
+end;
 
 procedure TfrmLogin.pnlButtonCancelClick(Sender: TObject);
 begin

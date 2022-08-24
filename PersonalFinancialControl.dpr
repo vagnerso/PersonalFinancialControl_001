@@ -21,7 +21,10 @@ uses
   uCrudInterface in 'interfaces\uCrudInterface.pas',
   uEnumTypes in 'class\uEnumTypes.pas',
   uFormPayment in 'class\uFormPayment.pas',
-  uSearchFilters in 'class\uSearchFilters.pas';
+  uSearchFilters in 'class\uSearchFilters.pas',
+  uTypePayment in 'class\uTypePayment.pas',
+  fTypePayment in 'forms\fTypePayment.pas' {frmTypePayment},
+  fFormPayment in 'forms\fFormPayment.pas' {frmFormPayment};
 
 {$R *.res}
 
@@ -31,14 +34,15 @@ begin
   ReportMemoryLeaksOnShutdown := False;
   Application.Title := 'Personal Financial Control';
 
-  TSystemManager.GetInstance.LayoutConfiguration.TitleColor := clblack;
+  TSystemManager.GetInstance.LayoutConfiguration.TitleColor := $00354237;
   TSystemManager.GetInstance.LayoutConfiguration.TitleFontColor := clWhite;
   TSystemManager.GetInstance.LayoutConfiguration.ActionButtonColor := clWhite;
-  TSystemManager.GetInstance.LayoutConfiguration.HoverActionButtonColor := clDkGray;
+  TSystemManager.GetInstance.LayoutConfiguration.HoverActionButtonColor := $00354237;
   TSystemManager.GetInstance.LayoutConfiguration.ActionButtonFontColor := clBlack;
   TSystemManager.GetInstance.LayoutConfiguration.ActionButtonHoverFontColor := clWhite;
+  TSystemManager.GetInstance.LayoutConfiguration.BackgroundColor := $00354237;
 
   Application.CreateForm(TfrmMain, frmMain);
-  Application.CreateForm(TfrmCategory, frmCategory);
+
   Application.Run;
 end.
