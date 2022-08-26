@@ -9,17 +9,15 @@ inherited frmTypePayment: TfrmTypePayment
   inherited pnlGeneral: TPanel
     inherited pgcGeneral: TPageControl
       ActivePage = tabRegister
+      inherited tabGrid: TTabSheet
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
+      end
       inherited tabRegister: TTabSheet
-        ExplicitLeft = 4
-        ExplicitTop = 30
-        ExplicitWidth = 887
-        ExplicitHeight = 403
         inherited pgcRegister: TPageControl
           inherited tabRegisterBasic: TTabSheet
-            ExplicitLeft = 4
-            ExplicitTop = 30
-            ExplicitWidth = 879
-            ExplicitHeight = 328
             inherited pnlRegisterBasic: TPanel
               object lb3: TLabel
                 Left = 8
@@ -59,14 +57,6 @@ inherited frmTypePayment: TfrmTypePayment
           end
         end
       end
-    end
-  end
-  inherited pgcSearch: TPageControl
-    inherited tabSearch: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 30
-      ExplicitWidth = 1037
-      ExplicitHeight = 78
     end
   end
 end

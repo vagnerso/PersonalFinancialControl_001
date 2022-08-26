@@ -25,6 +25,7 @@ type TFormPayment = class(TInterfacedObject, ICrudInterface)
     FDataSet : TMyQuery;
     FIdTypePayment: integer;
     FSearchFiltersCustomized: TSearchFiltersCustomized;
+    FNumberMaxInstallments: Int8;
   public
     constructor Create;
 
@@ -41,6 +42,7 @@ type TFormPayment = class(TInterfacedObject, ICrudInterface)
     property UniqueId: string read FUniqueId write FUniqueId;
     property Name: string read FName write FName;
     property IdTypePayment: integer read FIdTypePayment write FIdTypePayment;
+    property NumberMaxInstallments: Int8 read FNumberMaxInstallments write FNumberMaxInstallments;
 
 end;
 
@@ -52,6 +54,7 @@ procedure TFormPayment.Clear;
 begin
   FUniqueId := EmptyStr;
   FName := EmptyStr;
+  FNumberMaxInstallments := 0;
 end;
 
 constructor TFormPayment.Create;
@@ -92,12 +95,14 @@ begin
     TDataBaseConnection.GetInstance.NewConnection;
     FDataSet.Close;
     FDataSet.SQL.Clear;
-    FDataSet.SQL.Add('SELECT             ');
-    FDataSet.SQL.Add('   ID              ');
-    FDataSet.SQL.Add(' , UNIQUE_ID       ');
-    FDataSet.SQL.Add(' , NAME            ');
-    FDataSet.SQL.Add(' FROM FORM_PAYMENT ');
-    FDataSet.SQL.Add('WHERE ID = :ID     ');
+    FDataSet.SQL.Add('SELECT                     ');
+    FDataSet.SQL.Add('   ID                      ');
+    FDataSet.SQL.Add(' , UNIQUE_ID               ');
+    FDataSet.SQL.Add(' , NAME                    ');
+    FDataSet.SQL.Add(' , ID_TYPE_PAYMENT         ');
+    FDataSet.SQL.Add(' , NUMBER_MAX_INSTALLMENTS ');
+    FDataSet.SQL.Add(' FROM FORM_PAYMENT         ');
+    FDataSet.SQL.Add('WHERE ID = :ID             ');
     FDataSet.ParamByName('ID').AsInteger := FId;
     FDataSet.Open;
 
@@ -107,6 +112,7 @@ begin
       FUniqueId := FDataSet.FieldByName('UNIQUE_ID').AsString;
       FName := FDataSet.FieldByName('NAME').AsString;
       FIdTypePayment := FDataSet.FieldByName('ID_TYPE_PAYMENT').AsInteger;
+      FNumberMaxInstallments := FDataSet.FieldByName('NUMBER_MAX_INSTALLMENTS').AsInteger;
     end;
 
   except on E: Exception do
@@ -125,14 +131,20 @@ begin
     FDataSet.Close;
     FDataSet.SQL.Clear;
     FDataSet.SQL.Add('INSERT INTO FORM_PAYMENT (  ');
-    FDataSet.SQL.Add('   UNIQUE_ID            ');
-    FDataSet.SQL.Add(' , NAME                 ');
-    FDataSet.SQL.Add(' ) VALUES (             ');
-    FDataSet.SQL.Add('   :UNIQUE_ID           ');
-    FDataSet.SQL.Add(' , :NAME                ');
+    FDataSet.SQL.Add('   UNIQUE_ID                ');
+    FDataSet.SQL.Add(' , NAME                     ');
+    FDataSet.SQL.Add(' , ID_TYPE_PAYMENT          ');
+    FDataSet.SQL.Add(' , NUMBER_MAX_INSTALLMENTS  ');
+    FDataSet.SQL.Add(' ) VALUES (                 ');
+    FDataSet.SQL.Add('   :UNIQUE_ID               ');
+    FDataSet.SQL.Add(' , :NAME                    ');
+    FDataSet.SQL.Add(' , :ID_TYPE_PAYMENT         ');
+    FDataSet.SQL.Add(' , :NUMBER_MAX_INSTALLMENTS ');
     FDataSet.SQL.Add(' )                      ');
     FDataSet.ParamByName('UNIQUE_ID').AsString := TFunctions.GenerateUUID;
     FDataSet.ParamByName('NAME').AsString := FName;
+    FDataSet.ParamByName('ID_TYPE_PAYMENT').AsInteger := FIdTypePayment;
+    FDataSet.ParamByName('NUMBER_MAX_INSTALLMENTS').AsInteger := FNumberMaxInstallments;
     FDataSet.ExecSQL;
     FDataSet.Connection.Commit;
   except on E: Exception do
@@ -152,17 +164,22 @@ begin
   lSQL := TStringList.Create;
   try
     lSQL.Clear;
-    lSQL.Add('SELECT                 ');
-    lSQL.Add('   UNIQUE_ID           ');
-    lSQL.Add(' , NAME Nome           ');
-    lSQL.Add('FROM FORM_PAYMENT      ');
+    lSQL.Add('SELECT                                 ');
+    lSQL.Add('   FP.UNIQUE_ID                         ');
+    lSQL.Add(' , FP.NAME "Nome"                      ');
+    lSQL.Add(' , FP.ID_TYPE_PAYMENT "Tipo Pagamento" ');
+    lSQL.Add(' , FP.NUMBER_MAX_INSTALLMENTS "Nº Max. Parcelas" ');
+    lSQL.Add(' , TP.NAME "Tipo de Pagamento"         ');
+    lSQL.Add('FROM FORM_PAYMENT FP                   ');
+    lSQL.Add('INNER JOIN TYPE_PAYMENT TP             ');
+    lSQL.Add('ON (TP.ID = FP.ID_TYPE_PAYMENT)        ');
 
     if (Length(Trim(FSearchFiltersCustomized.ValueSearch)) > 0) then
     begin
-      lSQL.Add('WHERE NAME LIKE ' + QuotedStr('%' + FSearchFiltersCustomized.ValueSearch + '%'));
+      lSQL.Add('WHERE FP.NAME LIKE ' + QuotedStr('%' + FSearchFiltersCustomized.ValueSearch + '%'));
     end;
 
-    lSQL.Add('ORDER BY NAME DESC   ');
+    lSQL.Add('ORDER BY FP.NAME DESC   ');
 
     ADataSet.Close;
     ADataSet.SQL.Clear;
@@ -180,13 +197,16 @@ begin
     TDataBaseConnection.GetInstance.NewConnection;
     FDataSet.Close;
     FDataSet.SQL.Clear;
-    FDataSet.SQL.Add('UPDATE  SET                           ');
-    FDataSet.SQL.Add('   NAME = :NAME                       ');
-    FDataSet.SQL.Add(' , ID_TYPE_PAYMENT = :ID_TYPE_PAYMENT ');
-    FDataSet.SQL.Add('WHERE UNIQUE_ID = :UNIQUE_ID          ');
+    FDataSet.SQL.Add('UPDATE  SET                                           ');
+    FDataSet.SQL.Add('   NAME = :NAME                                       ');
+    FDataSet.SQL.Add(' , ID_TYPE_PAYMENT = :ID_TYPE_PAYMENT                 ');
+    FDataSet.SQL.Add(' , NUMBER_MAX_INSTALLMENTS = :NUMBER_MAX_INSTALLMENTS ');
+    FDataSet.SQL.Add('WHERE UNIQUE_ID = :UNIQUE_ID                          ');
     FDataSet.ParamByName('UNIQUE_ID').AsString := FUniqueId;
     FDataSet.ParamByName('ID_TYPE_PAYMENT').AsInteger := FIdTypePayment;
     FDataSet.ParamByName('NAME').AsString := FName;
+    FDataSet.ParamByName('ID_TYPE_PAYMENT').AsInteger := FIdTypePayment;
+    FDataSet.ParamByName('NUMBER_MAX_INSTALLMENTS').AsInteger := FNumberMaxInstallments;
     FDataSet.ExecSQL;
     FDataSet.Connection.Commit;
   except on E: Exception do

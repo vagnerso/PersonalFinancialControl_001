@@ -108,7 +108,7 @@ begin
       FId := FDataSet.FieldByName('ID').AsInteger;
       FUniqueId := FDataSet.FieldByName('UNIQUE_ID').AsString;
       FName := FDataSet.FieldByName('NAME').AsString;
-      FAllowsInstallment := FDataSet.FieldByName('ALLOWS_INSTALLMENT').AsBoolean;
+      FAllowsInstallment := TFunctions.IntegerToBoolean(FDataSet.FieldByName('ALLOWS_INSTALLMENT').AsInteger);
     end;
 
   except on E: Exception do
@@ -159,8 +159,8 @@ begin
     lSQL.Add('SELECT                 ');
     lSQL.Add('   ID                  ');
     lSQL.Add(' , UNIQUE_ID           ');
-    lSQL.Add(' , NAME Nome           ');
-    lSQL.Add(' , ALLOWS_INSTALLMENT  ');
+    lSQL.Add(' , NAME "Nome"         ');
+    lSQL.Add(' , ALLOWS_INSTALLMENT "Permite Parcelamento" ');
     lSQL.Add('FROM TYPE_PAYMENT      ');
 
     if (Length(Trim(FSearchFiltersCustomized.ValueSearch)) > 0) then

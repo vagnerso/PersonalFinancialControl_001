@@ -4,7 +4,7 @@ interface
 
 uses
   Vcl.Forms,
-  System.SysUtils, Vcl.StdCtrls;
+  System.SysUtils, Vcl.StdCtrls, Vcl.Dialogs;
 
 type TFunctions=class
   private
@@ -18,6 +18,7 @@ type TFunctions=class
   class function GenerateUUID: String;
   class function AppVersion: string;
   class procedure clearFormFields(AForm: TForm);
+  class function IntegerToBoolean(AValue: Int8): Boolean;
 end;
 
 implementation
@@ -38,6 +39,25 @@ begin
 
   Result := StringReplace(Result, '{', '', [rfReplaceAll]);
   Result := StringReplace(Result, '}', '', [rfReplaceAll]);
+end;
+
+class function TFunctions.IntegerToBoolean(AValue: Int8): Boolean;
+begin
+
+  if not (AValue in [0,1] ) then
+  begin
+    showmessage('Atenção, valor incorreto para esta função. São permitidos apenas os valores 0 e 1');
+    Abort;
+  end;
+
+  if (AValue = 0) then
+  begin
+    Result := False;
+  end
+  else if (AValue = 1) then
+  begin
+    Result := True;
+  end;
 end;
 
 class function TFunctions.ApplicationPath: string;

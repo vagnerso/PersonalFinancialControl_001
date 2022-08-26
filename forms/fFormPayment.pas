@@ -31,9 +31,12 @@ type
     edtName: TEdit;
     lb2: TLabel;
     cbxTypePayment: TComboBox;
+    lblNumberInstallmentes: TLabel;
+    edtNumberInstallments: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure cbxTypePaymentChange(Sender: TObject);
   private
     FRegisterObject: TFormPayment;
     procedure EnabledRegister;
@@ -68,6 +71,29 @@ procedure TfrmFormPayment.CancelRegister;
 begin
   inherited;
   DisabledRegister;
+end;
+
+procedure TfrmFormPayment.cbxTypePaymentChange(Sender: TObject);
+var
+  lTypePayment: TTypePayment;
+  lIdTypePayment : SmallInt;
+begin
+  inherited;
+
+  lIdTypePayment := Integer(cbxTypePayment.Items.Objects[cbxTypePayment.ItemIndex]);
+
+  lTypePayment := TTypePayment.Create;
+  try
+    lTypePayment.Id := lIdTypePayment;
+    lTypePayment.GetById;
+
+    lblNumberInstallmentes.Visible := lTypePayment.AllowsInstallment;
+    edtNumberInstallments.Visible := lTypePayment.AllowsInstallment;
+
+  finally
+    lTypePayment.Free;
+  end;
+
 end;
 
 procedure TfrmFormPayment.ClearFields;
@@ -112,7 +138,10 @@ begin
   FOperationType := otUpdate;
   EnabledRegister;
   FRegisterObject.Clear;
+  GetTypePaymentList;
   edtName.Text := dtsSearch.DataSet.FieldByName('Nome').AsString;
+  edtNumberInstallments.Text := dtsSearch.DataSet.FieldByName('Nº Max. Parcelas').AsString;
+  cbxTypePayment.ItemIndex := cbxTypePayment.Items.IndexOfObject(TObject(dtsSearch.DataSet.FieldByName('Tipo Pagamento').AsInteger));
   edtName.SetFocus;
 
 end;
@@ -202,6 +231,8 @@ procedure TfrmFormPayment.SaveRegister;
 begin
   inherited;
   FRegisterObject.Name := edtName.Text;
+  FRegisterObject.NumberMaxInstallments := StrToIntDef(edtNumberInstallments.Text, 0);
+  FRegisterObject.IdTypePayment := Integer(cbxTypePayment.Items.Objects[cbxTypePayment.ItemIndex]);
 
   case FOperationType of
     otInsert:
