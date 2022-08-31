@@ -60,12 +60,14 @@ implementation
 function TDataBaseConnection.NewConnection: Boolean;
 begin
 
+  Result := False;
+
   FConnection.DriverName := 'SQLite';
   FConnection.Params.Database := TFunctions.DataBasePath + DATABASE_NAME;
 
   try
 
-    FConnection.Connected := True;
+    Result := FConnection.Connected;
 
   except on e: Exception do
     begin

@@ -1,0 +1,188 @@
+unit uPerson;
+
+interface
+
+uses
+  uCrudInterface,
+  uSearchFilters,
+  uDataBaseConnection,
+  System.SysUtils,
+  uAppConstants,
+  uFunctions,
+  Vcl.Dialogs;
+
+type TTypePerson = (tpProvider, tpCustomer);
+
+type TSearchFiltersCustomized = class(TSearchFilters)
+  private
+
+  public
+end;
+
+type TPerson = class(TInterfacedObject, ICrudInterface)
+  private
+    FId: string;
+    FTypePerson: TTypePerson;
+    FName: string;
+    FPhone: string;
+    FEmail: string;
+    FAdress: string;
+    FNumber: string;
+    FDistrict: string;
+    FIdCity: string;
+    FDataSet : TMyQuery;
+    FSearchFiltersCustomized: TSearchFiltersCustomized;
+    FUniqueId: string;
+
+  public
+    constructor Create;
+
+    procedure InsertRegister;
+    procedure UpdateRegister;
+    procedure DeleteRegister;
+    procedure Clear;
+    procedure GetById;
+    procedure Search(ADataSet: TMyQuery);
+    destructor Destroy; override;
+
+    property SearchFiltersCustomized: TSearchFiltersCustomized read FSearchFiltersCustomized write FSearchFiltersCustomized;
+    property Id: string read FId write FId;
+    property UniqueId: string read FUniqueId write FUniqueId;
+    property TypePerson: TTypePerson read FTypePerson write FTypePerson;
+    property Name: string read FName write FName;
+    property Phone: string read FPhone write FPhone;
+    property Email: string read FEmail write FEmail;
+    property Adress: string read FAdress write FAdress;
+    property Number: string read FNumber write FNumber;
+    property District: string read FDistrict write FDistrict;
+    property IdCity: string read FIdCity write FIdCity;
+
+
+end;
+
+implementation
+
+{ TPerson }
+
+procedure TPerson.Clear;
+begin
+
+end;
+
+constructor TPerson.Create;
+begin
+  FDataSet := TMyQuery.Create(nil);
+  FSearchFiltersCustomized := TSearchFiltersCustomized.Create;
+end;
+
+procedure TPerson.DeleteRegister;
+begin
+  try
+    TDataBaseConnection.GetInstance.NewConnection;
+    FDataSet.Close;
+    FDataSet.SQL.Clear;
+    FDataSet.SQL.Add('DELETE FROM PERSON         ');
+    FDataSet.SQL.Add('WHERE UNIQUE_ID = :UNIQUE_ID ');
+    FDataSet.ParamByName('UNIQUE_ID').AsString := FUniqueId;
+    FDataSet.ExecSQL;
+    FDataSet.Connection.Commit;
+  except on E: Exception do
+    begin
+      FDataSet.Connection.Rollback;
+      //Showmessage(MSG_ERROR__DELETE);
+    end;
+  end;
+
+end;
+
+destructor TPerson.Destroy;
+begin
+  FDataSet.Free;
+  inherited;
+end;
+
+procedure TPerson.GetById;
+begin
+  try
+    TDataBaseConnection.GetInstance.NewConnection;
+    FDataSet.Close;
+    FDataSet.SQL.Clear;
+    FDataSet.SQL.Add('SELECT          ');
+    FDataSet.SQL.Add('   ID           ');
+    FDataSet.SQL.Add(' , UNIQUE_ID    ');
+    FDataSet.SQL.Add(' , NAME         ');
+    FDataSet.SQL.Add(' FROM PERSON  ');
+    FDataSet.SQL.Add('WHERE ID = :ID  ');
+//    FDataSet.ParamByName('ID').AsInteger := FId;
+    FDataSet.Open;
+
+    if not (FDataSet.IsEmpty) then
+    begin
+      FId := FDataSet.FieldByName('ID').AsInteger;
+      FUniqueId := FDataSet.FieldByName('UNIQUE_ID').AsString;
+      FName := FDataSet.FieldByName('NAME').AsString;
+    end;
+
+  except on E: Exception do
+    begin
+      FDataSet.Connection.Rollback;
+      //Showmessage(MSG_ERROR_PERSON_INSERT);
+    end;
+  end;
+
+end;
+
+procedure TPerson.InsertRegister;
+begin
+  try
+    TDataBaseConnection.GetInstance.NewConnection;
+    FDataSet.Close;
+    FDataSet.SQL.Clear;
+    FDataSet.SQL.Add('INSERT INTO PERSON (  ');
+    FDataSet.SQL.Add('   UNIQUE_ID            ');
+    FDataSet.SQL.Add(' , NAME                 ');
+    FDataSet.SQL.Add(' ) VALUES (             ');
+    FDataSet.SQL.Add('   :UNIQUE_ID           ');
+    FDataSet.SQL.Add(' , :NAME                ');
+    FDataSet.SQL.Add(' )                      ');
+    FDataSet.ParamByName('UNIQUE_ID').AsString := TFunctions.GenerateUUID;
+    FDataSet.ParamByName('NAME').AsString := FName;
+    FDataSet.ExecSQL;
+    FDataSet.Connection.Commit;
+  except on E: Exception do
+    begin
+      FDataSet.Connection.Rollback;
+      //Showmessage(MSG_ERROR_PERSON_INSERT);
+    end;
+  end;
+
+end;
+
+procedure TPerson.Search(ADataSet: TMyQuery);
+begin
+
+end;
+
+procedure TPerson.UpdateRegister;
+begin
+  try
+    TDataBaseConnection.GetInstance.NewConnection;
+    FDataSet.Close;
+    FDataSet.SQL.Clear;
+    FDataSet.SQL.Add('UPDATE PERSON SET          ');
+    FDataSet.SQL.Add(' NAME = :NAME                ');
+    FDataSet.SQL.Add('WHERE UNIQUE_ID = :UNIQUE_ID ');
+    FDataSet.ParamByName('UNIQUE_ID').AsString := FUniqueId;
+    FDataSet.ParamByName('NAME').AsString := FName;
+    FDataSet.ExecSQL;
+    FDataSet.Connection.Commit;
+  except on E: Exception do
+    begin
+      FDataSet.Connection.Rollback;
+      //Showmessage(MSG_ERROR_PERSON_INSERT);
+    end;
+  end;
+
+end;
+
+end.
