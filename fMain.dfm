@@ -2,7 +2,7 @@ object frmMain: TfrmMain
   Left = 0
   Top = 0
   Caption = 'Personal Financial Control'
-  ClientHeight = 729
+  ClientHeight = 605
   ClientWidth = 1008
   Color = 3490359
   Font.Charset = DEFAULT_CHARSET
@@ -19,20 +19,19 @@ object frmMain: TfrmMain
     Left = 608
     Top = 0
     Width = 400
-    Height = 729
+    Height = 605
     Align = alRight
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitLeft = 443
-    ExplicitHeight = 482
+    ExplicitHeight = 729
     DesignSize = (
       400
-      729)
+      605)
     object imIconApp: TImage
       Left = 24
       Top = 70
       Width = 370
-      Height = 633
+      Height = 509
       Anchors = [akLeft, akTop, akRight, akBottom]
       Center = True
       Picture.Data = {
@@ -12886,7 +12885,7 @@ object frmMain: TfrmMain
     end
     object lblDeveloper: TLabel
       Left = 240
-      Top = 712
+      Top = 588
       Width = 155
       Height = 13
       Anchors = [akRight, akBottom]
@@ -12936,6 +12935,7 @@ object frmMain: TfrmMain
     ParentBackground = False
     ParentFont = False
     TabOrder = 2
+    OnClick = pnlMenuSubCategoryClick
   end
   object pnlMenuMovement: TPanel
     Left = 23

@@ -81,12 +81,20 @@ type
     procedure grdSearchDblClick(Sender: TObject);
   private
     { Private declarations }
+    FBackgroundColor : TColor;
+    FTitleColor : TColor;
+    FTitleFontColor : TColor;
     FActionButtonColor : TColor;
     FHoverActionButtonColor: TColor;
     FActionButtonFontColor : TColor;
     FActionButtonHoverColor: TColor;
+    FSearchPanelColor : TColor;
+    FMainPanelColor : TColor;
+    FRegisterPanelColor: TColor;
+    FMainPanelRegisterColor: TColor;
+    FPanelBottomColor : TColor;
 
-    procedure SetButtonColors;
+    procedure SetColors;
 
   protected
     FQuerySearch: TMyQuery;
@@ -163,9 +171,8 @@ begin
   inherited;
 
   FormCloseWithEsc := True;
-  SetButtonColors;
-  pnlTitle.Color := TSystemManager.GetInstance.LayoutConfiguration.TitleColor;
-  pnlTitle.Font.Color := TSystemManager.GetInstance.LayoutConfiguration.TitleFontColor;
+  SetColors;
+
   pnlTitle.Caption := FTitleForm;
   Caption := TFunctions.AppName + ' - Versão: ' + TFunctions.AppVersion + ' - ' + FTitleForm;
 end;
@@ -352,13 +359,24 @@ begin
   TPanel(Sender).Font.Color := FActionButtonFontColor;
 end;
 
-procedure TfrmMasterRegister.SetButtonColors;
+procedure TfrmMasterRegister.SetColors;
 begin
+  FBackgroundColor := TSystemManager.GetInstance.LayoutConfiguration.BackgroundColor;
+  FTitleColor := TSystemManager.GetInstance.LayoutConfiguration.TitleColor;
+  FTitleFontColor := TSystemManager.GetInstance.LayoutConfiguration.TitleFontColor;
   FActionButtonColor := TSystemManager.GetInstance.LayoutConfiguration.ActionButtonColor;
   FHoverActionButtonColor:= TSystemManager.GetInstance.LayoutConfiguration.HoverActionButtonColor;
   FActionButtonFontColor := TSystemManager.GetInstance.LayoutConfiguration.ActionButtonFontColor;
   FActionButtonHoverColor:= TSystemManager.GetInstance.LayoutConfiguration.ActionButtonHoverFontColor;
+  FSearchPanelColor := TSystemManager.GetInstance.LayoutConfiguration.SearchPanelColor;
+  FMainPanelColor := TSystemManager.GetInstance.LayoutConfiguration.MainPanelColor;
+  FRegisterPanelColor := TSystemManager.GetInstance.LayoutConfiguration.RegisterPanelColor;
+  FMainPanelRegisterColor := TSystemManager.GetInstance.LayoutConfiguration.MainPanelRegisterColor;
+  FPanelBottomColor := TSystemManager.GetInstance.LayoutConfiguration.PanelBottomColor;
 
+  Color := FBackgroundColor;
+  pnlTitle.Color := FTitleColor;
+  pnlTitle.Font.Color := FTitleFontColor;
   pnlButtonInsert.Color := FActionButtonColor;
   pnlButtonEdit.Color := FActionButtonColor;
   pnlButtonDelete.Color := FActionButtonColor;
@@ -366,6 +384,11 @@ begin
   pnlButtonClose.Color := FActionButtonColor;
   pnlButtonSave.Color := FActionButtonColor;
   pnlButtonCancel.Color := FActionButtonColor;
+  pnlSearch.Color := FSearchPanelColor;
+  pnlMain.Color := FMainPanelColor;
+  pnlRegisterBasic.Color := FRegisterPanelColor;
+  pnlMainRegister.Color := FMainPanelRegisterColor;
+  pnlBottom.Color := FPanelBottomColor;
 end;
 
 end.

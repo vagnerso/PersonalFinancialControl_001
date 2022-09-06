@@ -10,6 +10,7 @@ inherited frmMasterRegister: TfrmMasterRegister
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
   OnShow = FormShow
+  ExplicitTop = -113
   ExplicitWidth = 1061
   ExplicitHeight = 659
   PixelsPerInch = 96
@@ -38,6 +39,7 @@ inherited frmMasterRegister: TfrmMasterRegister
     Height = 30
     Align = alBottom
     BevelOuter = bvNone
+    ParentBackground = False
     TabOrder = 1
   end
   object pnlMain: TPanel
@@ -47,6 +49,7 @@ inherited frmMasterRegister: TfrmMasterRegister
     Height = 437
     Align = alLeft
     BevelOuter = bvNone
+    ParentBackground = False
     TabOrder = 2
     object pnlButtonInsert: TPanel
       Left = 0
@@ -178,6 +181,7 @@ inherited frmMasterRegister: TfrmMasterRegister
           Height = 41
           Align = alBottom
           BevelOuter = bvNone
+          ParentBackground = False
           TabOrder = 0
           object pnlButtonSave: TPanel
             Left = 593
@@ -229,6 +233,7 @@ inherited frmMasterRegister: TfrmMasterRegister
               Height = 328
               Align = alClient
               BevelOuter = bvNone
+              ParentBackground = False
               TabOrder = 0
             end
           end
@@ -253,6 +258,7 @@ inherited frmMasterRegister: TfrmMasterRegister
         Height = 78
         Align = alClient
         BevelOuter = bvNone
+        ParentBackground = False
         TabOrder = 0
         object lb1: TLabel
           Left = 16

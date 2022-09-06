@@ -24,7 +24,8 @@ uses
   uSearchFilters in 'class\uSearchFilters.pas',
   uTypePayment in 'class\uTypePayment.pas',
   fTypePayment in 'forms\fTypePayment.pas' {frmTypePayment},
-  fFormPayment in 'forms\fFormPayment.pas' {frmFormPayment};
+  fFormPayment in 'forms\fFormPayment.pas' {frmFormPayment},
+  fSubCategory in 'forms\fSubCategory.pas' {frmSubCategory};
 
 {$R *.res}
 
@@ -40,9 +41,13 @@ begin
   TSystemManager.GetInstance.LayoutConfiguration.HoverActionButtonColor := $00354237;
   TSystemManager.GetInstance.LayoutConfiguration.ActionButtonFontColor := clBlack;
   TSystemManager.GetInstance.LayoutConfiguration.ActionButtonHoverFontColor := clWhite;
-  TSystemManager.GetInstance.LayoutConfiguration.BackgroundColor := $00354237;
+  TSystemManager.GetInstance.LayoutConfiguration.BackgroundColor := $0080ABBF;
+  TSystemManager.GetInstance.LayoutConfiguration.SearchPanelColor :=$0080ABBF;
+  TSystemManager.GetInstance.LayoutConfiguration.MainPanelColor := $0080ABBF;
+  TSystemManager.GetInstance.LayoutConfiguration.MainPanelRegisterColor := $0080ABBF;
+  TSystemManager.GetInstance.LayoutConfiguration.RegisterPanelColor := $0080ABBF;
+  TSystemManager.GetInstance.LayoutConfiguration.PanelBottomColor := $0080ABBF;
 
   Application.CreateForm(TfrmMain, frmMain);
-
   Application.Run;
 end.

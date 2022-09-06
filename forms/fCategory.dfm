@@ -3,6 +3,7 @@ inherited frmCategory: TfrmCategory
   ClientHeight = 496
   ClientWidth = 818
   OnDestroy = FormDestroy
+  ExplicitTop = 8
   ExplicitWidth = 834
   ExplicitHeight = 535
   PixelsPerInch = 96
@@ -34,8 +35,6 @@ inherited frmCategory: TfrmCategory
       ExplicitWidth = 668
       ExplicitHeight = 313
       inherited tabGrid: TTabSheet
-        ExplicitLeft = 0
-        ExplicitTop = 0
         ExplicitWidth = 660
         ExplicitHeight = 279
         inherited grdSearch: TDBGrid

@@ -12898,7 +12898,7 @@ inherited frmLogin: TfrmLogin
     Height = 571
     Align = alClient
     BevelOuter = bvNone
-    Color = 5728859
+    Color = 8432575
     ParentBackground = False
     TabOrder = 1
     object lb1: TLabel
