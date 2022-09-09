@@ -6,15 +6,22 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fMasterRegister, Data.DB, Vcl.Menus, Vcl.StdCtrls, Vcl.Imaging.pngimage,
   Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls, uSubCategory, uEnumTypes,
-  uFunctions;
+  uFunctions, uCategory, fGeneralSearch;
 
 type
   TfrmSubCategory = class(TfrmMasterRegister)
     edtName: TEdit;
     lb3: TLabel;
+    Label1: TLabel;
+    edtCategory: TEdit;
+    dtsSearchCategory: TDataSource;
+    imButtonClearEdtCategory: TImage;
+    imButtonSearchCategory: TImage;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure imButtonSearchCategoryClick(Sender: TObject);
+    procedure imButtonClearEdtCategoryClick(Sender: TObject);
   private
     FRegisterObject: TSubCategory;
     procedure EnabledRegister;
@@ -125,6 +132,30 @@ begin
   tabRegister.TabVisible := False;
   tabRegisterBasic.TabVisible := False;
   searchExecute;
+end;
+
+procedure TfrmSubCategory.imButtonClearEdtCategoryClick(Sender: TObject);
+begin
+  inherited;
+  edtCategory.Text := EmptyStr;
+end;
+
+procedure TfrmSubCategory.imButtonSearchCategoryClick(Sender: TObject);
+var
+  frmGeneralSearch : TfrmGeneralSearch;
+begin
+  inherited;
+
+  frmGeneralSearch := TfrmGeneralSearch.Create(nil);
+  try
+    frmGeneralSearch.SearchEntityType := setCategory;
+    frmGeneralSearch.ShowModal;
+    edtCategory.Text := frmGeneralSearch.Category.Name;
+    FRegisterObject.IdCategory := frmGeneralSearch.Category.Id;
+  finally
+    frmGeneralSearch.Free;
+  end;
+
 end;
 
 procedure TfrmSubCategory.InsertRegister;

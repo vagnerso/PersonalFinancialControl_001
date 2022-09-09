@@ -1,0 +1,12 @@
+unit uEnumTypes;
+
+interface
+
+type
+
+  TOperationType = (otInsert, otUpdate, otDelete);
+  TFormMode = (fmRegister, fmSearch);
+
+implementation
+
+end.

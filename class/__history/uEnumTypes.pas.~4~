@@ -1,0 +1,13 @@
+unit uEnumTypes;
+
+interface
+
+type
+
+  TOperationType = (otInsert, otUpdate, otDelete);
+  TFormMode = (fmRegister, fmSearch);
+  TSearchType = (stCategory, stSubCategory, stCustomer, stProvider, stTypePayment, stFormPayment);
+
+implementation
+
+end.

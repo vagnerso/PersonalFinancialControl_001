@@ -1,0 +1,184 @@
+unit fGeneralSearch;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Imaging.pngimage,
+  Vcl.ExtCtrls, Vcl.ComCtrls, uEnumTypes, uCategory, uSubCategory, uProvider,
+  uTypePayment, uFormPayment, uSystemManager, uFunctions;
+
+type
+  TfrmGeneralSearch = class(TfrmBase)
+    pnlTitle: TPanel;
+    pnlBottom: TPanel;
+    pgcSearch: TPageControl;
+    tabSearch: TTabSheet;
+    pnlSearch: TPanel;
+    lb1: TLabel;
+    imButtonSearchExecute: TImage;
+    imButtonClearEdtSearch: TImage;
+    edtSearch: TEdit;
+    pnlGeneral: TPanel;
+    pgcGeneral: TPageControl;
+    tabGrid: TTabSheet;
+    grdSearch: TDBGrid;
+    dtsSearch: TDataSource;
+    procedure FormDestroy(Sender: TObject);
+    procedure imButtonSearchExecuteClick(Sender: TObject);
+    procedure imButtonClearEdtSearchClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+    FSearchEntityType: TSearchEntityType;
+    FCategory: TCategory;
+    FSubCategory: TSubCategory;
+    FProvider: TProvider;
+    FTypePayment: TTypePayment;
+    FFormPayment: TFormPayment;
+    FBackgroundColor : TColor;
+    FTitleColor : TColor;
+    FTitleFontColor : TColor;
+    FActionButtonColor : TColor;
+    FHoverActionButtonColor: TColor;
+    FActionButtonFontColor : TColor;
+    FActionButtonHoverColor: TColor;
+    FSearchPanelColor : TColor;
+    FMainPanelColor : TColor;
+    FRegisterPanelColor: TColor;
+    FMainPanelRegisterColor: TColor;
+    FPanelBottomColor : TColor;
+    FTitleForm : string;
+
+    procedure SetColors;
+  public
+    { Public declarations }
+    procedure searchExecute;
+
+    property SearchEntityType: TSearchEntityType read FSearchEntityType write FSearchEntityType;
+    property Category: TCategory read FCategory  write FCategory;
+    property SubCategory: TSubCategory read FSubCategory  write FSubCategory;
+    property Provider: TProvider read FProvider  write FProvider;
+    property TypePayment: TTypePayment read FTypePayment  write FTypePayment;
+    property FormPayment: TFormPayment read FFormPayment  write FFormPayment;
+  end;
+
+var
+  frmGeneralSearch: TfrmGeneralSearch;
+
+implementation
+
+{$R *.dfm}
+
+{ TfrmGeneralSearch }
+
+procedure TfrmGeneralSearch.FormDestroy(Sender: TObject);
+begin
+  inherited;
+  if Assigned(FCategory) then
+  begin
+    FCategory.Free;
+  end;
+end;
+
+procedure TfrmGeneralSearch.FormShow(Sender: TObject);
+begin
+  inherited;
+  SetColors;
+
+  case FSearchEntityType of
+    setCategory: FTitleForm := 'Categorias';
+    setSubCategory: FTitleForm := 'Sub-Categorias';
+    setCustomer: FTitleForm := 'Clientes';
+    setProvider: FTitleForm := 'Fornecedores';
+    setTypePayment: FTitleForm := 'Tipos de Pagamento';
+    setFormPayment: FTitleForm := 'Formas de pagamento';
+  end;
+
+  pnlTitle.Caption := FTitleForm;
+  Caption := TFunctions.AppName + ' - Versão: ' + TFunctions.AppVersion + ' - ' + FTitleForm;
+end;
+
+procedure TfrmGeneralSearch.imButtonClearEdtSearchClick(Sender: TObject);
+begin
+  inherited;
+  edtSearch.Clear;
+  edtSearch.SetFocus;
+end;
+
+procedure TfrmGeneralSearch.imButtonSearchExecuteClick(Sender: TObject);
+begin
+  inherited;
+  searchExecute;
+end;
+
+procedure TfrmGeneralSearch.searchExecute;
+begin
+  case FSearchEntityType of
+    setCategory:
+    begin
+      FCategory := TCategory.Create;
+      dtsSearch.DataSet := FCategory.DataSet;
+      FCategory.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
+      FCategory.Search(FCategory.DataSet);
+      FCategory.Id := dtsSearch.DataSet.FieldByName('ID').AsInteger;
+      FCategory.GetById;
+    end;
+    setSubCategory:
+    begin
+      FSubCategory := TSubCategory.Create;
+      dtsSearch.DataSet := FSubCategory.DataSet;
+      FSubCategory.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
+      FSubCategory.Search(FSubCategory.DataSet);
+    end;
+    setCustomer:
+    begin
+
+    end;
+    setProvider:
+    begin
+      FProvider := TProvider.Create;
+      dtsSearch.DataSet := FProvider.DataSet;
+      FProvider.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
+      FProvider.Search(FProvider.DataSet);
+    end;
+    setTypePayment:
+    begin
+      FTypePayment := TTypePayment.Create;
+      dtsSearch.DataSet := FTypePayment.DataSet;
+      FTypePayment.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
+      FTypePayment.Search(FTypePayment.DataSet);
+    end;
+    setFormPayment:
+    begin
+      FFormPayment := TFormPayment.Create;
+      dtsSearch.DataSet := FFormPayment.DataSet;
+      FFormPayment.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
+      FFormPayment.Search(FFormPayment.DataSet);
+    end;
+  end;
+end;
+
+procedure TfrmGeneralSearch.SetColors;
+begin
+  FBackgroundColor := TSystemManager.GetInstance.LayoutConfiguration.BackgroundColor;
+  FTitleColor := TSystemManager.GetInstance.LayoutConfiguration.TitleColor;
+  FTitleFontColor := TSystemManager.GetInstance.LayoutConfiguration.TitleFontColor;
+  FActionButtonColor := TSystemManager.GetInstance.LayoutConfiguration.ActionButtonColor;
+  FHoverActionButtonColor:= TSystemManager.GetInstance.LayoutConfiguration.HoverActionButtonColor;
+  FActionButtonFontColor := TSystemManager.GetInstance.LayoutConfiguration.ActionButtonFontColor;
+  FActionButtonHoverColor:= TSystemManager.GetInstance.LayoutConfiguration.ActionButtonHoverFontColor;
+  FSearchPanelColor := TSystemManager.GetInstance.LayoutConfiguration.SearchPanelColor;
+  FMainPanelColor := TSystemManager.GetInstance.LayoutConfiguration.MainPanelColor;
+  FRegisterPanelColor := TSystemManager.GetInstance.LayoutConfiguration.RegisterPanelColor;
+  FMainPanelRegisterColor := TSystemManager.GetInstance.LayoutConfiguration.MainPanelRegisterColor;
+  FPanelBottomColor := TSystemManager.GetInstance.LayoutConfiguration.PanelBottomColor;
+
+  Color := FBackgroundColor;
+  pnlTitle.Color := FTitleColor;
+  pnlTitle.Font.Color := FTitleFontColor;
+  pnlSearch.Color := FSearchPanelColor;
+  pnlBottom.Color := FPanelBottomColor;
+end;
+
+end.

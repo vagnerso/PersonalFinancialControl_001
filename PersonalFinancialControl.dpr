@@ -25,7 +25,8 @@ uses
   uTypePayment in 'class\uTypePayment.pas',
   fTypePayment in 'forms\fTypePayment.pas' {frmTypePayment},
   fFormPayment in 'forms\fFormPayment.pas' {frmFormPayment},
-  fSubCategory in 'forms\fSubCategory.pas' {frmSubCategory};
+  fSubCategory in 'forms\fSubCategory.pas' {frmSubCategory},
+  fGeneralSearch in 'forms\fGeneralSearch.pas' {frmGeneralSearch};
 
 {$R *.res}
 

@@ -1,0 +1,112 @@
+unit fGeneralSearch;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Imaging.pngimage,
+  Vcl.ExtCtrls, Vcl.ComCtrls, uEnumTypes, uCategory, uSubCategory, uProvider,
+  uTypePayment, uFormPayment;
+
+type
+  TfrmGeneralSearch = class(TfrmBase)
+    pnlTitle: TPanel;
+    pnlBottom: TPanel;
+    pgcSearch: TPageControl;
+    tabSearch: TTabSheet;
+    pnlSearch: TPanel;
+    lb1: TLabel;
+    imButtonSearchExecute: TImage;
+    imButtonClearEdtSearch: TImage;
+    edtSearch: TEdit;
+    pnlGeneral: TPanel;
+    pgcGeneral: TPageControl;
+    tabGrid: TTabSheet;
+    grdSearch: TDBGrid;
+    dtsSearch: TDataSource;
+    procedure FormDestroy(Sender: TObject);
+    procedure imButtonSearchExecuteClick(Sender: TObject);
+    procedure imButtonClearEdtSearchClick(Sender: TObject);
+  private
+    { Private declarations }
+    FSearchEntityType: TSearchEntityType;
+    FCategory: TCategory;
+    FSubCategory: TSubCategory;
+    FProvider: TProvider;
+    FTypePayment: TTypePayment;
+    FFormPayment: TFormPayment;
+  public
+    { Public declarations }
+    procedure searchExecute;
+
+    property SearchEntityType: TSearchEntityType read FSearchEntityType write FSearchEntityType;
+  end;
+
+var
+  frmGeneralSearch: TfrmGeneralSearch;
+
+implementation
+
+{$R *.dfm}
+
+{ TfrmGeneralSearch }
+
+procedure TfrmGeneralSearch.FormDestroy(Sender: TObject);
+begin
+  inherited;
+  if Assigned(FCategory) then
+  begin
+    FCategory.Free;
+  end;
+end;
+
+procedure TfrmGeneralSearch.imButtonClearEdtSearchClick(Sender: TObject);
+begin
+  inherited;
+  edtSearch.Clear;
+  edtSearch.SetFocus;
+end;
+
+procedure TfrmGeneralSearch.imButtonSearchExecuteClick(Sender: TObject);
+begin
+  inherited;
+  searchExecute;
+end;
+
+procedure TfrmGeneralSearch.searchExecute;
+begin
+  case FSearchEntityType of
+    setCategory:
+    begin
+      FCategory := TCategory.Create;
+      dtsSearch.DataSet := FCategory.DataSet;
+      FCategory.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
+      FCategory.Search(FCategory.DataSet);
+    end;
+    setSubCategory:
+    begin
+      FSubCategory := TSubCategory.Create;
+      dtsSearch.DataSet := FSubCategory.DataSet;
+      FSubCategory.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
+      FSubCategory.Search(FSubCategory.DataSet);
+    end;
+    setCustomer:
+    begin
+
+    end;
+    setProvider:
+    begin
+
+    end;
+    setTypePayment:
+    begin
+
+    end;
+    setFormPayment:
+    begin
+
+    end;
+  end;
+end;
+
+end.

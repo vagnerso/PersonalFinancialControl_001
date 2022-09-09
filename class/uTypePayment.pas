@@ -37,6 +37,7 @@ type TTypePayment = class(TInterfacedObject, ICrudInterface)
     procedure Search(ADataSet: TMyQuery);
     destructor Destroy; override;
 
+    property DataSet: TMyQuery read FDataSet write FDataSet;
     property SearchFiltersCustomized: TSearchFiltersCustomized read FSearchFiltersCustomized write FSearchFiltersCustomized;
     property Id: Integer read FId write FId;
     property UniqueId: string read FUniqueId write FUniqueId;

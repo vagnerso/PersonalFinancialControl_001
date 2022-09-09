@@ -1,17 +1,15 @@
-unit uPerson;
+unit uCategory;
 
 interface
 
 uses
   uCrudInterface,
-  uSearchFilters,
   uDataBaseConnection,
   System.SysUtils,
+  Vcl.Dialogs,
   uAppConstants,
   uFunctions,
-  Vcl.Dialogs;
-
-type TTypePerson = (tpProvider, tpCustomer);
+  uSearchFilters, System.Classes;
 
 type TSearchFiltersCustomized = class(TSearchFilters)
   private
@@ -19,21 +17,13 @@ type TSearchFiltersCustomized = class(TSearchFilters)
   public
 end;
 
-type TPerson = class(TInterfacedObject, ICrudInterface)
+type TCategory = class(TInterfacedObject, ICrudInterface)
   private
-    FId: string;
-    FTypePerson: TTypePerson;
+    FId: Integer;
+    FUniqueId: string;
     FName: string;
-    FPhone: string;
-    FEmail: string;
-    FAdress: string;
-    FNumber: string;
-    FDistrict: string;
-    FIdCity: string;
     FDataSet : TMyQuery;
     FSearchFiltersCustomized: TSearchFiltersCustomized;
-    FUniqueId: string;
-
   public
     constructor Create;
 
@@ -45,43 +35,37 @@ type TPerson = class(TInterfacedObject, ICrudInterface)
     procedure Search(ADataSet: TMyQuery);
     destructor Destroy; override;
 
+    property DataSet: TMyQuery read FDataSet write FDataSet;
     property SearchFiltersCustomized: TSearchFiltersCustomized read FSearchFiltersCustomized write FSearchFiltersCustomized;
-    property Id: string read FId write FId;
+    property Id: Integer read FId write FId;
     property UniqueId: string read FUniqueId write FUniqueId;
-    property TypePerson: TTypePerson read FTypePerson write FTypePerson;
     property Name: string read FName write FName;
-    property Phone: string read FPhone write FPhone;
-    property Email: string read FEmail write FEmail;
-    property Adress: string read FAdress write FAdress;
-    property Number: string read FNumber write FNumber;
-    property District: string read FDistrict write FDistrict;
-    property IdCity: string read FIdCity write FIdCity;
-
 
 end;
 
 implementation
 
-{ TPerson }
+{ TCategory }
 
-procedure TPerson.Clear;
+procedure TCategory.Clear;
 begin
-
+  FUniqueId := EmptyStr;
+  FName := EmptyStr;
 end;
 
-constructor TPerson.Create;
+constructor TCategory.Create;
 begin
   FDataSet := TMyQuery.Create(nil);
   FSearchFiltersCustomized := TSearchFiltersCustomized.Create;
 end;
 
-procedure TPerson.DeleteRegister;
+procedure TCategory.DeleteRegister;
 begin
   try
     TDataBaseConnection.GetInstance.NewConnection;
     FDataSet.Close;
     FDataSet.SQL.Clear;
-    FDataSet.SQL.Add('DELETE FROM PERSON         ');
+    FDataSet.SQL.Add('DELETE FROM CATEGORY         ');
     FDataSet.SQL.Add('WHERE UNIQUE_ID = :UNIQUE_ID ');
     FDataSet.ParamByName('UNIQUE_ID').AsString := FUniqueId;
     FDataSet.ExecSQL;
@@ -89,19 +73,18 @@ begin
   except on E: Exception do
     begin
       FDataSet.Connection.Rollback;
-      //Showmessage(MSG_ERROR__DELETE);
+      Showmessage(MSG_ERROR_CATEGORY_DELETE);
     end;
   end;
-
 end;
 
-destructor TPerson.Destroy;
+destructor TCategory.Destroy;
 begin
   FDataSet.Free;
   inherited;
 end;
 
-procedure TPerson.GetById;
+procedure TCategory.GetById;
 begin
   try
     TDataBaseConnection.GetInstance.NewConnection;
@@ -111,7 +94,7 @@ begin
     FDataSet.SQL.Add('   ID           ');
     FDataSet.SQL.Add(' , UNIQUE_ID    ');
     FDataSet.SQL.Add(' , NAME         ');
-    FDataSet.SQL.Add(' FROM PERSON  ');
+    FDataSet.SQL.Add(' FROM CATEGORY  ');
     FDataSet.SQL.Add('WHERE ID = :ID  ');
     FDataSet.ParamByName('ID').AsInteger := FId;
     FDataSet.Open;
@@ -126,19 +109,18 @@ begin
   except on E: Exception do
     begin
       FDataSet.Connection.Rollback;
-      //Showmessage(MSG_ERROR_PERSON_INSERT);
+      Showmessage(MSG_ERROR_CATEGORY_INSERT);
     end;
   end;
-
 end;
 
-procedure TPerson.InsertRegister;
+procedure TCategory.InsertRegister;
 begin
   try
     TDataBaseConnection.GetInstance.NewConnection;
     FDataSet.Close;
     FDataSet.SQL.Clear;
-    FDataSet.SQL.Add('INSERT INTO PERSON (  ');
+    FDataSet.SQL.Add('INSERT INTO CATEGORY (  ');
     FDataSet.SQL.Add('   UNIQUE_ID            ');
     FDataSet.SQL.Add(' , NAME                 ');
     FDataSet.SQL.Add(' ) VALUES (             ');
@@ -152,24 +134,51 @@ begin
   except on E: Exception do
     begin
       FDataSet.Connection.Rollback;
-      //Showmessage(MSG_ERROR_PERSON_INSERT);
+      Showmessage(MSG_ERROR_CATEGORY_INSERT);
     end;
+  end;
+end;
+
+procedure TCategory.Search(ADataSet: TMyQuery);
+var
+  lSQL: TStringList;
+begin
+
+  TDatabaseConnection.GetInstance.NewConnection;
+
+  lSQL := TStringList.Create;
+  try
+    lSQL.Clear;
+    lSQL.Add('SELECT           ');
+    lSQL.Add('    UNIQUE_ID    ');
+    lSQL.Add('  , NAME Nome    ');
+    lSQL.Add('FROM CATEGORY    ');
+
+    if (Length(Trim(FSearchFiltersCustomized.ValueSearch)) > 0) then
+    begin
+      lSQL.Add('WHERE NAME LIKE ' + QuotedStr('%' + FSearchFiltersCustomized.ValueSearch + '%'));
+    end;
+
+    lSQL.Add('ORDER BY NAME DESC   ');
+
+    ADataSet.Close;
+    ADataSet.SQL.Clear;
+    ADataSet.SQL.Add(lSQL.Text);
+    ADataSet.Open;
+
+  finally
+    lSQL.Free;
   end;
 
 end;
 
-procedure TPerson.Search(ADataSet: TMyQuery);
-begin
-
-end;
-
-procedure TPerson.UpdateRegister;
+procedure TCategory.UpdateRegister;
 begin
   try
     TDataBaseConnection.GetInstance.NewConnection;
     FDataSet.Close;
     FDataSet.SQL.Clear;
-    FDataSet.SQL.Add('UPDATE PERSON SET          ');
+    FDataSet.SQL.Add('UPDATE CATEGORY SET          ');
     FDataSet.SQL.Add(' NAME = :NAME                ');
     FDataSet.SQL.Add('WHERE UNIQUE_ID = :UNIQUE_ID ');
     FDataSet.ParamByName('UNIQUE_ID').AsString := FUniqueId;
@@ -179,10 +188,9 @@ begin
   except on E: Exception do
     begin
       FDataSet.Connection.Rollback;
-      //Showmessage(MSG_ERROR_PERSON_INSERT);
+      Showmessage(MSG_ERROR_CATEGORY_INSERT);
     end;
   end;
-
 end;
 
 end.

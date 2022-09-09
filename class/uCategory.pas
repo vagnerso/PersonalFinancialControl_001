@@ -35,6 +35,7 @@ type TCategory = class(TInterfacedObject, ICrudInterface)
     procedure Search(ADataSet: TMyQuery);
     destructor Destroy; override;
 
+    property DataSet: TMyQuery read FDataSet write FDataSet;
     property SearchFiltersCustomized: TSearchFiltersCustomized read FSearchFiltersCustomized write FSearchFiltersCustomized;
     property Id: Integer read FId write FId;
     property UniqueId: string read FUniqueId write FUniqueId;
@@ -84,32 +85,42 @@ begin
 end;
 
 procedure TCategory.GetById;
+var
+  lQuery: TMyQuery;
 begin
+
+  lQuery  := TMyQuery.Create(nil);
   try
-    TDataBaseConnection.GetInstance.NewConnection;
-    FDataSet.Close;
-    FDataSet.SQL.Clear;
-    FDataSet.SQL.Add('SELECT          ');
-    FDataSet.SQL.Add('   ID           ');
-    FDataSet.SQL.Add(' , UNIQUE_ID    ');
-    FDataSet.SQL.Add(' , NAME         ');
-    FDataSet.SQL.Add(' FROM CATEGORY  ');
-    FDataSet.SQL.Add('WHERE ID = :ID  ');
-    FDataSet.ParamByName('ID').AsInteger := FId;
-    FDataSet.Open;
 
-    if not (FDataSet.IsEmpty) then
-    begin
-      FId := FDataSet.FieldByName('ID').AsInteger;
-      FUniqueId := FDataSet.FieldByName('UNIQUE_ID').AsString;
-      FName := FDataSet.FieldByName('NAME').AsString;
+    try
+      TDataBaseConnection.GetInstance.NewConnection;
+      lQuery.Close;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('SELECT          ');
+      lQuery.SQL.Add('   ID           ');
+      lQuery.SQL.Add(' , UNIQUE_ID    ');
+      lQuery.SQL.Add(' , NAME         ');
+      lQuery.SQL.Add(' FROM CATEGORY  ');
+      lQuery.SQL.Add('WHERE ID = :ID  ');
+      lQuery.ParamByName('ID').AsInteger := FId;
+      lQuery.Open;
+
+      if not (lQuery.IsEmpty) then
+      begin
+        FId := lQuery.FieldByName('ID').AsInteger;
+        FUniqueId := lQuery.FieldByName('UNIQUE_ID').AsString;
+        FName := lQuery.FieldByName('NAME').AsString;
+      end;
+
+    except on E: Exception do
+      begin
+        lQuery.Connection.Rollback;
+        Showmessage(MSG_ERROR_CATEGORY_INSERT);
+      end;
     end;
 
-  except on E: Exception do
-    begin
-      FDataSet.Connection.Rollback;
-      Showmessage(MSG_ERROR_CATEGORY_INSERT);
-    end;
+  finally
+    lQuery.Free;
   end;
 end;
 
@@ -149,8 +160,9 @@ begin
   try
     lSQL.Clear;
     lSQL.Add('SELECT           ');
-    lSQL.Add('    UNIQUE_ID    ');
-    lSQL.Add('  , NAME Nome    ');
+    lSQL.Add('    ID           ');
+    lSQL.Add('  , UNIQUE_ID    ');
+    lSQL.Add('  , NAME "Nome"  ');
     lSQL.Add('FROM CATEGORY    ');
 
     if (Length(Trim(FSearchFiltersCustomized.ValueSearch)) > 0) then

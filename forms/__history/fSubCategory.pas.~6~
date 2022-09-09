@@ -1,41 +1,29 @@
-unit fFormPayment;
+unit fSubCategory;
 
 interface
 
 uses
-  Winapi.Windows,
-  Winapi.Messages,
-  System.SysUtils,
-  System.Variants,
-  System.Classes,
-  Vcl.Graphics,
-  Vcl.Controls,
-  Vcl.Forms,
-  Vcl.Dialogs,
-  fMasterRegister,
-  Data.DB,
-  Vcl.Menus,
-  Vcl.StdCtrls,
-  Vcl.Imaging.pngimage,
-  Vcl.ExtCtrls,
-  Vcl.Grids,
-  Vcl.DBGrids,
-  Vcl.ComCtrls,
-  uFormPayment,
-  uEnumTypes,
-  uFunctions;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fMasterRegister, Data.DB, Vcl.Menus, Vcl.StdCtrls, Vcl.Imaging.pngimage,
+  Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls, uSubCategory, uEnumTypes,
+  uFunctions, uCategory, fGeneralSearch;
 
 type
-  TfrmFormPayment = class(TfrmMasterRegister)
-    lb3: TLabel;
+  TfrmSubCategory = class(TfrmMasterRegister)
     edtName: TEdit;
-    lb2: TLabel;
-    cbxTypePayment: TComboBox;
+    lb3: TLabel;
+    Label1: TLabel;
+    edtCategory: TEdit;
+    dtsSearchCategory: TDataSource;
+    imButtonClearEdtCategory: TImage;
+    imButtonSearchCategory: TImage;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure imButtonSearchCategoryClick(Sender: TObject);
+    procedure imButtonClearEdtCategoryClick(Sender: TObject);
   private
-    FRegisterObject: TFormPayment;
+    FRegisterObject: TSubCategory;
     procedure EnabledRegister;
     procedure DisabledRegister;
     { Private declarations }
@@ -50,43 +38,42 @@ type
     procedure SaveRegister; override;
     procedure CancelRegister; override;
     procedure ClearFields;
-    procedure GetTypePaymentList;
 
-    property RegisterObject: TFormPayment read FRegisterObject write FRegisterObject;
+    property RegisterObject: TSubCategory read FRegisterObject write FRegisterObject;
   end;
 
 var
-  frmFormPayment: TfrmFormPayment;
+  frmSubCategory: TfrmSubCategory;
 
 implementation
 
 {$R *.dfm}
 
-{ TfrmFormPayment }
+{ TfrmSubCategory }
 
-procedure TfrmFormPayment.CancelRegister;
+procedure TfrmSubCategory.CancelRegister;
 begin
   inherited;
   DisabledRegister;
 end;
 
-procedure TfrmFormPayment.ClearFields;
+procedure TfrmSubCategory.ClearFields;
 begin
   TFunctions.clearFormFields(Self);
 end;
 
-procedure TfrmFormPayment.CloseForm;
+procedure TfrmSubCategory.CloseForm;
 begin
   inherited;
   // save log
   Close;
 end;
 
-procedure TfrmFormPayment.DeleteRegister;
+procedure TfrmSubCategory.DeleteRegister;
 begin
   inherited;
   if Application.MessageBox(PChar('Deseja realmente excluir o registro?'),
-    PChar(Application.Title), MB_USEGLYPHCHARS + MB_DEFBUTTON2) = ID_NO then
+     PChar(Application.Title), MB_USEGLYPHCHARS + MB_DEFBUTTON2) = ID_NO then
   begin
     Abort;
   end;
@@ -94,10 +81,9 @@ begin
   FRegisterObject.UniqueId := dtsSearch.DataSet.FieldByName('UNIQUE_ID').AsString;
   FRegisterObject.DeleteRegister;
   SearchExecute;
-
 end;
 
-procedure TfrmFormPayment.DisabledRegister;
+procedure TfrmSubCategory.DisabledRegister;
 begin
   pgcSearch.Visible := True;
   pnlMain.Visible := True;
@@ -106,7 +92,7 @@ begin
   tabRegisterBasic.TabVisible := False;
 end;
 
-procedure TfrmFormPayment.EditRegister;
+procedure TfrmSubCategory.EditRegister;
 begin
   inherited;
   FOperationType := otUpdate;
@@ -114,10 +100,9 @@ begin
   FRegisterObject.Clear;
   edtName.Text := dtsSearch.DataSet.FieldByName('Nome').AsString;
   edtName.SetFocus;
-
 end;
 
-procedure TfrmFormPayment.EnabledRegister;
+procedure TfrmSubCategory.EnabledRegister;
 begin
   pgcSearch.Visible := False;
   pnlMain.Visible := False;
@@ -127,42 +112,52 @@ begin
   tabRegisterBasic.Show;
 end;
 
-procedure TfrmFormPayment.FormCreate(Sender: TObject);
+procedure TfrmSubCategory.FormCreate(Sender: TObject);
 begin
   inherited;
-  FRegisterObject := TFormPayment.Create;
+  FRegisterObject := TSubCategory.Create;
 end;
 
-procedure TfrmFormPayment.FormDestroy(Sender: TObject);
+procedure TfrmSubCategory.FormDestroy(Sender: TObject);
 begin
   inherited;
   FRegisterObject.Free;
 end;
 
-procedure TfrmFormPayment.FormShow(Sender: TObject);
+procedure TfrmSubCategory.FormShow(Sender: TObject);
 begin
-  FTitleForm := 'Formas de Pagamento';
+  FTitleForm := 'Sub-Categorias';
   inherited;
   tabGrid.TabVisible := True;
   tabRegister.TabVisible := False;
   tabRegisterBasic.TabVisible := False;
-  SearchExecute;
+  searchExecute;
 end;
 
-procedure TfrmFormPayment.GetTypePaymentList;
+procedure TfrmSubCategory.imButtonClearEdtCategoryClick(Sender: TObject);
 begin
-  cbxTypePayment.Items.Clear;
-  TabelaProdutos.Close;
-  TabelaProdutos.Open;
-  TabelaProdutos.First;
-  while not TabelaProdutos.Eof do
-  begin
-    cbxTypePayment.Items.AddObject(TabelaProdutosNOME.AsString,TObject(TabelaProdutosCODIGO.AsInteger));
-    TabelaProdutos.Next;
-  end;
+  inherited;
+  edtCategory.Text := EmptyStr;
 end;
 
-procedure TfrmFormPayment.InsertRegister;
+procedure TfrmSubCategory.imButtonSearchCategoryClick(Sender: TObject);
+var
+  frmGeneralSearch : TfrmGeneralSearch;
+begin
+  inherited;
+
+  frmGeneralSearch := TfrmGeneralSearch.Create(nil);
+  try
+    frmGeneralSearch.SearchEntityType := setCategory;
+    frmGeneralSearch.ShowModal;
+    edtCategory.Text := frmGeneralSearch.dtsSearch.DataSet.FieldByName('Nome').AsString;
+  finally
+    frmGeneralSearch.Free;
+  end;
+
+end;
+
+procedure TfrmSubCategory.InsertRegister;
 begin
   inherited;
   FOperationType := otInsert;
@@ -170,16 +165,15 @@ begin
   FRegisterObject.Clear;
   ClearFields;
   edtName.SetFocus;
-
 end;
 
-procedure TfrmFormPayment.PrintRegister;
+procedure TfrmSubCategory.PrintRegister;
 begin
   inherited;
 
 end;
 
-procedure TfrmFormPayment.SaveRegister;
+procedure TfrmSubCategory.SaveRegister;
 begin
   inherited;
   FRegisterObject.Name := edtName.Text;
@@ -192,6 +186,7 @@ begin
     otUpdate:
     begin
       FRegisterObject.UniqueId := dtsSearch.DataSet.FieldByName('UNIQUE_ID').AsString;
+      FRegisterObject.Name := edtName.Text;
       FRegisterObject.UpdateRegister;
     end;
   end;
@@ -200,16 +195,15 @@ begin
 
 end;
 
-procedure TfrmFormPayment.SearchExecute;
+procedure TfrmSubCategory.SearchExecute;
 begin
   inherited;
+
   FRegisterObject.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
   FRegisterObject.Search(FQuerySearch);
 
   grdSearch.Columns[0].Visible := False;
   grdSearch.Columns[1].Width := 400;
-
-
 end;
 
 end.

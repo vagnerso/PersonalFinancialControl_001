@@ -37,6 +37,7 @@ type TSubCategory = class(TInterfacedObject, ICrudInterface)
     procedure Search(ADataSet: TMyQuery);
     destructor Destroy; override;
 
+    property DataSet: TMyQuery read FDataSet write FDataSet;
     property SearchFiltersCustomized: TSearchFiltersCustomized read FSearchFiltersCustomized write FSearchFiltersCustomized;
     property Id: Integer read FId write FId;
     property UniqueId: string read FUniqueId write FUniqueId;
@@ -187,10 +188,10 @@ begin
     TDataBaseConnection.GetInstance.NewConnection;
     FDataSet.Close;
     FDataSet.SQL.Clear;
-    FDataSet.SQL.Add('UPDATE SUB_CATEGORY SET      ');
-    FDataSet.SQL.Add(' NAME        = :NAME         ');
-    FDataSet.SQL.Add(' ID_CATEGORY = :ID_CATEGORY  ');
-    FDataSet.SQL.Add('WHERE UNIQUE_ID = :UNIQUE_ID ');
+    FDataSet.SQL.Add('UPDATE SUB_CATEGORY SET         ');
+    FDataSet.SQL.Add('   NAME         = :NAME         ');
+    FDataSet.SQL.Add(' , ID_CATEGORY  = :ID_CATEGORY  ');
+    FDataSet.SQL.Add('WHERE UNIQUE_ID = :UNIQUE_ID    ');
     FDataSet.ParamByName('UNIQUE_ID').AsString := FUniqueId;
     FDataSet.ParamByName('NAME').AsString := FName;
     FDataSet.ParamByName('ID_CATEGORY').AsInteger := FIdCategory;

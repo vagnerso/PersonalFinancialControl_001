@@ -8,7 +8,14 @@ uses
   System.SysUtils,
   Vcl.Dialogs,
   uAppConstants,
-  uFunctions;
+  uFunctions,
+  uSearchFilters, System.Classes;
+
+type TSearchFiltersCustomized = class(TSearchFilters)
+  private
+
+  public
+end;
 
 type TCategory = class(TInterfacedObject, ICrudInterface)
   private
@@ -16,6 +23,7 @@ type TCategory = class(TInterfacedObject, ICrudInterface)
     FUniqueId: string;
     FName: string;
     FDataSet : TMyQuery;
+    FSearchFiltersCustomized: TSearchFiltersCustomized;
   public
     constructor Create;
 
@@ -23,9 +31,12 @@ type TCategory = class(TInterfacedObject, ICrudInterface)
     procedure UpdateRegister;
     procedure DeleteRegister;
     procedure Clear;
+    procedure GetById;
     procedure Search(ADataSet: TMyQuery);
     destructor Destroy; override;
 
+    property DataSet: TMyQuery read FDataSet write FDataSet;
+    property SearchFiltersCustomized: TSearchFiltersCustomized read FSearchFiltersCustomized write FSearchFiltersCustomized;
     property Id: Integer read FId write FId;
     property UniqueId: string read FUniqueId write FUniqueId;
     property Name: string read FName write FName;
@@ -45,6 +56,7 @@ end;
 constructor TCategory.Create;
 begin
   FDataSet := TMyQuery.Create(nil);
+  FSearchFiltersCustomized := TSearchFiltersCustomized.Create;
 end;
 
 procedure TCategory.DeleteRegister;
@@ -70,6 +82,36 @@ destructor TCategory.Destroy;
 begin
   FDataSet.Free;
   inherited;
+end;
+
+procedure TCategory.GetById;
+begin
+  try
+    TDataBaseConnection.GetInstance.NewConnection;
+    FDataSet.Close;
+    FDataSet.SQL.Clear;
+    FDataSet.SQL.Add('SELECT          ');
+    FDataSet.SQL.Add('   ID           ');
+    FDataSet.SQL.Add(' , UNIQUE_ID    ');
+    FDataSet.SQL.Add(' , NAME         ');
+    FDataSet.SQL.Add(' FROM CATEGORY  ');
+    FDataSet.SQL.Add('WHERE ID = :ID  ');
+    FDataSet.ParamByName('ID').AsInteger := FId;
+    FDataSet.Open;
+
+    if not (FDataSet.IsEmpty) then
+    begin
+      FId := FDataSet.FieldByName('ID').AsInteger;
+      FUniqueId := FDataSet.FieldByName('UNIQUE_ID').AsString;
+      FName := FDataSet.FieldByName('NAME').AsString;
+    end;
+
+  except on E: Exception do
+    begin
+      FDataSet.Connection.Rollback;
+      Showmessage(MSG_ERROR_CATEGORY_INSERT);
+    end;
+  end;
 end;
 
 procedure TCategory.InsertRegister;
@@ -98,11 +140,44 @@ begin
 end;
 
 procedure TCategory.Search(ADataSet: TMyQuery);
+var
+  lSQL: TStringList;
+  lQuery: TMyQuery;
 begin
-  ADataSet.Close;
-  ADataSet.SQL.Clear;
-  ADataSet.SQL.Add('select UNIQUE_ID Unique_Id, NAME Name from category order by id desc');
-  ADataSet.Open;
+
+  TDatabaseConnection.GetInstance.NewConnection;
+
+  lQuery := TMyQuery.Create(nil);
+  try
+
+    lSQL := TStringList.Create;
+    try
+      lSQL.Clear;
+      lSQL.Add('SELECT           ');
+      lSQL.Add('    ID           ');
+      lSQL.Add('  , UNIQUE_ID    ');
+      lSQL.Add('  , NAME "Nome"  ');
+      lSQL.Add('FROM CATEGORY    ');
+
+      if (Length(Trim(FSearchFiltersCustomized.ValueSearch)) > 0) then
+      begin
+        lSQL.Add('WHERE NAME LIKE ' + QuotedStr('%' + FSearchFiltersCustomized.ValueSearch + '%'));
+      end;
+
+      lSQL.Add('ORDER BY NAME DESC   ');
+
+      lQuery.Close;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add(lSQL.Text);
+      lQuery.Open;
+
+    finally
+      lSQL.Free;
+    end;
+
+  finally
+    lQuery.Free;
+  end;
 end;
 
 procedure TCategory.UpdateRegister;

@@ -37,6 +37,7 @@ type TFormPayment = class(TInterfacedObject, ICrudInterface)
     procedure Search(ADataSet: TMyQuery);
     destructor Destroy; override;
 
+    property DataSet: TMyQuery read FDataSet write FDataSet;
     property SearchFiltersCustomized: TSearchFiltersCustomized read FSearchFiltersCustomized write FSearchFiltersCustomized;
     property Id: Integer read FId write FId;
     property UniqueId: string read FUniqueId write FUniqueId;
@@ -197,15 +198,14 @@ begin
     TDataBaseConnection.GetInstance.NewConnection;
     FDataSet.Close;
     FDataSet.SQL.Clear;
-    FDataSet.SQL.Add('UPDATE  SET                                           ');
-    FDataSet.SQL.Add('   NAME = :NAME                                       ');
-    FDataSet.SQL.Add(' , ID_TYPE_PAYMENT = :ID_TYPE_PAYMENT                 ');
+    FDataSet.SQL.Add('UPDATE FORM_PAYMENT SET                               ');
+    FDataSet.SQL.Add('   NAME                    = :NAME                    ');
+    FDataSet.SQL.Add(' , ID_TYPE_PAYMENT         = :ID_TYPE_PAYMENT         ');
     FDataSet.SQL.Add(' , NUMBER_MAX_INSTALLMENTS = :NUMBER_MAX_INSTALLMENTS ');
     FDataSet.SQL.Add('WHERE UNIQUE_ID = :UNIQUE_ID                          ');
     FDataSet.ParamByName('UNIQUE_ID').AsString := FUniqueId;
     FDataSet.ParamByName('ID_TYPE_PAYMENT').AsInteger := FIdTypePayment;
     FDataSet.ParamByName('NAME').AsString := FName;
-    FDataSet.ParamByName('ID_TYPE_PAYMENT').AsInteger := FIdTypePayment;
     FDataSet.ParamByName('NUMBER_MAX_INSTALLMENTS').AsInteger := FNumberMaxInstallments;
     FDataSet.ExecSQL;
     FDataSet.Connection.Commit;
