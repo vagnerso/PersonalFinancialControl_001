@@ -28,7 +28,6 @@ uses
 
 type TDataBaseConnection = class
   private
-    FDGUIxWaitCursor : TFDGUIxWaitCursor;
     FDPhysSQLiteDriverLink: TFDPhysSQLiteDriverLink;
     FConnection: TFDConnection;
 

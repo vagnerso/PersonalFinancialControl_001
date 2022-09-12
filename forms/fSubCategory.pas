@@ -99,6 +99,9 @@ begin
   EnabledRegister;
   FRegisterObject.Clear;
   edtName.Text := dtsSearch.DataSet.FieldByName('Nome').AsString;
+  FRegisterObject.Id := dtsSearch.DataSet.FieldByName('ID').AsInteger;
+  FRegisterObject.GetById;
+  edtCategory.Text := FRegisterObject.Category.Name;
   edtName.SetFocus;
 end;
 
@@ -151,7 +154,7 @@ begin
     frmGeneralSearch.SearchEntityType := setCategory;
     frmGeneralSearch.ShowModal;
     edtCategory.Text := frmGeneralSearch.Category.Name;
-    FRegisterObject.IdCategory := frmGeneralSearch.Category.Id;
+    FRegisterObject.Category.Id := frmGeneralSearch.Category.Id;
   finally
     frmGeneralSearch.Free;
   end;
@@ -203,8 +206,11 @@ begin
   FRegisterObject.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
   FRegisterObject.Search(FQuerySearch);
 
-  grdSearch.Columns[0].Visible := False;
-  grdSearch.Columns[1].Width := 400;
+  grdSearch.Columns[0].Width := 0;
+  grdSearch.Columns[1].Width := 0;
+  grdSearch.Columns[2].Width := 300;
+  grdSearch.Columns[3].Width := 0;
+  grdSearch.Columns[4].Width := 300;
 end;
 
 end.

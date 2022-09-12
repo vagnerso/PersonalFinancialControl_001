@@ -17,9 +17,10 @@ type
     lblDeveloper: TLabel;
     pnlMenuCategory: TPanel;
     pnlMenuSubCategory: TPanel;
-    pnlMenuMovement: TPanel;
+    pnlMenuRevenues: TPanel;
     pnlMenuFormPayment: TPanel;
     pnlMenuTypePayment: TPanel;
+    pnlMenuExpenses: TPanel;
     procedure FormShow(Sender: TObject);
     procedure pnlMenuCategoryClick(Sender: TObject);
     procedure pnlMenuTypePaymentClick(Sender: TObject);

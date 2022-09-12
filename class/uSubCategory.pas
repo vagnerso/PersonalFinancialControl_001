@@ -10,7 +10,7 @@ uses
   uAppConstants,
   uFunctions,
   uSearchFilters,
-  System.Classes;
+  System.Classes, uCategory;
 
 type TSearchFiltersCustomized = class(TSearchFilters)
   private
@@ -25,7 +25,7 @@ type TSubCategory = class(TInterfacedObject, ICrudInterface)
     FName: string;
     FDataSet : TMyQuery;
     FSearchFiltersCustomized: TSearchFiltersCustomized;
-    FIdCategory: integer;
+    FCategory: TCategory;
   public
     constructor Create;
 
@@ -42,7 +42,7 @@ type TSubCategory = class(TInterfacedObject, ICrudInterface)
     property Id: Integer read FId write FId;
     property UniqueId: string read FUniqueId write FUniqueId;
     property Name: string read FName write FName;
-    property IdCategory: integer read FIdCategory write FIdCategory;
+    property Category: TCategory read FCategory write FCategory;
 
 end;
 
@@ -54,13 +54,14 @@ procedure TSubCategory.Clear;
 begin
   FUniqueId := EmptyStr;
   FName := EmptyStr;
-  FIdCategory := 0;
+  FCategory.Clear;
 end;
 
 constructor TSubCategory.Create;
 begin
   FDataSet := TMyQuery.Create(nil);
   FSearchFiltersCustomized := TSearchFiltersCustomized.Create;
+  FCategory := TCategory.Create;
 end;
 
 procedure TSubCategory.DeleteRegister;
@@ -84,6 +85,7 @@ end;
 
 destructor TSubCategory.Destroy;
 begin
+  FCategory.Free;
   FDataSet.Free;
   inherited;
 end;
@@ -109,7 +111,8 @@ begin
       FId := FDataSet.FieldByName('ID').AsInteger;
       FUniqueId := FDataSet.FieldByName('UNIQUE_ID').AsString;
       FName := FDataSet.FieldByName('NAME').AsString;
-      FIdCategory := FDataSet.FieldByName('ID_CATEGORY').AsInteger;
+      FCategory.Id := FDataSet.FieldByName('ID_CATEGORY').AsInteger;
+      FCategory.GetById;
     end;
 
   except on E: Exception do
@@ -137,7 +140,7 @@ begin
     FDataSet.SQL.Add(' )                      ');
     FDataSet.ParamByName('UNIQUE_ID').AsString := TFunctions.GenerateUUID;
     FDataSet.ParamByName('NAME').AsString := FName;
-    FDataSet.ParamByName('ID_CATEGORY').AsInteger := FIdCategory;
+    FDataSet.ParamByName('ID_CATEGORY').AsInteger := FCategory.Id;
     FDataSet.ExecSQL;
     FDataSet.Connection.Commit;
   except on E: Exception do
@@ -158,18 +161,22 @@ begin
   lSQL := TStringList.Create;
   try
     lSQL.Clear;
-    lSQL.Add('SELECT            ');
-    lSQL.Add('    UNIQUE_ID     ');
-    lSQL.Add('  , NAME "Nome"   ');
-    lSQL.Add('  , ID_CATEGORY "Categoria"   ');
-    lSQL.Add('FROM SUB_CATEGORY    ');
+    lSQL.Add('SELECT                         ');
+    lSQL.Add('    SC.ID                      ');
+    lSQL.Add('  , SC.UNIQUE_ID               ');
+    lSQL.Add('  , SC.NAME "Nome"             ');
+    lSQL.Add('  , SC.ID_CATEGORY "Categoria" ');
+    lSQL.Add('  , C.NAME "Nome Categoria"    ');
+    lSQL.Add('FROM SUB_CATEGORY SC           ');
+    lSQL.Add('  LEFT JOIN CATEGORY C         ');
+    lSQL.Add('  ON (C.ID = SC.ID_CATEGORY)   ');
 
     if (Length(Trim(FSearchFiltersCustomized.ValueSearch)) > 0) then
     begin
-      lSQL.Add('WHERE NAME LIKE ' + QuotedStr('%' + FSearchFiltersCustomized.ValueSearch + '%'));
+      lSQL.Add('WHERE SC.NAME LIKE ' + QuotedStr('%' + FSearchFiltersCustomized.ValueSearch + '%'));
     end;
 
-    lSQL.Add('ORDER BY NAME DESC   ');
+    lSQL.Add('ORDER BY SC.NAME DESC   ');
 
     ADataSet.Close;
     ADataSet.SQL.Clear;
@@ -194,7 +201,7 @@ begin
     FDataSet.SQL.Add('WHERE UNIQUE_ID = :UNIQUE_ID    ');
     FDataSet.ParamByName('UNIQUE_ID').AsString := FUniqueId;
     FDataSet.ParamByName('NAME').AsString := FName;
-    FDataSet.ParamByName('ID_CATEGORY').AsInteger := FIdCategory;
+    FDataSet.ParamByName('ID_CATEGORY').AsInteger := FCategory.Id;
     FDataSet.ExecSQL;
     FDataSet.Connection.Commit;
   except on E: Exception do

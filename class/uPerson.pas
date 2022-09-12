@@ -21,7 +21,7 @@ end;
 
 type TPerson = class(TInterfacedObject, ICrudInterface)
   private
-    FId: string;
+    FId: integer;
     FTypePerson: TTypePerson;
     FName: string;
     FPhone: string;
@@ -47,7 +47,7 @@ type TPerson = class(TInterfacedObject, ICrudInterface)
 
     property DataSet: TMyQuery read FDataSet write FDataSet;
     property SearchFiltersCustomized: TSearchFiltersCustomized read FSearchFiltersCustomized write FSearchFiltersCustomized;
-    property Id: string read FId write FId;
+    property Id: integer read FId write FId;
     property UniqueId: string read FUniqueId write FUniqueId;
     property TypePerson: TTypePerson read FTypePerson write FTypePerson;
     property Name: string read FName write FName;
@@ -66,7 +66,7 @@ implementation
 
 procedure TPerson.Clear;
 begin
-  FId:= EmptyStr;
+  FId:= 0;
   FTypePerson:= tpProvider;
   FName:= EmptyStr;
   FPhone:= EmptyStr;

@@ -232,7 +232,7 @@ begin
   inherited;
   FRegisterObject.Name := edtName.Text;
   FRegisterObject.NumberMaxInstallments := StrToIntDef(edtNumberInstallments.Text, 0);
-  FRegisterObject.IdTypePayment := Integer(cbxTypePayment.Items.Objects[cbxTypePayment.ItemIndex]);
+  FRegisterObject.TypePayment.Id := Integer(cbxTypePayment.Items.Objects[cbxTypePayment.ItemIndex]);
 
   case FOperationType of
     otInsert:
@@ -257,7 +257,11 @@ begin
   FRegisterObject.Search(FQuerySearch);
 
   grdSearch.Columns[0].Visible := False;
-  grdSearch.Columns[1].Width := 400;
+  grdSearch.Columns[1].Visible := False;
+  grdSearch.Columns[2].Width := 250;
+  grdSearch.Columns[3].Visible := False;
+  grdSearch.Columns[4].Width := 100;
+  grdSearch.Columns[5].Width := 250;
 
 
 end;

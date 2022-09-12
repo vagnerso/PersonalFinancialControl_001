@@ -175,6 +175,9 @@ begin
 
   pnlTitle.Caption := FTitleForm;
   Caption := TFunctions.AppName + ' - Versão: ' + TFunctions.AppVersion + ' - ' + FTitleForm;
+
+  edtSearch.Text := EmptyStr;
+  edtSearch.SetFocus;
 end;
 
 procedure TfrmMasterRegister.grdSearchDblClick(Sender: TObject);
@@ -384,6 +387,13 @@ begin
   pnlButtonClose.Color := FActionButtonColor;
   pnlButtonSave.Color := FActionButtonColor;
   pnlButtonCancel.Color := FActionButtonColor;
+  pnlButtonInsert.Font.Color := FActionButtonFontColor;
+  pnlButtonEdit.Font.Color := FActionButtonFontColor;
+  pnlButtonDelete.Font.Color := FActionButtonFontColor;
+  pnlButtonPrint.Font.Color := FActionButtonFontColor;
+  pnlButtonClose.Font.Color := FActionButtonFontColor;
+  pnlButtonSave.Font.Color := FActionButtonFontColor;
+  pnlButtonCancel.Font.Color := FActionButtonFontColor;
   pnlSearch.Color := FSearchPanelColor;
   pnlMain.Color := FMainPanelColor;
   pnlRegisterBasic.Color := FRegisterPanelColor;

@@ -9,7 +9,7 @@ uses
   Vcl.Dialogs,
   uAppConstants,
   uFunctions,
-  uSearchFilters, System.Classes;
+  uSearchFilters, System.Classes, uTypePayment;
 
 type TSearchFiltersCustomized = class(TSearchFilters)
   private
@@ -23,7 +23,7 @@ type TFormPayment = class(TInterfacedObject, ICrudInterface)
     FUniqueId: string;
     FName: string;
     FDataSet : TMyQuery;
-    FIdTypePayment: integer;
+    FTypePayment: TTypePayment;
     FSearchFiltersCustomized: TSearchFiltersCustomized;
     FNumberMaxInstallments: Int8;
   public
@@ -42,7 +42,7 @@ type TFormPayment = class(TInterfacedObject, ICrudInterface)
     property Id: Integer read FId write FId;
     property UniqueId: string read FUniqueId write FUniqueId;
     property Name: string read FName write FName;
-    property IdTypePayment: integer read FIdTypePayment write FIdTypePayment;
+    property TypePayment: TTypePayment read FTypePayment write FTypePayment;
     property NumberMaxInstallments: Int8 read FNumberMaxInstallments write FNumberMaxInstallments;
 
 end;
@@ -62,6 +62,7 @@ constructor TFormPayment.Create;
 begin
   FDataSet := TMyQuery.Create(nil);
   FSearchFiltersCustomized := TSearchFiltersCustomized.Create;
+  FTypePayment := TTypePayment.Create;
 end;
 
 procedure TFormPayment.DeleteRegister;
@@ -85,6 +86,7 @@ end;
 
 destructor TFormPayment.Destroy;
 begin
+  FTypePayment.Free;
   FSearchFiltersCustomized.Free;
   FDataSet.Free;
   inherited;
@@ -112,7 +114,7 @@ begin
       FId := FDataSet.FieldByName('ID').AsInteger;
       FUniqueId := FDataSet.FieldByName('UNIQUE_ID').AsString;
       FName := FDataSet.FieldByName('NAME').AsString;
-      FIdTypePayment := FDataSet.FieldByName('ID_TYPE_PAYMENT').AsInteger;
+      FTypePayment.Id := FDataSet.FieldByName('ID_TYPE_PAYMENT').AsInteger;
       FNumberMaxInstallments := FDataSet.FieldByName('NUMBER_MAX_INSTALLMENTS').AsInteger;
     end;
 
@@ -144,7 +146,7 @@ begin
     FDataSet.SQL.Add(' )                      ');
     FDataSet.ParamByName('UNIQUE_ID').AsString := TFunctions.GenerateUUID;
     FDataSet.ParamByName('NAME').AsString := FName;
-    FDataSet.ParamByName('ID_TYPE_PAYMENT').AsInteger := FIdTypePayment;
+    FDataSet.ParamByName('ID_TYPE_PAYMENT').AsInteger := FTypePayment.Id;
     FDataSet.ParamByName('NUMBER_MAX_INSTALLMENTS').AsInteger := FNumberMaxInstallments;
     FDataSet.ExecSQL;
     FDataSet.Connection.Commit;
@@ -166,7 +168,8 @@ begin
   try
     lSQL.Clear;
     lSQL.Add('SELECT                                 ');
-    lSQL.Add('   FP.UNIQUE_ID                         ');
+    lSQL.Add('   FP.ID                               ');
+    lSQL.Add(' , FP.UNIQUE_ID                        ');
     lSQL.Add(' , FP.NAME "Nome"                      ');
     lSQL.Add(' , FP.ID_TYPE_PAYMENT "Tipo Pagamento" ');
     lSQL.Add(' , FP.NUMBER_MAX_INSTALLMENTS "Nº Max. Parcelas" ');
@@ -204,7 +207,7 @@ begin
     FDataSet.SQL.Add(' , NUMBER_MAX_INSTALLMENTS = :NUMBER_MAX_INSTALLMENTS ');
     FDataSet.SQL.Add('WHERE UNIQUE_ID = :UNIQUE_ID                          ');
     FDataSet.ParamByName('UNIQUE_ID').AsString := FUniqueId;
-    FDataSet.ParamByName('ID_TYPE_PAYMENT').AsInteger := FIdTypePayment;
+    FDataSet.ParamByName('ID_TYPE_PAYMENT').AsInteger := FTypePayment.Id;
     FDataSet.ParamByName('NAME').AsString := FName;
     FDataSet.ParamByName('NUMBER_MAX_INSTALLMENTS').AsInteger := FNumberMaxInstallments;
     FDataSet.ExecSQL;

@@ -3,7 +3,6 @@ inherited frmCategory: TfrmCategory
   ClientHeight = 496
   ClientWidth = 818
   OnDestroy = FormDestroy
-  ExplicitTop = 8
   ExplicitWidth = 834
   ExplicitHeight = 535
   PixelsPerInch = 96
@@ -43,6 +42,8 @@ inherited frmCategory: TfrmCategory
         end
       end
       inherited tabRegister: TTabSheet
+        ExplicitLeft = 4
+        ExplicitTop = 30
         ExplicitWidth = 660
         ExplicitHeight = 279
         inherited pnlMainRegister: TPanel
@@ -65,6 +66,8 @@ inherited frmCategory: TfrmCategory
           ExplicitWidth = 660
           ExplicitHeight = 238
           inherited tabRegisterBasic: TTabSheet
+            ExplicitLeft = 4
+            ExplicitTop = 30
             ExplicitWidth = 652
             ExplicitHeight = 204
             inherited pnlRegisterBasic: TPanel
@@ -96,7 +99,10 @@ inherited frmCategory: TfrmCategory
     Width = 818
     ExplicitWidth = 818
     inherited tabSearch: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 30
       ExplicitWidth = 810
+      ExplicitHeight = 78
       inherited pnlSearch: TPanel
         Width = 810
         ExplicitWidth = 810

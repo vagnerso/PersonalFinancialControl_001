@@ -85,7 +85,9 @@ begin
     end;
     setSubCategory:
     begin
-
+      FSubCategory.Clear;
+      FSubCategory.Id := dtsSearch.DataSet.FieldByName('ID').AsInteger;
+      FSubCategory.GetById;
     end;
     setCustomer:
     begin
@@ -93,15 +95,21 @@ begin
     end;
     setProvider:
     begin
-
+      FProvider.Clear;
+      FProvider.Id := dtsSearch.DataSet.FieldByName('ID').AsInteger;
+      FProvider.GetById;
     end;
     setTypePayment:
     begin
-
+      FTypePayment.Clear;
+      FTypePayment.Id := dtsSearch.DataSet.FieldByName('ID').AsInteger;
+      FTypePayment.GetById;
     end;
     setFormPayment:
     begin
-
+      FFormPayment.Clear;
+      FFormPayment.Id := dtsSearch.DataSet.FieldByName('ID').AsInteger;
+      FFormPayment.GetById;
     end;
   end;
 end;
@@ -133,6 +141,8 @@ begin
 
   pnlTitle.Caption := FTitleForm;
   Caption := TFunctions.AppName + ' - Versão: ' + TFunctions.AppVersion + ' - ' + FTitleForm;
+  edtSearch.Text := EmptyStr;
+  edtSearch.SetFocus;
 end;
 
 procedure TfrmGeneralSearch.imButtonClearEdtSearchClick(Sender: TObject);
@@ -157,6 +167,9 @@ begin
       dtsSearch.DataSet := FCategory.DataSet;
       FCategory.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
       FCategory.Search(FCategory.DataSet);
+      grdSearch.Columns[0].Width := 0;
+      grdSearch.Columns[1].Width := 0;
+      grdSearch.Columns[2].Width := 400;
     end;
     setSubCategory:
     begin

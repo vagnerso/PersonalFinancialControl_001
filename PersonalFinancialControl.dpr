@@ -36,18 +36,18 @@ begin
   ReportMemoryLeaksOnShutdown := False;
   Application.Title := 'Personal Financial Control';
 
-  TSystemManager.GetInstance.LayoutConfiguration.TitleColor := $00354237;
+  TSystemManager.GetInstance.LayoutConfiguration.TitleColor := clBlack;
   TSystemManager.GetInstance.LayoutConfiguration.TitleFontColor := clWhite;
-  TSystemManager.GetInstance.LayoutConfiguration.ActionButtonColor := clWhite;
-  TSystemManager.GetInstance.LayoutConfiguration.HoverActionButtonColor := $00354237;
-  TSystemManager.GetInstance.LayoutConfiguration.ActionButtonFontColor := clBlack;
-  TSystemManager.GetInstance.LayoutConfiguration.ActionButtonHoverFontColor := clWhite;
-  TSystemManager.GetInstance.LayoutConfiguration.BackgroundColor := $0080ABBF;
-  TSystemManager.GetInstance.LayoutConfiguration.SearchPanelColor :=$0080ABBF;
-  TSystemManager.GetInstance.LayoutConfiguration.MainPanelColor := $0080ABBF;
-  TSystemManager.GetInstance.LayoutConfiguration.MainPanelRegisterColor := $0080ABBF;
-  TSystemManager.GetInstance.LayoutConfiguration.RegisterPanelColor := $0080ABBF;
-  TSystemManager.GetInstance.LayoutConfiguration.PanelBottomColor := $0080ABBF;
+  TSystemManager.GetInstance.LayoutConfiguration.ActionButtonColor := $006A6960;
+  TSystemManager.GetInstance.LayoutConfiguration.HoverActionButtonColor := $0077DCEA;
+  TSystemManager.GetInstance.LayoutConfiguration.ActionButtonFontColor := clWhite;
+  TSystemManager.GetInstance.LayoutConfiguration.ActionButtonHoverFontColor := clBlack;
+  TSystemManager.GetInstance.LayoutConfiguration.BackgroundColor :=$006A6960 ;
+  TSystemManager.GetInstance.LayoutConfiguration.SearchPanelColor :=$006A6960;
+  TSystemManager.GetInstance.LayoutConfiguration.MainPanelColor := $006A6960;
+  TSystemManager.GetInstance.LayoutConfiguration.MainPanelRegisterColor := $006A6960;
+  TSystemManager.GetInstance.LayoutConfiguration.RegisterPanelColor := $006A6960;
+  TSystemManager.GetInstance.LayoutConfiguration.PanelBottomColor := $006A6960;
 
   Application.CreateForm(TfrmMain, frmMain);
   Application.Run;

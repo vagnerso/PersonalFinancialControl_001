@@ -43,6 +43,7 @@ end;
 
 class function TFunctions.IntegerToBoolean(AValue: Int8): Boolean;
 begin
+  Result := False;
 
   if not (AValue in [0,1] ) then
   begin

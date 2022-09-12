@@ -2,9 +2,9 @@ object frmMain: TfrmMain
   Left = 0
   Top = 0
   Caption = 'Personal Financial Control'
-  ClientHeight = 605
+  ClientHeight = 550
   ClientWidth = 1008
-  Color = 3490359
+  Color = 12895428
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -16
@@ -19,19 +19,19 @@ object frmMain: TfrmMain
     Left = 608
     Top = 0
     Width = 400
-    Height = 605
+    Height = 550
     Align = alRight
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitHeight = 729
+    ExplicitHeight = 605
     DesignSize = (
       400
-      605)
+      550)
     object imIconApp: TImage
-      Left = 24
+      Left = 16
       Top = 70
       Width = 370
-      Height = 509
+      Height = 454
       Anchors = [akLeft, akTop, akRight, akBottom]
       Center = True
       Picture.Data = {
@@ -12868,7 +12868,7 @@ object frmMain: TfrmMain
         6C3D2E0000000049454E44AE426082}
       Proportional = True
       Stretch = True
-      ExplicitHeight = 293
+      ExplicitHeight = 509
     end
     object lblTitle: TLabel
       Left = 24
@@ -12885,7 +12885,7 @@ object frmMain: TfrmMain
     end
     object lblDeveloper: TLabel
       Left = 240
-      Top = 588
+      Top = 533
       Width = 155
       Height = 13
       Anchors = [akRight, akBottom]
@@ -12900,17 +12900,17 @@ object frmMain: TfrmMain
     end
   end
   object pnlMenuCategory: TPanel
-    Left = 24
-    Top = 181
+    Left = 40
+    Top = 129
     Width = 240
     Height = 40
     Cursor = crHandPoint
     BevelOuter = bvNone
     Caption = 'Categorias'
-    Color = 3684595
+    Color = 9668619
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWhite
-    Font.Height = -16
+    Font.Height = -20
     Font.Name = 'Calibri'
     Font.Style = []
     ParentBackground = False
@@ -12919,17 +12919,17 @@ object frmMain: TfrmMain
     OnClick = pnlMenuCategoryClick
   end
   object pnlMenuSubCategory: TPanel
-    Left = 23
-    Top = 231
+    Left = 39
+    Top = 180
     Width = 240
     Height = 40
     Cursor = crHandPoint
     BevelOuter = bvNone
     Caption = 'Sub-Categorias'
-    Color = 1152991
+    Color = 9668619
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWhite
-    Font.Height = -16
+    Font.Height = -20
     Font.Name = 'Calibri'
     Font.Style = []
     ParentBackground = False
@@ -12937,18 +12937,18 @@ object frmMain: TfrmMain
     TabOrder = 2
     OnClick = pnlMenuSubCategoryClick
   end
-  object pnlMenuMovement: TPanel
-    Left = 23
-    Top = 30
+  object pnlMenuRevenues: TPanel
+    Left = 303
+    Top = 28
     Width = 241
-    Height = 40
+    Height = 91
     Cursor = crHandPoint
     BevelOuter = bvNone
-    Caption = 'Receitas/Despesas'
+    Caption = 'Receitas'
     Color = 7909724
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWhite
-    Font.Height = -16
+    Font.Height = -33
     Font.Name = 'Calibri'
     Font.Style = []
     ParentBackground = False
@@ -12956,8 +12956,8 @@ object frmMain: TfrmMain
     TabOrder = 3
   end
   object pnlMenuFormPayment: TPanel
-    Left = 24
-    Top = 131
+    Left = 40
+    Top = 79
     Width = 240
     Height = 40
     Cursor = crHandPoint
@@ -12966,7 +12966,7 @@ object frmMain: TfrmMain
     Color = 9668619
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWhite
-    Font.Height = -16
+    Font.Height = -20
     Font.Name = 'Calibri'
     Font.Style = []
     ParentBackground = False
@@ -12975,22 +12975,40 @@ object frmMain: TfrmMain
     OnClick = pnlMenuFormPaymentClick
   end
   object pnlMenuTypePayment: TPanel
-    Left = 23
-    Top = 80
+    Left = 39
+    Top = 28
     Width = 240
     Height = 40
     Cursor = crHandPoint
     BevelOuter = bvNone
     Caption = 'Tipos de Pagamento'
-    Color = clGray
+    Color = 9668619
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWhite
-    Font.Height = -16
+    Font.Height = -20
     Font.Name = 'Calibri'
     Font.Style = []
     ParentBackground = False
     ParentFont = False
     TabOrder = 5
     OnClick = pnlMenuTypePaymentClick
+  end
+  object pnlMenuExpenses: TPanel
+    Left = 303
+    Top = 129
+    Width = 241
+    Height = 91
+    Cursor = crHandPoint
+    BevelOuter = bvNone
+    Caption = 'Despesas'
+    Color = 3684595
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWhite
+    Font.Height = -33
+    Font.Name = 'Calibri'
+    Font.Style = []
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 6
   end
 end
