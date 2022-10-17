@@ -206,10 +206,10 @@ begin
   FRegisterObject.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
   FRegisterObject.Search(FQuerySearch);
 
-  grdSearch.Columns[0].Width := 0;
-  grdSearch.Columns[1].Width := 0;
+  grdSearch.Columns[0].Visible := False;
+  grdSearch.Columns[1].Visible := False;
   grdSearch.Columns[2].Width := 300;
-  grdSearch.Columns[3].Width := 0;
+  grdSearch.Columns[3].Visible := False;
   grdSearch.Columns[4].Width := 300;
 end;
 

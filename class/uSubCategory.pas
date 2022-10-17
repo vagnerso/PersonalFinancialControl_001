@@ -10,7 +10,8 @@ uses
   uAppConstants,
   uFunctions,
   uSearchFilters,
-  System.Classes, uCategory;
+  System.Classes,
+  uCategory;
 
 type TSearchFiltersCustomized = class(TSearchFilters)
   private

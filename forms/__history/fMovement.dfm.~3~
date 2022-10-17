@@ -1,0 +1,42 @@
+inherited frmMovement: TfrmMovement
+  Caption = 'frmMovement'
+  ClientHeight = 504
+  ClientWidth = 771
+  Position = poScreenCenter
+  ExplicitWidth = 787
+  ExplicitHeight = 543
+  PixelsPerInch = 96
+  TextHeight = 19
+  object pnlTitle: TPanel
+    Left = 0
+    Top = 0
+    Width = 771
+    Height = 41
+    Align = alTop
+    BevelOuter = bvNone
+    Caption = 'TITLE'
+    Color = 7909724
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -19
+    Font.Name = 'Calibri'
+    Font.Style = []
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 0
+    ExplicitLeft = -274
+    ExplicitWidth = 1045
+  end
+  object pnlBottom: TPanel
+    Left = 0
+    Top = 474
+    Width = 771
+    Height = 30
+    Align = alBottom
+    BevelOuter = bvNone
+    ParentBackground = False
+    TabOrder = 1
+    ExplicitLeft = -274
+    ExplicitWidth = 1045
+  end
+end

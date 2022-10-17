@@ -194,8 +194,11 @@ begin
   if gdSelected in State then
   begin
     TDBGrid(Sender).Canvas.Brush.Color := TSystemManager.GetInstance.LayoutConfiguration.TitleColor;
+    TDBGrid(Sender).Canvas.Font.Color := TSystemManager.GetInstance.LayoutConfiguration.TitleFontColor;
   end;
 
+  TDBGrid(Sender).Canvas.FillRect(Rect);
+  TDBGrid(Sender).DefaultDrawColumnCell(Rect,DataCol,Column,State);
 end;
 
 procedure TfrmMasterRegister.imButtonClearEdtSearchClick(Sender: TObject);

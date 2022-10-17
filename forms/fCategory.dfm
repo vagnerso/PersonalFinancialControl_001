@@ -30,26 +30,27 @@ inherited frmCategory: TfrmCategory
     inherited pgcGeneral: TPageControl
       Width = 668
       Height = 313
-      ActivePage = tabRegister
       ExplicitWidth = 668
       ExplicitHeight = 313
       inherited tabGrid: TTabSheet
+        ExplicitLeft = 4
+        ExplicitTop = 25
         ExplicitWidth = 660
-        ExplicitHeight = 279
+        ExplicitHeight = 284
         inherited grdSearch: TDBGrid
           Width = 660
-          Height = 279
+          Height = 284
         end
       end
       inherited tabRegister: TTabSheet
         ExplicitLeft = 4
-        ExplicitTop = 30
+        ExplicitTop = 25
         ExplicitWidth = 660
-        ExplicitHeight = 279
+        ExplicitHeight = 284
         inherited pnlMainRegister: TPanel
-          Top = 238
+          Top = 243
           Width = 660
-          ExplicitTop = 238
+          ExplicitTop = 243
           ExplicitWidth = 660
           inherited pnlButtonSave: TPanel
             Left = 366
@@ -62,19 +63,19 @@ inherited frmCategory: TfrmCategory
         end
         inherited pgcRegister: TPageControl
           Width = 660
-          Height = 238
+          Height = 243
           ExplicitWidth = 660
-          ExplicitHeight = 238
+          ExplicitHeight = 243
           inherited tabRegisterBasic: TTabSheet
             ExplicitLeft = 4
-            ExplicitTop = 30
+            ExplicitTop = 25
             ExplicitWidth = 652
-            ExplicitHeight = 204
+            ExplicitHeight = 214
             inherited pnlRegisterBasic: TPanel
               Width = 652
-              Height = 204
+              Height = 214
               ExplicitWidth = 652
-              ExplicitHeight = 204
+              ExplicitHeight = 214
               object lb3: TLabel
                 Left = 8
                 Top = 11
@@ -100,9 +101,9 @@ inherited frmCategory: TfrmCategory
     ExplicitWidth = 818
     inherited tabSearch: TTabSheet
       ExplicitLeft = 4
-      ExplicitTop = 30
+      ExplicitTop = 25
       ExplicitWidth = 810
-      ExplicitHeight = 78
+      ExplicitHeight = 83
       inherited pnlSearch: TPanel
         Width = 810
         ExplicitWidth = 810

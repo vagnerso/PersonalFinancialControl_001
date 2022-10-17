@@ -1,0 +1,55 @@
+program PersonalFinancialControl;
+
+uses
+  Vcl.Forms,
+  fMain in 'fMain.pas' {frmMain},
+  uUser in 'class\uUser.pas',
+  fBase in 'templates\fBase.pas' {frmBase},
+  fMasterRegister in 'templates\fMasterRegister.pas' {frmMasterRegister},
+  uCategory in 'class\uCategory.pas',
+  uSubCategory in 'class\uSubCategory.pas',
+  uPerson in 'class\uPerson.pas',
+  uProvider in 'class\uProvider.pas',
+  fLogin in 'forms\fLogin.pas' {frmLogin},
+  uLayoutConfiguration in 'class\uLayoutConfiguration.pas',
+  uSystemManager in 'class\uSystemManager.pas',
+  Vcl.Graphics,
+  fCategory in 'forms\fCategory.pas' {frmCategory},
+  uDataBaseConnection in 'class\uDataBaseConnection.pas',
+  uAppConstants in 'class\uAppConstants.pas',
+  uFunctions in 'class\uFunctions.pas',
+  uCrudInterface in 'interfaces\uCrudInterface.pas',
+  uEnumTypes in 'class\uEnumTypes.pas',
+  uFormPayment in 'class\uFormPayment.pas',
+  uSearchFilters in 'class\uSearchFilters.pas',
+  uTypePayment in 'class\uTypePayment.pas',
+  fTypePayment in 'forms\fTypePayment.pas' {frmTypePayment},
+  fFormPayment in 'forms\fFormPayment.pas' {frmFormPayment},
+  fSubCategory in 'forms\fSubCategory.pas' {frmSubCategory},
+  fGeneralSearch in 'forms\fGeneralSearch.pas' {frmGeneralSearch},
+  fMovement in 'forms\fMovement.pas' {frmMovement};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  ReportMemoryLeaksOnShutdown := False;
+  Application.Title := 'Personal Financial Control';
+
+  TSystemManager.GetInstance.LayoutConfiguration.TitleColor := $0078B15C;
+  TSystemManager.GetInstance.LayoutConfiguration.TitleFontColor := clWhite;
+  TSystemManager.GetInstance.LayoutConfiguration.ActionButtonColor := $006A6960;
+  TSystemManager.GetInstance.LayoutConfiguration.HoverActionButtonColor := $0077DCEA;
+  TSystemManager.GetInstance.LayoutConfiguration.ActionButtonFontColor := clWhite;
+  TSystemManager.GetInstance.LayoutConfiguration.ActionButtonHoverFontColor := clBlack;
+  TSystemManager.GetInstance.LayoutConfiguration.BackgroundColor :=$006A6960 ;
+  TSystemManager.GetInstance.LayoutConfiguration.SearchPanelColor :=$006A6960;
+  TSystemManager.GetInstance.LayoutConfiguration.MainPanelColor := $006A6960;
+  TSystemManager.GetInstance.LayoutConfiguration.MainPanelRegisterColor := $006A6960;
+  TSystemManager.GetInstance.LayoutConfiguration.RegisterPanelColor := $006A6960;
+  TSystemManager.GetInstance.LayoutConfiguration.PanelBottomColor := $006A6960;
+
+  Application.CreateForm(TfrmMain, frmMain);
+  Application.Run;
+end.

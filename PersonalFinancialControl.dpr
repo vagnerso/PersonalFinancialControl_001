@@ -26,7 +26,8 @@ uses
   fTypePayment in 'forms\fTypePayment.pas' {frmTypePayment},
   fFormPayment in 'forms\fFormPayment.pas' {frmFormPayment},
   fSubCategory in 'forms\fSubCategory.pas' {frmSubCategory},
-  fGeneralSearch in 'forms\fGeneralSearch.pas' {frmGeneralSearch};
+  fGeneralSearch in 'forms\fGeneralSearch.pas' {frmGeneralSearch},
+  fMovement in 'forms\fMovement.pas' {frmMovement};
 
 {$R *.res}
 
@@ -36,7 +37,7 @@ begin
   ReportMemoryLeaksOnShutdown := False;
   Application.Title := 'Personal Financial Control';
 
-  TSystemManager.GetInstance.LayoutConfiguration.TitleColor := clBlack;
+  TSystemManager.GetInstance.LayoutConfiguration.TitleColor := $0078B15C;
   TSystemManager.GetInstance.LayoutConfiguration.TitleFontColor := clWhite;
   TSystemManager.GetInstance.LayoutConfiguration.ActionButtonColor := $006A6960;
   TSystemManager.GetInstance.LayoutConfiguration.HoverActionButtonColor := $0077DCEA;
