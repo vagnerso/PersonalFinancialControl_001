@@ -31,6 +31,11 @@ const
   MSG_ERROR_PROVIDER_DELETE = 'Erro ao tentar excluir um cliente.';
   MSG_ERROR_PROVIDER_SEARCH = 'Erro ao tentar consultar cliente.';
 
+  MSG_ERROR_INSERT = 'Erro ao tentar incluir ';
+  MSG_ERROR_UPDATE = 'Erro ao tentar alterar ';
+  MSG_ERROR_DELETE = 'Erro ao tentar excluir ';
+  MSG_ERROR_SEARCH = 'Erro ao tentar consultar ';
+
 implementation
 
 end.

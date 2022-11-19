@@ -1,5 +1,0 @@
-inherited frmMovement: TfrmMovement
-  Caption = 'frmMovement'
-  PixelsPerInch = 96
-  TextHeight = 19
-end

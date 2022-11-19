@@ -27,7 +27,8 @@ uses
   fFormPayment in 'forms\fFormPayment.pas' {frmFormPayment},
   fSubCategory in 'forms\fSubCategory.pas' {frmSubCategory},
   fGeneralSearch in 'forms\fGeneralSearch.pas' {frmGeneralSearch},
-  fMovement in 'forms\fMovement.pas' {frmMovement};
+  fMovement in 'forms\fMovement.pas' {frmMovement},
+  uMovement in 'class\uMovement.pas';
 
 {$R *.res}
 

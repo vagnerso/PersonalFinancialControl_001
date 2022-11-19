@@ -1,0 +1,105 @@
+unit uMovement;
+
+interface
+
+uses
+  uSearchFilters, uDataBaseConnection, uSubCategory, uFormPayment;
+
+type TSearchFiltersCustomized = class(TSearchFilters)
+  private
+    FDataSet : TMyQuery;
+    FSearchFiltersCustomized: TSearchFiltersCustomized;
+    FId: Integer;
+    FSubCategory: TSubCategory;
+    FDescription: string;
+    FUniqueId: string;
+    FFormPayment: TFormPayment;
+    FIssueDate: TDateTime;
+  public
+    constructor Create;
+
+    procedure InsertRegister;
+    procedure UpdateRegister;
+    procedure DeleteRegister;
+    procedure Clear;
+    procedure GetById;
+    procedure Search(ADataSet: TMyQuery);
+    destructor Destroy; override;
+
+    property DataSet: TMyQuery read FDataSet write FDataSet;
+    property SearchFiltersCustomized: TSearchFiltersCustomized read FSearchFiltersCustomized write FSearchFiltersCustomized;
+    property Id: Integer read FId write FId;
+    property UniqueId: string read FUniqueId write FUniqueId;
+    property Description: string read FDescription write FDescription;
+    property SubCategory: TSubCategory read FSubCategory write FSubCategory;
+    property FormPayment: TFormPayment read FFormPayment write FFormPayment;
+    property IssueDate: TDateTime read FIssueDate write FIssueDate;
+
+end;
+
+type TMovement = class
+  private
+
+  public
+
+  {
+
+  CREATE TABLE MOVEMENT (
+	ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	UNIQUE_ID TEXT(200) NOT NULL,
+	DESCRIPTION TEXT(300) NOT NULL,
+	ID_SUB_CATEGORY INTEGER,
+	ID_FORM_PAYMENT INTEGER,
+	ISSUE_DATE DATETIME
+, VALUE NUMERIC DEFAUL
+
+  }
+
+end;
+
+implementation
+
+{ TSearchFiltersCustomized }
+
+procedure TSearchFiltersCustomized.Clear;
+begin
+
+end;
+
+constructor TSearchFiltersCustomized.Create;
+begin
+
+end;
+
+procedure TSearchFiltersCustomized.DeleteRegister;
+begin
+
+end;
+
+destructor TSearchFiltersCustomized.Destroy;
+begin
+
+  inherited;
+end;
+
+procedure TSearchFiltersCustomized.GetById;
+begin
+
+end;
+
+procedure TSearchFiltersCustomized.InsertRegister;
+begin
+
+end;
+
+procedure TSearchFiltersCustomized.Search(ADataSet: TMyQuery);
+begin
+
+end;
+
+procedure TSearchFiltersCustomized.UpdateRegister;
+begin
+
+end;
+
+end.

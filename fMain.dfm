@@ -23,7 +23,6 @@ object frmMain: TfrmMain
     Align = alRight
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitHeight = 605
     DesignSize = (
       400
       550)
@@ -12939,7 +12938,7 @@ object frmMain: TfrmMain
   end
   object pnlMenuRevenues: TPanel
     Left = 303
-    Top = 28
+    Top = 24
     Width = 241
     Height = 91
     Cursor = crHandPoint
@@ -12954,6 +12953,7 @@ object frmMain: TfrmMain
     ParentBackground = False
     ParentFont = False
     TabOrder = 3
+    OnClick = pnlMenuRevenuesClick
   end
   object pnlMenuFormPayment: TPanel
     Left = 40
@@ -13010,5 +13010,6 @@ object frmMain: TfrmMain
     ParentBackground = False
     ParentFont = False
     TabOrder = 6
+    OnClick = pnlMenuExpensesClick
   end
 end

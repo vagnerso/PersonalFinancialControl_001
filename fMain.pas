@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fLogin, Vcl.ExtCtrls, fCategory, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async,
   FireDAC.Phys, FireDAC.VCLUI.Wait, Data.DB, Vcl.StdCtrls, Vcl.Imaging.pngimage,
-  fTypePayment, uSystemManager, fFormPayment, fSubCategory;
+  fTypePayment, uSystemManager, fFormPayment, fSubCategory, fMovement;
 
 type
   TfrmMain = class(TForm)
@@ -26,6 +26,8 @@ type
     procedure pnlMenuTypePaymentClick(Sender: TObject);
     procedure pnlMenuFormPaymentClick(Sender: TObject);
     procedure pnlMenuSubCategoryClick(Sender: TObject);
+    procedure pnlMenuExpensesClick(Sender: TObject);
+    procedure pnlMenuRevenuesClick(Sender: TObject);
   private
     procedure loginCall;
     { Private declarations }
@@ -73,6 +75,18 @@ begin
   end;
 end;
 
+procedure TfrmMain.pnlMenuExpensesClick(Sender: TObject);
+var
+  lForm: TfrmMovement;
+begin
+  lForm := TfrmMovement.Create(nil);
+  try
+    lForm.ShowModal;
+  finally
+    lForm.Free;
+  end;
+end;
+
 procedure TfrmMain.pnlMenuFormPaymentClick(Sender: TObject);
 var
   lForm: TFrmFormPayment;
@@ -80,6 +94,19 @@ begin
   lForm := TFrmFormPayment.Create(Self);
   try
     lForm.showmodal;
+  finally
+    lForm.Free;
+  end;
+
+end;
+
+procedure TfrmMain.pnlMenuRevenuesClick(Sender: TObject);
+var
+  lForm: TfrmMovement;
+begin
+  lForm := TfrmMovement.Create(nil);
+  try
+    lForm.ShowModal;
   finally
     lForm.Free;
   end;

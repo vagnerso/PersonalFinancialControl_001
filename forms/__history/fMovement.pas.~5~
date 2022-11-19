@@ -1,0 +1,64 @@
+unit fMovement;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, Vcl.ExtCtrls, Vcl.ComCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  Vcl.Imaging.pngimage, Vcl.StdCtrls, fGeneralSearch, uEnumTypes;
+
+type
+  TfrmMovement = class(TfrmBase)
+    pnlTitle: TPanel;
+    pnlBottom: TPanel;
+    pgcNavigator: TPageControl;
+    tabDescription: TTabSheet;
+    pnlDescription: TPanel;
+    edtDescription: TEdit;
+    Label1: TLabel;
+    edtFormPayment: TEdit;
+    imButtonClearEdtCategory: TImage;
+    imButtonSearchCategory: TImage;
+    tabInstallments: TTabSheet;
+    pnlInstallments: TPanel;
+    Label2: TLabel;
+    Label3: TLabel;
+    edtNumberInstallments: TEdit;
+    pnlButtonSave: TPanel;
+    pnlButtonCancel: TPanel;
+    Panel1: TPanel;
+    Panel2: TPanel;
+    grInstallments: TDBGrid;
+    procedure imButtonSearchCategoryClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmMovement: TfrmMovement;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmMovement.imButtonSearchCategoryClick(Sender: TObject);
+var
+  frmGeneralSearch : TfrmGeneralSearch;
+begin
+  inherited;
+
+  frmGeneralSearch := TfrmGeneralSearch.Create(nil);
+  try
+    frmGeneralSearch.SearchEntityType := setFormPayment;
+    frmGeneralSearch.ShowModal;
+    edtFormPayment.Text := frmGeneralSearch.FormPayment.Name;
+
+  finally
+    frmGeneralSearch.Free;
+  end;
+
+end;
+
+end.
