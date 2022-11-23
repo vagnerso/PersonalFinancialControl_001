@@ -1,0 +1,119 @@
+object frmImport: TfrmImport
+  Left = 0
+  Top = 0
+  Caption = 'frmImport'
+  ClientHeight = 487
+  ClientWidth = 699
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object btImport: TButton
+    Left = 216
+    Top = 56
+    Width = 249
+    Height = 41
+    Caption = 'Importar'
+    TabOrder = 0
+    OnClick = btImportClick
+  end
+  object pcGeneral: TPageControl
+    Left = 0
+    Top = 120
+    Width = 699
+    Height = 367
+    ActivePage = tabGrid
+    Align = alBottom
+    TabOrder = 1
+    object tabJSON: TTabSheet
+      Caption = 'tabJSON'
+      ExplicitWidth = 281
+      ExplicitHeight = 165
+      object mmJson: TMemo
+        Left = 0
+        Top = 0
+        Width = 691
+        Height = 339
+        Align = alClient
+        Lines.Strings = (
+          'mmJson')
+        TabOrder = 0
+        ExplicitLeft = 256
+        ExplicitTop = 128
+        ExplicitWidth = 185
+        ExplicitHeight = 89
+      end
+    end
+    object tabImport: TTabSheet
+      Caption = 'tabImport'
+      ImageIndex = 1
+      ExplicitWidth = 281
+      ExplicitHeight = 165
+      object mmText: TMemo
+        Left = 0
+        Top = 0
+        Width = 691
+        Height = 339
+        Align = alClient
+        Lines.Strings = (
+          'mmText')
+        TabOrder = 0
+        ExplicitLeft = 256
+        ExplicitTop = 128
+        ExplicitWidth = 185
+        ExplicitHeight = 89
+      end
+    end
+    object tabGrid: TTabSheet
+      Caption = 'tabGrid'
+      ImageIndex = 2
+      ExplicitLeft = 8
+      object grData: TDBGrid
+        Left = 0
+        Top = 0
+        Width = 691
+        Height = 339
+        Align = alClient
+        DataSource = dsGrid
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+      end
+    end
+  end
+  object RESTClient1: TRESTClient
+    Accept = 'application/json, text/plain; q=0.9, text/html;q=0.8,'
+    AcceptCharset = 'UTF-8, *;q=0.8'
+    BaseURL = 'https://www.gstatic.com/ipranges'
+    Params = <>
+    HandleRedirects = True
+    Left = 32
+    Top = 8
+  end
+  object RESTRequest1: TRESTRequest
+    Client = RESTClient1
+    Params = <>
+    Resource = 'cloud.json'
+    Response = RESTResponse1
+    SynchronizedEvents = False
+    Left = 120
+    Top = 8
+  end
+  object RESTResponse1: TRESTResponse
+    ContentType = 'application/json'
+    Left = 208
+    Top = 8
+  end
+  object dsGrid: TDataSource
+    Left = 344
+    Top = 248
+  end
+end

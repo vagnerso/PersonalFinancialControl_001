@@ -4,7 +4,8 @@ interface
 
 uses
   uSearchFilters, uDataBaseConnection, uSubCategory, uFormPayment,
-  System.SysUtils, Vcl.Dialogs, uAppConstants, System.Classes;
+  System.SysUtils, Vcl.Dialogs, uAppConstants, System.Classes, uProvider,
+  uFunctions;
 
 type TSearchFiltersCustomized = class(TSearchFilters)
   private
@@ -25,6 +26,7 @@ type TMovement = class
     FInstallmentValue: Currency;
     FNumberParcel: Integer;
     FTypeMovement: string;
+    FProvider: TProvider;
   public
     constructor Create;
 
@@ -47,6 +49,7 @@ type TMovement = class
     property InstallmentValue: Currency read FInstallmentValue write FInstallmentValue;
     property NumberParcel: Integer read FNumberParcel write FNumberParcel;
     property TypeMovement: string read FTypeMovement write FTypeMovement;
+    property Provider: TProvider read FProvider write FProvider;
 
     {
 
@@ -78,12 +81,16 @@ begin
   FInstallmentValue := 0;
   FNumberParcel := 0;
   FTypeMovement := emptystr;
+  FProvider.Clear;
 end;
 
 constructor TMovement.Create;
 begin
   FDataSet := TMyQuery.Create(nil);
   FSearchFiltersCustomized := TSearchFiltersCustomized.Create;
+  FFormPayment := TFormPayment.Create;
+  FSubCategory := TSubCategory.Create;
+  FProvider := TProvider.Create;
 end;
 
 procedure TMovement.DeleteRegister;
@@ -107,6 +114,9 @@ end;
 
 destructor TMovement.Destroy;
 begin
+  FProvider.Free;
+  FSubCategory.Free;
+  FFormPayment.Free;
   FSearchFiltersCustomized.Free;
   FDataSet.Free;
   inherited;
@@ -128,6 +138,7 @@ begin
     FDataSet.SQL.Add('  , INSTALLMENT_VALUE ');
     FDataSet.SQL.Add('  , NUMBER_PARCEL     ');
     FDataSet.SQL.Add('  , TYPE_MOVEMENT     ');
+    FDataSet.SQL.Add('  , ID_PROVIDER       ');
     FDataSet.SQL.Add('FROM MOVEMENT         ');
     FDataSet.SQL.Add('  WHERE ID = :ID      ');
     FDataSet.ParamByName('ID').AsInteger := FId;
@@ -146,6 +157,8 @@ begin
       FInstallmentValue := FDataSet.FieldByName('INSTALLMENT_VALUE').AsCurrency;
       FNumberParcel := FDataSet.FieldByName('NUMBER_PARCEL').AsInteger;
       FTypeMovement := FDataSet.FieldByName('TYPE_MOVEMENT').AsString;
+      FProvider.Id := FDataSet.FieldByName('ID_PROVIDER').AsInteger;
+      FProvider.GetById;
     end;
 
   except on E: Exception do
@@ -171,6 +184,7 @@ begin
     FDataSet.SQL.Add(', INSTALLMENT_VALUE    ');
     FDataSet.SQL.Add(', NUMBER_PARCEL        ');
     FDataSet.SQL.Add(', TYPE_MOVEMENT        ');
+    FDataSet.SQL.Add(', ID_PROVIDER          ');
     FDataSet.SQL.Add(') VALUES (             ');
     FDataSet.SQL.Add('  :UNIQUE_ID           ');
     FDataSet.SQL.Add(', :DESCRIPTION         ');
@@ -180,8 +194,9 @@ begin
     FDataSet.SQL.Add(', :INSTALLMENT_VALUE   ');
     FDataSet.SQL.Add(', :NUMBER_PARCEL       ');
     FDataSet.SQL.Add(', :TYPE_MOVEMENT       ');
+    FDataSet.SQL.Add(', :ID_PROVIDER         ');
     FDataSet.SQL.Add(');                     ');
-    FDataSet.ParamByName('UNIQUE_ID').AsString := FUniqueId;
+    FDataSet.ParamByName('UNIQUE_ID').AsString := TFunctions.GenerateUUID;
     FDataSet.ParamByName('DESCRIPTION').AsString := FDescription;
     FDataSet.ParamByName('ID_SUB_CATEGORY').AsInteger := FSubCategory.Id;
     FDataSet.ParamByName('ID_FORM_PAYMENT').AsInteger := FFormPayment.Id;
@@ -189,6 +204,7 @@ begin
     FDataSet.ParamByName('INSTALLMENT_VALUE').AsCurrency := FInstallmentValue;
     FDataSet.ParamByName('NUMBER_PARCEL').AsInteger := FNumberParcel;
     FDataSet.ParamByName('TYPE_MOVEMENT').AsString := FTypeMovement;
+    FDataSet.ParamByName('ID_PROVIDER').AsInteger := FProvider.Id;
     FDataSet.ExecSQL;
     FDataSet.Connection.Commit;
   except on E: Exception do
@@ -219,6 +235,7 @@ begin
     lSQL.Add('  , M.INSTALLMENT_VALUE          ');
     lSQL.Add('  , M.NUMBER_PARCEL              ');
     lSQL.Add('  , M.TYPE_MOVEMENT              ');
+    lSQL.Add('  , M.ID_PROVIDER                ');
     lSQL.Add('FROM MOVEMENT M                  ');
     lSQL.Add('  LEFT JOIN SUB_CATEGORY SC      ');
     lSQL.Add('  ON (SC.ID = M.ID_SUB_CATEGORY) ');
@@ -257,6 +274,7 @@ begin
     FDataSet.SQL.Add(' , INSTALLMENT_VALUE = :INSTALLMENT_VALUE ');
     FDataSet.SQL.Add(' , NUMBER_PARCEL     = :NUMBER_PARCEL     ');
     FDataSet.SQL.Add(' , TYPE_MOVEMENT     = :TYPE_MOVEMENT     ');
+    FDataSet.SQL.Add(' , ID_PROVIDER       = :ID_PROVIDER       ');
     FDataSet.SQL.Add('WHERE UNIQUE_ID      = :UNIQUE_ID;        ');
     FDataSet.ParamByName('DESCRIPTION').AsString := FDescription;
     FDataSet.ParamByName('ID_SUB_CATEGORY').AsInteger := FSubCategory.Id;
@@ -266,6 +284,7 @@ begin
     FDataSet.ParamByName('NUMBER_PARCEL').AsInteger := FNumberParcel;
     FDataSet.ParamByName('TYPE_MOVEMENT').AsString := FTypeMovement;
     FDataSet.ParamByName('UNIQUE_ID').AsString := FUniqueId;
+    FDataSet.ParamByName('ID_PROVIDER').AsInteger := FProvider.Id;
     FDataSet.ExecSQL;
     FDataSet.Connection.Commit;
   except on E: Exception do

@@ -9,7 +9,7 @@ type TProvider = class(TPerson)
   private
 
   public
-  constructor Create;
+    constructor Create;
 end;
 
 implementation

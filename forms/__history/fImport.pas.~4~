@@ -1,0 +1,128 @@
+unit fImport;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, IPPeerClient, Vcl.ComCtrls, Vcl.StdCtrls, REST.Client, Data.Bind.Components,
+  Data.Bind.ObjectScope, Data.DB, Vcl.Grids, Vcl.DBGrids, System.JSON,
+  FireDAC.Comp.Client;
+
+type
+  TfrmImport = class(TForm)
+    RESTClient1: TRESTClient;
+    RESTRequest1: TRESTRequest;
+    RESTResponse1: TRESTResponse;
+    btImport: TButton;
+    pcGeneral: TPageControl;
+    tabJSON: TTabSheet;
+    tabImport: TTabSheet;
+    mmJson: TMemo;
+    mmText: TMemo;
+    tabGrid: TTabSheet;
+    grData: TDBGrid;
+    dsGrid: TDataSource;
+    procedure btImportClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmImport: TfrmImport;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmImport.btImportClick(Sender: TObject);
+var
+  lJsonObject: TJsonObject;
+  lJsonObjectPrefixe: TJsonObject;
+  lJsonArray: TJsonArray;
+  lJsonString: string;
+  i: Integer;
+  lPrefixeValueIpv4: string;
+  lPrefixeValueIpv6: string;
+  lMemTable: TFDMemTable;
+begin
+  mmJson.Lines.Clear;
+  mmText.Lines.Clear;
+  lPrefixeValueIpv4 := EmptyStr;
+  lPrefixeValueIpv6 := EmptyStr;
+
+  lMemTable := TFDMemTable.Create(nil);
+  try
+
+    lMemTable.FieldDefs.Clear;
+    lMemTable.FieldDefs.Add('id',TFieldType.ftInteger);
+    lMemTable.FieldDefs.Add('ip',TFieldType.ftString,500);
+    lMemTable.FieldDefs.Add('type',TFieldType.ftString,10);
+    lMemTable.FieldDefs.Add('service',TFieldType.ftString,500);
+    lMemTable.FieldDefs.Add('scope',TFieldType.ftString,500);
+    lMemTable.CreateDataSet;
+
+    grData.DataSource := dsGrid;
+    dsGrid.DataSet := lMemTable;
+
+
+    RESTRequest1.Execute;
+    if RESTResponse1.StatusCode = 200 then
+    begin
+      mmJson.Text := RESTResponse1.Content;
+      lJsonString := RESTResponse1.Content;
+      if not(TJSONObject.ParseJSONValue(lJsonString).Null) then
+      begin
+        lJsonObject := TJSONObject.ParseJSONValue(lJsonString) as TJSONObject;
+
+        if (lJsonObject <> nil) then
+        begin
+          lJsonArray := lJsonObject.GetValue<TJSONArray>('prefixes') as TJSONArray;
+
+          for i := 0 to lJsonArray.Count - 1 do
+          begin
+
+            lJsonObjectPrefixe := lJsonArray.Items[i] as TJSONObject;
+            lPrefixeValueIpv4 := lJsonObjectPrefixe.GetValue<string>('ipv4Prefix','');
+            lPrefixeValueIpv6 := lJsonObjectPrefixe.GetValue<string>('ipv6Prefix','');
+
+            lMemTable.Append;
+
+            lMemTable.FieldByName('id').AsInteger := i + 1;
+
+            if (Length(Trim(lPrefixeValueIpv4)) > 0) then
+            begin
+              mmText.Lines.Add('ipv4Prefix: ' + lPrefixeValueIpv4);
+              lMemTable.FieldByName('type').AsString := 'Ipv4';
+              lMemTable.FieldByName('ip').AsString := lPrefixeValueIpv4;
+            end
+            else if (Length(Trim(lPrefixeValueIpv6)) > 0) then
+            begin
+              mmText.Lines.Add('ipv6Prefix: ' + lPrefixeValueIpv6);
+              lMemTable.FieldByName('type').AsString := 'Ipv6';
+              lMemTable.FieldByName('ip').AsString := lPrefixeValueIpv6;
+            end;
+
+            lMemTable.FieldByName('service').AsString := lJsonObjectPrefixe.GetValue<string>('service','');
+            lMemTable.FieldByName('scope').AsString := lJsonObjectPrefixe.GetValue<string>('scope','');
+            lMemTable.Post;
+
+          end;
+
+          grData.Columns[0].Width := 50;
+          grData.Columns[1].Width := 200;
+          grData.Columns[2].Width := 50;
+          grData.Columns[3].Width := 100;
+          grData.Columns[4].Width := 100;
+
+        end;
+      end;
+
+    end;
+  finally
+    lMemTable.Free;
+  end;
+end;
+
+end.

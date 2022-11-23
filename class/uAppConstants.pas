@@ -26,10 +26,15 @@ const
   MSG_ERROR_FORM_PAYMENT_DELETE = 'Erro ao tentar excluir uma forma de pagamento.';
   MSG_ERROR_FORM_PAYMENT_SEARCH = 'Erro ao tentar consultar forma de pagamento.';
 
-  MSG_ERROR_PROVIDER_INSERT = 'Erro ao tentar incluir um cliente.';
-  MSG_ERROR_PROVIDER_UPDATE = 'Erro ao tentar alterar um cliente.';
-  MSG_ERROR_PROVIDER_DELETE = 'Erro ao tentar excluir um cliente.';
-  MSG_ERROR_PROVIDER_SEARCH = 'Erro ao tentar consultar cliente.';
+  MSG_ERROR_PROVIDER_INSERT = 'Erro ao tentar incluir um fornecedor.';
+  MSG_ERROR_PROVIDER_UPDATE = 'Erro ao tentar alterar um fornecedor.';
+  MSG_ERROR_PROVIDER_DELETE = 'Erro ao tentar excluir um fornecedor.';
+  MSG_ERROR_PROVIDER_SEARCH = 'Erro ao tentar consultar fornecedor.';
+
+  MSG_ERROR_CUSTOMER_INSERT = 'Erro ao tentar incluir um cliente.';
+  MSG_ERROR_CUSTOMER_UPDATE = 'Erro ao tentar alterar um cliente.';
+  MSG_ERROR_CUSTOMER_DELETE = 'Erro ao tentar excluir um cliente.';
+  MSG_ERROR_CUSTOMER_SEARCH = 'Erro ao tentar consultar cliente.';
 
   MSG_ERROR_INSERT = 'Erro ao tentar incluir ';
   MSG_ERROR_UPDATE = 'Erro ao tentar alterar ';

@@ -7,7 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fLogin, Vcl.ExtCtrls, fCategory, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async,
   FireDAC.Phys, FireDAC.VCLUI.Wait, Data.DB, Vcl.StdCtrls, Vcl.Imaging.pngimage,
-  fTypePayment, uSystemManager, fFormPayment, fSubCategory, fMovement;
+  fTypePayment, uSystemManager, fFormPayment, fSubCategory, fMovement,
+  fProvider, fImport, uEnumTypes;
 
 type
   TfrmMain = class(TForm)
@@ -21,6 +22,8 @@ type
     pnlMenuFormPayment: TPanel;
     pnlMenuTypePayment: TPanel;
     pnlMenuExpenses: TPanel;
+    pnlMenuProvider: TPanel;
+    btImport: TButton;
     procedure FormShow(Sender: TObject);
     procedure pnlMenuCategoryClick(Sender: TObject);
     procedure pnlMenuTypePaymentClick(Sender: TObject);
@@ -28,6 +31,8 @@ type
     procedure pnlMenuSubCategoryClick(Sender: TObject);
     procedure pnlMenuExpensesClick(Sender: TObject);
     procedure pnlMenuRevenuesClick(Sender: TObject);
+    procedure pnlMenuProviderClick(Sender: TObject);
+    procedure btImportClick(Sender: TObject);
   private
     procedure loginCall;
     { Private declarations }
@@ -44,6 +49,18 @@ uses
   uDataBaseConnection;
 
 {$R *.dfm}
+
+procedure TfrmMain.btImportClick(Sender: TObject);
+var
+lform: TFrmImport;
+begin
+lform := TfrmImport.Create(nil);
+try
+  lform.ShowModal;
+finally
+  lform.Free;
+end;
+end;
 
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
@@ -81,6 +98,8 @@ var
 begin
   lForm := TfrmMovement.Create(nil);
   try
+    lForm.TypeMovement := tmExpenses;
+    lForm.pnlTitle.Color := pnlMenuExpenses.Color;
     lForm.ShowModal;
   finally
     lForm.Free;
@@ -100,12 +119,27 @@ begin
 
 end;
 
+procedure TfrmMain.pnlMenuProviderClick(Sender: TObject);
+var
+  lForm: TfrmProvider;
+begin
+  lForm := TfrmProvider.Create(nil);
+  try
+    lForm.ShowModal;
+  finally
+    lForm.Free;
+  end;
+
+end;
+
 procedure TfrmMain.pnlMenuRevenuesClick(Sender: TObject);
 var
   lForm: TfrmMovement;
 begin
   lForm := TfrmMovement.Create(nil);
   try
+    lForm.TypeMovement := tmRevenues;
+    lForm.pnlTitle.Color := pnlMenuRevenues.Color;
     lForm.ShowModal;
   finally
     lForm.Free;

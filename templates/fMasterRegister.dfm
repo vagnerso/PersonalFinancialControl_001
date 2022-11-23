@@ -174,7 +174,7 @@ inherited frmMasterRegister: TfrmMasterRegister
       Top = 0
       Width = 895
       Height = 437
-      ActivePage = tabRegister
+      ActivePage = tabGrid
       Align = alClient
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack

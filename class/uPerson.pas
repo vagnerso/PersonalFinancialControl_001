@@ -120,22 +120,36 @@ begin
     FDataSet.SQL.Add('   ID           ');
     FDataSet.SQL.Add(' , UNIQUE_ID    ');
     FDataSet.SQL.Add(' , NAME         ');
-    FDataSet.SQL.Add(' FROM PERSON  ');
+    FDataSet.SQL.Add(' , TYPE_PERSON  ');
+    FDataSet.SQL.Add(' , PHONE        ');
+    FDataSet.SQL.Add(' , EMAIL        ');
+    FDataSet.SQL.Add(' , ADRESS       ');
+    FDataSet.SQL.Add(' , NUMBER       ');
+    FDataSet.SQL.Add(' , DISTRICT     ');
+    FDataSet.SQL.Add(' , ID_CITY      ');
+    FDataSet.SQL.Add(' FROM PERSON    ');
     FDataSet.SQL.Add('WHERE ID = :ID  ');
-//    FDataSet.ParamByName('ID').AsInteger := FId;
+    FDataSet.ParamByName('ID').AsInteger := FId;
     FDataSet.Open;
 
     if not (FDataSet.IsEmpty) then
     begin
-//      FId := FDataSet.FieldByName('ID').AsInteger;
-//      FUniqueId := FDataSet.FieldByName('UNIQUE_ID').AsString;
-//      FName := FDataSet.FieldByName('NAME').AsString;
+      FId := FDataSet.FieldByName('ID').AsInteger;
+      FUniqueId := FDataSet.FieldByName('UNIQUE_ID').AsString;
+      FName := FDataSet.FieldByName('NAME').AsString;
+      FTypePerson := TTypePerson(FDataSet.FieldByName('TYPE_PERSON').AsInteger);
+      FPhone := FDataSet.FieldByName('PHONE').AsString;
+      FEmail := FDataSet.FieldByName('EMAIL').AsString;
+      FAdress := FDataSet.FieldByName('ADRESS').AsString;
+      FNumber := FDataSet.FieldByName('NUMBER').AsString;
+      FDistrict := FDataSet.FieldByName('DISTRICT').AsString;
+      FIdCity := FDataSet.FieldByName('ID_CITY').AsString;
     end;
 
   except on E: Exception do
     begin
       FDataSet.Connection.Rollback;
-      //Showmessage(MSG_ERROR_PERSON_INSERT);
+      Showmessage(MSG_ERROR_PROVIDER_SEARCH);
     end;
   end;
 
@@ -199,7 +213,8 @@ begin
   try
     lSQL.Clear;
     lSQL.Add('SELECT                      ');
-    lSQL.Add('   UNIQUE_ID                ');
+    lSQL.Add('   ID                       ');
+    lSQL.Add(' , UNIQUE_ID                ');
     lSQL.Add(' , NAME        "Nome"       ');
     lSQL.Add(' , TYPE_PERSON "Tipo"       ');
     lSQL.Add(' , PHONE       "Fone"       ');

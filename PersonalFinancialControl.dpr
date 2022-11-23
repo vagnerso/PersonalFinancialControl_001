@@ -28,7 +28,9 @@ uses
   fSubCategory in 'forms\fSubCategory.pas' {frmSubCategory},
   fGeneralSearch in 'forms\fGeneralSearch.pas' {frmGeneralSearch},
   fMovement in 'forms\fMovement.pas' {frmMovement},
-  uMovement in 'class\uMovement.pas';
+  uMovement in 'class\uMovement.pas',
+  fProvider in 'forms\fProvider.pas' {frmProvider},
+  fImport in 'forms\fImport.pas' {frmImport};
 
 {$R *.res}
 
@@ -52,5 +54,7 @@ begin
   TSystemManager.GetInstance.LayoutConfiguration.PanelBottomColor := $006A6960;
 
   Application.CreateForm(TfrmMain, frmMain);
+  Application.CreateForm(TfrmProvider, frmProvider);
+  Application.CreateForm(TfrmImport, frmImport);
   Application.Run;
 end.

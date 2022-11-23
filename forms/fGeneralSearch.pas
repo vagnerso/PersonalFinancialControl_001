@@ -167,8 +167,6 @@ begin
       dtsSearch.DataSet := FCategory.DataSet;
       FCategory.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
       FCategory.Search(FCategory.DataSet);
-      grdSearch.Columns[0].Width := 0;
-      grdSearch.Columns[1].Width := 0;
       grdSearch.Columns[2].Width := 400;
     end;
     setSubCategory:
@@ -204,6 +202,8 @@ begin
       FFormPayment.Search(FFormPayment.DataSet);
     end;
   end;
+  grdSearch.Columns[0].Visible := False;
+  grdSearch.Columns[1].Visible := False;
 end;
 
 procedure TfrmGeneralSearch.SetColors;
