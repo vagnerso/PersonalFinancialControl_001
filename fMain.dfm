@@ -12,6 +12,7 @@ object frmMain: TfrmMain
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  WindowState = wsMaximized
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 19
@@ -12938,12 +12939,12 @@ object frmMain: TfrmMain
   end
   object pnlMenuRevenues: TPanel
     Left = 303
-    Top = 48
-    Width = 241
-    Height = 91
+    Top = 28
+    Width = 290
+    Height = 109
     Cursor = crHandPoint
     BevelOuter = bvNone
-    Caption = 'Receitas'
+    Caption = 'Cadastrar Receitas'
     Color = 7909724
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWhite
@@ -12995,12 +12996,12 @@ object frmMain: TfrmMain
   end
   object pnlMenuExpenses: TPanel
     Left = 303
-    Top = 161
-    Width = 241
-    Height = 91
+    Top = 160
+    Width = 290
+    Height = 110
     Cursor = crHandPoint
     BevelOuter = bvNone
-    Caption = 'Despesas'
+    Caption = 'Cadastrar Despesas'
     Color = 3684595
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWhite
@@ -13040,5 +13041,61 @@ object frmMain: TfrmMain
     TabOrder = 8
     Visible = False
     OnClick = btImportClick
+  end
+  object pnButtonManageMovements: TPanel
+    Left = 40
+    Top = 280
+    Width = 553
+    Height = 49
+    Cursor = crHandPoint
+    BevelOuter = bvNone
+    Caption = 'Gerenciar movimenta'#231#245'es'
+    Color = 1152991
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWhite
+    Font.Height = -33
+    Font.Name = 'Calibri'
+    Font.Style = []
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 9
+    OnClick = pnButtonManageMovementsClick
+  end
+  object pnlButtonMovementReports: TPanel
+    Left = 303
+    Top = 340
+    Width = 290
+    Height = 49
+    Cursor = crHandPoint
+    BevelOuter = bvNone
+    Caption = 'Relat'#243'rios de movimenta'#231#245'es'
+    Color = 5066061
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWhite
+    Font.Height = -20
+    Font.Name = 'Calibri'
+    Font.Style = []
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 10
+  end
+  object pnButtonMovementGraphics: TPanel
+    Left = 40
+    Top = 340
+    Width = 239
+    Height = 49
+    Cursor = crHandPoint
+    BevelOuter = bvNone
+    Caption = 'Gr'#225'ficos de movimenta'#231#245'es'
+    Color = 5066061
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWhite
+    Font.Height = -20
+    Font.Name = 'Calibri'
+    Font.Style = []
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 11
+    OnClick = pnButtonMovementGraphicsClick
   end
 end

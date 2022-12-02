@@ -3,9 +3,11 @@ inherited frmMovement: TfrmMovement
   ClientHeight = 545
   ClientWidth = 892
   Font.Height = -21
+  KeyPreview = True
   Position = poScreenCenter
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  OnKeyPress = FormKeyPress
   OnShow = FormShow
   ExplicitWidth = 908
   ExplicitHeight = 584
@@ -19,9 +21,9 @@ inherited frmMovement: TfrmMovement
     Align = alTop
     BevelOuter = bvNone
     Caption = 'Cadastro de Despesas'
-    Color = 7909724
+    Color = clBlack
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = clBlack
+    Font.Color = clWhite
     Font.Height = -27
     Font.Name = 'Calibri'
     Font.Style = []
@@ -51,6 +53,8 @@ inherited frmMovement: TfrmMovement
       ParentBackground = False
       TabOrder = 0
       OnClick = pnlButtonSaveClick
+      OnMouseEnter = pnlButtonSaveMouseEnter
+      OnMouseLeave = pnlButtonSaveMouseLeave
     end
     object pnlButtonCancel: TPanel
       Left = 598
@@ -65,6 +69,8 @@ inherited frmMovement: TfrmMovement
       ParentBackground = False
       TabOrder = 1
       OnClick = pnlButtonCancelClick
+      OnMouseEnter = pnlButtonCancelMouseEnter
+      OnMouseLeave = pnlButtonCancelMouseLeave
     end
   end
   object pgcNavigator: TPageControl
@@ -83,6 +89,8 @@ inherited frmMovement: TfrmMovement
         Width = 884
         Height = 417
         Align = alClient
+        BevelOuter = bvNone
+        ParentBackground = False
         TabOrder = 0
         object Label1: TLabel
           Left = 16
@@ -90,6 +98,12 @@ inherited frmMovement: TfrmMovement
           Width = 183
           Height = 26
           Caption = 'Forma de pagamento'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -21
+          Font.Name = 'Calibri'
+          Font.Style = []
+          ParentFont = False
         end
         object imButtonClearEdtFormPayment: TImage
           Left = 351
@@ -151,6 +165,12 @@ inherited frmMovement: TfrmMovement
           Width = 161
           Height = 26
           Caption = 'Descri'#231#227'o da conta'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -21
+          Font.Name = 'Calibri'
+          Font.Style = []
+          ParentFont = False
         end
         object Label3: TLabel
           Left = 432
@@ -158,13 +178,25 @@ inherited frmMovement: TfrmMovement
           Width = 201
           Height = 26
           Caption = 'Quantidade de parcelas'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -21
+          Font.Name = 'Calibri'
+          Font.Style = []
+          ParentFont = False
         end
-        object Label4: TLabel
+        object lbInstallmentsValue: TLabel
           Left = 16
           Top = 259
           Width = 153
           Height = 26
           Caption = 'Valor das parcelas'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -21
+          Font.Name = 'Calibri'
+          Font.Style = []
+          ParentFont = False
         end
         object Label5: TLabel
           Left = 16
@@ -172,6 +204,12 @@ inherited frmMovement: TfrmMovement
           Width = 97
           Height = 26
           Caption = 'Fornecedor'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -21
+          Font.Name = 'Calibri'
+          Font.Style = []
+          ParentFont = False
         end
         object imButtonClearEdtProvider: TImage
           Left = 351
@@ -233,6 +271,12 @@ inherited frmMovement: TfrmMovement
           Width = 119
           Height = 26
           Caption = 'Sub-Categoria'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -21
+          Font.Name = 'Calibri'
+          Font.Style = []
+          ParentFont = False
         end
         object imButtonClearEdtSubCategory: TImage
           Left = 799
@@ -294,6 +338,12 @@ inherited frmMovement: TfrmMovement
           Width = 250
           Height = 26
           Caption = 'Data do primeiro vencimento'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -21
+          Font.Name = 'Calibri'
+          Font.Style = []
+          ParentFont = False
         end
         object edtDescription: TEdit
           Left = 16
@@ -366,18 +416,23 @@ inherited frmMovement: TfrmMovement
     object tabInstallments: TTabSheet
       Caption = 'Parcelas'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object pnlInstallments: TPanel
         Left = 0
         Top = 0
         Width = 884
         Height = 417
         Align = alClient
+        BevelOuter = bvNone
         TabOrder = 0
         object grInstallments: TDBGrid
-          Left = 1
-          Top = 1
-          Width = 882
-          Height = 415
+          Left = 0
+          Top = 0
+          Width = 884
+          Height = 417
           Align = alClient
           DataSource = dtsInstallments
           TabOrder = 0

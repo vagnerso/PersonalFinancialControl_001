@@ -9,23 +9,9 @@ inherited frmProvider: TfrmProvider
   inherited pnlGeneral: TPanel
     inherited pgcGeneral: TPageControl
       ActivePage = tabRegister
-      inherited tabGrid: TTabSheet
-        ExplicitLeft = 4
-        ExplicitTop = 25
-        ExplicitWidth = 887
-        ExplicitHeight = 408
-      end
       inherited tabRegister: TTabSheet
-        ExplicitLeft = 4
-        ExplicitTop = 25
-        ExplicitWidth = 887
-        ExplicitHeight = 408
         inherited pgcRegister: TPageControl
           inherited tabRegisterBasic: TTabSheet
-            ExplicitLeft = 4
-            ExplicitTop = 25
-            ExplicitWidth = 879
-            ExplicitHeight = 338
             inherited pnlRegisterBasic: TPanel
               object lb3: TLabel
                 Left = 8
@@ -33,6 +19,12 @@ inherited frmProvider: TfrmProvider
                 Width = 38
                 Height = 19
                 Caption = 'Nome'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWhite
+                Font.Height = -16
+                Font.Name = 'Calibri'
+                Font.Style = []
+                ParentFont = False
               end
               object Label1: TLabel
                 Left = 440
@@ -40,6 +32,12 @@ inherited frmProvider: TfrmProvider
                 Width = 56
                 Height = 19
                 Caption = 'Telefone'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWhite
+                Font.Height = -16
+                Font.Name = 'Calibri'
+                Font.Style = []
+                ParentFont = False
               end
               object Label2: TLabel
                 Left = 8
@@ -47,6 +45,12 @@ inherited frmProvider: TfrmProvider
                 Width = 42
                 Height = 19
                 Caption = 'E-Mail'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWhite
+                Font.Height = -16
+                Font.Name = 'Calibri'
+                Font.Style = []
+                ParentFont = False
               end
               object Label3: TLabel
                 Left = 8
@@ -54,6 +58,12 @@ inherited frmProvider: TfrmProvider
                 Width = 60
                 Height = 19
                 Caption = 'Endere'#231'o'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWhite
+                Font.Height = -16
+                Font.Name = 'Calibri'
+                Font.Style = []
+                ParentFont = False
               end
               object Label4: TLabel
                 Left = 359
@@ -61,6 +71,12 @@ inherited frmProvider: TfrmProvider
                 Width = 51
                 Height = 19
                 Caption = 'N'#250'mero'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWhite
+                Font.Height = -16
+                Font.Name = 'Calibri'
+                Font.Style = []
+                ParentFont = False
               end
               object Label5: TLabel
                 Left = 535
@@ -68,6 +84,12 @@ inherited frmProvider: TfrmProvider
                 Width = 39
                 Height = 19
                 Caption = 'Bairro'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWhite
+                Font.Height = -16
+                Font.Name = 'Calibri'
+                Font.Style = []
+                ParentFont = False
               end
               object Label6: TLabel
                 Left = 8
@@ -75,6 +97,12 @@ inherited frmProvider: TfrmProvider
                 Width = 45
                 Height = 19
                 Caption = 'Cidade'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWhite
+                Font.Height = -16
+                Font.Name = 'Calibri'
+                Font.Style = []
+                ParentFont = False
               end
               object imButtonClearEdtCity: TImage
                 Left = 423
@@ -187,14 +215,6 @@ inherited frmProvider: TfrmProvider
           end
         end
       end
-    end
-  end
-  inherited pgcSearch: TPageControl
-    inherited tabSearch: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
-      ExplicitWidth = 1037
-      ExplicitHeight = 83
     end
   end
   inherited pmActionMenu: TPopupMenu

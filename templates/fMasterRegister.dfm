@@ -47,6 +47,7 @@ inherited frmMasterRegister: TfrmMasterRegister
     Height = 437
     Align = alLeft
     BevelOuter = bvNone
+    Color = 6511179
     ParentBackground = False
     TabOrder = 2
     object pnlButtonInsert: TPanel
@@ -231,7 +232,7 @@ inherited frmMasterRegister: TfrmMasterRegister
           ParentFont = False
           TabOrder = 0
           object pnlButtonSave: TPanel
-            Left = 593
+            Left = 740
             Top = 0
             Width = 147
             Height = 41
@@ -245,9 +246,11 @@ inherited frmMasterRegister: TfrmMasterRegister
             OnClick = pnlButtonSaveClick
             OnMouseEnter = pnlButtonSaveMouseEnter
             OnMouseLeave = pnlButtonSaveMouseLeave
+            ExplicitLeft = 785
+            ExplicitTop = 2
           end
           object pnlButtonCancel: TPanel
-            Left = 740
+            Left = 593
             Top = 0
             Width = 147
             Height = 41
@@ -261,6 +264,7 @@ inherited frmMasterRegister: TfrmMasterRegister
             OnClick = pnlButtonCancelClick
             OnMouseEnter = pnlButtonCancelMouseEnter
             OnMouseLeave = pnlButtonCancelMouseLeave
+            ExplicitLeft = 740
           end
         end
         object pgcRegister: TPageControl
@@ -286,6 +290,7 @@ inherited frmMasterRegister: TfrmMasterRegister
               Height = 338
               Align = alClient
               BevelOuter = bvNone
+              Color = 14276046
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clBlack
               Font.Height = -16

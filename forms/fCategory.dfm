@@ -30,6 +30,7 @@ inherited frmCategory: TfrmCategory
     inherited pgcGeneral: TPageControl
       Width = 668
       Height = 313
+      ActivePage = tabRegister
       ExplicitWidth = 668
       ExplicitHeight = 313
       inherited tabGrid: TTabSheet
@@ -76,6 +77,12 @@ inherited frmCategory: TfrmCategory
                 Width = 38
                 Height = 19
                 Caption = 'Name'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWhite
+                Font.Height = -16
+                Font.Name = 'Calibri'
+                Font.Style = []
+                ParentFont = False
               end
               object edtName: TEdit
                 Left = 8

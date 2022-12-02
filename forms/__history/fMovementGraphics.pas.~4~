@@ -1,0 +1,54 @@
+unit fMovementGraphics;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, uMovement, VclTee.TeeGDIPlus, Data.DB, VCLTee.TeEngine, VCLTee.Series,
+  Vcl.ExtCtrls, VCLTee.TeeProcs, VCLTee.Chart, VCLTee.DBChart;
+
+type
+  TfrmMovementGraphics = class(TfrmBase)
+    cht1: TDBChart;
+    dtsMovementResume: TDataSource;
+    Series1: TPieSeries;
+    procedure FormShow(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+  private
+    FMovement: TMovement;
+    { Private declarations }
+  public
+    { Public declarations }
+    property Movement: TMovement read FMovement write FMovement;
+  end;
+
+var
+  frmMovementGraphics: TfrmMovementGraphics;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmMovementGraphics.FormCreate(Sender: TObject);
+begin
+  inherited;
+  FMovement := TMovement.Create;
+end;
+
+procedure TfrmMovementGraphics.FormDestroy(Sender: TObject);
+begin
+  inherited;
+  FMovement.Free;
+end;
+
+procedure TfrmMovementGraphics.FormShow(Sender: TObject);
+begin
+  inherited;
+  dtsMovementResume.DataSet := FMovement.QueryGraphic;
+  cht1.Series[0].DataSource := dtsMovementResume;
+  FMovement.GetQueryGraphic;
+  cht1.Series[0].Add(FMovement.QueryGraphic.FieldByName('total').AsCurrency, 'R$ Total', clRed);
+end;
+
+end.

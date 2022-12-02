@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, Vcl.ExtCtrls, Vcl.ComCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids,
   Vcl.Imaging.pngimage, Vcl.StdCtrls, fGeneralSearch, uEnumTypes,
-  FireDAC.Comp.Client, uFunctions, uMovement;
+  FireDAC.Comp.Client, uFunctions, uMovement, uSystemManager;
 
 type
   TfrmMovement = class(TfrmBase)
@@ -30,7 +30,7 @@ type
     pnlButtonCancel: TPanel;
     grInstallments: TDBGrid;
     dtsInstallments: TDataSource;
-    Label4: TLabel;
+    lbInstallmentsValue: TLabel;
     edtInstallmentesValue: TEdit;
     Label5: TLabel;
     imButtonClearEdtProvider: TImage;
@@ -52,12 +52,30 @@ type
     procedure imButtonSearchProviderClick(Sender: TObject);
     procedure imButtonSearchSubCategoryClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure pnlButtonCancelMouseEnter(Sender: TObject);
+    procedure pnlButtonSaveMouseEnter(Sender: TObject);
+    procedure pnlButtonCancelMouseLeave(Sender: TObject);
+    procedure pnlButtonSaveMouseLeave(Sender: TObject);
   private
     FMemInstallmentsList: TFDMemTable;
     FTypeMovement: TTypeMovement;
     FRegisterObject: TMovement;
+    FBackgroundColor :TColor;
+    FTitleColor :TColor;
+    FTitleFontColor :TColor;
+    FActionButtonColor :TColor;
+    FHoverActionButtonColor :TColor;
+    FActionButtonFontColor :TColor;
+    FActionButtonHoverColor :TColor;
+    FSearchPanelColor :TColor;
+    FMainPanelColor :TColor;
+    FRegisterPanelColor :TColor;
+    FMainPanelRegisterColor :TColor;
+    FPanelBottomColor :TColor;
 
     procedure InstallmentsGenerate;
+    procedure SetColors;
 
     { Private declarations }
   public
@@ -83,14 +101,18 @@ begin
   if numberInstallments > 1 then
   begin
     pnlButtonInstallmentsGenerate.Visible := True;
+    tabInstallments.TabVisible := True;
     lbFirstIssueDate.Visible := True;
     edtFirstIssueDate.Visible := True;
+    lbInstallmentsValue.Caption := 'Valor das parcelas';
   end
   else
   begin
     pnlButtonInstallmentsGenerate.Visible := False;
+    tabInstallments.TabVisible := False;
     lbFirstIssueDate.Visible := False;
     edtFirstIssueDate.Visible := False;
+    lbInstallmentsValue.Caption := 'Valor';
   end;
 
 end;
@@ -99,6 +121,7 @@ procedure TfrmMovement.FormCreate(Sender: TObject);
 begin
   inherited;
   FRegisterObject := TMovement.Create;
+  FRegisterObject.Clear;
   FMemInstallmentsList := TFDMemTable.Create(Self);
   FMemInstallmentsList.FieldDefs.Add('NUMBER_PARCEL', ftInteger);
   FMemInstallmentsList.FieldDefs.Add('DESCRIPTION', ftString, 300);
@@ -113,10 +136,21 @@ begin
   FRegisterObject.Free;
 end;
 
+procedure TfrmMovement.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if (Key = #13) then
+  begin
+    Key := #0;
+    Perform(Wm_NextDlgCtl,0,0);
+  end;
+end;
+
 procedure TfrmMovement.FormShow(Sender: TObject);
 begin
   inherited;
   pgcNavigator.ActivePage := tabDescription;
+  SetColors;
 
   case FTypeMovement of
     tmRevenues:
@@ -133,6 +167,38 @@ begin
 
   edtFirstIssueDate.Date := now;
   edtNumberInstallments.Text := '1';
+  edtNumberInstallmentsClick(Self);
+end;
+
+
+procedure TfrmMovement.SetColors;
+begin
+  FBackgroundColor := TSystemManager.GetInstance.LayoutConfiguration.BackgroundColor;
+  FTitleColor := TSystemManager.GetInstance.LayoutConfiguration.TitleColor;
+  FTitleFontColor := TSystemManager.GetInstance.LayoutConfiguration.TitleFontColor;
+  FActionButtonColor := TSystemManager.GetInstance.LayoutConfiguration.ActionButtonColor;
+  FHoverActionButtonColor:= TSystemManager.GetInstance.LayoutConfiguration.HoverActionButtonColor;
+  FActionButtonFontColor := TSystemManager.GetInstance.LayoutConfiguration.ActionButtonFontColor;
+  FActionButtonHoverColor:= TSystemManager.GetInstance.LayoutConfiguration.ActionButtonHoverFontColor;
+  FSearchPanelColor := TSystemManager.GetInstance.LayoutConfiguration.SearchPanelColor;
+  FMainPanelColor := TSystemManager.GetInstance.LayoutConfiguration.MainPanelColor;
+  FRegisterPanelColor := TSystemManager.GetInstance.LayoutConfiguration.RegisterPanelColor;
+  FMainPanelRegisterColor := TSystemManager.GetInstance.LayoutConfiguration.MainPanelRegisterColor;
+  FPanelBottomColor := TSystemManager.GetInstance.LayoutConfiguration.PanelBottomColor;
+
+  Color := FBackgroundColor;
+  //pnlTitle.Color := FTitleColor;
+  pnlTitle.Font.Color := FTitleFontColor;
+
+  pnlButtonSave.Color := FActionButtonColor;
+  pnlButtonCancel.Color := FActionButtonColor;
+
+  pnlButtonSave.Font.Color := FActionButtonFontColor;
+  pnlButtonCancel.Font.Color := FActionButtonFontColor;
+
+  pnlDescription.Color := FRegisterPanelColor;
+
+  pnlBottom.Color := FPanelBottomColor;
 end;
 
 procedure TfrmMovement.imButtonSearchProviderClick(Sender: TObject);
@@ -219,6 +285,11 @@ begin
   grInstallments.Columns[2].Width := 140;
   grInstallments.Columns[3].Width := 140;
 
+  grInstallments.Columns[0].Title.Caption := 'Parcela';
+  grInstallments.Columns[1].Title.Caption := 'Descrição';
+  grInstallments.Columns[2].Title.Caption := 'R$ Valor';
+  grInstallments.Columns[3].Title.Caption := 'Vencimento';
+
   pgcNavigator.ActivePage := tabInstallments;
 
 end;
@@ -236,11 +307,11 @@ begin
   while not FMemInstallmentsList.Eof do
   begin
 
-    FRegisterObject.Clear;
     FRegisterObject.Description := FMemInstallmentsList.FieldByName('DESCRIPTION').AsString;
     FRegisterObject.InstallmentValue := FMemInstallmentsList.FieldByName('INSTALLMENT_VALUE').AsCurrency;
     FRegisterObject.IssueDate := FMemInstallmentsList.FieldByName('ISSUE_DATE').AsDateTime;
     FRegisterObject.NumberParcel := FMemInstallmentsList.FieldByName('NUMBER_PARCEL').AsInteger;
+    FRegisterObject.TypeMovement := FTypeMovement;
     FRegisterObject.InsertRegister;
 
     FMemInstallmentsList.Next;
@@ -249,10 +320,38 @@ begin
   ModalResult := mrOk;
 end;
 
+procedure TfrmMovement.pnlButtonSaveMouseEnter(Sender: TObject);
+begin
+  inherited;
+  TPanel(Sender).Color := FHoverActionButtonColor;
+  TPanel(Sender).Font.Color := FActionButtonHoverColor;
+end;
+
+procedure TfrmMovement.pnlButtonSaveMouseLeave(Sender: TObject);
+begin
+  inherited;
+  TPanel(Sender).Color := FActionButtonColor;
+  TPanel(Sender).Font.Color := FActionButtonFontColor;
+end;
+
 procedure TfrmMovement.pnlButtonCancelClick(Sender: TObject);
 begin
   inherited;
   Close;
+end;
+
+procedure TfrmMovement.pnlButtonCancelMouseEnter(Sender: TObject);
+begin
+  inherited;
+  TPanel(Sender).Color := FHoverActionButtonColor;
+  TPanel(Sender).Font.Color := FActionButtonHoverColor;
+end;
+
+procedure TfrmMovement.pnlButtonCancelMouseLeave(Sender: TObject);
+begin
+  inherited;
+  TPanel(Sender).Color := FActionButtonColor;
+  TPanel(Sender).Font.Color := FActionButtonFontColor;
 end;
 
 procedure TfrmMovement.pnlButtonInstallmentsGenerateClick(Sender: TObject);

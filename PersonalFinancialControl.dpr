@@ -30,7 +30,9 @@ uses
   fMovement in 'forms\fMovement.pas' {frmMovement},
   uMovement in 'class\uMovement.pas',
   fProvider in 'forms\fProvider.pas' {frmProvider},
-  fImport in 'forms\fImport.pas' {frmImport};
+  fImport in 'forms\fImport.pas' {frmImport},
+  fManageMovements in 'forms\fManageMovements.pas' {frmManageMovements},
+  fMovementGraphics in 'forms\fMovementGraphics.pas' {frmMovementGraphics};
 
 {$R *.res}
 
@@ -42,19 +44,18 @@ begin
 
   TSystemManager.GetInstance.LayoutConfiguration.TitleColor := $0078B15C;
   TSystemManager.GetInstance.LayoutConfiguration.TitleFontColor := clWhite;
-  TSystemManager.GetInstance.LayoutConfiguration.ActionButtonColor := $006A6960;
+  TSystemManager.GetInstance.LayoutConfiguration.ActionButtonColor := $00635A4B;
   TSystemManager.GetInstance.LayoutConfiguration.HoverActionButtonColor := $0077DCEA;
   TSystemManager.GetInstance.LayoutConfiguration.ActionButtonFontColor := clWhite;
   TSystemManager.GetInstance.LayoutConfiguration.ActionButtonHoverFontColor := clBlack;
-  TSystemManager.GetInstance.LayoutConfiguration.BackgroundColor :=$006A6960 ;
-  TSystemManager.GetInstance.LayoutConfiguration.SearchPanelColor :=$006A6960;
-  TSystemManager.GetInstance.LayoutConfiguration.MainPanelColor := $006A6960;
-  TSystemManager.GetInstance.LayoutConfiguration.MainPanelRegisterColor := $006A6960;
-  TSystemManager.GetInstance.LayoutConfiguration.RegisterPanelColor := $006A6960;
-  TSystemManager.GetInstance.LayoutConfiguration.PanelBottomColor := $006A6960;
+  TSystemManager.GetInstance.LayoutConfiguration.BackgroundColor :=$00635A4B ;
+  TSystemManager.GetInstance.LayoutConfiguration.SearchPanelColor :=$00635A4B;
+  TSystemManager.GetInstance.LayoutConfiguration.MainPanelColor := $00635A4B;
+  TSystemManager.GetInstance.LayoutConfiguration.MainPanelRegisterColor := $00635A4B;
+  TSystemManager.GetInstance.LayoutConfiguration.RegisterPanelColor := $00635A4B;
+  TSystemManager.GetInstance.LayoutConfiguration.PanelBottomColor := $00635A4B;
 
   Application.CreateForm(TfrmMain, frmMain);
-  Application.CreateForm(TfrmProvider, frmProvider);
-  Application.CreateForm(TfrmImport, frmImport);
+  Application.CreateForm(TfrmMovementGraphics, frmMovementGraphics);
   Application.Run;
 end.

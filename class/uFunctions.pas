@@ -4,7 +4,7 @@ interface
 
 uses
   Vcl.Forms,
-  System.SysUtils, Vcl.StdCtrls, Vcl.Dialogs;
+  System.SysUtils, Vcl.StdCtrls, Vcl.Dialogs, Data.DB;
 
 type TFunctions=class
   private
@@ -19,6 +19,7 @@ type TFunctions=class
   class function AppVersion: string;
   class procedure clearFormFields(AForm: TForm);
   class function IntegerToBoolean(AValue: Int8): Boolean;
+  class procedure FormatDataSetDecimalFields(ADataSet: TDataSet; AMask: String);
 end;
 
 implementation
@@ -99,6 +100,23 @@ end;
 class function TFunctions.DataBasePath: string;
 begin
   Result := ExtractFilePath(Application.ExeName) + '\database\';
+end;
+
+class procedure TFunctions.FormatDataSetDecimalFields(ADataSet: TDataSet; AMask: String);
+var
+  I: Integer;
+begin
+  for I := 0 to ADataSet.FieldCount-1 do
+  begin
+    if (ADataSet.Fields[I].DataType = ftFloat) then
+    begin
+      TFloatField(ADataSet.FieldByName('R$ Valor')).DisplayFormat:= AMask;
+    end else
+    if (ADataSet.Fields[I].DataType = ftCurrency) then
+    begin
+      TCurrencyField(ADataSet.FieldByName('R$ Valor')).DisplayFormat:= AMask;
+    end;
+  end;
 end;
 
 end.

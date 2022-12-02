@@ -9,12 +9,6 @@ inherited frmTypePayment: TfrmTypePayment
   inherited pnlGeneral: TPanel
     inherited pgcGeneral: TPageControl
       ActivePage = tabRegister
-      inherited tabGrid: TTabSheet
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
-      end
       inherited tabRegister: TTabSheet
         inherited pgcRegister: TPageControl
           inherited tabRegisterBasic: TTabSheet
@@ -25,6 +19,12 @@ inherited frmTypePayment: TfrmTypePayment
                 Width = 38
                 Height = 19
                 Caption = 'Name'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWhite
+                Font.Height = -16
+                Font.Name = 'Calibri'
+                Font.Style = []
+                ParentFont = False
               end
               object lb2: TLabel
                 Left = 8
@@ -32,6 +32,12 @@ inherited frmTypePayment: TfrmTypePayment
                 Width = 143
                 Height = 19
                 Caption = 'Permite Parcelamento'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWhite
+                Font.Height = -16
+                Font.Name = 'Calibri'
+                Font.Style = []
+                ParentFont = False
               end
               object edtName: TEdit
                 Left = 8

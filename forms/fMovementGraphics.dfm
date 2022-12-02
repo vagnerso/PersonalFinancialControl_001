@@ -1,0 +1,361 @@
+inherited frmMovementGraphics: TfrmMovementGraphics
+  Caption = 'frmMovementGraphics'
+  ClientHeight = 1061
+  ClientWidth = 995
+  Position = poScreenCenter
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  ExplicitWidth = 1011
+  ExplicitHeight = 1100
+  PixelsPerInch = 96
+  TextHeight = 19
+  object pnlTitle: TPanel
+    Left = 0
+    Top = 0
+    Width = 995
+    Height = 41
+    Align = alTop
+    Caption = 'Gr'#225'ficos de movimenta'#231#227'o financeira'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'Calibri'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+    ExplicitLeft = 384
+    ExplicitTop = 272
+    ExplicitWidth = 185
+  end
+  object pnlBottom: TPanel
+    Left = 0
+    Top = 1044
+    Width = 995
+    Height = 17
+    Align = alBottom
+    TabOrder = 1
+    ExplicitTop = 528
+    ExplicitWidth = 935
+  end
+  object pgcGeneral: TPageControl
+    Left = 0
+    Top = 89
+    Width = 995
+    Height = 955
+    ActivePage = tabGraphics
+    Align = alClient
+    TabOrder = 2
+    ExplicitTop = 41
+    ExplicitWidth = 935
+    ExplicitHeight = 487
+    object tabGraphics: TTabSheet
+      Caption = 'Visualizar em Gr'#225'ficos'
+      ExplicitLeft = 8
+      ExplicitTop = 28
+      ExplicitWidth = 927
+      ExplicitHeight = 453
+      object scrGraphics: TScrollBox
+        Left = 0
+        Top = 0
+        Width = 987
+        Height = 921
+        VertScrollBar.Position = 421
+        Align = alClient
+        BevelInner = bvNone
+        BevelOuter = bvNone
+        BorderStyle = bsNone
+        TabOrder = 0
+        object chtFormPaymentsRevenues: TDBChart
+          Left = 479
+          Top = -421
+          Width = 465
+          Height = 436
+          Title.Color = clRed
+          Title.Text.Strings = (
+            'Entradas por forma de pagamento')
+          View3DOptions.Elevation = 315
+          View3DOptions.Orthogonal = False
+          View3DOptions.Perspective = 0
+          View3DOptions.Rotation = 360
+          TabOrder = 0
+          DefaultCanvas = 'TGDIPlusCanvas'
+          ColorPaletteIndex = 13
+          object Series1: TPieSeries
+            ValueFormat = '#.##0,00;(#.##0,00)'
+            XValues.Order = loAscending
+            YValues.Name = 'Pie'
+            YValues.Order = loNone
+            Frame.InnerBrush.BackColor = clRed
+            Frame.InnerBrush.Gradient.EndColor = clGray
+            Frame.InnerBrush.Gradient.MidColor = clWhite
+            Frame.InnerBrush.Gradient.StartColor = 4210752
+            Frame.InnerBrush.Gradient.Visible = True
+            Frame.MiddleBrush.BackColor = clYellow
+            Frame.MiddleBrush.Gradient.EndColor = 8553090
+            Frame.MiddleBrush.Gradient.MidColor = clWhite
+            Frame.MiddleBrush.Gradient.StartColor = clGray
+            Frame.MiddleBrush.Gradient.Visible = True
+            Frame.OuterBrush.BackColor = clGreen
+            Frame.OuterBrush.Gradient.EndColor = 4210752
+            Frame.OuterBrush.Gradient.MidColor = clWhite
+            Frame.OuterBrush.Gradient.StartColor = clSilver
+            Frame.OuterBrush.Gradient.Visible = True
+            Frame.Width = 4
+            EdgeStyle = edFlat
+            OtherSlice.Legend.Visible = False
+          end
+        end
+        object chtFormPaymentsExpenses: TDBChart
+          Left = 8
+          Top = -421
+          Width = 465
+          Height = 436
+          Title.Color = clRed
+          Title.Text.Strings = (
+            'Sa'#237'das por forma de pagamento')
+          View3DOptions.Elevation = 315
+          View3DOptions.Orthogonal = False
+          View3DOptions.Perspective = 0
+          View3DOptions.Rotation = 360
+          TabOrder = 1
+          DefaultCanvas = 'TGDIPlusCanvas'
+          ColorPaletteIndex = 13
+          object PieSeries1: TPieSeries
+            ValueFormat = '#.##0,00;(#.##0,00)'
+            XValues.Order = loAscending
+            YValues.Name = 'Pie'
+            YValues.Order = loNone
+            Frame.InnerBrush.BackColor = clRed
+            Frame.InnerBrush.Gradient.EndColor = clGray
+            Frame.InnerBrush.Gradient.MidColor = clWhite
+            Frame.InnerBrush.Gradient.StartColor = 4210752
+            Frame.InnerBrush.Gradient.Visible = True
+            Frame.MiddleBrush.BackColor = clYellow
+            Frame.MiddleBrush.Gradient.EndColor = 8553090
+            Frame.MiddleBrush.Gradient.MidColor = clWhite
+            Frame.MiddleBrush.Gradient.StartColor = clGray
+            Frame.MiddleBrush.Gradient.Visible = True
+            Frame.OuterBrush.BackColor = clGreen
+            Frame.OuterBrush.Gradient.EndColor = 4210752
+            Frame.OuterBrush.Gradient.MidColor = clWhite
+            Frame.OuterBrush.Gradient.StartColor = clSilver
+            Frame.OuterBrush.Gradient.Visible = True
+            Frame.Width = 4
+            Bevel.Bright = 0
+            EdgeStyle = edFlat
+            OtherSlice.Legend.Visible = False
+          end
+        end
+        object chtSubCategoryExpenses: TDBChart
+          Left = 8
+          Top = 43
+          Width = 465
+          Height = 436
+          Title.Color = clRed
+          Title.Text.Strings = (
+            'Sa'#237'das por sub categoria')
+          View3DOptions.Elevation = 315
+          View3DOptions.Orthogonal = False
+          View3DOptions.Perspective = 0
+          View3DOptions.Rotation = 360
+          TabOrder = 2
+          DefaultCanvas = 'TGDIPlusCanvas'
+          ColorPaletteIndex = 13
+          object PieSeries2: TPieSeries
+            ValueFormat = '#.##0,00;(#.##0,00)'
+            XValues.Order = loAscending
+            YValues.Name = 'Pie'
+            YValues.Order = loNone
+            Frame.InnerBrush.BackColor = clRed
+            Frame.InnerBrush.Gradient.EndColor = clGray
+            Frame.InnerBrush.Gradient.MidColor = clWhite
+            Frame.InnerBrush.Gradient.StartColor = 4210752
+            Frame.InnerBrush.Gradient.Visible = True
+            Frame.MiddleBrush.BackColor = clYellow
+            Frame.MiddleBrush.Gradient.EndColor = 8553090
+            Frame.MiddleBrush.Gradient.MidColor = clWhite
+            Frame.MiddleBrush.Gradient.StartColor = clGray
+            Frame.MiddleBrush.Gradient.Visible = True
+            Frame.OuterBrush.BackColor = clGreen
+            Frame.OuterBrush.Gradient.EndColor = 4210752
+            Frame.OuterBrush.Gradient.MidColor = clWhite
+            Frame.OuterBrush.Gradient.StartColor = clSilver
+            Frame.OuterBrush.Gradient.Visible = True
+            Frame.Width = 4
+            Bevel.Bright = 0
+            EdgeStyle = edFlat
+            OtherSlice.Legend.Visible = False
+          end
+        end
+        object chtSubCategoryRevenues: TDBChart
+          Left = 479
+          Top = 43
+          Width = 465
+          Height = 436
+          Title.Color = clRed
+          Title.Text.Strings = (
+            'Entradas por sub categoria')
+          View3DOptions.Elevation = 315
+          View3DOptions.Orthogonal = False
+          View3DOptions.Perspective = 0
+          View3DOptions.Rotation = 360
+          TabOrder = 3
+          DefaultCanvas = 'TGDIPlusCanvas'
+          ColorPaletteIndex = 13
+          object PieSeries3: TPieSeries
+            ValueFormat = '#.##0,00;(#.##0,00)'
+            XValues.Order = loAscending
+            YValues.Name = 'Pie'
+            YValues.Order = loNone
+            Frame.InnerBrush.BackColor = clRed
+            Frame.InnerBrush.Gradient.EndColor = clGray
+            Frame.InnerBrush.Gradient.MidColor = clWhite
+            Frame.InnerBrush.Gradient.StartColor = 4210752
+            Frame.InnerBrush.Gradient.Visible = True
+            Frame.MiddleBrush.BackColor = clYellow
+            Frame.MiddleBrush.Gradient.EndColor = 8553090
+            Frame.MiddleBrush.Gradient.MidColor = clWhite
+            Frame.MiddleBrush.Gradient.StartColor = clGray
+            Frame.MiddleBrush.Gradient.Visible = True
+            Frame.OuterBrush.BackColor = clGreen
+            Frame.OuterBrush.Gradient.EndColor = 4210752
+            Frame.OuterBrush.Gradient.MidColor = clWhite
+            Frame.OuterBrush.Gradient.StartColor = clSilver
+            Frame.OuterBrush.Gradient.Visible = True
+            Frame.Width = 4
+            Bevel.Bright = 0
+            EdgeStyle = edFlat
+            OtherSlice.Legend.Visible = False
+          end
+        end
+        object chtCategoryExpenses: TDBChart
+          Left = 8
+          Top = 485
+          Width = 465
+          Height = 436
+          Title.Color = clRed
+          Title.Text.Strings = (
+            'Sa'#237'das por categoria')
+          View3DOptions.Elevation = 315
+          View3DOptions.Orthogonal = False
+          View3DOptions.Perspective = 0
+          View3DOptions.Rotation = 360
+          TabOrder = 4
+          DefaultCanvas = 'TGDIPlusCanvas'
+          ColorPaletteIndex = 13
+          object PieSeries4: TPieSeries
+            ValueFormat = '#.##0,00;(#.##0,00)'
+            XValues.Order = loAscending
+            YValues.Name = 'Pie'
+            YValues.Order = loNone
+            Frame.InnerBrush.BackColor = clRed
+            Frame.InnerBrush.Gradient.EndColor = clGray
+            Frame.InnerBrush.Gradient.MidColor = clWhite
+            Frame.InnerBrush.Gradient.StartColor = 4210752
+            Frame.InnerBrush.Gradient.Visible = True
+            Frame.MiddleBrush.BackColor = clYellow
+            Frame.MiddleBrush.Gradient.EndColor = 8553090
+            Frame.MiddleBrush.Gradient.MidColor = clWhite
+            Frame.MiddleBrush.Gradient.StartColor = clGray
+            Frame.MiddleBrush.Gradient.Visible = True
+            Frame.OuterBrush.BackColor = clGreen
+            Frame.OuterBrush.Gradient.EndColor = 4210752
+            Frame.OuterBrush.Gradient.MidColor = clWhite
+            Frame.OuterBrush.Gradient.StartColor = clSilver
+            Frame.OuterBrush.Gradient.Visible = True
+            Frame.Width = 4
+            Bevel.Bright = 0
+            EdgeStyle = edFlat
+            OtherSlice.Legend.Visible = False
+          end
+        end
+        object chtCategoryRevenues: TDBChart
+          Left = 479
+          Top = 485
+          Width = 465
+          Height = 436
+          Title.Color = clRed
+          Title.Text.Strings = (
+            'Entradas por categoria')
+          View3DOptions.Elevation = 315
+          View3DOptions.Orthogonal = False
+          View3DOptions.Perspective = 0
+          View3DOptions.Rotation = 360
+          TabOrder = 5
+          DefaultCanvas = 'TGDIPlusCanvas'
+          ColorPaletteIndex = 13
+          object PieSeries5: TPieSeries
+            ValueFormat = '#.##0,00;(#.##0,00)'
+            XValues.Order = loAscending
+            YValues.Name = 'Pie'
+            YValues.Order = loNone
+            Frame.InnerBrush.BackColor = clRed
+            Frame.InnerBrush.Gradient.EndColor = clGray
+            Frame.InnerBrush.Gradient.MidColor = clWhite
+            Frame.InnerBrush.Gradient.StartColor = 4210752
+            Frame.InnerBrush.Gradient.Visible = True
+            Frame.MiddleBrush.BackColor = clYellow
+            Frame.MiddleBrush.Gradient.EndColor = 8553090
+            Frame.MiddleBrush.Gradient.MidColor = clWhite
+            Frame.MiddleBrush.Gradient.StartColor = clGray
+            Frame.MiddleBrush.Gradient.Visible = True
+            Frame.OuterBrush.BackColor = clGreen
+            Frame.OuterBrush.Gradient.EndColor = 4210752
+            Frame.OuterBrush.Gradient.MidColor = clWhite
+            Frame.OuterBrush.Gradient.StartColor = clSilver
+            Frame.OuterBrush.Gradient.Visible = True
+            Frame.Width = 4
+            Bevel.Bright = 0
+            EdgeStyle = edFlat
+            OtherSlice.Legend.Visible = False
+          end
+        end
+      end
+    end
+    object tabLists: TTabSheet
+      Caption = 'Visualizar em listas'
+      ImageIndex = 1
+      ExplicitWidth = 927
+      ExplicitHeight = 453
+    end
+    object tabTotals: TTabSheet
+      Caption = 'Visualizar os totais'
+      ImageIndex = 2
+      ExplicitWidth = 927
+      ExplicitHeight = 453
+    end
+  end
+  object pnlFilters: TPanel
+    Left = 0
+    Top = 41
+    Width = 995
+    Height = 48
+    Align = alTop
+    TabOrder = 3
+  end
+  object dtsFormPaymentsExpenses: TDataSource
+    Left = 104
+    Top = 168
+  end
+  object dtsFormPaymentsRevenues: TDataSource
+    Left = 560
+    Top = 160
+  end
+  object dtsSubCategorysExpenses: TDataSource
+    Left = 120
+    Top = 624
+  end
+  object dtsSubCategorysRevenues: TDataSource
+    Left = 576
+    Top = 616
+  end
+  object dtsCategorysExpenses: TDataSource
+    Left = 112
+    Top = 960
+  end
+  object dtsCategorysRevenues: TDataSource
+    Left = 568
+    Top = 952
+  end
+end

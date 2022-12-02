@@ -53,6 +53,7 @@ implementation
 
 procedure TFormPayment.Clear;
 begin
+  FId := 0;
   FUniqueId := EmptyStr;
   FName := EmptyStr;
   FNumberMaxInstallments := 0;

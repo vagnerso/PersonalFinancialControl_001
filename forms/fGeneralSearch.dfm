@@ -62,6 +62,12 @@ inherited frmGeneralSearch: TfrmGeneralSearch
           Width = 63
           Height = 19
           Caption = 'Pesquisar'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -16
+          Font.Name = 'Calibri'
+          Font.Style = []
+          ParentFont = False
         end
         object imButtonSearchExecute: TImage
           Left = 308

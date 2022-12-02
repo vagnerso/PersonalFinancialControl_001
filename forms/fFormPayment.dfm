@@ -19,6 +19,12 @@ inherited frmFormPayment: TfrmFormPayment
                 Width = 38
                 Height = 19
                 Caption = 'Nome'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWhite
+                Font.Height = -16
+                Font.Name = 'Calibri'
+                Font.Style = []
+                ParentFont = False
               end
               object lb2: TLabel
                 Left = 8
@@ -26,6 +32,12 @@ inherited frmFormPayment: TfrmFormPayment
                 Width = 125
                 Height = 19
                 Caption = 'Tipo de Pagamento'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWhite
+                Font.Height = -16
+                Font.Name = 'Calibri'
+                Font.Style = []
+                ParentFont = False
               end
               object lblNumberInstallmentes: TLabel
                 Left = 8
@@ -33,6 +45,12 @@ inherited frmFormPayment: TfrmFormPayment
                 Width = 155
                 Height = 19
                 Caption = 'Quantidade de Parcelas'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWhite
+                Font.Height = -16
+                Font.Name = 'Calibri'
+                Font.Style = []
+                ParentFont = False
               end
               object edtName: TEdit
                 Left = 8

@@ -53,6 +53,7 @@ implementation
 
 procedure TSubCategory.Clear;
 begin
+  FId := 0;
   FUniqueId := EmptyStr;
   FName := EmptyStr;
   FCategory.Clear;

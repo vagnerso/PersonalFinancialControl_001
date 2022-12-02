@@ -1,0 +1,10 @@
+inherited frmMovementGraphics: TfrmMovementGraphics
+  Caption = 'frmMovementGraphics'
+  ClientHeight = 545
+  ClientWidth = 935
+  Position = poScreenCenter
+  ExplicitWidth = 951
+  ExplicitHeight = 584
+  PixelsPerInch = 96
+  TextHeight = 19
+end

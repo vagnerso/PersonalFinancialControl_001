@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async,
   FireDAC.Phys, FireDAC.VCLUI.Wait, Data.DB, Vcl.StdCtrls, Vcl.Imaging.pngimage,
   fTypePayment, uSystemManager, fFormPayment, fSubCategory, fMovement,
-  fProvider, fImport, uEnumTypes;
+  fProvider, fImport, uEnumTypes, fManageMovements, fMovementGraphics;
 
 type
   TfrmMain = class(TForm)
@@ -24,6 +24,9 @@ type
     pnlMenuExpenses: TPanel;
     pnlMenuProvider: TPanel;
     btImport: TButton;
+    pnButtonManageMovements: TPanel;
+    pnlButtonMovementReports: TPanel;
+    pnButtonMovementGraphics: TPanel;
     procedure FormShow(Sender: TObject);
     procedure pnlMenuCategoryClick(Sender: TObject);
     procedure pnlMenuTypePaymentClick(Sender: TObject);
@@ -33,6 +36,8 @@ type
     procedure pnlMenuRevenuesClick(Sender: TObject);
     procedure pnlMenuProviderClick(Sender: TObject);
     procedure btImportClick(Sender: TObject);
+    procedure pnButtonManageMovementsClick(Sender: TObject);
+    procedure pnButtonMovementGraphicsClick(Sender: TObject);
   private
     procedure loginCall;
     { Private declarations }
@@ -80,11 +85,37 @@ begin
   end;
 end;
 
+procedure TfrmMain.pnButtonManageMovementsClick(Sender: TObject);
+var
+  lForm: TFrmManageMovements;
+begin
+  lForm := TFrmManageMovements.Create(nil);
+  try
+    lForm.showmodal;
+  finally
+    lForm.Free;
+  end;
+
+end;
+
+procedure TfrmMain.pnButtonMovementGraphicsClick(Sender: TObject);
+var
+  lForm: TFrmMovementGraphics;
+begin
+  lForm := TFrmMovementGraphics.Create(nil);
+  try
+    lForm.showmodal;
+  finally
+    lForm.Free;
+  end;
+
+end;
+
 procedure TfrmMain.pnlMenuCategoryClick(Sender: TObject);
 var
   lForm: TFrmCategory;
 begin
-  lForm := TfrmCategory.Create(Self);
+  lForm := TfrmCategory.Create(nil);
   try
     lForm.showmodal;
   finally
@@ -110,7 +141,7 @@ procedure TfrmMain.pnlMenuFormPaymentClick(Sender: TObject);
 var
   lForm: TFrmFormPayment;
 begin
-  lForm := TFrmFormPayment.Create(Self);
+  lForm := TFrmFormPayment.Create(nil);
   try
     lForm.showmodal;
   finally
@@ -151,7 +182,7 @@ procedure TfrmMain.pnlMenuSubCategoryClick(Sender: TObject);
 var
   lForm: TFrmSubCategory;
 begin
-  lForm := TfrmSubCategory.Create(Self);
+  lForm := TfrmSubCategory.Create(nil);
   try
     lForm.showmodal;
   finally
@@ -163,7 +194,7 @@ procedure TfrmMain.pnlMenuTypePaymentClick(Sender: TObject);
 var
   lForm: TFrmTypePayment;
 begin
-  lForm := TFrmTypePayment.Create(Self);
+  lForm := TFrmTypePayment.Create(nil);
   try
     lForm.showmodal;
   finally
