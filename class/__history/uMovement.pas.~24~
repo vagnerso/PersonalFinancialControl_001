@@ -5,7 +5,7 @@ interface
 uses
   uSearchFilters, uDataBaseConnection, uSubCategory, uFormPayment,
   System.SysUtils, Vcl.Dialogs, uAppConstants, System.Classes, uProvider,
-  uFunctions, uEnumTypes;
+  uFunctions, uEnumTypes, Data.DB;
 
 type TSearchFiltersCustomized = class(TSearchFilters)
   private
@@ -27,6 +27,14 @@ type TMovement = class
     FNumberParcel: Integer;
     FTypeMovement: TTypeMovement;
     FProvider: TProvider;
+    FSituation: Byte;
+    FQueryFormPaymentsRevenues: TMyQuery;
+    FQueryFormPaymentsExpenses: TMyQuery;
+    FQuerySubCategorysExpenses: TMyQuery;
+    FQuerySubCategorysRevenues: TMyQuery;
+    FQueryCategorysExpenses: TMyQuery;
+    FQueryCategorysRevenues: TMyQuery;
+
   public
     constructor Create;
 
@@ -36,6 +44,12 @@ type TMovement = class
     procedure Clear;
     procedure GetById;
     procedure Search(ADataSet: TMyQuery);
+    procedure GetQueryFormPaymentsExpenses;
+    procedure GetQueryFormPaymentsRevenues;
+    procedure GetQuerySubCategoryExpenses;
+    procedure GetQuerySubCategoryRevenues;
+    procedure GetQueryCategoryExpenses;
+    procedure GetQueryCategoryRevenues;
     destructor Destroy; override;
 
     property DataSet: TMyQuery read FDataSet write FDataSet;
@@ -50,6 +64,14 @@ type TMovement = class
     property NumberParcel: Integer read FNumberParcel write FNumberParcel;
     property TypeMovement: TTypeMovement read FTypeMovement write FTypeMovement;
     property Provider: TProvider read FProvider write FProvider;
+    property Situation: Byte read FSituation write FSituation;
+    property QueryFormPaymentsRevenues: TMyQuery read FQueryFormPaymentsRevenues write FQueryFormPaymentsRevenues;
+    property QueryFormPaymentsExpenses: TMyQuery read FQueryFormPaymentsExpenses write FQueryFormPaymentsExpenses;
+    property QuerySubCategorysRevenues: TMyQuery read FQuerySubCategorysRevenues write FQuerySubCategorysRevenues;
+    property QuerySubCategorysExpenses: TMyQuery read FQuerySubCategorysExpenses write FQuerySubCategorysExpenses;
+    property QueryCategorysRevenues: TMyQuery read FQueryCategorysRevenues write FQueryCategorysRevenues;
+    property QueryCategorysExpenses: TMyQuery read FQueryCategorysExpenses write FQueryCategorysExpenses;
+
 
     {
 
@@ -81,6 +103,7 @@ begin
   FNumberParcel := 0;
   FTypeMovement := tmRevenues;
   FProvider.Clear;
+  FSituation := 0;
 end;
 
 constructor TMovement.Create;
@@ -90,6 +113,12 @@ begin
   FFormPayment := TFormPayment.Create;
   FSubCategory := TSubCategory.Create;
   FProvider := TProvider.Create;
+  FQueryFormPaymentsRevenues := TMyQuery.Create(nil);
+  FQueryFormPaymentsExpenses := TMyQuery.Create(nil);
+  FQuerySubCategorysRevenues := TMyQuery.Create(nil);
+  FQuerySubCategorysExpenses := TMyQuery.Create(nil);
+  FQueryCategorysRevenues := TMyQuery.Create(nil);
+  FQueryCategorysExpenses := TMyQuery.Create(nil);
 end;
 
 procedure TMovement.DeleteRegister;
@@ -113,6 +142,12 @@ end;
 
 destructor TMovement.Destroy;
 begin
+  FQueryCategorysExpenses.Free;
+  FQueryCategorysRevenues.Free;
+  FQuerySubCategorysExpenses.Free;
+  FQuerySubCategorysRevenues.Free;
+  FQueryFormPaymentsExpenses.Free;
+  FQueryFormPaymentsRevenues.Free;
   FProvider.Free;
   FSubCategory.Free;
   FFormPayment.Free;
@@ -138,6 +173,7 @@ begin
     FDataSet.SQL.Add('  , NUMBER_PARCEL     ');
     FDataSet.SQL.Add('  , TYPE_MOVEMENT     ');
     FDataSet.SQL.Add('  , ID_PROVIDER       ');
+    FDataSet.SQL.Add('  , SITUATION         ');
     FDataSet.SQL.Add('FROM MOVEMENT         ');
     FDataSet.SQL.Add('  WHERE ID = :ID      ');
     FDataSet.ParamByName('ID').AsInteger := FId;
@@ -158,6 +194,7 @@ begin
       FTypeMovement := TTypeMovement(FDataSet.FieldByName('TYPE_MOVEMENT').AsInteger);
       FProvider.Id := FDataSet.FieldByName('ID_PROVIDER').AsInteger;
       FProvider.GetById;
+      FSituation := FDataSet.FieldByName('SITUATION').AsInteger;
     end;
 
   except on E: Exception do
@@ -166,6 +203,135 @@ begin
       Showmessage(MSG_ERROR_SUB_CATEGORY_INSERT);
     end;
   end;
+end;
+
+procedure TMovement.GetQueryCategoryExpenses;
+var
+  lSql: string;
+begin
+  lSql :=
+          'select c.name, sum(m.INSTALLMENT_VALUE) TOTAL '+
+          'from MOVEMENT m                               '+
+          'left join SUB_CATEGORY sc                     '+
+          'on (sc.id=m.ID_SUB_CATEGORY)                  '+
+          'left join CATEGORY c                          '+
+          'on (c.id=sc.ID_CATEGORY)                      '+
+          'where m.TYPE_MOVEMENT = 1                     '+
+          'and c.name not NULL                           '+
+          'group by c.name                               ';
+
+  TDataBaseConnection.GetInstance.NewConnection;
+  FQueryCategorysExpenses.Close;
+  FQueryCategorysExpenses.SQL.Clear;
+  FQueryCategorysExpenses.SQL.Add(lSql);
+  FQueryCategorysExpenses.Open;
+end;
+
+procedure TMovement.GetQueryCategoryRevenues;
+var
+  lSql: string;
+begin
+  lSql :=
+          'select c.name, sum(m.INSTALLMENT_VALUE) TOTAL '+
+          'from MOVEMENT m                               '+
+          'left join SUB_CATEGORY sc                     '+
+          'on (sc.id=m.ID_SUB_CATEGORY)                  '+
+          'left join CATEGORY c                          '+
+          'on (c.id=sc.ID_CATEGORY)                      '+
+          'where m.TYPE_MOVEMENT = 0                     '+
+          'and c.name not NULL                           '+
+          'group by c.name                               ';
+
+  TDataBaseConnection.GetInstance.NewConnection;
+  FQueryCategorysRevenues.Close;
+  FQueryCategorysRevenues.SQL.Clear;
+  FQueryCategorysRevenues.SQL.Add(lSql);
+  FQueryCategorysRevenues.Open;
+
+end;
+
+procedure TMovement.GetQueryFormPaymentsExpenses;
+var
+  lSql: string;
+begin
+  lSql :=
+          '  select name, sum(INSTALLMENT_VALUE) TOTAL  '+
+          'from MOVEMENT m                              '+
+          'left join FORM_PAYMENT fp                    '+
+          'on (fp.id=m.ID_FORM_PAYMENT)                 '+
+          'where m.TYPE_MOVEMENT = ''1''                '+
+          'and name not NULL                            '+
+          'group by name                                '+
+          'order by name                                ';
+
+  TDataBaseConnection.GetInstance.NewConnection;
+  FQueryFormPaymentsExpenses.Close;
+  FQueryFormPaymentsExpenses.SQL.Clear;
+  FQueryFormPaymentsExpenses.SQL.Add(lSql);
+  FQueryFormPaymentsExpenses.Open;
+end;
+
+procedure TMovement.GetQueryFormPaymentsRevenues;
+var
+  lSql: string;
+begin
+  lSql :=
+          '  select name, sum(INSTALLMENT_VALUE) TOTAL  '+
+          'from MOVEMENT m                              '+
+          'left join FORM_PAYMENT fp                    '+
+          'on (fp.id=m.ID_FORM_PAYMENT)                 '+
+          'where m.TYPE_MOVEMENT = ''0''                '+
+          'and name not NULL                            '+
+          'group by name                                '+
+          'order by name                                ';
+
+  TDataBaseConnection.GetInstance.NewConnection;
+  FQueryFormPaymentsRevenues.Close;
+  FQueryFormPaymentsRevenues.SQL.Clear;
+  FQueryFormPaymentsRevenues.SQL.Add(lSql);
+  FQueryFormPaymentsRevenues.Open;
+end;
+
+procedure TMovement.GetQuerySubCategoryExpenses;
+var
+  lSql: string;
+begin
+  lSql :=
+          'select name, sum(INSTALLMENT_VALUE) TOTAL '+
+          'from MOVEMENT m                           '+
+          'left join SUB_CATEGORY sc                 '+
+          'on (sc.id=m.ID_SUB_CATEGORY)              '+
+          'where m.TYPE_MOVEMENT = 1                 '+
+          'and name not NULL                         '+
+          'group by name                             '+
+          'order by name                             ';
+
+  TDataBaseConnection.GetInstance.NewConnection;
+  FQuerySubCategorysExpenses.Close;
+  FQuerySubCategorysExpenses.SQL.Clear;
+  FQuerySubCategorysExpenses.SQL.Add(lSql);
+  FQuerySubCategorysExpenses.Open;
+end;
+
+procedure TMovement.GetQuerySubCategoryRevenues;
+var
+  lSql: string;
+begin
+  lSql :=
+          'select name, sum(INSTALLMENT_VALUE) TOTAL '+
+          'from MOVEMENT m                           '+
+          'left join SUB_CATEGORY sc                 '+
+          'on (sc.id=m.ID_SUB_CATEGORY)              '+
+          'where m.TYPE_MOVEMENT = 0                 '+
+          'and name not NULL                         '+
+          'group by name                             '+
+          'order by name                             ';
+
+  TDataBaseConnection.GetInstance.NewConnection;
+  FQuerySubCategorysRevenues.Close;
+  FQuerySubCategorysRevenues.SQL.Clear;
+  FQuerySubCategorysRevenues.SQL.Add(lSql);
+  FQuerySubCategorysRevenues.Open;
 end;
 
 procedure TMovement.InsertRegister;
@@ -184,6 +350,7 @@ begin
     FDataSet.SQL.Add(', NUMBER_PARCEL        ');
     FDataSet.SQL.Add(', TYPE_MOVEMENT        ');
     FDataSet.SQL.Add(', ID_PROVIDER          ');
+    FDataSet.SQL.Add(', SITUATION            ');
     FDataSet.SQL.Add(') VALUES (             ');
     FDataSet.SQL.Add('  :UNIQUE_ID           ');
     FDataSet.SQL.Add(', :DESCRIPTION         ');
@@ -194,6 +361,7 @@ begin
     FDataSet.SQL.Add(', :NUMBER_PARCEL       ');
     FDataSet.SQL.Add(', :TYPE_MOVEMENT       ');
     FDataSet.SQL.Add(', :ID_PROVIDER         ');
+    FDataSet.SQL.Add(', :SITUATION           ');
     FDataSet.SQL.Add(');                     ');
     FDataSet.ParamByName('UNIQUE_ID').AsString := TFunctions.GenerateUUID;
     FDataSet.ParamByName('DESCRIPTION').AsString := FDescription;
@@ -204,6 +372,7 @@ begin
     FDataSet.ParamByName('NUMBER_PARCEL').AsInteger := FNumberParcel;
     FDataSet.ParamByName('TYPE_MOVEMENT').AsInteger := Integer(FTypeMovement);
     FDataSet.ParamByName('ID_PROVIDER').AsInteger := FProvider.Id;
+    FDataSet.ParamByName('SITUATION').AsInteger := FSituation;
     FDataSet.ExecSQL;
     FDataSet.Connection.Commit;
   except on E: Exception do
@@ -217,6 +386,7 @@ end;
 procedure TMovement.Search(ADataSet: TMyQuery);
 var
   lSQL: TStringList;
+  I: Integer;
 begin
 
   TDatabaseConnection.GetInstance.NewConnection;
@@ -224,22 +394,28 @@ begin
   lSQL := TStringList.Create;
   try
     lSQL.Clear;
-    lSQL.Add('SELECT                           ');
-    lSQL.Add('    ID                           ');
-    lSQL.Add('  , M.UNIQUE_ID                  ');
-    lSQL.Add('  , M.DESCRIPTION                ');
-    lSQL.Add('  , M.ID_SUB_CATEGORY            ');
-    lSQL.Add('  , M.ID_FORM_PAYMENT            ');
-    lSQL.Add('  , M.ISSUE_DATE                 ');
-    lSQL.Add('  , M.INSTALLMENT_VALUE          ');
-    lSQL.Add('  , M.NUMBER_PARCEL              ');
-    lSQL.Add('  , M.TYPE_MOVEMENT              ');
-    lSQL.Add('  , M.ID_PROVIDER                ');
-    lSQL.Add('FROM MOVEMENT M                  ');
-    lSQL.Add('  LEFT JOIN SUB_CATEGORY SC      ');
-    lSQL.Add('  ON (SC.ID = M.ID_SUB_CATEGORY) ');
-    lSQL.Add('  LEFT JOIN FORM_PAYMENT FP      ');
-    lSQL.Add('  ON (FP.ID = M.ID_FORM_PAYMENT) ');
+    lSQL.Add('SELECT                               ');
+    lSQL.Add('    M.ID                             ');
+    lSQL.Add('  , M.UNIQUE_ID                      ');
+    lSQL.Add('  , M.DESCRIPTION       "Descrição"  ');
+    lSQL.Add('  , M.ID_SUB_CATEGORY                ');
+    lSQL.Add('  , M.ID_FORM_PAYMENT                ');
+    lSQL.Add('  , M.ISSUE_DATE        "Vencimento" ');
+    lSQL.Add('  , M.INSTALLMENT_VALUE "R$ Valor"   ');
+    lSQL.Add('  , M.NUMBER_PARCEL     "Número"     ');
+    lSQL.Add('  , M.TYPE_MOVEMENT     "Tipo"       ');
+    lSQL.Add('  , M.ID_PROVIDER                    ');
+    lSQL.Add('  , SC.NAME "Sub Categoria"          ');
+    lSQL.Add('  , FP.NAME "Forma de Pagamento"     ');
+    lSQL.Add('  , P.NAME "Fornecedor"              ');
+    lSQL.Add('  , M.SITUATION                      ');
+    lSQL.Add('FROM MOVEMENT M         "Situação"   ');
+    lSQL.Add('  LEFT JOIN SUB_CATEGORY SC          ');
+    lSQL.Add('  ON (SC.ID = M.ID_SUB_CATEGORY)     ');
+    lSQL.Add('  LEFT JOIN FORM_PAYMENT FP          ');
+    lSQL.Add('  ON (FP.ID = M.ID_FORM_PAYMENT)     ');
+    lSQL.Add('  LEFT JOIN PERSON P                 ');
+    lSQL.Add('  ON (P.ID  = M.ID_PROVIDER)         ');
 
     if (Length(Trim(FSearchFiltersCustomized.ValueSearch)) > 0) then
     begin
@@ -252,6 +428,7 @@ begin
     ADataSet.SQL.Clear;
     ADataSet.SQL.Add(lSQL.Text);
     ADataSet.Open;
+    TFunctions.FormatDataSetDecimalFields(ADataSet, '#,##0.00');
 
   finally
     lSQL.Free;
@@ -274,6 +451,7 @@ begin
     FDataSet.SQL.Add(' , NUMBER_PARCEL     = :NUMBER_PARCEL     ');
     FDataSet.SQL.Add(' , TYPE_MOVEMENT     = :TYPE_MOVEMENT     ');
     FDataSet.SQL.Add(' , ID_PROVIDER       = :ID_PROVIDER       ');
+    FDataSet.SQL.Add(' , SITUATION         = :SITUATION         ');
     FDataSet.SQL.Add('WHERE UNIQUE_ID      = :UNIQUE_ID;        ');
     FDataSet.ParamByName('DESCRIPTION').AsString := FDescription;
     FDataSet.ParamByName('ID_SUB_CATEGORY').AsInteger := FSubCategory.Id;
@@ -284,6 +462,7 @@ begin
     FDataSet.ParamByName('TYPE_MOVEMENT').AsInteger := Integer(FTypeMovement);
     FDataSet.ParamByName('UNIQUE_ID').AsString := FUniqueId;
     FDataSet.ParamByName('ID_PROVIDER').AsInteger := FProvider.Id;
+    FDataSet.ParamByName('SITUATION').AsInteger := FSituation;
     FDataSet.ExecSQL;
     FDataSet.Connection.Commit;
   except on E: Exception do

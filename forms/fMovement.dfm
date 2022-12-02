@@ -416,10 +416,6 @@ inherited frmMovement: TfrmMovement
     object tabInstallments: TTabSheet
       Caption = 'Parcelas'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object pnlInstallments: TPanel
         Left = 0
         Top = 0

@@ -1,20 +1,19 @@
 inherited frmMovementGraphics: TfrmMovementGraphics
   Caption = 'frmMovementGraphics'
-  ClientHeight = 1023
-  ClientWidth = 1444
+  ClientHeight = 1061
+  ClientWidth = 995
   Position = poScreenCenter
-  WindowState = wsMaximized
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  ExplicitWidth = 1460
-  ExplicitHeight = 1062
+  ExplicitWidth = 1011
+  ExplicitHeight = 1100
   PixelsPerInch = 96
   TextHeight = 19
   object pnlTitle: TPanel
     Left = 0
     Top = 0
-    Width = 1444
+    Width = 995
     Height = 41
     Align = alTop
     Caption = 'Gr'#225'ficos de movimenta'#231#227'o financeira'
@@ -31,8 +30,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
   end
   object pnlBottom: TPanel
     Left = 0
-    Top = 1006
-    Width = 1444
+    Top = 1044
+    Width = 995
     Height = 17
     Align = alBottom
     TabOrder = 1
@@ -42,8 +41,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
   object pgcGeneral: TPageControl
     Left = 0
     Top = 89
-    Width = 1444
-    Height = 917
+    Width = 995
+    Height = 955
     ActivePage = tabGraphics
     Align = alClient
     TabOrder = 2
@@ -59,18 +58,17 @@ inherited frmMovementGraphics: TfrmMovementGraphics
       object scrGraphics: TScrollBox
         Left = 0
         Top = 0
-        Width = 1436
-        Height = 883
+        Width = 987
+        Height = 921
+        VertScrollBar.Position = 421
         Align = alClient
         BevelInner = bvNone
         BevelOuter = bvNone
         BorderStyle = bsNone
         TabOrder = 0
-        ExplicitWidth = 1896
-        ExplicitHeight = 921
         object chtFormPaymentsRevenues: TDBChart
-          Left = 8
-          Top = 442
+          Left = 479
+          Top = -421
           Width = 465
           Height = 436
           Title.Color = clRed
@@ -110,7 +108,7 @@ inherited frmMovementGraphics: TfrmMovementGraphics
         end
         object chtFormPaymentsExpenses: TDBChart
           Left = 8
-          Top = 0
+          Top = -421
           Width = 465
           Height = 436
           Title.Color = clRed
@@ -150,8 +148,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           end
         end
         object chtSubCategoryExpenses: TDBChart
-          Left = 950
-          Top = 0
+          Left = 8
+          Top = 43
           Width = 465
           Height = 436
           Title.Color = clRed
@@ -191,8 +189,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           end
         end
         object chtSubCategoryRevenues: TDBChart
-          Left = 950
-          Top = 442
+          Left = 479
+          Top = 43
           Width = 465
           Height = 436
           Title.Color = clRed
@@ -232,8 +230,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           end
         end
         object chtCategoryExpenses: TDBChart
-          Left = 479
-          Top = 0
+          Left = 8
+          Top = 485
           Width = 465
           Height = 436
           Title.Color = clRed
@@ -274,7 +272,7 @@ inherited frmMovementGraphics: TfrmMovementGraphics
         end
         object chtCategoryRevenues: TDBChart
           Left = 479
-          Top = 442
+          Top = 485
           Width = 465
           Height = 436
           Title.Color = clRed
@@ -331,11 +329,10 @@ inherited frmMovementGraphics: TfrmMovementGraphics
   object pnlFilters: TPanel
     Left = 0
     Top = 41
-    Width = 1444
+    Width = 995
     Height = 48
     Align = alTop
     TabOrder = 3
-    ExplicitWidth = 995
   end
   object dtsFormPaymentsExpenses: TDataSource
     Left = 104

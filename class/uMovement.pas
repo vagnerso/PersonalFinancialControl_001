@@ -27,6 +27,7 @@ type TMovement = class
     FNumberParcel: Integer;
     FTypeMovement: TTypeMovement;
     FProvider: TProvider;
+    FSituation: Byte;
     FQueryFormPaymentsRevenues: TMyQuery;
     FQueryFormPaymentsExpenses: TMyQuery;
     FQuerySubCategorysExpenses: TMyQuery;
@@ -63,6 +64,7 @@ type TMovement = class
     property NumberParcel: Integer read FNumberParcel write FNumberParcel;
     property TypeMovement: TTypeMovement read FTypeMovement write FTypeMovement;
     property Provider: TProvider read FProvider write FProvider;
+    property Situation: Byte read FSituation write FSituation;
     property QueryFormPaymentsRevenues: TMyQuery read FQueryFormPaymentsRevenues write FQueryFormPaymentsRevenues;
     property QueryFormPaymentsExpenses: TMyQuery read FQueryFormPaymentsExpenses write FQueryFormPaymentsExpenses;
     property QuerySubCategorysRevenues: TMyQuery read FQuerySubCategorysRevenues write FQuerySubCategorysRevenues;
@@ -101,6 +103,7 @@ begin
   FNumberParcel := 0;
   FTypeMovement := tmRevenues;
   FProvider.Clear;
+  FSituation := 0;
 end;
 
 constructor TMovement.Create;
@@ -170,6 +173,7 @@ begin
     FDataSet.SQL.Add('  , NUMBER_PARCEL     ');
     FDataSet.SQL.Add('  , TYPE_MOVEMENT     ');
     FDataSet.SQL.Add('  , ID_PROVIDER       ');
+    FDataSet.SQL.Add('  , SITUATION         ');
     FDataSet.SQL.Add('FROM MOVEMENT         ');
     FDataSet.SQL.Add('  WHERE ID = :ID      ');
     FDataSet.ParamByName('ID').AsInteger := FId;
@@ -190,6 +194,7 @@ begin
       FTypeMovement := TTypeMovement(FDataSet.FieldByName('TYPE_MOVEMENT').AsInteger);
       FProvider.Id := FDataSet.FieldByName('ID_PROVIDER').AsInteger;
       FProvider.GetById;
+      FSituation := FDataSet.FieldByName('SITUATION').AsInteger;
     end;
 
   except on E: Exception do
@@ -345,6 +350,7 @@ begin
     FDataSet.SQL.Add(', NUMBER_PARCEL        ');
     FDataSet.SQL.Add(', TYPE_MOVEMENT        ');
     FDataSet.SQL.Add(', ID_PROVIDER          ');
+    FDataSet.SQL.Add(', SITUATION            ');
     FDataSet.SQL.Add(') VALUES (             ');
     FDataSet.SQL.Add('  :UNIQUE_ID           ');
     FDataSet.SQL.Add(', :DESCRIPTION         ');
@@ -355,6 +361,7 @@ begin
     FDataSet.SQL.Add(', :NUMBER_PARCEL       ');
     FDataSet.SQL.Add(', :TYPE_MOVEMENT       ');
     FDataSet.SQL.Add(', :ID_PROVIDER         ');
+    FDataSet.SQL.Add(', :SITUATION           ');
     FDataSet.SQL.Add(');                     ');
     FDataSet.ParamByName('UNIQUE_ID').AsString := TFunctions.GenerateUUID;
     FDataSet.ParamByName('DESCRIPTION').AsString := FDescription;
@@ -365,6 +372,7 @@ begin
     FDataSet.ParamByName('NUMBER_PARCEL').AsInteger := FNumberParcel;
     FDataSet.ParamByName('TYPE_MOVEMENT').AsInteger := Integer(FTypeMovement);
     FDataSet.ParamByName('ID_PROVIDER').AsInteger := FProvider.Id;
+    FDataSet.ParamByName('SITUATION').AsInteger := FSituation;
     FDataSet.ExecSQL;
     FDataSet.Connection.Commit;
   except on E: Exception do
@@ -400,6 +408,7 @@ begin
     lSQL.Add('  , SC.NAME "Sub Categoria"          ');
     lSQL.Add('  , FP.NAME "Forma de Pagamento"     ');
     lSQL.Add('  , P.NAME "Fornecedor"              ');
+    lSQL.Add('  , M.SITUATION         "Situação"   ');
     lSQL.Add('FROM MOVEMENT M                      ');
     lSQL.Add('  LEFT JOIN SUB_CATEGORY SC          ');
     lSQL.Add('  ON (SC.ID = M.ID_SUB_CATEGORY)     ');
@@ -442,6 +451,7 @@ begin
     FDataSet.SQL.Add(' , NUMBER_PARCEL     = :NUMBER_PARCEL     ');
     FDataSet.SQL.Add(' , TYPE_MOVEMENT     = :TYPE_MOVEMENT     ');
     FDataSet.SQL.Add(' , ID_PROVIDER       = :ID_PROVIDER       ');
+    FDataSet.SQL.Add(' , SITUATION         = :SITUATION         ');
     FDataSet.SQL.Add('WHERE UNIQUE_ID      = :UNIQUE_ID;        ');
     FDataSet.ParamByName('DESCRIPTION').AsString := FDescription;
     FDataSet.ParamByName('ID_SUB_CATEGORY').AsInteger := FSubCategory.Id;
@@ -452,6 +462,7 @@ begin
     FDataSet.ParamByName('TYPE_MOVEMENT').AsInteger := Integer(FTypeMovement);
     FDataSet.ParamByName('UNIQUE_ID').AsString := FUniqueId;
     FDataSet.ParamByName('ID_PROVIDER').AsInteger := FProvider.Id;
+    FDataSet.ParamByName('SITUATION').AsInteger := FSituation;
     FDataSet.ExecSQL;
     FDataSet.Connection.Commit;
   except on E: Exception do

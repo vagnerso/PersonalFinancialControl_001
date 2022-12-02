@@ -5,7 +5,7 @@ interface
 uses
   uSearchFilters, uDataBaseConnection, uSubCategory, uFormPayment,
   System.SysUtils, Vcl.Dialogs, uAppConstants, System.Classes, uProvider,
-  uFunctions, uEnumTypes;
+  uFunctions, uEnumTypes, Data.DB;
 
 type TSearchFiltersCustomized = class(TSearchFilters)
   private
@@ -27,6 +27,13 @@ type TMovement = class
     FNumberParcel: Integer;
     FTypeMovement: TTypeMovement;
     FProvider: TProvider;
+    FQueryFormPaymentsRevenues: TMyQuery;
+    FQueryFormPaymentsExpenses: TMyQuery;
+    FQuerySubCategorysExpenses: TMyQuery;
+    FQuerySubCategorysRevenues: TMyQuery;
+    FQueryCategorysExpenses: TMyQuery;
+    FQueryCategorysRevenues: TMyQuery;
+
   public
     constructor Create;
 
@@ -36,6 +43,12 @@ type TMovement = class
     procedure Clear;
     procedure GetById;
     procedure Search(ADataSet: TMyQuery);
+    procedure GetQueryFormPaymentsExpenses;
+    procedure GetQueryFormPaymentsRevenues;
+    procedure GetQuerySubCategoryExpenses;
+    procedure GetQuerySubCategoryRevenues;
+    procedure GetQueryCategoryExpenses;
+    procedure GetQueryCategoryRevenues;
     destructor Destroy; override;
 
     property DataSet: TMyQuery read FDataSet write FDataSet;
@@ -50,6 +63,13 @@ type TMovement = class
     property NumberParcel: Integer read FNumberParcel write FNumberParcel;
     property TypeMovement: TTypeMovement read FTypeMovement write FTypeMovement;
     property Provider: TProvider read FProvider write FProvider;
+    property QueryFormPaymentsRevenues: TMyQuery read FQueryFormPaymentsRevenues write FQueryFormPaymentsRevenues;
+    property QueryFormPaymentsExpenses: TMyQuery read FQueryFormPaymentsExpenses write FQueryFormPaymentsExpenses;
+    property QuerySubCategorysRevenues: TMyQuery read FQuerySubCategorysRevenues write FQuerySubCategorysRevenues;
+    property QuerySubCategorysExpenses: TMyQuery read FQuerySubCategorysExpenses write FQuerySubCategorysExpenses;
+    property QueryCategorysRevenues: TMyQuery read FQueryCategorysRevenues write FQueryCategorysRevenues;
+    property QueryCategorysExpenses: TMyQuery read FQueryCategorysExpenses write FQueryCategorysExpenses;
+
 
     {
 
@@ -90,6 +110,12 @@ begin
   FFormPayment := TFormPayment.Create;
   FSubCategory := TSubCategory.Create;
   FProvider := TProvider.Create;
+  FQueryFormPaymentsRevenues := TMyQuery.Create(nil);
+  FQueryFormPaymentsExpenses := TMyQuery.Create(nil);
+  FQuerySubCategorysRevenues := TMyQuery.Create(nil);
+  FQuerySubCategorysExpenses := TMyQuery.Create(nil);
+  FQueryCategorysRevenues := TMyQuery.Create(nil);
+  FQueryCategorysExpenses := TMyQuery.Create(nil);
 end;
 
 procedure TMovement.DeleteRegister;
@@ -113,6 +139,12 @@ end;
 
 destructor TMovement.Destroy;
 begin
+  FQueryCategorysExpenses.Free;
+  FQueryCategorysRevenues.Free;
+  FQuerySubCategorysExpenses.Free;
+  FQuerySubCategorysRevenues.Free;
+  FQueryFormPaymentsExpenses.Free;
+  FQueryFormPaymentsRevenues.Free;
   FProvider.Free;
   FSubCategory.Free;
   FFormPayment.Free;
@@ -168,6 +200,135 @@ begin
   end;
 end;
 
+procedure TMovement.GetQueryCategoryExpenses;
+var
+  lSql: string;
+begin
+  lSql :=
+          'select c.name, sum(m.INSTALLMENT_VALUE) TOTAL '+
+          'from MOVEMENT m                               '+
+          'left join SUB_CATEGORY sc                     '+
+          'on (sc.id=m.ID_SUB_CATEGORY)                  '+
+          'left join CATEGORY c                          '+
+          'on (c.id=sc.ID_CATEGORY)                      '+
+          'where m.TYPE_MOVEMENT = 1                     '+
+          'and c.name not NULL                           '+
+          'group by c.name                               ';
+
+  TDataBaseConnection.GetInstance.NewConnection;
+  FQueryCategorysExpenses.Close;
+  FQueryCategorysExpenses.SQL.Clear;
+  FQueryCategorysExpenses.SQL.Add(lSql);
+  FQueryCategorysExpenses.Open;
+end;
+
+procedure TMovement.GetQueryCategoryRevenues;
+var
+  lSql: string;
+begin
+  lSql :=
+          'select c.name, sum(m.INSTALLMENT_VALUE) TOTAL '+
+          'from MOVEMENT m                               '+
+          'left join SUB_CATEGORY sc                     '+
+          'on (sc.id=m.ID_SUB_CATEGORY)                  '+
+          'left join CATEGORY c                          '+
+          'on (c.id=sc.ID_CATEGORY)                      '+
+          'where m.TYPE_MOVEMENT = 0                     '+
+          'and c.name not NULL                           '+
+          'group by c.name                               ';
+
+  TDataBaseConnection.GetInstance.NewConnection;
+  FQueryCategorysRevenues.Close;
+  FQueryCategorysRevenues.SQL.Clear;
+  FQueryCategorysRevenues.SQL.Add(lSql);
+  FQueryCategorysRevenues.Open;
+
+end;
+
+procedure TMovement.GetQueryFormPaymentsExpenses;
+var
+  lSql: string;
+begin
+  lSql :=
+          '  select name, sum(INSTALLMENT_VALUE) TOTAL  '+
+          'from MOVEMENT m                              '+
+          'left join FORM_PAYMENT fp                    '+
+          'on (fp.id=m.ID_FORM_PAYMENT)                 '+
+          'where m.TYPE_MOVEMENT = ''1''                '+
+          'and name not NULL                            '+
+          'group by name                                '+
+          'order by name                                ';
+
+  TDataBaseConnection.GetInstance.NewConnection;
+  FQueryFormPaymentsExpenses.Close;
+  FQueryFormPaymentsExpenses.SQL.Clear;
+  FQueryFormPaymentsExpenses.SQL.Add(lSql);
+  FQueryFormPaymentsExpenses.Open;
+end;
+
+procedure TMovement.GetQueryFormPaymentsRevenues;
+var
+  lSql: string;
+begin
+  lSql :=
+          '  select name, sum(INSTALLMENT_VALUE) TOTAL  '+
+          'from MOVEMENT m                              '+
+          'left join FORM_PAYMENT fp                    '+
+          'on (fp.id=m.ID_FORM_PAYMENT)                 '+
+          'where m.TYPE_MOVEMENT = ''0''                '+
+          'and name not NULL                            '+
+          'group by name                                '+
+          'order by name                                ';
+
+  TDataBaseConnection.GetInstance.NewConnection;
+  FQueryFormPaymentsRevenues.Close;
+  FQueryFormPaymentsRevenues.SQL.Clear;
+  FQueryFormPaymentsRevenues.SQL.Add(lSql);
+  FQueryFormPaymentsRevenues.Open;
+end;
+
+procedure TMovement.GetQuerySubCategoryExpenses;
+var
+  lSql: string;
+begin
+  lSql :=
+          'select name, sum(INSTALLMENT_VALUE) TOTAL '+
+          'from MOVEMENT m                           '+
+          'left join SUB_CATEGORY sc                 '+
+          'on (sc.id=m.ID_SUB_CATEGORY)              '+
+          'where m.TYPE_MOVEMENT = 1                 '+
+          'and name not NULL                         '+
+          'group by name                             '+
+          'order by name                             ';
+
+  TDataBaseConnection.GetInstance.NewConnection;
+  FQuerySubCategorysExpenses.Close;
+  FQuerySubCategorysExpenses.SQL.Clear;
+  FQuerySubCategorysExpenses.SQL.Add(lSql);
+  FQuerySubCategorysExpenses.Open;
+end;
+
+procedure TMovement.GetQuerySubCategoryRevenues;
+var
+  lSql: string;
+begin
+  lSql :=
+          'select name, sum(INSTALLMENT_VALUE) TOTAL '+
+          'from MOVEMENT m                           '+
+          'left join SUB_CATEGORY sc                 '+
+          'on (sc.id=m.ID_SUB_CATEGORY)              '+
+          'where m.TYPE_MOVEMENT = 0                 '+
+          'and name not NULL                         '+
+          'group by name                             '+
+          'order by name                             ';
+
+  TDataBaseConnection.GetInstance.NewConnection;
+  FQuerySubCategorysRevenues.Close;
+  FQuerySubCategorysRevenues.SQL.Clear;
+  FQuerySubCategorysRevenues.SQL.Add(lSql);
+  FQuerySubCategorysRevenues.Open;
+end;
+
 procedure TMovement.InsertRegister;
 begin
   try
@@ -217,6 +378,7 @@ end;
 procedure TMovement.Search(ADataSet: TMyQuery);
 var
   lSQL: TStringList;
+  I: Integer;
 begin
 
   TDatabaseConnection.GetInstance.NewConnection;
@@ -257,6 +419,7 @@ begin
     ADataSet.SQL.Clear;
     ADataSet.SQL.Add(lSQL.Text);
     ADataSet.Open;
+    TFunctions.FormatDataSetDecimalFields(ADataSet, '#,##0.00');
 
   finally
     lSQL.Free;

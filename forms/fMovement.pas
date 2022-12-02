@@ -312,6 +312,7 @@ begin
     FRegisterObject.IssueDate := FMemInstallmentsList.FieldByName('ISSUE_DATE').AsDateTime;
     FRegisterObject.NumberParcel := FMemInstallmentsList.FieldByName('NUMBER_PARCEL').AsInteger;
     FRegisterObject.TypeMovement := FTypeMovement;
+    FRegisterObject.Situation := 0;
     FRegisterObject.InsertRegister;
 
     FMemInstallmentsList.Next;
