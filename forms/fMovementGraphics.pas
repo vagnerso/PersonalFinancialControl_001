@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, uMovement, VclTee.TeeGDIPlus, Data.DB, VCLTee.TeEngine, VCLTee.Series,
-  Vcl.ExtCtrls, VCLTee.TeeProcs, VCLTee.Chart, VCLTee.DBChart, Vcl.ComCtrls;
+  Vcl.ExtCtrls, VCLTee.TeeProcs, VCLTee.Chart, VCLTee.DBChart, Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids;
 
 type
   TfrmMovementGraphics = class(TfrmBase)
@@ -35,6 +35,20 @@ type
     PieSeries5: TPieSeries;
     dtsCategorysExpenses: TDataSource;
     dtsCategorysRevenues: TDataSource;
+    scrLists: TScrollBox;
+    scrTotals: TScrollBox;
+    pn1: TPanel;
+    gr1: TDBGrid;
+    Panel1: TPanel;
+    DBGrid1: TDBGrid;
+    Panel2: TPanel;
+    DBGrid2: TDBGrid;
+    Panel3: TPanel;
+    DBGrid3: TDBGrid;
+    Panel4: TPanel;
+    DBGrid4: TDBGrid;
+    Panel5: TPanel;
+    DBGrid5: TDBGrid;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);

@@ -25,9 +25,6 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     Font.Style = []
     ParentFont = False
     TabOrder = 0
-    ExplicitLeft = 384
-    ExplicitTop = 272
-    ExplicitWidth = 185
   end
   object pnlBottom: TPanel
     Left = 0
@@ -36,8 +33,6 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     Height = 17
     Align = alBottom
     TabOrder = 1
-    ExplicitTop = 528
-    ExplicitWidth = 935
   end
   object pgcGeneral: TPageControl
     Left = 0
@@ -47,15 +42,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     ActivePage = tabGraphics
     Align = alClient
     TabOrder = 2
-    ExplicitTop = 41
-    ExplicitWidth = 935
-    ExplicitHeight = 487
     object tabGraphics: TTabSheet
       Caption = 'Visualizar em Gr'#225'ficos'
-      ExplicitLeft = 8
-      ExplicitTop = 28
-      ExplicitWidth = 927
-      ExplicitHeight = 453
       object scrGraphics: TScrollBox
         Left = 0
         Top = 0
@@ -66,8 +54,6 @@ inherited frmMovementGraphics: TfrmMovementGraphics
         BevelOuter = bvNone
         BorderStyle = bsNone
         TabOrder = 0
-        ExplicitWidth = 1896
-        ExplicitHeight = 921
         object chtFormPaymentsRevenues: TDBChart
           Left = 8
           Top = 442
@@ -318,14 +304,156 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     object tabLists: TTabSheet
       Caption = 'Visualizar em listas'
       ImageIndex = 1
-      ExplicitWidth = 927
-      ExplicitHeight = 453
+      object scrLists: TScrollBox
+        Left = 0
+        Top = 0
+        Width = 1436
+        Height = 883
+        Align = alClient
+        BevelInner = bvNone
+        BevelOuter = bvNone
+        BorderStyle = bsNone
+        TabOrder = 0
+        ExplicitTop = -2
+        object pn1: TPanel
+          Left = 3
+          Top = 3
+          Width = 398
+          Height = 326
+          TabOrder = 0
+          object gr1: TDBGrid
+            Left = 16
+            Top = 24
+            Width = 353
+            Height = 281
+            DataSource = dtsFormPaymentsExpenses
+            TabOrder = 0
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -16
+            TitleFont.Name = 'Calibri'
+            TitleFont.Style = []
+          end
+        end
+        object Panel1: TPanel
+          Left = 3
+          Top = 335
+          Width = 398
+          Height = 326
+          TabOrder = 1
+          object DBGrid1: TDBGrid
+            Left = 16
+            Top = 24
+            Width = 353
+            Height = 281
+            DataSource = dtsFormPaymentsRevenues
+            TabOrder = 0
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -16
+            TitleFont.Name = 'Calibri'
+            TitleFont.Style = []
+          end
+        end
+        object Panel2: TPanel
+          Left = 407
+          Top = 3
+          Width = 398
+          Height = 326
+          TabOrder = 2
+          object DBGrid2: TDBGrid
+            Left = 16
+            Top = 24
+            Width = 353
+            Height = 281
+            DataSource = dtsSubCategorysExpenses
+            TabOrder = 0
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -16
+            TitleFont.Name = 'Calibri'
+            TitleFont.Style = []
+          end
+        end
+        object Panel3: TPanel
+          Left = 407
+          Top = 335
+          Width = 398
+          Height = 326
+          TabOrder = 3
+          object DBGrid3: TDBGrid
+            Left = 16
+            Top = 24
+            Width = 353
+            Height = 281
+            DataSource = dtsSubCategorysRevenues
+            TabOrder = 0
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -16
+            TitleFont.Name = 'Calibri'
+            TitleFont.Style = []
+          end
+        end
+        object Panel4: TPanel
+          Left = 811
+          Top = 3
+          Width = 398
+          Height = 326
+          TabOrder = 4
+          object DBGrid4: TDBGrid
+            Left = 16
+            Top = 24
+            Width = 353
+            Height = 281
+            DataSource = dtsCategorysExpenses
+            TabOrder = 0
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -16
+            TitleFont.Name = 'Calibri'
+            TitleFont.Style = []
+          end
+        end
+        object Panel5: TPanel
+          Left = 811
+          Top = 335
+          Width = 398
+          Height = 326
+          TabOrder = 5
+          object DBGrid5: TDBGrid
+            Left = 16
+            Top = 24
+            Width = 353
+            Height = 281
+            DataSource = dtsCategorysRevenues
+            TabOrder = 0
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -16
+            TitleFont.Name = 'Calibri'
+            TitleFont.Style = []
+          end
+        end
+      end
     end
     object tabTotals: TTabSheet
       Caption = 'Visualizar os totais'
       ImageIndex = 2
-      ExplicitWidth = 927
-      ExplicitHeight = 453
+      ExplicitLeft = 8
+      ExplicitTop = 28
+      object scrTotals: TScrollBox
+        Left = 0
+        Top = 0
+        Width = 1436
+        Height = 883
+        Align = alClient
+        BevelInner = bvNone
+        BevelOuter = bvNone
+        BorderStyle = bsNone
+        TabOrder = 0
+        ExplicitTop = -2
+      end
     end
   end
   object pnlFilters: TPanel
@@ -335,7 +463,6 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     Height = 48
     Align = alTop
     TabOrder = 3
-    ExplicitWidth = 995
   end
   object dtsFormPaymentsExpenses: TDataSource
     Left = 104
