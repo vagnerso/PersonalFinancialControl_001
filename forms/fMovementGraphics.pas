@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, uMovement, VclTee.TeeGDIPlus, Data.DB, VCLTee.TeEngine, VCLTee.Series,
-  Vcl.ExtCtrls, VCLTee.TeeProcs, VCLTee.Chart, VCLTee.DBChart, Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids;
+  Vcl.ExtCtrls, VCLTee.TeeProcs, VCLTee.Chart, VCLTee.DBChart, Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls,
+  uSystemManager;
 
 type
   TfrmMovementGraphics = class(TfrmBase)
@@ -17,43 +18,54 @@ type
     tabLists: TTabSheet;
     tabTotals: TTabSheet;
     scrGraphics: TScrollBox;
-    chtFormPaymentsRevenues: TDBChart;
-    Series1: TPieSeries;
-    chtFormPaymentsExpenses: TDBChart;
-    PieSeries1: TPieSeries;
     dtsFormPaymentsRevenues: TDataSource;
     pnlFilters: TPanel;
-    chtSubCategoryExpenses: TDBChart;
-    PieSeries2: TPieSeries;
-    chtSubCategoryRevenues: TDBChart;
-    PieSeries3: TPieSeries;
     dtsSubCategorysExpenses: TDataSource;
     dtsSubCategorysRevenues: TDataSource;
-    chtCategoryExpenses: TDBChart;
-    PieSeries4: TPieSeries;
-    chtCategoryRevenues: TDBChart;
-    PieSeries5: TPieSeries;
     dtsCategorysExpenses: TDataSource;
     dtsCategorysRevenues: TDataSource;
     scrLists: TScrollBox;
     scrTotals: TScrollBox;
     pn1: TPanel;
-    gr1: TDBGrid;
+    grdFormPaymentsExpenses: TDBGrid;
     Panel1: TPanel;
-    DBGrid1: TDBGrid;
+    grdFormPaymentsRevenues: TDBGrid;
     Panel2: TPanel;
-    DBGrid2: TDBGrid;
+    grdSubCategorysExpenses: TDBGrid;
     Panel3: TPanel;
-    DBGrid3: TDBGrid;
+    grdSubCategorysRevenues: TDBGrid;
     Panel4: TPanel;
-    DBGrid4: TDBGrid;
+    grdCategorysExpenses: TDBGrid;
     Panel5: TPanel;
-    DBGrid5: TDBGrid;
+    grdCategorysRevenues: TDBGrid;
+    chtFormPaymentsExpenses: TChart;
+    Series2: TPieSeries;
+    chtCategoryExpenses: TChart;
+    PieSeries1: TPieSeries;
+    chtSubCategoryExpenses: TChart;
+    PieSeries4: TPieSeries;
+    chtFormPaymentsRevenues: TChart;
+    PieSeries2: TPieSeries;
+    chtCategoryRevenues: TChart;
+    PieSeries6: TPieSeries;
+    chtSubCategoryRevenues: TChart;
+    PieSeries5: TPieSeries;
+    lb1: TLabel;
+    lb2: TLabel;
+    Label1: TLabel;
+    lb3: TLabel;
+    lb4: TLabel;
+    lb5: TLabel;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
   private
     FMovement: TMovement;
+    FBackgroundColor: TColor;
+    FTitleColor: TColor;
+    FTitleFontColor: TColor;
+    FPanelBottomColor: TColor;
+    procedure SetColors;
     { Private declarations }
   public
     { Public declarations }
@@ -85,6 +97,7 @@ var
   lDescription: string;
 begin
   inherited;
+  SetColors;
 
   I:=0;
   lDescription := EmptyStr;
@@ -202,6 +215,32 @@ begin
   end;
   chtCategoryRevenues.Series[0].Marks.Visible := false;
 
+  grdFormPaymentsExpenses.Columns[0].Width := 200;
+  grdFormPaymentsExpenses.Columns[1].Width := 100;
+  grdSubCategorysExpenses.Columns[0].Width := 200;
+  grdSubCategorysExpenses.Columns[1].Width := 100;
+  grdCategorysExpenses.Columns[0].Width := 200;
+  grdCategorysExpenses.Columns[1].Width := 100;
+  grdFormPaymentsRevenues.Columns[0].Width := 200;
+  grdFormPaymentsRevenues.Columns[1].Width := 100;
+  grdSubCategorysRevenues.Columns[0].Width := 200;
+  grdSubCategorysRevenues.Columns[1].Width := 100;
+  grdCategorysRevenues.Columns[0].Width := 200;
+  grdCategorysRevenues.Columns[1].Width := 100;
+
+end;
+
+procedure TfrmMovementGraphics.SetColors;
+begin
+  FBackgroundColor := TSystemManager.GetInstance.LayoutConfiguration.BackgroundColor;
+  FTitleColor := TSystemManager.GetInstance.LayoutConfiguration.TitleColor;
+  FTitleFontColor := TSystemManager.GetInstance.LayoutConfiguration.TitleFontColor;
+  FPanelBottomColor := TSystemManager.GetInstance.LayoutConfiguration.PanelBottomColor;
+
+  Color := FBackgroundColor;
+  pnlTitle.Color := FTitleColor;
+  pnlTitle.Font.Color := FTitleFontColor;
+  pnlBottom.Color := FPanelBottomColor;
 end;
 
 end.

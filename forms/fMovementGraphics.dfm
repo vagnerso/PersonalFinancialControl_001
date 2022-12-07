@@ -54,63 +54,25 @@ inherited frmMovementGraphics: TfrmMovementGraphics
         BevelOuter = bvNone
         BorderStyle = bsNone
         TabOrder = 0
-        object chtFormPaymentsRevenues: TDBChart
-          Left = 8
-          Top = 442
-          Width = 465
-          Height = 436
-          Title.Color = clRed
-          Title.Text.Strings = (
-            'Entradas por forma de pagamento')
-          View3DOptions.Elevation = 315
-          View3DOptions.Orthogonal = False
-          View3DOptions.Perspective = 0
-          View3DOptions.Rotation = 360
-          TabOrder = 0
-          DefaultCanvas = 'TGDIPlusCanvas'
-          ColorPaletteIndex = 13
-          object Series1: TPieSeries
-            ValueFormat = '#.##0,00;(#.##0,00)'
-            XValues.Order = loAscending
-            YValues.Name = 'Pie'
-            YValues.Order = loNone
-            Frame.InnerBrush.BackColor = clRed
-            Frame.InnerBrush.Gradient.EndColor = clGray
-            Frame.InnerBrush.Gradient.MidColor = clWhite
-            Frame.InnerBrush.Gradient.StartColor = 4210752
-            Frame.InnerBrush.Gradient.Visible = True
-            Frame.MiddleBrush.BackColor = clYellow
-            Frame.MiddleBrush.Gradient.EndColor = 8553090
-            Frame.MiddleBrush.Gradient.MidColor = clWhite
-            Frame.MiddleBrush.Gradient.StartColor = clGray
-            Frame.MiddleBrush.Gradient.Visible = True
-            Frame.OuterBrush.BackColor = clGreen
-            Frame.OuterBrush.Gradient.EndColor = 4210752
-            Frame.OuterBrush.Gradient.MidColor = clWhite
-            Frame.OuterBrush.Gradient.StartColor = clSilver
-            Frame.OuterBrush.Gradient.Visible = True
-            Frame.Width = 4
-            EdgeStyle = edFlat
-            OtherSlice.Legend.Visible = False
-          end
-        end
-        object chtFormPaymentsExpenses: TDBChart
-          Left = 8
+        object chtFormPaymentsExpenses: TChart
+          Left = 4
           Top = 0
-          Width = 465
+          Width = 469
           Height = 436
-          Title.Color = clRed
+          Title.Font.Color = clRed
+          Title.Font.Height = -19
+          Title.Font.Name = 'Tahoma'
           Title.Text.Strings = (
             'Sa'#237'das por forma de pagamento')
           View3DOptions.Elevation = 315
           View3DOptions.Orthogonal = False
           View3DOptions.Perspective = 0
           View3DOptions.Rotation = 360
-          TabOrder = 1
+          Color = clWhite
+          TabOrder = 0
           DefaultCanvas = 'TGDIPlusCanvas'
           ColorPaletteIndex = 13
-          object PieSeries1: TPieSeries
-            ValueFormat = '#.##0,00;(#.##0,00)'
+          object Series2: TPieSeries
             XValues.Order = loAscending
             YValues.Name = 'Pie'
             YValues.Order = loNone
@@ -130,110 +92,28 @@ inherited frmMovementGraphics: TfrmMovementGraphics
             Frame.OuterBrush.Gradient.StartColor = clSilver
             Frame.OuterBrush.Gradient.Visible = True
             Frame.Width = 4
-            Bevel.Bright = 0
-            EdgeStyle = edFlat
             OtherSlice.Legend.Visible = False
           end
         end
-        object chtSubCategoryExpenses: TDBChart
-          Left = 950
-          Top = 0
-          Width = 465
-          Height = 436
-          Title.Color = clRed
-          Title.Text.Strings = (
-            'Sa'#237'das por sub categoria')
-          View3DOptions.Elevation = 315
-          View3DOptions.Orthogonal = False
-          View3DOptions.Perspective = 0
-          View3DOptions.Rotation = 360
-          TabOrder = 2
-          DefaultCanvas = 'TGDIPlusCanvas'
-          ColorPaletteIndex = 13
-          object PieSeries2: TPieSeries
-            ValueFormat = '#.##0,00;(#.##0,00)'
-            XValues.Order = loAscending
-            YValues.Name = 'Pie'
-            YValues.Order = loNone
-            Frame.InnerBrush.BackColor = clRed
-            Frame.InnerBrush.Gradient.EndColor = clGray
-            Frame.InnerBrush.Gradient.MidColor = clWhite
-            Frame.InnerBrush.Gradient.StartColor = 4210752
-            Frame.InnerBrush.Gradient.Visible = True
-            Frame.MiddleBrush.BackColor = clYellow
-            Frame.MiddleBrush.Gradient.EndColor = 8553090
-            Frame.MiddleBrush.Gradient.MidColor = clWhite
-            Frame.MiddleBrush.Gradient.StartColor = clGray
-            Frame.MiddleBrush.Gradient.Visible = True
-            Frame.OuterBrush.BackColor = clGreen
-            Frame.OuterBrush.Gradient.EndColor = 4210752
-            Frame.OuterBrush.Gradient.MidColor = clWhite
-            Frame.OuterBrush.Gradient.StartColor = clSilver
-            Frame.OuterBrush.Gradient.Visible = True
-            Frame.Width = 4
-            Bevel.Bright = 0
-            EdgeStyle = edFlat
-            OtherSlice.Legend.Visible = False
-          end
-        end
-        object chtSubCategoryRevenues: TDBChart
-          Left = 950
-          Top = 442
-          Width = 465
-          Height = 436
-          Title.Color = clRed
-          Title.Text.Strings = (
-            'Entradas por sub categoria')
-          View3DOptions.Elevation = 315
-          View3DOptions.Orthogonal = False
-          View3DOptions.Perspective = 0
-          View3DOptions.Rotation = 360
-          TabOrder = 3
-          DefaultCanvas = 'TGDIPlusCanvas'
-          ColorPaletteIndex = 13
-          object PieSeries3: TPieSeries
-            ValueFormat = '#.##0,00;(#.##0,00)'
-            XValues.Order = loAscending
-            YValues.Name = 'Pie'
-            YValues.Order = loNone
-            Frame.InnerBrush.BackColor = clRed
-            Frame.InnerBrush.Gradient.EndColor = clGray
-            Frame.InnerBrush.Gradient.MidColor = clWhite
-            Frame.InnerBrush.Gradient.StartColor = 4210752
-            Frame.InnerBrush.Gradient.Visible = True
-            Frame.MiddleBrush.BackColor = clYellow
-            Frame.MiddleBrush.Gradient.EndColor = 8553090
-            Frame.MiddleBrush.Gradient.MidColor = clWhite
-            Frame.MiddleBrush.Gradient.StartColor = clGray
-            Frame.MiddleBrush.Gradient.Visible = True
-            Frame.OuterBrush.BackColor = clGreen
-            Frame.OuterBrush.Gradient.EndColor = 4210752
-            Frame.OuterBrush.Gradient.MidColor = clWhite
-            Frame.OuterBrush.Gradient.StartColor = clSilver
-            Frame.OuterBrush.Gradient.Visible = True
-            Frame.Width = 4
-            Bevel.Bright = 0
-            EdgeStyle = edFlat
-            OtherSlice.Legend.Visible = False
-          end
-        end
-        object chtCategoryExpenses: TDBChart
+        object chtCategoryExpenses: TChart
           Left = 479
           Top = 0
           Width = 465
           Height = 436
-          Title.Color = clRed
+          Title.Font.Color = clRed
+          Title.Font.Height = -19
+          Title.Font.Name = 'Tahoma'
           Title.Text.Strings = (
             'Sa'#237'das por categoria')
           View3DOptions.Elevation = 315
           View3DOptions.Orthogonal = False
           View3DOptions.Perspective = 0
           View3DOptions.Rotation = 360
-          TabOrder = 4
+          Color = clWhite
+          TabOrder = 1
           DefaultCanvas = 'TGDIPlusCanvas'
           ColorPaletteIndex = 13
-          object PieSeries4: TPieSeries
-            ValueFormat = '#.##0,00;(#.##0,00)'
+          object PieSeries1: TPieSeries
             XValues.Order = loAscending
             YValues.Name = 'Pie'
             YValues.Order = loNone
@@ -253,28 +133,110 @@ inherited frmMovementGraphics: TfrmMovementGraphics
             Frame.OuterBrush.Gradient.StartColor = clSilver
             Frame.OuterBrush.Gradient.Visible = True
             Frame.Width = 4
-            Bevel.Bright = 0
-            EdgeStyle = edFlat
             OtherSlice.Legend.Visible = False
           end
         end
-        object chtCategoryRevenues: TDBChart
-          Left = 479
-          Top = 442
+        object chtSubCategoryExpenses: TChart
+          Left = 950
+          Top = 0
           Width = 465
           Height = 436
-          Title.Color = clRed
+          Title.Font.Color = clRed
+          Title.Font.Height = -19
+          Title.Font.Name = 'Tahoma'
+          Title.Text.Strings = (
+            'Sa'#237'das por sub-categoria')
+          View3DOptions.Elevation = 315
+          View3DOptions.Orthogonal = False
+          View3DOptions.Perspective = 0
+          View3DOptions.Rotation = 360
+          Color = clWhite
+          TabOrder = 2
+          DefaultCanvas = 'TGDIPlusCanvas'
+          ColorPaletteIndex = 13
+          object PieSeries4: TPieSeries
+            XValues.Order = loAscending
+            YValues.Name = 'Pie'
+            YValues.Order = loNone
+            Frame.InnerBrush.BackColor = clRed
+            Frame.InnerBrush.Gradient.EndColor = clGray
+            Frame.InnerBrush.Gradient.MidColor = clWhite
+            Frame.InnerBrush.Gradient.StartColor = 4210752
+            Frame.InnerBrush.Gradient.Visible = True
+            Frame.MiddleBrush.BackColor = clYellow
+            Frame.MiddleBrush.Gradient.EndColor = 8553090
+            Frame.MiddleBrush.Gradient.MidColor = clWhite
+            Frame.MiddleBrush.Gradient.StartColor = clGray
+            Frame.MiddleBrush.Gradient.Visible = True
+            Frame.OuterBrush.BackColor = clGreen
+            Frame.OuterBrush.Gradient.EndColor = 4210752
+            Frame.OuterBrush.Gradient.MidColor = clWhite
+            Frame.OuterBrush.Gradient.StartColor = clSilver
+            Frame.OuterBrush.Gradient.Visible = True
+            Frame.Width = 4
+            OtherSlice.Legend.Visible = False
+          end
+        end
+        object chtFormPaymentsRevenues: TChart
+          Left = 3
+          Top = 444
+          Width = 469
+          Height = 436
+          Title.Font.Color = clGreen
+          Title.Font.Height = -19
+          Title.Font.Name = 'Tahoma'
+          Title.Text.Strings = (
+            'Entradas por forma de pagamento')
+          View3DOptions.Elevation = 315
+          View3DOptions.Orthogonal = False
+          View3DOptions.Perspective = 0
+          View3DOptions.Rotation = 360
+          Color = clWhite
+          TabOrder = 3
+          DefaultCanvas = 'TGDIPlusCanvas'
+          ColorPaletteIndex = 13
+          object PieSeries2: TPieSeries
+            XValues.Order = loAscending
+            YValues.Name = 'Pie'
+            YValues.Order = loNone
+            Frame.InnerBrush.BackColor = clRed
+            Frame.InnerBrush.Gradient.EndColor = clGray
+            Frame.InnerBrush.Gradient.MidColor = clWhite
+            Frame.InnerBrush.Gradient.StartColor = 4210752
+            Frame.InnerBrush.Gradient.Visible = True
+            Frame.MiddleBrush.BackColor = clYellow
+            Frame.MiddleBrush.Gradient.EndColor = 8553090
+            Frame.MiddleBrush.Gradient.MidColor = clWhite
+            Frame.MiddleBrush.Gradient.StartColor = clGray
+            Frame.MiddleBrush.Gradient.Visible = True
+            Frame.OuterBrush.BackColor = clGreen
+            Frame.OuterBrush.Gradient.EndColor = 4210752
+            Frame.OuterBrush.Gradient.MidColor = clWhite
+            Frame.OuterBrush.Gradient.StartColor = clSilver
+            Frame.OuterBrush.Gradient.Visible = True
+            Frame.Width = 4
+            OtherSlice.Legend.Visible = False
+          end
+        end
+        object chtCategoryRevenues: TChart
+          Left = 478
+          Top = 444
+          Width = 466
+          Height = 436
+          Title.Font.Color = clGreen
+          Title.Font.Height = -19
+          Title.Font.Name = 'Tahoma'
           Title.Text.Strings = (
             'Entradas por categoria')
           View3DOptions.Elevation = 315
           View3DOptions.Orthogonal = False
           View3DOptions.Perspective = 0
           View3DOptions.Rotation = 360
-          TabOrder = 5
+          Color = clWhite
+          TabOrder = 4
           DefaultCanvas = 'TGDIPlusCanvas'
           ColorPaletteIndex = 13
-          object PieSeries5: TPieSeries
-            ValueFormat = '#.##0,00;(#.##0,00)'
+          object PieSeries6: TPieSeries
             XValues.Order = loAscending
             YValues.Name = 'Pie'
             YValues.Order = loNone
@@ -294,8 +256,47 @@ inherited frmMovementGraphics: TfrmMovementGraphics
             Frame.OuterBrush.Gradient.StartColor = clSilver
             Frame.OuterBrush.Gradient.Visible = True
             Frame.Width = 4
-            Bevel.Bright = 0
-            EdgeStyle = edFlat
+            OtherSlice.Legend.Visible = False
+          end
+        end
+        object chtSubCategoryRevenues: TChart
+          Left = 950
+          Top = 444
+          Width = 466
+          Height = 436
+          Title.Font.Color = clGreen
+          Title.Font.Height = -19
+          Title.Font.Name = 'Tahoma'
+          Title.Text.Strings = (
+            'Entradas por sub-categoria')
+          View3DOptions.Elevation = 315
+          View3DOptions.Orthogonal = False
+          View3DOptions.Perspective = 0
+          View3DOptions.Rotation = 360
+          Color = clWhite
+          TabOrder = 5
+          DefaultCanvas = 'TGDIPlusCanvas'
+          ColorPaletteIndex = 13
+          object PieSeries5: TPieSeries
+            XValues.Order = loAscending
+            YValues.Name = 'Pie'
+            YValues.Order = loNone
+            Frame.InnerBrush.BackColor = clRed
+            Frame.InnerBrush.Gradient.EndColor = clGray
+            Frame.InnerBrush.Gradient.MidColor = clWhite
+            Frame.InnerBrush.Gradient.StartColor = 4210752
+            Frame.InnerBrush.Gradient.Visible = True
+            Frame.MiddleBrush.BackColor = clYellow
+            Frame.MiddleBrush.Gradient.EndColor = 8553090
+            Frame.MiddleBrush.Gradient.MidColor = clWhite
+            Frame.MiddleBrush.Gradient.StartColor = clGray
+            Frame.MiddleBrush.Gradient.Visible = True
+            Frame.OuterBrush.BackColor = clGreen
+            Frame.OuterBrush.Gradient.EndColor = 4210752
+            Frame.OuterBrush.Gradient.MidColor = clWhite
+            Frame.OuterBrush.Gradient.StartColor = clSilver
+            Frame.OuterBrush.Gradient.Visible = True
+            Frame.Width = 4
             OtherSlice.Legend.Visible = False
           end
         end
@@ -314,18 +315,38 @@ inherited frmMovementGraphics: TfrmMovementGraphics
         BevelOuter = bvNone
         BorderStyle = bsNone
         TabOrder = 0
-        ExplicitTop = -2
         object pn1: TPanel
           Left = 3
           Top = 3
           Width = 398
           Height = 326
           TabOrder = 0
-          object gr1: TDBGrid
-            Left = 16
+          object lb1: TLabel
+            Left = 1
+            Top = 1
+            Width = 396
+            Height = 23
+            Align = alTop
+            Alignment = taCenter
+            Caption = 'Sa'#237'das por forma de pagamento'
+            Color = 3684595
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWhite
+            Font.Height = -19
+            Font.Name = 'Calibri'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            ExplicitWidth = 249
+          end
+          object grdFormPaymentsExpenses: TDBGrid
+            Left = 1
             Top = 24
-            Width = 353
-            Height = 281
+            Width = 396
+            Height = 301
+            Align = alClient
+            BorderStyle = bsNone
             DataSource = dtsFormPaymentsExpenses
             TabOrder = 0
             TitleFont.Charset = DEFAULT_CHARSET
@@ -341,11 +362,33 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           Width = 398
           Height = 326
           TabOrder = 1
-          object DBGrid1: TDBGrid
-            Left = 16
+          object lb3: TLabel
+            Left = 1
+            Top = 1
+            Width = 396
+            Height = 23
+            Align = alTop
+            Alignment = taCenter
+            Caption = 'Entradas por forma de pagamento'
+            Color = 6009689
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWhite
+            Font.Height = -19
+            Font.Name = 'Calibri'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            ExplicitLeft = 2
+            ExplicitTop = 0
+          end
+          object grdFormPaymentsRevenues: TDBGrid
+            Left = 1
             Top = 24
-            Width = 353
-            Height = 281
+            Width = 396
+            Height = 301
+            Align = alClient
+            BorderStyle = bsNone
             DataSource = dtsFormPaymentsRevenues
             TabOrder = 0
             TitleFont.Charset = DEFAULT_CHARSET
@@ -361,11 +404,32 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           Width = 398
           Height = 326
           TabOrder = 2
-          object DBGrid2: TDBGrid
-            Left = 16
+          object lb2: TLabel
+            Left = 1
+            Top = 1
+            Width = 396
+            Height = 23
+            Align = alTop
+            Alignment = taCenter
+            Caption = 'Sa'#237'das por categoria'
+            Color = 3684595
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWhite
+            Font.Height = -19
+            Font.Name = 'Calibri'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            ExplicitWidth = 159
+          end
+          object grdSubCategorysExpenses: TDBGrid
+            Left = 1
             Top = 24
-            Width = 353
-            Height = 281
+            Width = 396
+            Height = 301
+            Align = alClient
+            BorderStyle = bsNone
             DataSource = dtsSubCategorysExpenses
             TabOrder = 0
             TitleFont.Charset = DEFAULT_CHARSET
@@ -381,11 +445,32 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           Width = 398
           Height = 326
           TabOrder = 3
-          object DBGrid3: TDBGrid
-            Left = 16
+          object lb4: TLabel
+            Left = 1
+            Top = 1
+            Width = 396
+            Height = 23
+            Align = alTop
+            Alignment = taCenter
+            Caption = 'Entradas por categoria'
+            Color = 6009689
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWhite
+            Font.Height = -19
+            Font.Name = 'Calibri'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            ExplicitWidth = 178
+          end
+          object grdSubCategorysRevenues: TDBGrid
+            Left = 1
             Top = 24
-            Width = 353
-            Height = 281
+            Width = 396
+            Height = 301
+            Align = alClient
+            BorderStyle = bsNone
             DataSource = dtsSubCategorysRevenues
             TabOrder = 0
             TitleFont.Charset = DEFAULT_CHARSET
@@ -401,11 +486,32 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           Width = 398
           Height = 326
           TabOrder = 4
-          object DBGrid4: TDBGrid
-            Left = 16
+          object Label1: TLabel
+            Left = 1
+            Top = 1
+            Width = 396
+            Height = 23
+            Align = alTop
+            Alignment = taCenter
+            Caption = 'Sa'#237'das por sub-categoria'
+            Color = 3684595
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWhite
+            Font.Height = -19
+            Font.Name = 'Calibri'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            ExplicitWidth = 193
+          end
+          object grdCategorysExpenses: TDBGrid
+            Left = 1
             Top = 24
-            Width = 353
-            Height = 281
+            Width = 396
+            Height = 301
+            Align = alClient
+            BorderStyle = bsNone
             DataSource = dtsCategorysExpenses
             TabOrder = 0
             TitleFont.Charset = DEFAULT_CHARSET
@@ -421,11 +527,32 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           Width = 398
           Height = 326
           TabOrder = 5
-          object DBGrid5: TDBGrid
-            Left = 16
+          object lb5: TLabel
+            Left = 1
+            Top = 1
+            Width = 396
+            Height = 23
+            Align = alTop
+            Alignment = taCenter
+            Caption = 'Entradas por sub-categoria'
+            Color = 6009689
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWhite
+            Font.Height = -19
+            Font.Name = 'Calibri'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            ExplicitWidth = 212
+          end
+          object grdCategorysRevenues: TDBGrid
+            Left = 1
             Top = 24
-            Width = 353
-            Height = 281
+            Width = 396
+            Height = 301
+            Align = alClient
+            BorderStyle = bsNone
             DataSource = dtsCategorysRevenues
             TabOrder = 0
             TitleFont.Charset = DEFAULT_CHARSET
@@ -440,8 +567,6 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     object tabTotals: TTabSheet
       Caption = 'Visualizar os totais'
       ImageIndex = 2
-      ExplicitLeft = 8
-      ExplicitTop = 28
       object scrTotals: TScrollBox
         Left = 0
         Top = 0
@@ -452,7 +577,6 @@ inherited frmMovementGraphics: TfrmMovementGraphics
         BevelOuter = bvNone
         BorderStyle = bsNone
         TabOrder = 0
-        ExplicitTop = -2
       end
     end
   end

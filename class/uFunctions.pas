@@ -110,11 +110,11 @@ begin
   begin
     if (ADataSet.Fields[I].DataType = ftFloat) then
     begin
-      TFloatField(ADataSet.FieldByName('R$ Valor')).DisplayFormat:= AMask;
+      TFloatField(ADataSet.Fields[I]).DisplayFormat:= AMask;
     end else
     if (ADataSet.Fields[I].DataType = ftCurrency) then
     begin
-      TCurrencyField(ADataSet.FieldByName('R$ Valor')).DisplayFormat:= AMask;
+      TCurrencyField(ADataSet.Fields[I]).DisplayFormat:= AMask;
     end;
   end;
 end;

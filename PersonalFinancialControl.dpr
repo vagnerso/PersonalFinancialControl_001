@@ -32,7 +32,8 @@ uses
   fProvider in 'forms\fProvider.pas' {frmProvider},
   fImport in 'forms\fImport.pas' {frmImport},
   fManageMovements in 'forms\fManageMovements.pas' {frmManageMovements},
-  fMovementGraphics in 'forms\fMovementGraphics.pas' {frmMovementGraphics};
+  fMovementGraphics in 'forms\fMovementGraphics.pas' {frmMovementGraphics},
+  uClassHelperTEdit in 'class\uClassHelperTEdit.pas';
 
 {$R *.res}
 

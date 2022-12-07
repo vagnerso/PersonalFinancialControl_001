@@ -1,0 +1,20 @@
+unit uClassHelperTEdit;
+
+interface
+
+uses Vcl.StdCtrls;
+
+type TClassHelperTEdit = class helper for TEdit
+  procedure clearWithX;
+end;
+
+implementation
+
+{ TClassHelperTEdit }
+
+procedure TClassHelperTEdit.clearWithX;
+begin
+  Text := 'XXXXX';
+end;
+
+end.

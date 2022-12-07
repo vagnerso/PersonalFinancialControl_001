@@ -225,6 +225,7 @@ begin
   FQueryCategorysExpenses.SQL.Clear;
   FQueryCategorysExpenses.SQL.Add(lSql);
   FQueryCategorysExpenses.Open;
+  TFunctions.FormatDataSetDecimalFields(FQueryCategorysExpenses, '#,##0.00');
 end;
 
 procedure TMovement.GetQueryCategoryRevenues;
@@ -247,7 +248,7 @@ begin
   FQueryCategorysRevenues.SQL.Clear;
   FQueryCategorysRevenues.SQL.Add(lSql);
   FQueryCategorysRevenues.Open;
-
+  TFunctions.FormatDataSetDecimalFields(FQueryCategorysRevenues, '#,##0.00');
 end;
 
 procedure TMovement.GetQueryFormPaymentsExpenses;
@@ -269,6 +270,7 @@ begin
   FQueryFormPaymentsExpenses.SQL.Clear;
   FQueryFormPaymentsExpenses.SQL.Add(lSql);
   FQueryFormPaymentsExpenses.Open;
+  TFunctions.FormatDataSetDecimalFields(FQueryFormPaymentsExpenses, '#,##0.00');
 end;
 
 procedure TMovement.GetQueryFormPaymentsRevenues;
@@ -290,6 +292,7 @@ begin
   FQueryFormPaymentsRevenues.SQL.Clear;
   FQueryFormPaymentsRevenues.SQL.Add(lSql);
   FQueryFormPaymentsRevenues.Open;
+  TFunctions.FormatDataSetDecimalFields(FQueryFormPaymentsRevenues, '#,##0.00');
 end;
 
 procedure TMovement.GetQuerySubCategoryExpenses;
@@ -311,6 +314,7 @@ begin
   FQuerySubCategorysExpenses.SQL.Clear;
   FQuerySubCategorysExpenses.SQL.Add(lSql);
   FQuerySubCategorysExpenses.Open;
+  TFunctions.FormatDataSetDecimalFields(FQuerySubCategorysExpenses, '#,##0.00');
 end;
 
 procedure TMovement.GetQuerySubCategoryRevenues;
@@ -332,6 +336,7 @@ begin
   FQuerySubCategorysRevenues.SQL.Clear;
   FQuerySubCategorysRevenues.SQL.Add(lSql);
   FQuerySubCategorysRevenues.Open;
+  TFunctions.FormatDataSetDecimalFields(FQuerySubCategorysRevenues, '#,##0.00');
 end;
 
 procedure TMovement.InsertRegister;

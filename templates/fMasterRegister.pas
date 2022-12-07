@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.ComCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids,
   Vcl.Imaging.pngimage, uSystemManager, uDataBaseConnection, uEnumTypes,
-  uFunctions, Vcl.Menus;
+  uFunctions, Vcl.Menus, uClassHelperTEdit;
 
 type
   TfrmMasterRegister = class(TfrmBase)

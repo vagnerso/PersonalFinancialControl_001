@@ -246,8 +246,6 @@ inherited frmMasterRegister: TfrmMasterRegister
             OnClick = pnlButtonSaveClick
             OnMouseEnter = pnlButtonSaveMouseEnter
             OnMouseLeave = pnlButtonSaveMouseLeave
-            ExplicitLeft = 785
-            ExplicitTop = 2
           end
           object pnlButtonCancel: TPanel
             Left = 593
@@ -264,7 +262,6 @@ inherited frmMasterRegister: TfrmMasterRegister
             OnClick = pnlButtonCancelClick
             OnMouseEnter = pnlButtonCancelMouseEnter
             OnMouseLeave = pnlButtonCancelMouseLeave
-            ExplicitLeft = 740
           end
         end
         object pgcRegister: TPageControl
