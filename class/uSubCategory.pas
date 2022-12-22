@@ -87,6 +87,7 @@ end;
 
 destructor TSubCategory.Destroy;
 begin
+  FSearchFiltersCustomized.Free;
   FCategory.Free;
   FDataSet.Free;
   inherited;

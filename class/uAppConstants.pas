@@ -6,6 +6,11 @@ const
   DATABASE_NAME = 'PersonalFinancialControl';
   DEVELOPER_NAME = 'Vagner Silva de Oliveira';
 
+  MSG_ERROR_USER_INSERT = 'Erro ao tentar incluir um usuário.';
+  MSG_ERROR_USER_UPDATE = 'Erro ao tentar alterar um usuário.';
+  MSG_ERROR_USER_DELETE = 'Erro ao tentar excluir um usuário.';
+  MSG_ERROR_USER_SEARCH = 'Erro ao tentar consultar usuário.';
+
   MSG_ERROR_CATEGORY_INSERT = 'Erro ao tentar incluir uma categoria.';
   MSG_ERROR_CATEGORY_UPDATE = 'Erro ao tentar alterar uma categoria.';
   MSG_ERROR_CATEGORY_DELETE = 'Erro ao tentar excluir uma categoria.';

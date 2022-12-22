@@ -12902,7 +12902,7 @@ object frmMain: TfrmMain
   object pnlMenuCategory: TPanel
     Left = 40
     Top = 129
-    Width = 240
+    Width = 257
     Height = 40
     Cursor = crHandPoint
     BevelOuter = bvNone
@@ -12921,7 +12921,7 @@ object frmMain: TfrmMain
   object pnlMenuSubCategory: TPanel
     Left = 39
     Top = 180
-    Width = 240
+    Width = 258
     Height = 40
     Cursor = crHandPoint
     BevelOuter = bvNone
@@ -12959,7 +12959,7 @@ object frmMain: TfrmMain
   object pnlMenuFormPayment: TPanel
     Left = 40
     Top = 79
-    Width = 240
+    Width = 257
     Height = 40
     Cursor = crHandPoint
     BevelOuter = bvNone
@@ -12978,7 +12978,7 @@ object frmMain: TfrmMain
   object pnlMenuTypePayment: TPanel
     Left = 39
     Top = 28
-    Width = 240
+    Width = 258
     Height = 40
     Cursor = crHandPoint
     BevelOuter = bvNone
@@ -13016,7 +13016,7 @@ object frmMain: TfrmMain
   object pnlMenuProvider: TPanel
     Left = 39
     Top = 230
-    Width = 240
+    Width = 258
     Height = 40
     Cursor = crHandPoint
     BevelOuter = bvNone
@@ -13082,7 +13082,7 @@ object frmMain: TfrmMain
   object pnButtonMovementGraphics: TPanel
     Left = 40
     Top = 340
-    Width = 239
+    Width = 257
     Height = 49
     Cursor = crHandPoint
     BevelOuter = bvNone

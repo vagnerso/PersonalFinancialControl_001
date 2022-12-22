@@ -9,7 +9,8 @@ uses
   Vcl.Dialogs,
   uAppConstants,
   uFunctions,
-  uSearchFilters, System.Classes;
+  uSearchFilters,
+  System.Classes;
 
 type TSearchFiltersCustomized = class(TSearchFilters)
   private
@@ -80,6 +81,7 @@ end;
 
 destructor TCategory.Destroy;
 begin
+  FSearchFiltersCustomized.Free;
   FDataSet.Free;
   inherited;
 end;

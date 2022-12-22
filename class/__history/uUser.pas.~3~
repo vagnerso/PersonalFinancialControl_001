@@ -1,0 +1,39 @@
+unit uUser;
+
+interface
+
+uses
+  uCrudInterface,
+  uDataBaseConnection,
+  System.SysUtils,
+  Vcl.Dialogs,
+  uAppConstants,
+  uFunctions,
+  uSearchFilters,
+  System.Classes;
+
+type TSearchFiltersCustomized = class(TSearchFilters)
+  private
+
+  public
+end;
+
+type TUser = class(TInterfacedObject, ICrudInterface)
+  private
+    FId: Integer;
+    FUniqueId: String;
+    FName: string;
+    FLogin: string;
+    FPassword: string;
+
+  public
+    property Id: Integer read FId write FId;
+    property UniqueId: String read FUniqueId write FUniqueId;
+    property Name: string read FName write FName;
+    property Login: string read FLogin write FLogin;
+    property Password: string read FPassword write FPassword;
+end;
+
+implementation
+
+end.

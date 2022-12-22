@@ -106,6 +106,7 @@ end;
 
 destructor TPerson.Destroy;
 begin
+  FSearchFiltersCustomized.Free;
   FDataSet.Free;
   inherited;
 end;

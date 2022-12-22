@@ -9,8 +9,18 @@ uses
 
 type TSearchFiltersCustomized = class(TSearchFilters)
   private
+    FSituation: Integer;
+    FMonth: Integer;
+    FYear: Integer;
+    FInitialDate: TDate;
+    FEndDate: TDate;
 
   public
+    property Situation: Integer read FSituation write FSituation;
+    property Month: Integer read FMonth write FMonth;
+    property Year: Integer read FYear write FYear;
+    property InitialDate: TDate read FInitialDate write FInitialDate;
+    property EndDate: TDate read FEndDate write FEndDate;
 end;
 
 type TMovement = class
@@ -253,24 +263,49 @@ end;
 
 procedure TMovement.GetQueryFormPaymentsExpenses;
 var
-  lSql: string;
+  lSql: TStringList;
 begin
-  lSql :=
-          '  select name, sum(INSTALLMENT_VALUE) TOTAL  '+
-          'from MOVEMENT m                              '+
-          'left join FORM_PAYMENT fp                    '+
-          'on (fp.id=m.ID_FORM_PAYMENT)                 '+
-          'where m.TYPE_MOVEMENT = ''1''                '+
-          'and name not NULL                            '+
-          'group by name                                '+
-          'order by name                                ';
 
-  TDataBaseConnection.GetInstance.NewConnection;
-  FQueryFormPaymentsExpenses.Close;
-  FQueryFormPaymentsExpenses.SQL.Clear;
-  FQueryFormPaymentsExpenses.SQL.Add(lSql);
-  FQueryFormPaymentsExpenses.Open;
-  TFunctions.FormatDataSetDecimalFields(FQueryFormPaymentsExpenses, '#,##0.00');
+  lSql := TStringList.Create;
+  try
+    lSql.Add('select                                       ');
+    lSql.Add('  name,                                      ');
+    lSql.Add('  sum(INSTALLMENT_VALUE) TOTAL               ');
+    lSql.Add('from MOVEMENT m                              ');
+    lSql.Add('left join FORM_PAYMENT fp                    ');
+    lSql.Add('on (fp.id=m.ID_FORM_PAYMENT)                 ');
+    lSql.Add('where m.TYPE_MOVEMENT = ''1''                ');
+
+    if FSearchFiltersCustomized.Situation >= 0 then
+    begin
+      lSql.Add('and m.situation = ' + FSearchFiltersCustomized.Situation.ToString);
+    end;
+
+    if FSearchFiltersCustomized.Month > 0 then
+    begin
+      lSql.Add('and strftime(''%m'', m.issue_date) = ' + QuotedStr(FSearchFiltersCustomized.Month.ToString));
+    end;
+
+    if FSearchFiltersCustomized.Year > 0 then
+    begin
+      lSql.Add('and strftime(''%Y'', m.issue_date) = ' + FSearchFiltersCustomized.Year.ToString);
+    end;
+
+    lSql.Add('and name not NULL                            ');
+    lSql.Add('group by name                                ');
+    lSql.Add('order by name                                ');
+
+    TDataBaseConnection.GetInstance.NewConnection;
+    FQueryFormPaymentsExpenses.Close;
+    FQueryFormPaymentsExpenses.SQL.Clear;
+    FQueryFormPaymentsExpenses.SQL.Add(lSql.Text);
+    ShowMessage(lSql.Text);
+    FQueryFormPaymentsExpenses.Open;
+    TFunctions.FormatDataSetDecimalFields(FQueryFormPaymentsExpenses, '#,##0.00');
+
+  finally
+    lSql.Free;
+  end;
 end;
 
 procedure TMovement.GetQueryFormPaymentsRevenues;

@@ -36,9 +36,9 @@ inherited frmMovementGraphics: TfrmMovementGraphics
   end
   object pgcGeneral: TPageControl
     Left = 0
-    Top = 89
+    Top = 111
     Width = 1444
-    Height = 917
+    Height = 895
     ActivePage = tabGraphics
     Align = alClient
     TabOrder = 2
@@ -48,7 +48,7 @@ inherited frmMovementGraphics: TfrmMovementGraphics
         Left = 0
         Top = 0
         Width = 1436
-        Height = 883
+        Height = 861
         Align = alClient
         BevelInner = bvNone
         BevelOuter = bvNone
@@ -309,7 +309,7 @@ inherited frmMovementGraphics: TfrmMovementGraphics
         Left = 0
         Top = 0
         Width = 1436
-        Height = 883
+        Height = 861
         Align = alClient
         BevelInner = bvNone
         BevelOuter = bvNone
@@ -379,8 +379,7 @@ inherited frmMovementGraphics: TfrmMovementGraphics
             ParentColor = False
             ParentFont = False
             Transparent = False
-            ExplicitLeft = 2
-            ExplicitTop = 0
+            ExplicitWidth = 268
           end
           object grdFormPaymentsRevenues: TDBGrid
             Left = 1
@@ -571,7 +570,7 @@ inherited frmMovementGraphics: TfrmMovementGraphics
         Left = 0
         Top = 0
         Width = 1436
-        Height = 883
+        Height = 861
         Align = alClient
         BevelInner = bvNone
         BevelOuter = bvNone
@@ -584,9 +583,135 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     Left = 0
     Top = 41
     Width = 1444
-    Height = 48
+    Height = 70
     Align = alTop
     TabOrder = 3
+    object lb6: TLabel
+      Left = 8
+      Top = 6
+      Width = 55
+      Height = 19
+      Caption = 'Situa'#231#227'o'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -16
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblMonthYear: TLabel
+      Left = 296
+      Top = 6
+      Width = 58
+      Height = 19
+      Caption = 'M'#234's/Ano'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -16
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblFilterInitialDate: TLabel
+      Left = 464
+      Top = 6
+      Width = 74
+      Height = 19
+      Caption = 'Data Inicial'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -16
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblFilterEndDate: TLabel
+      Left = 616
+      Top = 6
+      Width = 66
+      Height = 19
+      Caption = 'Data Final'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -16
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label3: TLabel
+      Left = 136
+      Top = 6
+      Width = 103
+      Height = 19
+      Caption = 'Filtrar datas por'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -16
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
+    end
+    object cbxFilterSituation: TComboBox
+      Left = 8
+      Top = 31
+      Width = 113
+      Height = 27
+      ItemIndex = 2
+      TabOrder = 0
+      Text = 'Pagos'
+      Items.Strings = (
+        'Todas'
+        'N'#227'o Pagos'
+        'Pagos')
+    end
+    object cbxFilterMonthOrYear: TComboBox
+      Left = 296
+      Top = 31
+      Width = 141
+      Height = 27
+      TabOrder = 1
+    end
+    object edtFilterInitialDate: TDateTimePicker
+      Left = 464
+      Top = 32
+      Width = 129
+      Height = 27
+      Date = 44903.348942754630000000
+      Time = 44903.348942754630000000
+      TabOrder = 2
+    end
+    object edtFilterEndDate: TDateTimePicker
+      Left = 616
+      Top = 32
+      Width = 129
+      Height = 27
+      Date = 44903.348942754630000000
+      Time = 44903.348942754630000000
+      TabOrder = 3
+    end
+    object cbxFilterDateBy: TComboBox
+      Left = 136
+      Top = 31
+      Width = 141
+      Height = 27
+      ItemIndex = 0
+      TabOrder = 4
+      Text = 'M'#234's'
+      OnChange = cbxFilterDateByChange
+      Items.Strings = (
+        'M'#234's'
+        'Ano'
+        'Per'#237'odo')
+    end
+    object btnSearchExecute: TButton
+      Left = 768
+      Top = 16
+      Width = 180
+      Height = 40
+      Caption = 'Atualizar pesquisa'
+      TabOrder = 5
+      OnClick = btnSearchExecuteClick
+    end
   end
   object dtsFormPaymentsExpenses: TDataSource
     Left = 104

@@ -56,9 +56,22 @@ type
     lb3: TLabel;
     lb4: TLabel;
     lb5: TLabel;
+    cbxFilterSituation: TComboBox;
+    lb6: TLabel;
+    lblMonthYear: TLabel;
+    cbxFilterMonthOrYear: TComboBox;
+    edtFilterInitialDate: TDateTimePicker;
+    edtFilterEndDate: TDateTimePicker;
+    lblFilterInitialDate: TLabel;
+    lblFilterEndDate: TLabel;
+    Label3: TLabel;
+    cbxFilterDateBy: TComboBox;
+    btnSearchExecute: TButton;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure btnSearchExecuteClick(Sender: TObject);
+    procedure cbxFilterDateByChange(Sender: TObject);
   private
     FMovement: TMovement;
     FBackgroundColor: TColor;
@@ -66,6 +79,9 @@ type
     FTitleFontColor: TColor;
     FPanelBottomColor: TColor;
     procedure SetColors;
+    procedure Search;
+    procedure SetInitialStateFilters;
+    procedure SetFilterMonthOrYear;
     { Private declarations }
   public
     { Public declarations }
@@ -79,6 +95,18 @@ implementation
 
 {$R *.dfm}
 
+procedure TfrmMovementGraphics.btnSearchExecuteClick(Sender: TObject);
+begin
+  inherited;
+  Search;
+end;
+
+procedure TfrmMovementGraphics.cbxFilterDateByChange(Sender: TObject);
+begin
+  inherited;
+  SetFilterMonthOrYear;
+end;
+
 procedure TfrmMovementGraphics.FormCreate(Sender: TObject);
 begin
   inherited;
@@ -91,16 +119,36 @@ begin
   FMovement.Free;
 end;
 
-procedure TfrmMovementGraphics.FormShow(Sender: TObject);
-var
-  I:Integer;
-  lDescription: string;
-begin
-  inherited;
-  SetColors;
 
-  I:=0;
+procedure TfrmMovementGraphics.Search;
+var
+  lDescription: string;
+  lMonth: Integer;
+begin
   lDescription := EmptyStr;
+
+  if cbxFilterSituation.ItemIndex > 0 then
+  begin
+    FMovement.SearchFiltersCustomized.Situation := cbxFilterSituation.ItemIndex - 1;
+  end;
+
+  case cbxFilterDateBy.ItemIndex of
+    0: // Month
+      begin
+        lMonth := Integer(cbxFilterMonthOrYear.Items.Objects[cbxFilterMonthOrYear.ItemIndex]);
+        FMovement.SearchFiltersCustomized.Month := lMonth;
+      end;
+    1: // Year
+      begin
+        FMovement.SearchFiltersCustomized.Year := StrToIntDef(cbxFilterMonthOrYear.Text, 2020);
+      end;
+    2: // period
+      begin
+        FMovement.SearchFiltersCustomized.InitialDate := edtFilterInitialDate.Date;
+        FMovement.SearchFiltersCustomized.EndDate := edtFilterEndDate.Date;
+      end;
+  end;
+
   chtFormPaymentsExpenses.Series[0].Clear;
   dtsFormPaymentsExpenses.DataSet := FMovement.QueryFormPaymentsExpenses;
   FMovement.GetQueryFormPaymentsExpenses;
@@ -230,6 +278,14 @@ begin
 
 end;
 
+procedure TfrmMovementGraphics.FormShow(Sender: TObject);
+begin
+  inherited;
+  SetColors;
+  SetInitialStateFilters;
+  Search;
+end;
+
 procedure TfrmMovementGraphics.SetColors;
 begin
   FBackgroundColor := TSystemManager.GetInstance.LayoutConfiguration.BackgroundColor;
@@ -241,6 +297,78 @@ begin
   pnlTitle.Color := FTitleColor;
   pnlTitle.Font.Color := FTitleFontColor;
   pnlBottom.Color := FPanelBottomColor;
+end;
+
+procedure TfrmMovementGraphics.SetInitialStateFilters;
+begin
+  cbxFilterSituation.ItemIndex := 2;
+  cbxFilterDateBy.ItemIndex := 0;
+  edtFilterInitialDate.Date := Now - 30;
+  edtFilterEndDate.Date := Now;
+  SetFilterMonthOrYear;
+  cbxFilterMonthOrYear.ItemIndex := 0;
+end;
+
+procedure TfrmMovementGraphics.SetFilterMonthOrYear;
+begin
+  case cbxFilterDateBy.ItemIndex of
+    0:
+      // Month
+      begin
+        lblFilterInitialDate.Visible := False;
+        lblFilterEndDate.Visible := False;
+        edtFilterInitialDate.Visible := False;
+        edtFilterEndDate.Visible := False;
+        lblMonthYear.Visible := True;
+        cbxFilterMonthOrYear.Visible := True;
+        cbxFilterMonthOrYear.Items.Clear;
+        cbxFilterMonthOrYear.Items.AddObject('Janeiro', TObject(1));
+        cbxFilterMonthOrYear.Items.AddObject('Fevereiro', TObject(2));
+        cbxFilterMonthOrYear.Items.AddObject('Março', TObject(3));
+        cbxFilterMonthOrYear.Items.AddObject('Abril', TObject(4));
+        cbxFilterMonthOrYear.Items.AddObject('Maio', TObject(5));
+        cbxFilterMonthOrYear.Items.AddObject('Junho', TObject(6));
+        cbxFilterMonthOrYear.Items.AddObject('Julho', TObject(7));
+        cbxFilterMonthOrYear.Items.AddObject('Agosto', TObject(8));
+        cbxFilterMonthOrYear.Items.AddObject('Setembro', TObject(9));
+        cbxFilterMonthOrYear.Items.AddObject('Outubro', TObject(10));
+        cbxFilterMonthOrYear.Items.AddObject('Novembro', TObject(11));
+        cbxFilterMonthOrYear.Items.AddObject('Dezembro', TObject(12));
+      end;
+    1:
+      // Year
+      begin
+        lblFilterInitialDate.Visible := False;
+        lblFilterEndDate.Visible := False;
+        edtFilterInitialDate.Visible := False;
+        edtFilterEndDate.Visible := False;
+        lblMonthYear.Visible := True;
+        cbxFilterMonthOrYear.Visible := True;
+        cbxFilterMonthOrYear.Items.Clear;
+        cbxFilterMonthOrYear.Items.Add('2020');
+        cbxFilterMonthOrYear.Items.Add('2021');
+        cbxFilterMonthOrYear.Items.Add('2022');
+        cbxFilterMonthOrYear.Items.Add('2023');
+        cbxFilterMonthOrYear.Items.Add('2024');
+        cbxFilterMonthOrYear.Items.Add('2025');
+        cbxFilterMonthOrYear.Items.Add('2026');
+        cbxFilterMonthOrYear.Items.Add('2027');
+        cbxFilterMonthOrYear.Items.Add('2028');
+        cbxFilterMonthOrYear.Items.Add('2029');
+        cbxFilterMonthOrYear.Items.Add('2030');
+      end;
+    2:
+      // time course
+      begin
+        lblFilterInitialDate.Visible := True;
+        lblFilterEndDate.Visible := True;
+        edtFilterInitialDate.Visible := True;
+        edtFilterEndDate.Visible := True;
+        lblMonthYear.Visible := False;
+        cbxFilterMonthOrYear.Visible := False;
+        cbxFilterMonthOrYear.Items.Clear;
+      end;
+  end;
 end;
 
 end.
