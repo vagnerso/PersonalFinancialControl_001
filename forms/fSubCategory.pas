@@ -152,9 +152,13 @@ begin
   frmGeneralSearch := TfrmGeneralSearch.Create(nil);
   try
     frmGeneralSearch.SearchEntityType := setCategory;
-    frmGeneralSearch.ShowModal;
-    edtCategory.Text := frmGeneralSearch.Category.Name;
-    FRegisterObject.Category.Id := frmGeneralSearch.Category.Id;
+
+    if frmGeneralSearch.ShowModal = mrOk then
+    begin
+      edtCategory.Text := frmGeneralSearch.Category.Name;
+      FRegisterObject.Category.Id := frmGeneralSearch.Category.Id;
+    end;
+
   finally
     frmGeneralSearch.Free;
   end;

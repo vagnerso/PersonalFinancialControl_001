@@ -28,12 +28,15 @@ type
     edtInstallmentesValue: TEdit;
     edtIssueDate: TDateTimePicker;
     lbFirstIssueDate: TLabel;
+    N2: TMenuItem;
+    Efetuarpagamento1: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure imButtonSearchProviderClick(Sender: TObject);
     procedure imButtonSearchSubCategoryClick(Sender: TObject);
     procedure imButtonSearchFormPaymentClick(Sender: TObject);
+    procedure Efetuarpagamento1Click(Sender: TObject);
   private
     FRegisterObject: TMovement;
     procedure EnabledRegister;
@@ -49,6 +52,7 @@ type
     procedure SearchExecute; override;
     procedure SaveRegister; override;
     procedure CancelRegister; override;
+    procedure MakePayment;
     procedure ClearFields;
 
     property RegisterObject: TMovement read FRegisterObject write FRegisterObject;
@@ -119,6 +123,13 @@ begin
   edtIssueDate.Date := FRegisterObject.IssueDate;
 
   edtDescription.SetFocus;
+end;
+
+procedure TfrmManageMovements.Efetuarpagamento1Click(Sender: TObject);
+begin
+  inherited;
+  MakePayment;
+  SearchExecute;
 end;
 
 procedure TfrmManageMovements.EnabledRegister;
@@ -214,6 +225,20 @@ begin
   FRegisterObject.Clear;
   ClearFields;
   edtDescription.SetFocus;
+end;
+
+procedure TfrmManageMovements.MakePayment;
+begin
+
+  if Application.MessageBox(PChar('Deseja realmente efetuar o pagamento?'),
+     PChar(Application.Title), MB_USEGLYPHCHARS + MB_DEFBUTTON2) = ID_NO then
+  begin
+    Abort;
+  end;
+
+  FRegisterObject.Id := dtsSearch.DataSet.FieldByName('ID').AsInteger;
+  FRegisterObject.GetById;
+  FRegisterObject.MakePayment;
 end;
 
 procedure TfrmManageMovements.PrintRegister;

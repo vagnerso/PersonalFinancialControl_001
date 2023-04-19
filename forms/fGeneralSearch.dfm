@@ -1,13 +1,13 @@
 inherited frmGeneralSearch: TfrmGeneralSearch
   Caption = 'frmGeneralSearch'
-  ClientHeight = 473
+  ClientHeight = 481
   ClientWidth = 798
   Position = poScreenCenter
-  OnClose = FormClose
+  OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
   ExplicitWidth = 814
-  ExplicitHeight = 512
+  ExplicitHeight = 520
   PixelsPerInch = 96
   TextHeight = 19
   object pnlTitle: TPanel
@@ -29,13 +29,23 @@ inherited frmGeneralSearch: TfrmGeneralSearch
   end
   object pnlBottom: TPanel
     Left = 0
-    Top = 443
+    Top = 440
     Width = 798
-    Height = 30
+    Height = 41
     Align = alBottom
     BevelOuter = bvNone
     ParentBackground = False
     TabOrder = 1
+    object btnSelect: TButton
+      Left = 0
+      Top = 0
+      Width = 129
+      Height = 41
+      Align = alLeft
+      Caption = 'Selecionar'
+      TabOrder = 0
+      OnClick = btnSelectClick
+    end
   end
   object pgcSearch: TPageControl
     Left = 0
@@ -139,25 +149,28 @@ inherited frmGeneralSearch: TfrmGeneralSearch
     Left = 0
     Top = 153
     Width = 798
-    Height = 290
+    Height = 287
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 3
+    ExplicitHeight = 290
     object pgcGeneral: TPageControl
       Left = 0
       Top = 0
       Width = 798
-      Height = 290
+      Height = 287
       ActivePage = tabGrid
       Align = alClient
       TabOrder = 0
+      ExplicitHeight = 290
       object tabGrid: TTabSheet
         Caption = 'Consulta'
+        ExplicitHeight = 256
         object grdSearch: TDBGrid
           Left = 0
           Top = 0
           Width = 790
-          Height = 256
+          Height = 253
           Align = alClient
           BorderStyle = bsNone
           DataSource = dtsSearch
@@ -169,6 +182,7 @@ inherited frmGeneralSearch: TfrmGeneralSearch
           TitleFont.Height = -16
           TitleFont.Name = 'Calibri'
           TitleFont.Style = []
+          OnDblClick = grdSearchDblClick
         end
       end
     end

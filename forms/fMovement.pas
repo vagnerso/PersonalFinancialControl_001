@@ -43,7 +43,6 @@ type
     lbFirstIssueDate: TLabel;
     edtFirstIssueDate: TDateTimePicker;
     procedure imButtonSearchFormPaymentClick(Sender: TObject);
-    procedure edtNumberInstallmentsClick(Sender: TObject);
     procedure pnlButtonInstallmentsGenerateClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -57,6 +56,9 @@ type
     procedure pnlButtonSaveMouseEnter(Sender: TObject);
     procedure pnlButtonCancelMouseLeave(Sender: TObject);
     procedure pnlButtonSaveMouseLeave(Sender: TObject);
+    procedure edtInstallmentesValueKeyPress(Sender: TObject; var Key: Char);
+    procedure edtNumberInstallmentsExit(Sender: TObject);
+    procedure edtInstallmentesValueExit(Sender: TObject);
   private
     FMemInstallmentsList: TFDMemTable;
     FTypeMovement: TTypeMovement;
@@ -91,7 +93,25 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrmMovement.edtNumberInstallmentsClick(Sender: TObject);
+procedure TfrmMovement.edtInstallmentesValueExit(Sender: TObject);
+begin
+  inherited;
+  TEdit(Sender).Text := FormatCurr('#,##0.00', StrToCurrDef(TEdit(Sender).Text, 0));
+end;
+
+procedure TfrmMovement.edtInstallmentesValueKeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if not(key in ['0'..'9','.',',',#8,#13]) then
+    key := #0;
+  if key in [',','.'] then
+    key := FormatSettings.DecimalSeparator;
+  if key = FormatSettings.DecimalSeparator then
+  if pos(key,TEdit(Sender).Text) <> 0 then
+    key := #0;
+end;
+
+procedure TfrmMovement.edtNumberInstallmentsExit(Sender: TObject);
 var
   numberInstallments: Integer;
 begin
@@ -114,7 +134,6 @@ begin
     edtFirstIssueDate.Visible := False;
     lbInstallmentsValue.Caption := 'Valor';
   end;
-
 end;
 
 procedure TfrmMovement.FormCreate(Sender: TObject);
@@ -167,7 +186,7 @@ begin
 
   edtFirstIssueDate.Date := now;
   edtNumberInstallments.Text := '1';
-  edtNumberInstallmentsClick(Self);
+  edtNumberInstallmentsExit(Self);
 end;
 
 
@@ -210,9 +229,13 @@ begin
   frmGeneralSearch := TfrmGeneralSearch.Create(nil);
   try
     frmGeneralSearch.SearchEntityType := setProvider;
-    frmGeneralSearch.ShowModal;
-    edtProvider.Text := frmGeneralSearch.Provider.Name;
-    FRegisterObject.Provider.Id := frmGeneralSearch.Provider.Id;
+
+    if frmGeneralSearch.ShowModal = mrOk then
+    begin
+      edtProvider.Text := frmGeneralSearch.Provider.Name;
+      FRegisterObject.Provider.Id := frmGeneralSearch.Provider.Id;
+    end;
+
   finally
     frmGeneralSearch.Free;
   end;
@@ -227,9 +250,13 @@ begin
   frmGeneralSearch := TfrmGeneralSearch.Create(nil);
   try
     frmGeneralSearch.SearchEntityType := setSubCategory;
-    frmGeneralSearch.ShowModal;
-    edtSubCategory.Text := frmGeneralSearch.SubCategory.Name;
-    FRegisterObject.SubCategory.Id := frmGeneralSearch.SubCategory.Id;
+
+    if frmGeneralSearch.ShowModal = mrOk then
+    begin
+      edtSubCategory.Text := frmGeneralSearch.SubCategory.Name;
+      FRegisterObject.SubCategory.Id := frmGeneralSearch.SubCategory.Id;
+    end;
+
   finally
     frmGeneralSearch.Free;
   end;
@@ -244,9 +271,12 @@ begin
   frmGeneralSearch := TfrmGeneralSearch.Create(nil);
   try
     frmGeneralSearch.SearchEntityType := setFormPayment;
-    frmGeneralSearch.ShowModal;
-    edtFormPayment.Text := frmGeneralSearch.FormPayment.Name;
-    FRegisterObject.FormPayment.Id := frmGeneralSearch.FormPayment.Id;
+
+    if frmGeneralSearch.ShowModal = mrOk then
+    begin
+      edtFormPayment.Text := frmGeneralSearch.FormPayment.Name;
+      FRegisterObject.FormPayment.Id := frmGeneralSearch.FormPayment.Id;
+    end;
 
   finally
     frmGeneralSearch.Free;

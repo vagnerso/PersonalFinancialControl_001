@@ -24,11 +24,14 @@ type
     tabGrid: TTabSheet;
     grdSearch: TDBGrid;
     dtsSearch: TDataSource;
+    btnSelect: TButton;
     procedure FormDestroy(Sender: TObject);
     procedure imButtonSearchExecuteClick(Sender: TObject);
     procedure imButtonClearEdtSearchClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnSelectClick(Sender: TObject);
+    procedure grdSearchDblClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
     FSearchEntityType: TSearchEntityType;
@@ -52,6 +55,7 @@ type
     FTitleForm : string;
 
     procedure SetColors;
+    procedure SelectRegister;
   public
     { Public declarations }
     procedure searchExecute;
@@ -73,54 +77,53 @@ implementation
 
 { TfrmGeneralSearch }
 
-procedure TfrmGeneralSearch.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TfrmGeneralSearch.btnSelectClick(Sender: TObject);
 begin
   inherited;
-  case FSearchEntityType of
-    setCategory:
-    begin
-      FCategory.Clear;
-      FCategory.Id := dtsSearch.DataSet.FieldByName('ID').AsInteger;
-      FCategory.GetById;
-    end;
-    setSubCategory:
-    begin
-      FSubCategory.Clear;
-      FSubCategory.Id := dtsSearch.DataSet.FieldByName('ID').AsInteger;
-      FSubCategory.GetById;
-    end;
-    setCustomer:
-    begin
+  SelectRegister;
+end;
 
-    end;
-    setProvider:
-    begin
-      FProvider.Clear;
-      FProvider.Id := dtsSearch.DataSet.FieldByName('ID').AsInteger;
-      FProvider.GetById;
-    end;
-    setTypePayment:
-    begin
-      FTypePayment.Clear;
-      FTypePayment.Id := dtsSearch.DataSet.FieldByName('ID').AsInteger;
-      FTypePayment.GetById;
-    end;
-    setFormPayment:
-    begin
-      FFormPayment.Clear;
-      FFormPayment.Id := dtsSearch.DataSet.FieldByName('ID').AsInteger;
-      FFormPayment.GetById;
-    end;
-  end;
+procedure TfrmGeneralSearch.FormCreate(Sender: TObject);
+begin
+  inherited;
+
+  FCategory := TCategory.Create;
+  FSubCategory := TSubCategory.Create;
+  FProvider := TProvider.Create;
+  FTypePayment := TTypePayment.Create;
+  FFormPayment := TFormPayment.Create;
+
 end;
 
 procedure TfrmGeneralSearch.FormDestroy(Sender: TObject);
 begin
   inherited;
+
   if Assigned(FCategory) then
   begin
     FCategory.Free;
   end;
+
+  if Assigned(FSubCategory) then
+  begin
+    FSubCategory.Free;
+  end;
+
+  if Assigned(FProvider) then
+  begin
+    FProvider.Free;
+  end;
+
+  if Assigned(FTypePayment) then
+  begin
+    FTypePayment.Free;
+  end;
+
+  if Assigned(FFormPayment) then
+  begin
+    FFormPayment.Free;
+  end;
+
 end;
 
 procedure TfrmGeneralSearch.FormShow(Sender: TObject);
@@ -145,6 +148,12 @@ begin
   edtSearch.SetFocus;
 end;
 
+procedure TfrmGeneralSearch.grdSearchDblClick(Sender: TObject);
+begin
+  inherited;
+  SelectRegister;
+end;
+
 procedure TfrmGeneralSearch.imButtonClearEdtSearchClick(Sender: TObject);
 begin
   inherited;
@@ -163,7 +172,6 @@ begin
   case FSearchEntityType of
     setCategory:
     begin
-      FCategory := TCategory.Create;
       dtsSearch.DataSet := FCategory.DataSet;
       FCategory.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
       FCategory.Search(FCategory.DataSet);
@@ -171,7 +179,6 @@ begin
     end;
     setSubCategory:
     begin
-      FSubCategory := TSubCategory.Create;
       dtsSearch.DataSet := FSubCategory.DataSet;
       FSubCategory.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
       FSubCategory.Search(FSubCategory.DataSet);
@@ -182,21 +189,18 @@ begin
     end;
     setProvider:
     begin
-      FProvider := TProvider.Create;
       dtsSearch.DataSet := FProvider.DataSet;
       FProvider.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
       FProvider.Search(FProvider.DataSet);
     end;
     setTypePayment:
     begin
-      FTypePayment := TTypePayment.Create;
       dtsSearch.DataSet := FTypePayment.DataSet;
       FTypePayment.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
       FTypePayment.Search(FTypePayment.DataSet);
     end;
     setFormPayment:
     begin
-      FFormPayment := TFormPayment.Create;
       dtsSearch.DataSet := FFormPayment.DataSet;
       FFormPayment.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
       FFormPayment.Search(FFormPayment.DataSet);
@@ -204,6 +208,63 @@ begin
   end;
   grdSearch.Columns[0].Visible := False;
   grdSearch.Columns[1].Visible := False;
+end;
+
+procedure TfrmGeneralSearch.SelectRegister;
+var
+  lSelected: Boolean;
+begin
+  lSelected := False;
+
+  if (Assigned(dtsSearch.DataSet)) and not (dtsSearch.DataSet.IsEmpty) then
+  begin
+    case FSearchEntityType of
+      setCategory:
+        begin
+          FCategory.Clear;
+          FCategory.Id := dtsSearch.DataSet.FieldByName('ID').AsInteger;
+          FCategory.GetById;
+          lSelected := True;
+        end;
+      setSubCategory:
+        begin
+          FSubCategory.Clear;
+          FSubCategory.Id := dtsSearch.DataSet.FieldByName('ID').AsInteger;
+          FSubCategory.GetById;
+          lSelected := True;
+        end;
+      setCustomer:
+        begin
+
+        end;
+      setProvider:
+        begin
+          FProvider.Clear;
+          FProvider.Id := dtsSearch.DataSet.FieldByName('ID').AsInteger;
+          FProvider.GetById;
+          lSelected := True;
+        end;
+      setTypePayment:
+        begin
+          FTypePayment.Clear;
+          FTypePayment.Id := dtsSearch.DataSet.FieldByName('ID').AsInteger;
+          FTypePayment.GetById;
+          lSelected := True;
+        end;
+      setFormPayment:
+        begin
+          FFormPayment.Clear;
+          FFormPayment.Id := dtsSearch.DataSet.FieldByName('ID').AsInteger;
+          FFormPayment.GetById;
+          lSelected := True;
+        end;
+    end;
+  end;
+
+  if lSelected then
+  begin
+    ModalResult := mrOk;
+  end;
 end;
 
 procedure TfrmGeneralSearch.SetColors;

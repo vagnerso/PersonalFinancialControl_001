@@ -127,6 +127,7 @@ var
 begin
   lDescription := EmptyStr;
 
+  FMovement.SearchFiltersCustomized.Situation := -1;
   if cbxFilterSituation.ItemIndex > 0 then
   begin
     FMovement.SearchFiltersCustomized.Situation := cbxFilterSituation.ItemIndex - 1;
@@ -149,6 +150,7 @@ begin
       end;
   end;
 
+  // saídas por forma de pagamento
   chtFormPaymentsExpenses.Series[0].Clear;
   dtsFormPaymentsExpenses.DataSet := FMovement.QueryFormPaymentsExpenses;
   FMovement.GetQueryFormPaymentsExpenses;
@@ -168,6 +170,7 @@ begin
   end;
   chtFormPaymentsExpenses.Series[0].Marks.Visible := false;
 
+  // entradas por forma de pagamento
   chtFormPaymentsRevenues.Series[0].Clear;
   dtsFormPaymentsRevenues.DataSet := FMovement.QueryFormPaymentsRevenues;
   FMovement.GetQueryFormPaymentsRevenues;
@@ -187,6 +190,7 @@ begin
   end;
   chtFormPaymentsRevenues.Series[0].Marks.Visible := false;
 
+  // saídas por categoria
   chtSubCategoryExpenses.Series[0].Clear;
   dtsSubCategorysExpenses.DataSet := FMovement.QuerySubCategorysExpenses;
   FMovement.GetQuerySubCategoryExpenses;
@@ -206,6 +210,7 @@ begin
   end;
   chtSubCategoryExpenses.Series[0].Marks.Visible := false;
 
+  // entradas por categoria
   chtSubCategoryRevenues.Series[0].Clear;
   dtsSubCategorysRevenues.DataSet := FMovement.QuerySubCategorysRevenues;
   FMovement.GetQuerySubCategoryRevenues;
@@ -225,6 +230,7 @@ begin
   end;
   chtSubCategoryRevenues.Series[0].Marks.Visible := false;
 
+  // saídas por sub-categoria
   chtCategoryExpenses.Series[0].Clear;
   dtsCategorysExpenses.DataSet := FMovement.QueryCategorysExpenses;
   FMovement.GetQueryCategoryExpenses;
@@ -244,6 +250,7 @@ begin
   end;
   chtCategoryExpenses.Series[0].Marks.Visible := false;
 
+  // entradas por sub-categoria
   chtCategoryRevenues.Series[0].Clear;
   dtsCategorysRevenues.DataSet := FMovement.QueryCategorysRevenues;
   FMovement.GetQueryCategoryRevenues;

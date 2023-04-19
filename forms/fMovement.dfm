@@ -365,7 +365,7 @@ inherited frmMovement: TfrmMovement
           Width = 433
           Height = 34
           TabOrder = 4
-          OnClick = edtNumberInstallmentsClick
+          OnExit = edtNumberInstallmentsExit
         end
         object pnlButtonInstallmentsGenerate: TPanel
           Left = 294
@@ -386,7 +386,8 @@ inherited frmMovement: TfrmMovement
           Width = 401
           Height = 34
           TabOrder = 5
-          OnClick = edtNumberInstallmentsClick
+          OnExit = edtInstallmentesValueExit
+          OnKeyPress = edtInstallmentesValueKeyPress
         end
         object edtProvider: TEdit
           Left = 16
@@ -416,6 +417,10 @@ inherited frmMovement: TfrmMovement
     object tabInstallments: TTabSheet
       Caption = 'Parcelas'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object pnlInstallments: TPanel
         Left = 0
         Top = 0

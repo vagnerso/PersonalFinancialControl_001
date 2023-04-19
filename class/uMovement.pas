@@ -5,7 +5,7 @@ interface
 uses
   uSearchFilters, uDataBaseConnection, uSubCategory, uFormPayment,
   System.SysUtils, Vcl.Dialogs, uAppConstants, System.Classes, uProvider,
-  uFunctions, uEnumTypes, Data.DB;
+  uFunctions, uEnumTypes, Data.DB, System.DateUtils;
 
 type TSearchFiltersCustomized = class(TSearchFilters)
   private
@@ -60,6 +60,7 @@ type TMovement = class
     procedure GetQuerySubCategoryRevenues;
     procedure GetQueryCategoryExpenses;
     procedure GetQueryCategoryRevenues;
+    procedure MakePayment;
     destructor Destroy; override;
 
     property DataSet: TMyQuery read FDataSet write FDataSet;
@@ -217,48 +218,102 @@ end;
 
 procedure TMovement.GetQueryCategoryExpenses;
 var
-  lSql: string;
+  lSql: TStringList;
 begin
-  lSql :=
-          'select c.name, sum(m.INSTALLMENT_VALUE) TOTAL '+
-          'from MOVEMENT m                               '+
-          'left join SUB_CATEGORY sc                     '+
-          'on (sc.id=m.ID_SUB_CATEGORY)                  '+
-          'left join CATEGORY c                          '+
-          'on (c.id=sc.ID_CATEGORY)                      '+
-          'where m.TYPE_MOVEMENT = 1                     '+
-          'and c.name not NULL                           '+
-          'group by c.name                               ';
 
-  TDataBaseConnection.GetInstance.NewConnection;
-  FQueryCategorysExpenses.Close;
-  FQueryCategorysExpenses.SQL.Clear;
-  FQueryCategorysExpenses.SQL.Add(lSql);
-  FQueryCategorysExpenses.Open;
-  TFunctions.FormatDataSetDecimalFields(FQueryCategorysExpenses, '#,##0.00');
+  lSql := TStringList.Create;
+  try
+    lSql.Add('select                                 ');
+    lSql.Add('  c.name,                              ');
+    lSql.Add('  sum(m.INSTALLMENT_VALUE) TOTAL       ');
+    lSql.Add('from MOVEMENT m                        ');
+    lSql.Add('left join SUB_CATEGORY sc              ');
+    lSql.Add('on (sc.id=m.ID_SUB_CATEGORY)           ');
+    lSql.Add('left join CATEGORY c                   ');
+    lSql.Add('on (c.id=sc.ID_CATEGORY)               ');
+    lSql.Add('where m.TYPE_MOVEMENT = ''1''          ');
+
+    if FSearchFiltersCustomized.Situation >= 0 then
+    begin
+      lSql.Add('and m.situation = ' + FSearchFiltersCustomized.Situation.ToString);
+    end;
+
+    if FSearchFiltersCustomized.Month > 0 then
+    begin
+      lSql.Add('and strftime(''%m'', m.issue_date) = ' + QuotedStr(FormatFloat('00', FSearchFiltersCustomized.Month)));
+      lSql.Add('and strftime(''%Y'', m.issue_date) = ' + QuotedStr(YearOf(Now).tostring));
+    end;
+
+    if FSearchFiltersCustomized.Year > 0 then
+    begin
+      lSql.Add('and strftime(''%Y'', m.issue_date) = ' + QuotedStr(FSearchFiltersCustomized.Year.ToString));
+    end;
+
+    lSql.Add('and c.name not NULL                          ');
+    lSql.Add('group by c.name                              ');
+    lSql.Add('order by c.name                              ');
+
+    TDataBaseConnection.GetInstance.NewConnection;
+    FQueryCategorysExpenses.Close;
+    FQueryCategorysExpenses.SQL.Clear;
+    FQueryCategorysExpenses.SQL.Add(lSql.Text);
+    //ShowMessage(lSql.Text);
+    FQueryCategorysExpenses.Open;
+    TFunctions.FormatDataSetDecimalFields(FQueryCategorysExpenses, '#,##0.00');
+
+  finally
+    lSql.Free;
+  end;
 end;
 
 procedure TMovement.GetQueryCategoryRevenues;
 var
-  lSql: string;
+  lSql: TStringList;
 begin
-  lSql :=
-          'select c.name, sum(m.INSTALLMENT_VALUE) TOTAL '+
-          'from MOVEMENT m                               '+
-          'left join SUB_CATEGORY sc                     '+
-          'on (sc.id=m.ID_SUB_CATEGORY)                  '+
-          'left join CATEGORY c                          '+
-          'on (c.id=sc.ID_CATEGORY)                      '+
-          'where m.TYPE_MOVEMENT = 0                     '+
-          'and c.name not NULL                           '+
-          'group by c.name                               ';
 
-  TDataBaseConnection.GetInstance.NewConnection;
-  FQueryCategorysRevenues.Close;
-  FQueryCategorysRevenues.SQL.Clear;
-  FQueryCategorysRevenues.SQL.Add(lSql);
-  FQueryCategorysRevenues.Open;
-  TFunctions.FormatDataSetDecimalFields(FQueryCategorysRevenues, '#,##0.00');
+  lSql := TStringList.Create;
+  try
+    lSql.Add('select                                 ');
+    lSql.Add('  c.name,                              ');
+    lSql.Add('  sum(m.INSTALLMENT_VALUE) TOTAL       ');
+    lSql.Add('from MOVEMENT m                        ');
+    lSql.Add('left join SUB_CATEGORY sc              ');
+    lSql.Add('on (sc.id=m.ID_SUB_CATEGORY)           ');
+    lSql.Add('left join CATEGORY c                   ');
+    lSql.Add('on (c.id=sc.ID_CATEGORY)               ');
+    lSql.Add('where m.TYPE_MOVEMENT = ''0''          ');
+
+    if FSearchFiltersCustomized.Situation >= 0 then
+    begin
+      lSql.Add('and m.situation = ' + FSearchFiltersCustomized.Situation.ToString);
+    end;
+
+    if FSearchFiltersCustomized.Month > 0 then
+    begin
+      lSql.Add('and strftime(''%m'', m.issue_date) = ' + QuotedStr(FormatFloat('00', FSearchFiltersCustomized.Month)));
+      lSql.Add('and strftime(''%Y'', m.issue_date) = ' + QuotedStr(YearOf(Now).tostring));
+    end;
+
+    if FSearchFiltersCustomized.Year > 0 then
+    begin
+      lSql.Add('and strftime(''%Y'', m.issue_date) = ' + QuotedStr(FSearchFiltersCustomized.Year.ToString));
+    end;
+
+    lSql.Add('and c.name not NULL                          ');
+    lSql.Add('group by c.name                              ');
+    lSql.Add('order by c.name                              ');
+
+    TDataBaseConnection.GetInstance.NewConnection;
+    FQueryCategorysRevenues.Close;
+    FQueryCategorysRevenues.SQL.Clear;
+    FQueryCategorysRevenues.SQL.Add(lSql.Text);
+    //ShowMessage(lSql.Text);
+    FQueryCategorysRevenues.Open;
+    TFunctions.FormatDataSetDecimalFields(FQueryCategorysRevenues, '#,##0.00');
+
+  finally
+    lSql.Free;
+  end;
 end;
 
 procedure TMovement.GetQueryFormPaymentsExpenses;
@@ -269,8 +324,8 @@ begin
   lSql := TStringList.Create;
   try
     lSql.Add('select                                       ');
-    lSql.Add('  name,                                      ');
-    lSql.Add('  sum(INSTALLMENT_VALUE) TOTAL               ');
+    lSql.Add('  fp.name,                                   ');
+    lSql.Add('  sum(m.INSTALLMENT_VALUE) TOTAL             ');
     lSql.Add('from MOVEMENT m                              ');
     lSql.Add('left join FORM_PAYMENT fp                    ');
     lSql.Add('on (fp.id=m.ID_FORM_PAYMENT)                 ');
@@ -283,23 +338,24 @@ begin
 
     if FSearchFiltersCustomized.Month > 0 then
     begin
-      lSql.Add('and strftime(''%m'', m.issue_date) = ' + QuotedStr(FSearchFiltersCustomized.Month.ToString));
+      lSql.Add('and strftime(''%m'', m.issue_date) = ' + QuotedStr(FormatFloat('00', FSearchFiltersCustomized.Month)));
+      lSql.Add('and strftime(''%Y'', m.issue_date) = ' + QuotedStr(YearOf(Now).tostring));
     end;
 
     if FSearchFiltersCustomized.Year > 0 then
     begin
-      lSql.Add('and strftime(''%Y'', m.issue_date) = ' + FSearchFiltersCustomized.Year.ToString);
+      lSql.Add('and strftime(''%Y'', m.issue_date) = ' + QuotedStr(FSearchFiltersCustomized.Year.ToString));
     end;
 
-    lSql.Add('and name not NULL                            ');
-    lSql.Add('group by name                                ');
-    lSql.Add('order by name                                ');
+    lSql.Add('and fp.name not NULL                         ');
+    lSql.Add('group by fp.name                             ');
+    lSql.Add('order by fp.name                             ');
 
     TDataBaseConnection.GetInstance.NewConnection;
     FQueryFormPaymentsExpenses.Close;
     FQueryFormPaymentsExpenses.SQL.Clear;
     FQueryFormPaymentsExpenses.SQL.Add(lSql.Text);
-    ShowMessage(lSql.Text);
+    //ShowMessage(lSql.Text);
     FQueryFormPaymentsExpenses.Open;
     TFunctions.FormatDataSetDecimalFields(FQueryFormPaymentsExpenses, '#,##0.00');
 
@@ -310,68 +366,147 @@ end;
 
 procedure TMovement.GetQueryFormPaymentsRevenues;
 var
-  lSql: string;
+  lSql: TStringList;
 begin
-  lSql :=
-          '  select name, sum(INSTALLMENT_VALUE) TOTAL  '+
-          'from MOVEMENT m                              '+
-          'left join FORM_PAYMENT fp                    '+
-          'on (fp.id=m.ID_FORM_PAYMENT)                 '+
-          'where m.TYPE_MOVEMENT = ''0''                '+
-          'and name not NULL                            '+
-          'group by name                                '+
-          'order by name                                ';
 
-  TDataBaseConnection.GetInstance.NewConnection;
-  FQueryFormPaymentsRevenues.Close;
-  FQueryFormPaymentsRevenues.SQL.Clear;
-  FQueryFormPaymentsRevenues.SQL.Add(lSql);
-  FQueryFormPaymentsRevenues.Open;
-  TFunctions.FormatDataSetDecimalFields(FQueryFormPaymentsRevenues, '#,##0.00');
+  lSql := TStringList.Create;
+  try
+    lSql.Add('select                                       ');
+    lSql.Add('  fp.name,                                   ');
+    lSql.Add('  sum(m.INSTALLMENT_VALUE) TOTAL             ');
+    lSql.Add('from MOVEMENT m                              ');
+    lSql.Add('left join FORM_PAYMENT fp                    ');
+    lSql.Add('on (fp.id=m.ID_FORM_PAYMENT)                 ');
+    lSql.Add('where m.TYPE_MOVEMENT = ''0''                ');
+
+    if FSearchFiltersCustomized.Situation >= 0 then
+    begin
+      lSql.Add('and m.situation = ' + FSearchFiltersCustomized.Situation.ToString);
+    end;
+
+    if FSearchFiltersCustomized.Month > 0 then
+    begin
+      lSql.Add('and strftime(''%m'', m.issue_date) = ' + QuotedStr(FormatFloat('00', FSearchFiltersCustomized.Month)));
+      lSql.Add('and strftime(''%Y'', m.issue_date) = ' + QuotedStr(YearOf(Now).tostring));
+    end;
+
+    if FSearchFiltersCustomized.Year > 0 then
+    begin
+      lSql.Add('and strftime(''%Y'', m.issue_date) = ' + QuotedStr(FSearchFiltersCustomized.Year.ToString));
+    end;
+
+    lSql.Add('and fp.name not NULL                         ');
+    lSql.Add('group by fp.name                             ');
+    lSql.Add('order by fp.name                             ');
+
+    TDataBaseConnection.GetInstance.NewConnection;
+    FQueryFormPaymentsRevenues.Close;
+    FQueryFormPaymentsRevenues.SQL.Clear;
+    FQueryFormPaymentsRevenues.SQL.Add(lSql.Text);
+    //ShowMessage(lSql.Text);
+    FQueryFormPaymentsRevenues.Open;
+    TFunctions.FormatDataSetDecimalFields(FQueryFormPaymentsRevenues, '#,##0.00');
+
+  finally
+    lSql.Free;
+  end;
+
 end;
 
 procedure TMovement.GetQuerySubCategoryExpenses;
 var
-  lSql: string;
+  lSql: TStringList;
 begin
-  lSql :=
-          'select name, sum(INSTALLMENT_VALUE) TOTAL '+
-          'from MOVEMENT m                           '+
-          'left join SUB_CATEGORY sc                 '+
-          'on (sc.id=m.ID_SUB_CATEGORY)              '+
-          'where m.TYPE_MOVEMENT = 1                 '+
-          'and name not NULL                         '+
-          'group by name                             '+
-          'order by name                             ';
 
-  TDataBaseConnection.GetInstance.NewConnection;
-  FQuerySubCategorysExpenses.Close;
-  FQuerySubCategorysExpenses.SQL.Clear;
-  FQuerySubCategorysExpenses.SQL.Add(lSql);
-  FQuerySubCategorysExpenses.Open;
-  TFunctions.FormatDataSetDecimalFields(FQuerySubCategorysExpenses, '#,##0.00');
+  lSql := TStringList.Create;
+  try
+    lSql.Add('select                                       ');
+    lSql.Add('  sc.name,                                   ');
+    lSql.Add('  sum(m.INSTALLMENT_VALUE) TOTAL             ');
+    lSql.Add('from MOVEMENT m                              ');
+    lSql.Add('left join SUB_CATEGORY sc                    ');
+    lSql.Add('on (sc.id=m.ID_SUB_CATEGORY)                 ');
+    lSql.Add('where m.TYPE_MOVEMENT = ''1''                ');
+
+    if FSearchFiltersCustomized.Situation >= 0 then
+    begin
+      lSql.Add('and m.situation = ' + FSearchFiltersCustomized.Situation.ToString);
+    end;
+
+    if FSearchFiltersCustomized.Month > 0 then
+    begin
+      lSql.Add('and strftime(''%m'', m.issue_date) = ' + QuotedStr(FormatFloat('00', FSearchFiltersCustomized.Month)));
+      lSql.Add('and strftime(''%Y'', m.issue_date) = ' + QuotedStr(YearOf(Now).tostring));
+    end;
+
+    if FSearchFiltersCustomized.Year > 0 then
+    begin
+      lSql.Add('and strftime(''%Y'', m.issue_date) = ' + QuotedStr(FSearchFiltersCustomized.Year.ToString));
+    end;
+
+    lSql.Add('and sc.name not NULL                         ');
+    lSql.Add('group by sc.name                             ');
+    lSql.Add('order by sc.name                             ');
+
+    TDataBaseConnection.GetInstance.NewConnection;
+    FQuerySubCategorysExpenses.Close;
+    FQuerySubCategorysExpenses.SQL.Clear;
+    FQuerySubCategorysExpenses.SQL.Add(lSql.Text);
+    //ShowMessage(lSql.Text);
+    FQuerySubCategorysExpenses.Open;
+    TFunctions.FormatDataSetDecimalFields(FQuerySubCategorysExpenses, '#,##0.00');
+
+  finally
+    lSql.Free;
+  end;
 end;
 
 procedure TMovement.GetQuerySubCategoryRevenues;
 var
-  lSql: string;
+  lSql: TStringList;
 begin
-  lSql :=
-          'select name, sum(INSTALLMENT_VALUE) TOTAL '+
-          'from MOVEMENT m                           '+
-          'left join SUB_CATEGORY sc                 '+
-          'on (sc.id=m.ID_SUB_CATEGORY)              '+
-          'where m.TYPE_MOVEMENT = 0                 '+
-          'and name not NULL                         '+
-          'group by name                             '+
-          'order by name                             ';
 
-  TDataBaseConnection.GetInstance.NewConnection;
-  FQuerySubCategorysRevenues.Close;
-  FQuerySubCategorysRevenues.SQL.Clear;
-  FQuerySubCategorysRevenues.SQL.Add(lSql);
-  FQuerySubCategorysRevenues.Open;
-  TFunctions.FormatDataSetDecimalFields(FQuerySubCategorysRevenues, '#,##0.00');
+  lSql := TStringList.Create;
+  try
+    lSql.Add('select                                       ');
+    lSql.Add('  sc.name,                                   ');
+    lSql.Add('  sum(m.INSTALLMENT_VALUE) TOTAL             ');
+    lSql.Add('from MOVEMENT m                              ');
+    lSql.Add('left join SUB_CATEGORY sc                    ');
+    lSql.Add('on (sc.id=m.ID_SUB_CATEGORY)                 ');
+    lSql.Add('where m.TYPE_MOVEMENT = ''0''                ');
+
+    if FSearchFiltersCustomized.Situation >= 0 then
+    begin
+      lSql.Add('and m.situation = ' + FSearchFiltersCustomized.Situation.ToString);
+    end;
+
+    if FSearchFiltersCustomized.Month > 0 then
+    begin
+      lSql.Add('and strftime(''%m'', m.issue_date) = ' + QuotedStr(FormatFloat('00', FSearchFiltersCustomized.Month)));
+      lSql.Add('and strftime(''%Y'', m.issue_date) = ' + QuotedStr(YearOf(Now).tostring));
+    end;
+
+    if FSearchFiltersCustomized.Year > 0 then
+    begin
+      lSql.Add('and strftime(''%Y'', m.issue_date) = ' + QuotedStr(FSearchFiltersCustomized.Year.ToString));
+    end;
+
+    lSql.Add('and sc.name not NULL                          ');
+    lSql.Add('group by sc.name                              ');
+    lSql.Add('order by sc.name                              ');
+
+    TDataBaseConnection.GetInstance.NewConnection;
+    FQuerySubCategorysRevenues.Close;
+    FQuerySubCategorysRevenues.SQL.Clear;
+    FQuerySubCategorysRevenues.SQL.Add(lSql.Text);
+    //ShowMessage(lSql.Text);
+    FQuerySubCategorysRevenues.Open;
+    TFunctions.FormatDataSetDecimalFields(FQuerySubCategorysRevenues, '#,##0.00');
+
+  finally
+    lSql.Free;
+  end;
 end;
 
 procedure TMovement.InsertRegister;
@@ -419,6 +554,27 @@ begin
     begin
       FDataSet.Connection.Rollback;
       Showmessage(MSG_ERROR_INSERT);
+    end;
+  end;
+end;
+
+procedure TMovement.MakePayment;
+begin
+  try
+    TDataBaseConnection.GetInstance.NewConnection;
+    FDataSet.Close;
+    FDataSet.SQL.Clear;
+    FDataSet.SQL.Add('UPDATE MOVEMENT SET                       ');
+    FDataSet.SQL.Add('   SITUATION         = :SITUATION         ');
+    FDataSet.SQL.Add('WHERE UNIQUE_ID      = :UNIQUE_ID;        ');
+    FDataSet.ParamByName('UNIQUE_ID').AsString := FUniqueId;
+    FDataSet.ParamByName('SITUATION').AsInteger := 1;
+    FDataSet.ExecSQL;
+    FDataSet.Connection.Commit;
+  except on E: Exception do
+    begin
+      FDataSet.Connection.Rollback;
+      Showmessage(MSG_ERROR_MOVEMENT_PAYMENT);
     end;
   end;
 end;

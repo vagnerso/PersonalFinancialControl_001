@@ -8,20 +8,23 @@ inherited frmManageMovements: TfrmManageMovements
   end
   inherited pnlGeneral: TPanel
     inherited pgcGeneral: TPageControl
-      ActivePage = tabRegister
+      inherited tabGrid: TTabSheet
+        ExplicitLeft = 4
+        ExplicitTop = 25
+        ExplicitWidth = 887
+        ExplicitHeight = 408
+      end
       inherited tabRegister: TTabSheet
-        inherited pnlMainRegister: TPanel
-          inherited pnlButtonSave: TPanel
-            ExplicitLeft = 793
-            ExplicitTop = 6
-          end
-          inherited pnlButtonCancel: TPanel
-            ExplicitLeft = 604
-            ExplicitTop = 2
-          end
-        end
+        ExplicitLeft = 4
+        ExplicitTop = 25
+        ExplicitWidth = 887
+        ExplicitHeight = 408
         inherited pgcRegister: TPageControl
           inherited tabRegisterBasic: TTabSheet
+            ExplicitLeft = 4
+            ExplicitTop = 25
+            ExplicitWidth = 879
+            ExplicitHeight = 338
             inherited pnlRegisterBasic: TPanel
               object Label2: TLabel
                 Left = 8
@@ -347,6 +350,23 @@ inherited frmManageMovements: TfrmManageMovements
           end
         end
       end
+    end
+  end
+  inherited pgcSearch: TPageControl
+    inherited tabSearch: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
+      ExplicitWidth = 1037
+      ExplicitHeight = 83
+    end
+  end
+  inherited pmActionMenu: TPopupMenu
+    object Efetuarpagamento1: TMenuItem [5]
+      Caption = 'Realizar Pagamento'
+      OnClick = Efetuarpagamento1Click
+    end
+    object N2: TMenuItem [6]
+      Caption = '-'
     end
   end
 end

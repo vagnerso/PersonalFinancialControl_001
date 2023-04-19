@@ -46,6 +46,8 @@ const
   MSG_ERROR_DELETE = 'Erro ao tentar excluir ';
   MSG_ERROR_SEARCH = 'Erro ao tentar consultar ';
 
+  MSG_ERROR_MOVEMENT_PAYMENT = 'Erro ao tentar realizar pagamento ';
+
 implementation
 
 end.

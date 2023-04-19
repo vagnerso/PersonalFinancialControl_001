@@ -8,7 +8,6 @@ inherited frmSubCategory: TfrmSubCategory
   end
   inherited pnlGeneral: TPanel
     inherited pgcGeneral: TPageControl
-      ActivePage = tabRegister
       inherited tabRegister: TTabSheet
         inherited pgcRegister: TPageControl
           inherited tabRegisterBasic: TTabSheet
