@@ -16,6 +16,7 @@ uses
   Data.DB,
   FireDAC.Comp.Client,
   Firedac.dapt,
+  FireDAC.Stan.Param,
   System.SysUtils,
   uFunctions,
   uAppConstants,

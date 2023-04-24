@@ -5,8 +5,6 @@ inherited frmLogin: TfrmLogin
   ClientHeight = 571
   ClientWidth = 694
   Font.Color = clBlack
-  Font.Height = -16
-  Font.Name = 'Calibri'
   Position = poScreenCenter
   OnShow = FormShow
   ExplicitWidth = 700
@@ -12976,7 +12974,7 @@ inherited frmLogin: TfrmLogin
     end
     object pnlButtonCancel: TPanel
       Left = 24
-      Top = 344
+      Top = 336
       Width = 249
       Height = 41
       Cursor = crHandPoint
@@ -12992,6 +12990,25 @@ inherited frmLogin: TfrmLogin
       ParentFont = False
       TabOrder = 3
       OnClick = pnlButtonCancelClick
+    end
+    object pnUserRegister: TPanel
+      Left = 24
+      Top = 520
+      Width = 249
+      Height = 41
+      Cursor = crHandPoint
+      BevelOuter = bvNone
+      Caption = 'Cadastrar Usu'#225'rio'
+      Color = clWhite
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 6009689
+      Font.Height = -19
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentBackground = False
+      ParentFont = False
+      TabOrder = 4
+      OnClick = pnUserRegisterClick
     end
   end
 end

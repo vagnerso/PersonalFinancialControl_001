@@ -1,0 +1,58 @@
+unit uSystemManager;
+
+interface
+
+uses
+  uLayoutConfiguration, System.SysUtils, uUser;
+
+type TSystemManager=class
+  private
+    FLoggedUser: TUser;
+    class var FInstance: TSystemManager;
+    class var FLayoutConfiguration : TLayoutConfiguration;
+
+    constructor CreatePrivate;
+    constructor Create;
+  public
+
+   destructor Destroy; override;
+   class function GetInstance: TSystemManager;
+
+
+   class property LayoutConfiguration: TLayoutConfiguration read FLayoutConfiguration write FLayoutConfiguration;
+   property LoggedUser: TUser read FLoggedUser write FLoggedUser;
+   end;
+
+implementation
+
+{ TSystemManager }
+
+constructor TSystemManager.Create;
+begin
+   raise Exception.Create('Para obter uma instância de TUsuario utilize TSystemManager.GetInstance !');
+end;
+
+constructor TSystemManager.CreatePrivate;
+begin
+  inherited
+  Create;
+  FLayoutConfiguration := TLayoutConfiguration.Create;
+  FLoggedUser := TUser.Create;
+end;
+
+destructor TSystemManager.Destroy;
+begin
+  FLoggedUser.Free;
+  FLayoutConfiguration.Free;
+  inherited;
+end;
+
+class function TSystemManager.GetInstance: TSystemManager;
+begin
+
+  if not Assigned(FInstance) then
+      FInstance := TSystemManager.CreatePrivate;
+   Result := FInstance;
+end;
+
+end.

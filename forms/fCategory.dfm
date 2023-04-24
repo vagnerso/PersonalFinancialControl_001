@@ -30,10 +30,11 @@ inherited frmCategory: TfrmCategory
     inherited pgcGeneral: TPageControl
       Width = 668
       Height = 313
-      ActivePage = tabRegister
       ExplicitWidth = 668
       ExplicitHeight = 313
       inherited tabGrid: TTabSheet
+        ExplicitLeft = 4
+        ExplicitTop = 25
         ExplicitWidth = 660
         ExplicitHeight = 284
         inherited grdSearch: TDBGrid
@@ -42,6 +43,8 @@ inherited frmCategory: TfrmCategory
         end
       end
       inherited tabRegister: TTabSheet
+        ExplicitLeft = 4
+        ExplicitTop = 25
         ExplicitWidth = 660
         ExplicitHeight = 284
         inherited pnlMainRegister: TPanel
@@ -64,6 +67,8 @@ inherited frmCategory: TfrmCategory
           ExplicitWidth = 660
           ExplicitHeight = 243
           inherited tabRegisterBasic: TTabSheet
+            ExplicitLeft = 4
+            ExplicitTop = 25
             ExplicitWidth = 652
             ExplicitHeight = 214
             inherited pnlRegisterBasic: TPanel
@@ -101,7 +106,10 @@ inherited frmCategory: TfrmCategory
     Width = 818
     ExplicitWidth = 818
     inherited tabSearch: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 810
+      ExplicitHeight = 83
       inherited pnlSearch: TPanel
         Width = 810
         ExplicitWidth = 810

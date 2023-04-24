@@ -1,0 +1,23 @@
+inherited frmUser: TfrmUser
+  Caption = 'frmUser'
+  PixelsPerInch = 96
+  TextHeight = 19
+  inherited pnlGeneral: TPanel
+    inherited pgcGeneral: TPageControl
+      inherited tabGrid: TTabSheet
+        ExplicitLeft = 4
+        ExplicitTop = 25
+        ExplicitWidth = 887
+        ExplicitHeight = 408
+      end
+    end
+  end
+  inherited pgcSearch: TPageControl
+    inherited tabSearch: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
+      ExplicitWidth = 1037
+      ExplicitHeight = 83
+    end
+  end
+end

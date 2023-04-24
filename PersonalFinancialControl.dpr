@@ -33,7 +33,8 @@ uses
   fImport in 'forms\fImport.pas' {frmImport},
   fManageMovements in 'forms\fManageMovements.pas' {frmManageMovements},
   fMovementGraphics in 'forms\fMovementGraphics.pas' {frmMovementGraphics},
-  uClassHelperTEdit in 'class\uClassHelperTEdit.pas';
+  uClassHelperTEdit in 'class\uClassHelperTEdit.pas',
+  fUser in 'forms\fUser.pas' {frmUser};
 
 {$R *.res}
 
@@ -57,6 +58,6 @@ begin
   TSystemManager.GetInstance.LayoutConfiguration.PanelBottomColor := $00635A4B;
 
   Application.CreateForm(TfrmMain, frmMain);
-  Application.CreateForm(TfrmMovementGraphics, frmMovementGraphics);
   Application.Run;
+
 end.

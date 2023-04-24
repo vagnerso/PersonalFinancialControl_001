@@ -38,6 +38,7 @@ type TUser = class(TInterfacedObject, ICrudInterface)
     procedure Clear;
     procedure GetById;
     procedure Search(ADataSet: TMyQuery);
+    function ValidateLogin(ALogin, APassword: string): Boolean;
     destructor Destroy; override;
 
     property DataSet: TMyQuery read FDataSet write FDataSet;
@@ -50,6 +51,9 @@ type TUser = class(TInterfacedObject, ICrudInterface)
 end;
 
 implementation
+
+uses
+  uSystemManager;
 
 { TUser }
 
@@ -227,6 +231,35 @@ begin
       FDataSet.Connection.Rollback;
       Showmessage(MSG_ERROR_USER_INSERT);
     end;
+  end;
+end;
+
+function TUser.ValidateLogin(ALogin, APassword: string): Boolean;
+var
+  query: TMyQuery;
+begin
+  Result := False;
+
+  query := TMyQuery.Create(nil);
+  try
+
+    TDataBaseConnection.GetInstance.NewConnection;
+    query.SQL.Add('SELECT * FROM USER         ');
+    query.SQL.Add('  WHERE LOGIN  = :LOGIN    ');
+    query.SQL.Add('  AND PASSWORD = :PASSWORD ');
+    query.ParamByName('LOGIN').AsString := ALogin;
+    query.ParamByName('PASSWORD').AsString := APassword;
+    query.Open;
+
+    if not (query.IsEmpty) then
+    begin
+      TSystemManager.GetInstance.LoggedUser.Id := query.FieldByName('ID').AsInteger;
+      TSystemManager.GetInstance.LoggedUser.GetById;
+      Result := True;
+    end;
+
+  finally
+    query.Free;
   end;
 end;
 

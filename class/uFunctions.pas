@@ -99,7 +99,7 @@ end;
 
 class function TFunctions.DataBasePath: string;
 begin
-  Result := ExtractFilePath(Application.ExeName) + '\database\';
+  Result := ExtractFilePath(Application.ExeName) + 'database\';
 end;
 
 class procedure TFunctions.FormatDataSetDecimalFields(ADataSet: TDataSet; AMask: String);

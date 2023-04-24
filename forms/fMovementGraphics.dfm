@@ -305,6 +305,10 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     object tabLists: TTabSheet
       Caption = 'Visualizar em listas'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object scrLists: TScrollBox
         Left = 0
         Top = 0
@@ -324,7 +328,7 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           object lb1: TLabel
             Left = 1
             Top = 1
-            Width = 396
+            Width = 249
             Height = 23
             Align = alTop
             Alignment = taCenter
@@ -338,7 +342,6 @@ inherited frmMovementGraphics: TfrmMovementGraphics
             ParentColor = False
             ParentFont = False
             Transparent = False
-            ExplicitWidth = 249
           end
           object grdFormPaymentsExpenses: TDBGrid
             Left = 1
@@ -365,7 +368,7 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           object lb3: TLabel
             Left = 1
             Top = 1
-            Width = 396
+            Width = 268
             Height = 23
             Align = alTop
             Alignment = taCenter
@@ -379,7 +382,6 @@ inherited frmMovementGraphics: TfrmMovementGraphics
             ParentColor = False
             ParentFont = False
             Transparent = False
-            ExplicitWidth = 268
           end
           object grdFormPaymentsRevenues: TDBGrid
             Left = 1
@@ -406,7 +408,7 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           object lb2: TLabel
             Left = 1
             Top = 1
-            Width = 396
+            Width = 159
             Height = 23
             Align = alTop
             Alignment = taCenter
@@ -420,7 +422,6 @@ inherited frmMovementGraphics: TfrmMovementGraphics
             ParentColor = False
             ParentFont = False
             Transparent = False
-            ExplicitWidth = 159
           end
           object grdSubCategorysExpenses: TDBGrid
             Left = 1
@@ -447,7 +448,7 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           object lb4: TLabel
             Left = 1
             Top = 1
-            Width = 396
+            Width = 178
             Height = 23
             Align = alTop
             Alignment = taCenter
@@ -461,7 +462,6 @@ inherited frmMovementGraphics: TfrmMovementGraphics
             ParentColor = False
             ParentFont = False
             Transparent = False
-            ExplicitWidth = 178
           end
           object grdSubCategorysRevenues: TDBGrid
             Left = 1
@@ -488,7 +488,7 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           object Label1: TLabel
             Left = 1
             Top = 1
-            Width = 396
+            Width = 193
             Height = 23
             Align = alTop
             Alignment = taCenter
@@ -502,7 +502,6 @@ inherited frmMovementGraphics: TfrmMovementGraphics
             ParentColor = False
             ParentFont = False
             Transparent = False
-            ExplicitWidth = 193
           end
           object grdCategorysExpenses: TDBGrid
             Left = 1
@@ -529,7 +528,7 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           object lb5: TLabel
             Left = 1
             Top = 1
-            Width = 396
+            Width = 212
             Height = 23
             Align = alTop
             Alignment = taCenter
@@ -543,7 +542,6 @@ inherited frmMovementGraphics: TfrmMovementGraphics
             ParentColor = False
             ParentFont = False
             Transparent = False
-            ExplicitWidth = 212
           end
           object grdCategorysRevenues: TDBGrid
             Left = 1
@@ -566,6 +564,10 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     object tabTotals: TTabSheet
       Caption = 'Visualizar os totais'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object scrTotals: TScrollBox
         Left = 0
         Top = 0

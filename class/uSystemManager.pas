@@ -3,12 +3,14 @@ unit uSystemManager;
 interface
 
 uses
-  uLayoutConfiguration, System.SysUtils;
+  uLayoutConfiguration, System.SysUtils, uUser;
 
 type TSystemManager=class
   private
+    FLoggedUser: TUser;
     class var FInstance: TSystemManager;
     class var FLayoutConfiguration : TLayoutConfiguration;
+
     constructor CreatePrivate;
     constructor Create;
   public
@@ -18,7 +20,8 @@ type TSystemManager=class
 
 
    class property LayoutConfiguration: TLayoutConfiguration read FLayoutConfiguration write FLayoutConfiguration;
-end;
+   property LoggedUser: TUser read FLoggedUser write FLoggedUser;
+   end;
 
 implementation
 
@@ -26,7 +29,7 @@ implementation
 
 constructor TSystemManager.Create;
 begin
-   raise Exception.Create('Para obter uma instância de TUsuario utilize TSystemManager.GetInstance !');
+   raise Exception.Create('Para obter uma instância de TSystemManager utilize TSystemManager.GetInstance !');
 end;
 
 constructor TSystemManager.CreatePrivate;
@@ -34,10 +37,12 @@ begin
   inherited
   Create;
   FLayoutConfiguration := TLayoutConfiguration.Create;
+  FLoggedUser := TUser.Create;
 end;
 
 destructor TSystemManager.Destroy;
 begin
+  FLoggedUser.Free;
   FLayoutConfiguration.Free;
   inherited;
 end;

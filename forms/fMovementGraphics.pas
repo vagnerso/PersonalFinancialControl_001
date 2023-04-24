@@ -160,7 +160,7 @@ begin
     FMovement.QueryFormPaymentsExpenses.First;
     while not FMovement.QueryFormPaymentsExpenses.Eof do
     begin
-      lDescription := FMovement.QueryFormPaymentsExpenses.FieldByName('name').AsAnsiString;
+      lDescription := FMovement.QueryFormPaymentsExpenses.FieldByName('name').AsString;
       chtFormPaymentsExpenses.Series[0].Add(
         FMovement.QueryFormPaymentsExpenses.FieldByName('total').AsCurrency,
         ' ' + lDescription,
@@ -180,7 +180,7 @@ begin
     FMovement.QueryFormPaymentsRevenues.First;
     while not FMovement.QueryFormPaymentsRevenues.Eof do
     begin
-      lDescription := FMovement.QueryFormPaymentsRevenues.FieldByName('name').AsAnsiString;
+      lDescription := FMovement.QueryFormPaymentsRevenues.FieldByName('name').AsString;
       chtFormPaymentsRevenues.Series[0].Add(
         FMovement.QueryFormPaymentsRevenues.FieldByName('total').AsCurrency,
         ' ' + lDescription,
@@ -200,7 +200,7 @@ begin
     FMovement.QuerySubCategorysExpenses.First;
     while not FMovement.QuerySubCategorysExpenses.Eof do
     begin
-      lDescription := FMovement.QuerySubCategorysExpenses.FieldByName('name').AsAnsiString;
+      lDescription := FMovement.QuerySubCategorysExpenses.FieldByName('name').AsString;
       chtSubCategoryExpenses.Series[0].Add(
         FMovement.QuerySubCategorysExpenses.FieldByName('total').AsCurrency,
         ' ' + lDescription,
@@ -220,7 +220,7 @@ begin
     FMovement.QuerySubCategorysRevenues.First;
     while not FMovement.QuerySubCategorysRevenues.Eof do
     begin
-      lDescription := FMovement.QuerySubCategorysRevenues.FieldByName('name').AsAnsiString;
+      lDescription := FMovement.QuerySubCategorysRevenues.FieldByName('name').AsString;
       chtSubCategoryRevenues.Series[0].Add(
         FMovement.QuerySubCategorysRevenues.FieldByName('total').AsCurrency,
         ' ' + lDescription,
@@ -240,7 +240,7 @@ begin
     FMovement.QueryCategorysExpenses.First;
     while not FMovement.QueryCategorysExpenses.Eof do
     begin
-      lDescription := FMovement.QueryCategorysExpenses.FieldByName('name').AsAnsiString;
+      lDescription := FMovement.QueryCategorysExpenses.FieldByName('name').AsString;
       chtCategoryExpenses.Series[0].Add(
         FMovement.QueryCategorysExpenses.FieldByName('total').AsCurrency,
         ' ' + lDescription,
@@ -260,7 +260,7 @@ begin
     FMovement.QueryCategorysRevenues.First;
     while not FMovement.QueryCategorysRevenues.Eof do
     begin
-      lDescription := FMovement.QueryCategorysRevenues.FieldByName('name').AsAnsiString;
+      lDescription := FMovement.QueryCategorysRevenues.FieldByName('name').AsString;
       chtCategoryRevenues.Series[0].Add(
         FMovement.QueryCategorysRevenues.FieldByName('total').AsCurrency,
         ' ' + lDescription,

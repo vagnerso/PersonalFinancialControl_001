@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Imaging.pngimage,
-  uSystemManager;
+  uSystemManager, uUser;
 
 type
   TfrmLogin = class(TfrmBase)
@@ -21,9 +21,11 @@ type
     lblDeveloper: TLabel;
     pnlButtonConfirm: TPanel;
     pnlButtonCancel: TPanel;
+    pnUserRegister: TPanel;
     procedure pnlButtonCancelClick(Sender: TObject);
     procedure pnlButtonConfirmClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure pnUserRegisterClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -34,6 +36,9 @@ var
   frmLogin: TfrmLogin;
 
 implementation
+
+uses
+  fUser;
 
 {$R *.dfm}
 
@@ -50,16 +55,37 @@ begin
 end;
 
 procedure TfrmLogin.pnlButtonConfirmClick(Sender: TObject);
+var
+  User: TUser;
 begin
   inherited;
 
-  if (edtUser.Text = 'admin') and (edtPassword.Text = 'admin') then
-  begin
-    ModalResult := mrOk;
-  end
-  else
-  begin
-    ShowMessage('Atenção! Usuário e/ou senha inválidos. Por gentileza verifique e tente novamente.');
+  User := TUser.Create;
+  try
+
+    if User.ValidateLogin(edtUser.Text, edtPassword.Text) then
+    begin
+      ModalResult := mrOk;
+    end
+    else
+    begin
+      ShowMessage('Atenção! Usuário e/ou senha inválidos. Por gentileza verifique e tente novamente.');
+    end;
+
+  finally
+    User.Free;
+  end;
+end;
+
+procedure TfrmLogin.pnUserRegisterClick(Sender: TObject);
+var
+  lForm: TFrmUser;
+begin
+  lForm := TFrmUser.Create(nil);
+  try
+    lForm.showmodal;
+  finally
+    lForm.Free;
   end;
 end;
 
