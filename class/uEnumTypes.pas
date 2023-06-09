@@ -8,6 +8,7 @@ type
   TFormMode = (fmRegister, fmSearch);
   TSearchEntityType = (setCategory, setSubCategory, setCustomer, setProvider, setTypePayment, setFormPayment);
   TTypeMovement = (tmRevenues, tmExpenses);
+  TMessageType = (mtSuccess, mtWarning, mtError, mtInformation);
 
 implementation
 

@@ -162,6 +162,7 @@ begin
   tabRegister.TabVisible := False;
   tabRegisterBasic.TabVisible := False;
   searchExecute;
+  WindowState := wsMaximized;
 end;
 
 procedure TfrmManageMovements.imButtonSearchFormPaymentClick(Sender: TObject);

@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, Vcl.ExtCtrls, Vcl.ComCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids,
   Vcl.Imaging.pngimage, Vcl.StdCtrls, fGeneralSearch, uEnumTypes,
-  FireDAC.Comp.Client, uFunctions, uMovement, uSystemManager;
+  FireDAC.Comp.Client, uFunctions, uMovement, uSystemManager, fMessage;
 
 type
   TfrmMovement = class(TfrmBase)
@@ -328,27 +328,37 @@ procedure TfrmMovement.pnlButtonSaveClick(Sender: TObject);
 begin
   inherited;
 
-  if StrToIntDef(edtNumberInstallments.Text, 1) = 1  then
-  begin
-    InstallmentsGenerate;
+  try
+
+    if StrToIntDef(edtNumberInstallments.Text, 1) = 1  then
+    begin
+      InstallmentsGenerate;
+    end;
+
+    FMemInstallmentsList.First;
+    while not FMemInstallmentsList.Eof do
+    begin
+
+      FRegisterObject.Description := FMemInstallmentsList.FieldByName('DESCRIPTION').AsString;
+      FRegisterObject.InstallmentValue := FMemInstallmentsList.FieldByName('INSTALLMENT_VALUE').AsCurrency;
+      FRegisterObject.IssueDate := FMemInstallmentsList.FieldByName('ISSUE_DATE').AsDateTime;
+      FRegisterObject.NumberParcel := FMemInstallmentsList.FieldByName('NUMBER_PARCEL').AsInteger;
+      FRegisterObject.TypeMovement := FTypeMovement;
+      FRegisterObject.Situation := 0;
+      FRegisterObject.InsertRegister;
+
+      FMemInstallmentsList.Next;
+    end;
+
+    TFrmMessage.ShowMessageBox(mtSuccess, '', 'Parcelas geradas com sucesso.');
+
+    ModalResult := mrOk;
+
+  except on E: Exception do
+    begin
+      TFrmMessage.ShowMessageBox(mtError, 'Erro ao gerar parcelas', e.Message);
+    end;
   end;
-
-  FMemInstallmentsList.First;
-  while not FMemInstallmentsList.Eof do
-  begin
-
-    FRegisterObject.Description := FMemInstallmentsList.FieldByName('DESCRIPTION').AsString;
-    FRegisterObject.InstallmentValue := FMemInstallmentsList.FieldByName('INSTALLMENT_VALUE').AsCurrency;
-    FRegisterObject.IssueDate := FMemInstallmentsList.FieldByName('ISSUE_DATE').AsDateTime;
-    FRegisterObject.NumberParcel := FMemInstallmentsList.FieldByName('NUMBER_PARCEL').AsInteger;
-    FRegisterObject.TypeMovement := FTypeMovement;
-    FRegisterObject.Situation := 0;
-    FRegisterObject.InsertRegister;
-
-    FMemInstallmentsList.Next;
-  end;
-
-  ModalResult := mrOk;
 end;
 
 procedure TfrmMovement.pnlButtonSaveMouseEnter(Sender: TObject);

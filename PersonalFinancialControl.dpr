@@ -34,7 +34,8 @@ uses
   fManageMovements in 'forms\fManageMovements.pas' {frmManageMovements},
   fMovementGraphics in 'forms\fMovementGraphics.pas' {frmMovementGraphics},
   uClassHelperTEdit in 'class\uClassHelperTEdit.pas',
-  fUser in 'forms\fUser.pas' {frmUser};
+  fUser in 'forms\fUser.pas' {frmUser},
+  fMessage in 'forms\fMessage.pas' {frmMessage};
 
 {$R *.res}
 

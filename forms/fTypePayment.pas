@@ -96,7 +96,16 @@ begin
   EnabledRegister;
   FRegisterObject.Clear;
   edtName.Text := dtsSearch.DataSet.FieldByName('Nome').AsString;
-  cbxAllowsInstallment.ItemIndex := dtsSearch.DataSet.FieldByName('Permite Parcelamento').AsInteger;
+
+  if dtsSearch.DataSet.FieldByName('Permite Parcelamento').AsString = 'Não' then
+  begin
+    cbxAllowsInstallment.ItemIndex := 0;
+  end
+  else
+  begin
+    cbxAllowsInstallment.ItemIndex := 1;
+  end;
+
 
   edtName.SetFocus;
 end;

@@ -1,0 +1,96 @@
+object frmMessage: TfrmMessage
+  Left = 0
+  Top = 0
+  Caption = 'frmMessage'
+  ClientHeight = 456
+  ClientWidth = 880
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnlTitle: TPanel
+    Left = 0
+    Top = 0
+    Width = 880
+    Height = 33
+    Align = alTop
+    TabOrder = 0
+  end
+  object pnlGeneral: TPanel
+    Left = 0
+    Top = 33
+    Width = 880
+    Height = 359
+    Align = alClient
+    TabOrder = 1
+    ExplicitTop = 30
+    object lblMessageType: TLabel
+      Left = 176
+      Top = 54
+      Width = 228
+      Height = 40
+      Caption = 'lblMessageType'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -33
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblMessage: TLabel
+      Left = 14
+      Top = 162
+      Width = 843
+      Height = 183
+      AutoSize = False
+      Caption = 'lblMessage'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -20
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      WordWrap = True
+    end
+    object imgIcon: TImage
+      Left = 15
+      Top = 6
+      Width = 150
+      Height = 150
+    end
+  end
+  object pnlMenu: TPanel
+    Left = 0
+    Top = 392
+    Width = 880
+    Height = 64
+    Align = alBottom
+    TabOrder = 2
+    object pnlButtonOk: TPanel
+      Left = 337
+      Top = 3
+      Width = 196
+      Height = 57
+      Cursor = crHandPoint
+      Align = alCustom
+      BevelKind = bkFlat
+      BevelOuter = bvNone
+      Caption = 'Ok'
+      Color = 7855338
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -16
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentBackground = False
+      ParentFont = False
+      TabOrder = 0
+    end
+  end
+end

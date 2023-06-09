@@ -145,6 +145,7 @@ begin
   pnlTitle.Caption := FTitleForm;
   Caption := TFunctions.AppName + ' - Versão: ' + TFunctions.AppVersion + ' - ' + FTitleForm;
   edtSearch.Text := EmptyStr;
+  searchExecute;
   edtSearch.SetFocus;
 end;
 

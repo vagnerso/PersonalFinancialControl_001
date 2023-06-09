@@ -38,7 +38,7 @@ var
 implementation
 
 uses
-  fUser;
+  fUser, fMain;
 
 {$R *.dfm}
 
@@ -65,6 +65,7 @@ begin
 
     if User.ValidateLogin(edtUser.Text, edtPassword.Text) then
     begin
+      frmMain.GetUserInfos;
       ModalResult := mrOk;
     end
     else

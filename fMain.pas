@@ -15,7 +15,10 @@ type
     pnlDetail: TPanel;
     imIconApp: TImage;
     lblTitle: TLabel;
+    lbUser: TLabel;
+    imUser: TImage;
     lblDeveloper: TLabel;
+    pnMenus: TPanel;
     pnlMenuCategory: TPanel;
     pnlMenuSubCategory: TPanel;
     pnlMenuRevenues: TPanel;
@@ -43,6 +46,7 @@ type
     { Private declarations }
   public
     { Public declarations }
+    procedure GetUserInfos;
   end;
 
 var
@@ -71,6 +75,11 @@ procedure TfrmMain.FormShow(Sender: TObject);
 begin
   Color := TSystemManager.GetInstance.LayoutConfiguration.BackgroundColor;
   loginCall;
+end;
+
+procedure TfrmMain.GetUserInfos;
+begin
+  lbUser.Caption := TSystemManager.GetInstance.LoggedUser.Name;
 end;
 
 procedure TfrmMain.loginCall;

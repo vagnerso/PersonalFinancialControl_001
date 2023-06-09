@@ -161,7 +161,7 @@ begin
     lSQL.Add('   ID                  ');
     lSQL.Add(' , UNIQUE_ID           ');
     lSQL.Add(' , NAME "Nome"         ');
-    lSQL.Add(' , ALLOWS_INSTALLMENT "Permite Parcelamento" ');
+    lSQL.Add(' , case ALLOWS_INSTALLMENT when 0 then "Não" else "Sim" end "Permite Parcelamento" ');
     lSQL.Add('FROM TYPE_PAYMENT      ');
 
     if (Length(Trim(FSearchFiltersCustomized.ValueSearch)) > 0) then

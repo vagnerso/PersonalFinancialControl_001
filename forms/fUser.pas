@@ -184,6 +184,8 @@ begin
   grdSearch.Columns[0].Visible := False;
   grdSearch.Columns[1].Visible := False;
   grdSearch.Columns[2].Width := 400;
+  grdSearch.Columns[3].Width := 400;
+  grdSearch.Columns[4].Visible := False;
 end;
 
 end.

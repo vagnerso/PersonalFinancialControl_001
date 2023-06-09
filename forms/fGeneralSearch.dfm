@@ -153,7 +153,6 @@ inherited frmGeneralSearch: TfrmGeneralSearch
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 3
-    ExplicitHeight = 290
     object pgcGeneral: TPageControl
       Left = 0
       Top = 0
@@ -162,10 +161,8 @@ inherited frmGeneralSearch: TfrmGeneralSearch
       ActivePage = tabGrid
       Align = alClient
       TabOrder = 0
-      ExplicitHeight = 290
       object tabGrid: TTabSheet
         Caption = 'Consulta'
-        ExplicitHeight = 256
         object grdSearch: TDBGrid
           Left = 0
           Top = 0
