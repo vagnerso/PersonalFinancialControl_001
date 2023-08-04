@@ -9,7 +9,7 @@ uses
   System.SysUtils,
   uAppConstants,
   uFunctions,
-  Vcl.Dialogs, System.Classes;
+  Vcl.Dialogs, System.Classes, uEnumTypes, fMessage;
 
 type TTypePerson = (tpProvider, tpCustomer);
 
@@ -150,7 +150,7 @@ begin
   except on E: Exception do
     begin
       FDataSet.Connection.Rollback;
-      Showmessage(MSG_ERROR_PROVIDER_SEARCH);
+      TFrmMessage.ShowMessageBox(mtError, '', MSG_ERROR_PROVIDER_SEARCH);
     end;
   end;
 

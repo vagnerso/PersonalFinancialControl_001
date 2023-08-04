@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Imaging.pngimage,
-  uSystemManager, uUser;
+  uSystemManager, uUser, fMessage, uEnumTypes;
 
 type
   TfrmLogin = class(TfrmBase)
@@ -70,7 +70,7 @@ begin
     end
     else
     begin
-      ShowMessage('Atenção! Usuário e/ou senha inválidos. Por gentileza verifique e tente novamente.');
+      TFrmMessage.ShowMessageBox(mtWarning, '', 'Atenção! Usuário e/ou senha inválidos. Por gentileza verifique e tente novamente.');
     end;
 
   finally

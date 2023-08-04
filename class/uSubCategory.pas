@@ -11,7 +11,7 @@ uses
   uFunctions,
   uSearchFilters,
   System.Classes,
-  uCategory;
+  uCategory, fMessage, uEnumTypes;
 
 type TSearchFiltersCustomized = class(TSearchFilters)
   private
@@ -80,7 +80,7 @@ begin
   except on E: Exception do
     begin
       FDataSet.Connection.Rollback;
-      Showmessage(MSG_ERROR_SUB_CATEGORY_DELETE);
+      TFrmMessage.ShowMessageBox(mtError, '', MSG_ERROR_SUB_CATEGORY_DELETE);
     end;
   end;
 end;
@@ -121,7 +121,7 @@ begin
   except on E: Exception do
     begin
       FDataSet.Connection.Rollback;
-      Showmessage(MSG_ERROR_SUB_CATEGORY_INSERT);
+      TFrmMessage.ShowMessageBox(mtError, '', MSG_ERROR_SUB_CATEGORY_SEARCH);
     end;
   end;
 end;
@@ -149,7 +149,7 @@ begin
   except on E: Exception do
     begin
       FDataSet.Connection.Rollback;
-      Showmessage(MSG_ERROR_SUB_CATEGORY_INSERT);
+      TFrmMessage.ShowMessageBox(mtError, '', MSG_ERROR_SUB_CATEGORY_INSERT);
     end;
   end;
 end;
@@ -210,7 +210,7 @@ begin
   except on E: Exception do
     begin
       FDataSet.Connection.Rollback;
-      Showmessage(MSG_ERROR_SUB_CATEGORY_INSERT);
+      TFrmMessage.ShowMessageBox(mtError, '', MSG_ERROR_SUB_CATEGORY_UPDATE);
     end;
   end;
 end;

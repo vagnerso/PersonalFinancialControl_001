@@ -9,7 +9,7 @@ uses
   Vcl.Dialogs,
   uAppConstants,
   uFunctions,
-  uSearchFilters, System.Classes, uTypePayment;
+  uSearchFilters, System.Classes, uTypePayment, uEnumTypes, fMessage;
 
 type TSearchFiltersCustomized = class(TSearchFilters)
   private
@@ -80,7 +80,7 @@ begin
   except on E: Exception do
     begin
       FDataSet.Connection.Rollback;
-      Showmessage(MSG_ERROR_FORM_PAYMENT_DELETE);
+      TFrmMessage.ShowMessageBox(mtError, '', MSG_ERROR_FORM_PAYMENT_DELETE);
     end;
   end;
 end;
@@ -122,7 +122,7 @@ begin
   except on E: Exception do
     begin
       FDataSet.Connection.Rollback;
-      Showmessage(MSG_ERROR_FORM_PAYMENT_SEARCH);
+      TFrmMessage.ShowMessageBox(mtError, '', MSG_ERROR_FORM_PAYMENT_SEARCH);
     end;
   end;
 
@@ -154,7 +154,7 @@ begin
   except on E: Exception do
     begin
       FDataSet.Connection.Rollback;
-      Showmessage(MSG_ERROR_FORM_PAYMENT_INSERT);
+      TFrmMessage.ShowMessageBox(mtError, '', MSG_ERROR_FORM_PAYMENT_INSERT);
     end;
   end;
 end;
@@ -216,7 +216,7 @@ begin
   except on E: Exception do
     begin
       FDataSet.Connection.Rollback;
-      Showmessage(MSG_ERROR_FORM_PAYMENT_INSERT);
+      TFrmMessage.ShowMessageBox(mtError, '', MSG_ERROR_FORM_PAYMENT_UPDATE);
     end;
   end;
 end;

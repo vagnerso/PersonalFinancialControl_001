@@ -5,7 +5,7 @@ interface
 uses
   uSearchFilters, uDataBaseConnection, uSubCategory, uFormPayment,
   System.SysUtils, Vcl.Dialogs, uAppConstants, System.Classes, uProvider,
-  uFunctions, uEnumTypes, Data.DB, System.DateUtils;
+  uFunctions, uEnumTypes, Data.DB, System.DateUtils, fMessage;
 
 type TSearchFiltersCustomized = class(TSearchFilters)
   private
@@ -146,7 +146,7 @@ begin
   except on E: Exception do
     begin
       FDataSet.Connection.Rollback;
-      Showmessage(MSG_ERROR_DELETE);
+      TFrmMessage.ShowMessageBox(mtError, '', MSG_ERROR_DELETE);
     end;
   end;
 end;
@@ -211,7 +211,7 @@ begin
   except on E: Exception do
     begin
       FDataSet.Connection.Rollback;
-      Showmessage(MSG_ERROR_SUB_CATEGORY_INSERT);
+      TFrmMessage.ShowMessageBox(mtError, '', MSG_ERROR_MOVEMENT_PAYMENT);
     end;
   end;
 end;
@@ -553,7 +553,7 @@ begin
   except on E: Exception do
     begin
       FDataSet.Connection.Rollback;
-      Showmessage(MSG_ERROR_INSERT);
+      TFrmMessage.ShowMessageBox(mtError, '', MSG_ERROR_MOVEMENT_PAYMENT);
     end;
   end;
 end;
@@ -574,7 +574,7 @@ begin
   except on E: Exception do
     begin
       FDataSet.Connection.Rollback;
-      Showmessage(MSG_ERROR_MOVEMENT_PAYMENT);
+      TFrmMessage.ShowMessageBox(mtError, '', MSG_ERROR_MOVEMENT_PAYMENT);
     end;
   end;
 end;
@@ -670,7 +670,7 @@ begin
   except on E: Exception do
     begin
       FDataSet.Connection.Rollback;
-      Showmessage(MSG_ERROR_INSERT);
+      TFrmMessage.ShowMessageBox(mtError, '', MSG_ERROR_MOVEMENT_PAYMENT);
     end;
   end;
 end;

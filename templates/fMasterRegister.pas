@@ -169,7 +169,7 @@ end;
 procedure TfrmMasterRegister.FormShow(Sender: TObject);
 begin
   inherited;
-
+  WindowState := wsMaximized;
   FormCloseWithEsc := True;
   SetColors;
 

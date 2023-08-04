@@ -4,7 +4,7 @@ interface
 
 uses
   Vcl.Forms,
-  System.SysUtils, Vcl.StdCtrls, Vcl.Dialogs, Data.DB;
+  System.SysUtils, Vcl.StdCtrls, Vcl.Dialogs, Data.DB, fMessage, uEnumTypes;
 
 type TFunctions=class
   private
@@ -48,7 +48,7 @@ begin
 
   if not (AValue in [0,1] ) then
   begin
-    showmessage('Atenção, valor incorreto para esta função. São permitidos apenas os valores 0 e 1');
+    TFrmMessage.ShowMessageBox(mtError, '', 'Atenção, valor incorreto para esta função. São permitidos apenas os valores 0 e 1');
     Abort;
   end;
 

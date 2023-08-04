@@ -216,6 +216,10 @@ inherited frmMasterRegister: TfrmMasterRegister
       object tabRegister: TTabSheet
         Caption = 'Cadastro'
         ImageIndex = 1
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object pnlMainRegister: TPanel
           Left = 0
           Top = 367
@@ -280,6 +284,10 @@ inherited frmMasterRegister: TfrmMasterRegister
           TabOrder = 1
           object tabRegisterBasic: TTabSheet
             Caption = 'B'#225'sico'
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object pnlRegisterBasic: TPanel
               Left = 0
               Top = 0

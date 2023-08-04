@@ -25,7 +25,7 @@ uses
   FireDAC.Stan.ExprFuncs,
   FireDAC.Phys.SQLiteDef,
   FireDAC.Comp.UI,
-  System.Classes;
+  System.Classes, fMessage, uEnumTypes;
 
 type TDataBaseConnection = class
   private
@@ -71,7 +71,7 @@ begin
 
   except on e: Exception do
     begin
-      showmessage('Erro ao tentar conectar no banco de dados.');
+      TFrmMessage.ShowMessageBox(mtError, '', 'Erro ao tentar conectar no banco de dados.');
     end;
   end;
 

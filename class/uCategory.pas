@@ -10,7 +10,7 @@ uses
   uAppConstants,
   uFunctions,
   uSearchFilters,
-  System.Classes;
+  System.Classes, fMessage, uEnumTypes;
 
 type TSearchFiltersCustomized = class(TSearchFilters)
   private
@@ -74,7 +74,7 @@ begin
   except on E: Exception do
     begin
       FDataSet.Connection.Rollback;
-      Showmessage(MSG_ERROR_CATEGORY_DELETE);
+      TFrmMessage.ShowMessageBox(mtError, '', MSG_ERROR_CATEGORY_DELETE);
     end;
   end;
 end;
@@ -117,7 +117,7 @@ begin
     except on E: Exception do
       begin
         lQuery.Connection.Rollback;
-        Showmessage(MSG_ERROR_CATEGORY_INSERT);
+        TFrmMessage.ShowMessageBox(mtError, '', MSG_ERROR_CATEGORY_SEARCH);
       end;
     end;
 
@@ -146,7 +146,7 @@ begin
   except on E: Exception do
     begin
       FDataSet.Connection.Rollback;
-      Showmessage(MSG_ERROR_CATEGORY_INSERT);
+      TFrmMessage.ShowMessageBox(mtError, '', MSG_ERROR_CATEGORY_INSERT);
     end;
   end;
 end;
@@ -201,7 +201,7 @@ begin
   except on E: Exception do
     begin
       FDataSet.Connection.Rollback;
-      Showmessage(MSG_ERROR_CATEGORY_INSERT);
+      TFrmMessage.ShowMessageBox(mtError, '', MSG_ERROR_CATEGORY_UPDATE);
     end;
   end;
 end;
