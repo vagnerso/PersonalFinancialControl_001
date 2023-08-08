@@ -13,11 +13,9 @@ object frmMessage: TfrmMessage
   Font.Name = 'Calibri'
   Font.Style = []
   KeyPreview = True
-  OldCreateOrder = False
   Position = poScreenCenter
   OnKeyPress = FormKeyPress
   OnShow = FormShow
-  PixelsPerInch = 96
   TextHeight = 13
   object pnlTitle: TPanel
     Left = 0
@@ -28,7 +26,7 @@ object frmMessage: TfrmMessage
     BevelOuter = bvNone
     ParentBackground = False
     TabOrder = 0
-    ExplicitWidth = 890
+    ExplicitWidth = 739
   end
   object pnlGeneral: TPanel
     Left = 0
@@ -38,7 +36,8 @@ object frmMessage: TfrmMessage
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitTop = 29
+    ExplicitWidth = 739
+    ExplicitHeight = 368
     object lblMessageType: TLabel
       Left = 144
       Top = 70
@@ -156,7 +155,8 @@ object frmMessage: TfrmMessage
     BevelOuter = bvNone
     ParentBackground = False
     TabOrder = 2
-    ExplicitWidth = 890
+    ExplicitTop = 401
+    ExplicitWidth = 739
     object pnlButtonOk: TPanel
       Left = 265
       Top = 2

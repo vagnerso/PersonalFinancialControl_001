@@ -10,11 +10,9 @@ object frmMain: TfrmMain
   Font.Height = -16
   Font.Name = 'Calibri'
   Font.Style = []
-  OldCreateOrder = False
   Position = poScreenCenter
   WindowState = wsMaximized
   OnShow = FormShow
-  PixelsPerInch = 96
   TextHeight = 19
   object lblDeveloper: TLabel
     Left = 0
@@ -40,9 +38,7 @@ object frmMain: TfrmMain
     Align = alLeft
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitLeft = -8
-    ExplicitTop = 8
-    ExplicitHeight = 651
+    ExplicitHeight = 637
     object imIconApp: TImage
       Left = 0
       Top = 53
@@ -12920,7 +12916,6 @@ object frmMain: TfrmMain
       Font.Name = 'Calibri'
       Font.Style = [fsBold]
       ParentFont = False
-      ExplicitTop = 387
       ExplicitWidth = 65
     end
     object imUser: TImage
@@ -14647,6 +14642,8 @@ object frmMain: TfrmMain
     Align = alRight
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitLeft = 420
+    ExplicitHeight = 637
     object pnlMenuRevenues: TPanel
       Left = 278
       Top = 28

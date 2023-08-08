@@ -8,9 +8,10 @@ inherited frmMasterRegister: TfrmMasterRegister
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
   OnShow = FormShow
-  ExplicitWidth = 1061
-  ExplicitHeight = 659
-  PixelsPerInch = 96
+  ExplicitLeft = 3
+  ExplicitTop = 3
+  ExplicitWidth = 1057
+  ExplicitHeight = 658
   TextHeight = 19
   object pnlTitle: TPanel
     Left = 0
@@ -29,6 +30,7 @@ inherited frmMasterRegister: TfrmMasterRegister
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 1041
   end
   object pnlBottom: TPanel
     Left = 0
@@ -39,6 +41,8 @@ inherited frmMasterRegister: TfrmMasterRegister
     BevelOuter = bvNone
     ParentBackground = False
     TabOrder = 1
+    ExplicitTop = 589
+    ExplicitWidth = 1041
   end
   object pnlMain: TPanel
     Left = 0
@@ -50,6 +54,7 @@ inherited frmMasterRegister: TfrmMasterRegister
     Color = 6511179
     ParentBackground = False
     TabOrder = 2
+    ExplicitHeight = 436
     object pnlButtonInsert: TPanel
       Left = 0
       Top = 0
@@ -170,6 +175,8 @@ inherited frmMasterRegister: TfrmMasterRegister
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 3
+    ExplicitWidth = 891
+    ExplicitHeight = 436
     object pgcGeneral: TPageControl
       Left = 0
       Top = 0
@@ -184,6 +191,8 @@ inherited frmMasterRegister: TfrmMasterRegister
       Font.Style = []
       ParentFont = False
       TabOrder = 0
+      ExplicitWidth = 891
+      ExplicitHeight = 436
       object tabGrid: TTabSheet
         Caption = 'Consulta'
         object grdSearch: TDBGrid
@@ -216,10 +225,6 @@ inherited frmMasterRegister: TfrmMasterRegister
       object tabRegister: TTabSheet
         Caption = 'Cadastro'
         ImageIndex = 1
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object pnlMainRegister: TPanel
           Left = 0
           Top = 367
@@ -284,10 +289,6 @@ inherited frmMasterRegister: TfrmMasterRegister
           TabOrder = 1
           object tabRegisterBasic: TTabSheet
             Caption = 'B'#225'sico'
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object pnlRegisterBasic: TPanel
               Left = 0
               Top = 0
@@ -324,6 +325,7 @@ inherited frmMasterRegister: TfrmMasterRegister
     Font.Style = []
     ParentFont = False
     TabOrder = 4
+    ExplicitWidth = 1041
     object tabSearch: TTabSheet
       Caption = 'Op'#231#245'es de pesquisa'
       object pnlSearch: TPanel
@@ -341,6 +343,7 @@ inherited frmMasterRegister: TfrmMasterRegister
         ParentBackground = False
         ParentFont = False
         TabOrder = 0
+        ExplicitWidth = 1033
         object lb1: TLabel
           Left = 16
           Top = 6
