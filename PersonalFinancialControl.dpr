@@ -2,6 +2,7 @@ program PersonalFinancialControl;
 
 uses
   Vcl.Forms,
+  MidasLib,
   fMain in 'fMain.pas' {frmMain},
   uUser in 'class\uUser.pas',
   fBase in 'templates\fBase.pas' {frmBase},

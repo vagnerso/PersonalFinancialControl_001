@@ -6,7 +6,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, uMovement, VclTee.TeeGDIPlus, Data.DB, VCLTee.TeEngine, VCLTee.Series,
   Vcl.ExtCtrls, VCLTee.TeeProcs, VCLTee.Chart, VCLTee.DBChart, Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls,
-  uSystemManager;
+  uSystemManager, FireDAC.UI.Intf, FireDAC.Stan.Async, FireDAC.Comp.ScriptCommands, FireDAC.Stan.Util,
+  FireDAC.Stan.Intf, FireDAC.Comp.Script;
 
 type
   TfrmMovementGraphics = class(TfrmBase)
@@ -58,17 +59,21 @@ type
     lb5: TLabel;
     cbxFilterSituation: TComboBox;
     lb6: TLabel;
-    Label2: TLabel;
+    lblMonthYear: TLabel;
     cbxFilterMonthOrYear: TComboBox;
     edtFilterInitialDate: TDateTimePicker;
     edtFilterEndDate: TDateTimePicker;
-    lb7: TLabel;
-    lb8: TLabel;
+    lblFilterInitialDate: TLabel;
+    lblFilterEndDate: TLabel;
     Label3: TLabel;
     cbxFilterDateBy: TComboBox;
+    btnSearchExecute: TButton;
+    FDScript1: TFDScript;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure btnSearchExecuteClick(Sender: TObject);
+    procedure cbxFilterDateByChange(Sender: TObject);
   private
     FMovement: TMovement;
     FBackgroundColor: TColor;
@@ -76,6 +81,9 @@ type
     FTitleFontColor: TColor;
     FPanelBottomColor: TColor;
     procedure SetColors;
+    procedure Search;
+    procedure SetInitialStateFilters;
+    procedure SetFilterMonthOrYear;
     { Private declarations }
   public
     { Public declarations }
@@ -89,6 +97,18 @@ implementation
 
 {$R *.dfm}
 
+procedure TfrmMovementGraphics.btnSearchExecuteClick(Sender: TObject);
+begin
+  inherited;
+  Search;
+end;
+
+procedure TfrmMovementGraphics.cbxFilterDateByChange(Sender: TObject);
+begin
+  inherited;
+  SetFilterMonthOrYear;
+end;
+
 procedure TfrmMovementGraphics.FormCreate(Sender: TObject);
 begin
   inherited;
@@ -101,16 +121,38 @@ begin
   FMovement.Free;
 end;
 
-procedure TfrmMovementGraphics.FormShow(Sender: TObject);
-var
-  I:Integer;
-  lDescription: string;
-begin
-  inherited;
-  SetColors;
 
-  I:=0;
+procedure TfrmMovementGraphics.Search;
+var
+  lDescription: string;
+  lMonth: Integer;
+begin
   lDescription := EmptyStr;
+
+  FMovement.SearchFiltersCustomized.Situation := -1;
+  if cbxFilterSituation.ItemIndex > 0 then
+  begin
+    FMovement.SearchFiltersCustomized.Situation := cbxFilterSituation.ItemIndex - 1;
+  end;
+
+  case cbxFilterDateBy.ItemIndex of
+    0: // Month
+      begin
+        lMonth := Integer(cbxFilterMonthOrYear.Items.Objects[cbxFilterMonthOrYear.ItemIndex]);
+        FMovement.SearchFiltersCustomized.Month := lMonth;
+      end;
+    1: // Year
+      begin
+        FMovement.SearchFiltersCustomized.Year := StrToIntDef(cbxFilterMonthOrYear.Text, 2020);
+      end;
+    2: // period
+      begin
+        FMovement.SearchFiltersCustomized.InitialDate := edtFilterInitialDate.Date;
+        FMovement.SearchFiltersCustomized.EndDate := edtFilterEndDate.Date;
+      end;
+  end;
+
+  // saídas por forma de pagamento
   chtFormPaymentsExpenses.Series[0].Clear;
   dtsFormPaymentsExpenses.DataSet := FMovement.QueryFormPaymentsExpenses;
   FMovement.GetQueryFormPaymentsExpenses;
@@ -120,7 +162,7 @@ begin
     FMovement.QueryFormPaymentsExpenses.First;
     while not FMovement.QueryFormPaymentsExpenses.Eof do
     begin
-      lDescription := FMovement.QueryFormPaymentsExpenses.FieldByName('name').AsAnsiString;
+      lDescription := FMovement.QueryFormPaymentsExpenses.FieldByName('name').AsString;
       chtFormPaymentsExpenses.Series[0].Add(
         FMovement.QueryFormPaymentsExpenses.FieldByName('total').AsCurrency,
         ' ' + lDescription,
@@ -130,6 +172,7 @@ begin
   end;
   chtFormPaymentsExpenses.Series[0].Marks.Visible := false;
 
+  // entradas por forma de pagamento
   chtFormPaymentsRevenues.Series[0].Clear;
   dtsFormPaymentsRevenues.DataSet := FMovement.QueryFormPaymentsRevenues;
   FMovement.GetQueryFormPaymentsRevenues;
@@ -139,7 +182,7 @@ begin
     FMovement.QueryFormPaymentsRevenues.First;
     while not FMovement.QueryFormPaymentsRevenues.Eof do
     begin
-      lDescription := FMovement.QueryFormPaymentsRevenues.FieldByName('name').AsAnsiString;
+      lDescription := FMovement.QueryFormPaymentsRevenues.FieldByName('name').AsString;
       chtFormPaymentsRevenues.Series[0].Add(
         FMovement.QueryFormPaymentsRevenues.FieldByName('total').AsCurrency,
         ' ' + lDescription,
@@ -149,6 +192,7 @@ begin
   end;
   chtFormPaymentsRevenues.Series[0].Marks.Visible := false;
 
+  // saídas por categoria
   chtSubCategoryExpenses.Series[0].Clear;
   dtsSubCategorysExpenses.DataSet := FMovement.QuerySubCategorysExpenses;
   FMovement.GetQuerySubCategoryExpenses;
@@ -158,7 +202,7 @@ begin
     FMovement.QuerySubCategorysExpenses.First;
     while not FMovement.QuerySubCategorysExpenses.Eof do
     begin
-      lDescription := FMovement.QuerySubCategorysExpenses.FieldByName('name').AsAnsiString;
+      lDescription := FMovement.QuerySubCategorysExpenses.FieldByName('name').AsString;
       chtSubCategoryExpenses.Series[0].Add(
         FMovement.QuerySubCategorysExpenses.FieldByName('total').AsCurrency,
         ' ' + lDescription,
@@ -168,6 +212,7 @@ begin
   end;
   chtSubCategoryExpenses.Series[0].Marks.Visible := false;
 
+  // entradas por categoria
   chtSubCategoryRevenues.Series[0].Clear;
   dtsSubCategorysRevenues.DataSet := FMovement.QuerySubCategorysRevenues;
   FMovement.GetQuerySubCategoryRevenues;
@@ -177,7 +222,7 @@ begin
     FMovement.QuerySubCategorysRevenues.First;
     while not FMovement.QuerySubCategorysRevenues.Eof do
     begin
-      lDescription := FMovement.QuerySubCategorysRevenues.FieldByName('name').AsAnsiString;
+      lDescription := FMovement.QuerySubCategorysRevenues.FieldByName('name').AsString;
       chtSubCategoryRevenues.Series[0].Add(
         FMovement.QuerySubCategorysRevenues.FieldByName('total').AsCurrency,
         ' ' + lDescription,
@@ -187,6 +232,7 @@ begin
   end;
   chtSubCategoryRevenues.Series[0].Marks.Visible := false;
 
+  // saídas por sub-categoria
   chtCategoryExpenses.Series[0].Clear;
   dtsCategorysExpenses.DataSet := FMovement.QueryCategorysExpenses;
   FMovement.GetQueryCategoryExpenses;
@@ -196,7 +242,7 @@ begin
     FMovement.QueryCategorysExpenses.First;
     while not FMovement.QueryCategorysExpenses.Eof do
     begin
-      lDescription := FMovement.QueryCategorysExpenses.FieldByName('name').AsAnsiString;
+      lDescription := FMovement.QueryCategorysExpenses.FieldByName('name').AsString;
       chtCategoryExpenses.Series[0].Add(
         FMovement.QueryCategorysExpenses.FieldByName('total').AsCurrency,
         ' ' + lDescription,
@@ -206,6 +252,7 @@ begin
   end;
   chtCategoryExpenses.Series[0].Marks.Visible := false;
 
+  // entradas por sub-categoria
   chtCategoryRevenues.Series[0].Clear;
   dtsCategorysRevenues.DataSet := FMovement.QueryCategorysRevenues;
   FMovement.GetQueryCategoryRevenues;
@@ -215,7 +262,7 @@ begin
     FMovement.QueryCategorysRevenues.First;
     while not FMovement.QueryCategorysRevenues.Eof do
     begin
-      lDescription := FMovement.QueryCategorysRevenues.FieldByName('name').AsAnsiString;
+      lDescription := FMovement.QueryCategorysRevenues.FieldByName('name').AsString;
       chtCategoryRevenues.Series[0].Add(
         FMovement.QueryCategorysRevenues.FieldByName('total').AsCurrency,
         ' ' + lDescription,
@@ -240,6 +287,14 @@ begin
 
 end;
 
+procedure TfrmMovementGraphics.FormShow(Sender: TObject);
+begin
+  inherited;
+  SetColors;
+  SetInitialStateFilters;
+  Search;
+end;
+
 procedure TfrmMovementGraphics.SetColors;
 begin
   FBackgroundColor := TSystemManager.GetInstance.LayoutConfiguration.BackgroundColor;
@@ -251,6 +306,78 @@ begin
   pnlTitle.Color := FTitleColor;
   pnlTitle.Font.Color := FTitleFontColor;
   pnlBottom.Color := FPanelBottomColor;
+end;
+
+procedure TfrmMovementGraphics.SetInitialStateFilters;
+begin
+  cbxFilterSituation.ItemIndex := 0;
+  cbxFilterDateBy.ItemIndex := 0;
+  edtFilterInitialDate.Date := Now - 30;
+  edtFilterEndDate.Date := Now;
+  SetFilterMonthOrYear;
+  cbxFilterMonthOrYear.ItemIndex := 0;
+end;
+
+procedure TfrmMovementGraphics.SetFilterMonthOrYear;
+begin
+  case cbxFilterDateBy.ItemIndex of
+    0:
+      // Month
+      begin
+        lblFilterInitialDate.Visible := False;
+        lblFilterEndDate.Visible := False;
+        edtFilterInitialDate.Visible := False;
+        edtFilterEndDate.Visible := False;
+        lblMonthYear.Visible := True;
+        cbxFilterMonthOrYear.Visible := True;
+        cbxFilterMonthOrYear.Items.Clear;
+        cbxFilterMonthOrYear.Items.AddObject('Janeiro', TObject(1));
+        cbxFilterMonthOrYear.Items.AddObject('Fevereiro', TObject(2));
+        cbxFilterMonthOrYear.Items.AddObject('Março', TObject(3));
+        cbxFilterMonthOrYear.Items.AddObject('Abril', TObject(4));
+        cbxFilterMonthOrYear.Items.AddObject('Maio', TObject(5));
+        cbxFilterMonthOrYear.Items.AddObject('Junho', TObject(6));
+        cbxFilterMonthOrYear.Items.AddObject('Julho', TObject(7));
+        cbxFilterMonthOrYear.Items.AddObject('Agosto', TObject(8));
+        cbxFilterMonthOrYear.Items.AddObject('Setembro', TObject(9));
+        cbxFilterMonthOrYear.Items.AddObject('Outubro', TObject(10));
+        cbxFilterMonthOrYear.Items.AddObject('Novembro', TObject(11));
+        cbxFilterMonthOrYear.Items.AddObject('Dezembro', TObject(12));
+      end;
+    1:
+      // Year
+      begin
+        lblFilterInitialDate.Visible := False;
+        lblFilterEndDate.Visible := False;
+        edtFilterInitialDate.Visible := False;
+        edtFilterEndDate.Visible := False;
+        lblMonthYear.Visible := True;
+        cbxFilterMonthOrYear.Visible := True;
+        cbxFilterMonthOrYear.Items.Clear;
+        cbxFilterMonthOrYear.Items.Add('2020');
+        cbxFilterMonthOrYear.Items.Add('2021');
+        cbxFilterMonthOrYear.Items.Add('2022');
+        cbxFilterMonthOrYear.Items.Add('2023');
+        cbxFilterMonthOrYear.Items.Add('2024');
+        cbxFilterMonthOrYear.Items.Add('2025');
+        cbxFilterMonthOrYear.Items.Add('2026');
+        cbxFilterMonthOrYear.Items.Add('2027');
+        cbxFilterMonthOrYear.Items.Add('2028');
+        cbxFilterMonthOrYear.Items.Add('2029');
+        cbxFilterMonthOrYear.Items.Add('2030');
+      end;
+    2:
+      // time course
+      begin
+        lblFilterInitialDate.Visible := True;
+        lblFilterEndDate.Visible := True;
+        edtFilterInitialDate.Visible := True;
+        edtFilterEndDate.Visible := True;
+        lblMonthYear.Visible := False;
+        cbxFilterMonthOrYear.Visible := False;
+        cbxFilterMonthOrYear.Items.Clear;
+      end;
+  end;
 end;
 
 end.

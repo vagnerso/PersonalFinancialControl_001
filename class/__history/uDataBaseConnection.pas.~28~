@@ -13,31 +13,27 @@ uses
   FireDAC.Stan.Async,
   FireDAC.Phys,
   FireDAC.VCLUI.Wait,
-  Data.DB,
+  FireDAC.Comp.ScriptCommands,
+  FireDAC.Stan.Util,
+  FireDAC.Comp.Script,
   FireDAC.Comp.Client,
   Firedac.dapt,
+  FireDAC.Stan.Param,
   System.SysUtils,
   uFunctions,
   uAppConstants,
   Vcl.Dialogs,
   FireDAC.Phys.SQLite,
-  FireDAC.Stan.Def,
-  FireDAC.Stan.Pool,
-  FireDAC.Stan.Async,
-  FireDAC.Phys,
-  FireDAC.VCLUI.Wait,
-  Data.DB,
   FireDAC.Stan.ExprFuncs,
   FireDAC.Phys.SQLiteDef,
   FireDAC.Comp.UI,
-  FireDAC.Phys.SQLite,
-  System.Classes;
+  System.Classes, fMessage, uEnumTypes;
 
 type TDataBaseConnection = class
   private
-    FDGUIxWaitCursor : TFDGUIxWaitCursor;
     FDPhysSQLiteDriverLink: TFDPhysSQLiteDriverLink;
     FConnection: TFDConnection;
+    FScripts: TFDScript;
 
     class var FInstance: TDataBaseConnection;
 
@@ -48,6 +44,7 @@ type TDataBaseConnection = class
     destructor Destroy;
     function NewConnection: Boolean;
     property Connection: TFDConnection read FConnection write FConnection;
+    property Scripts: TFDScript read FScripts write FScripts;
     class function GetInstance: TDataBaseConnection ;
 end;
 
@@ -67,19 +64,20 @@ implementation
 function TDataBaseConnection.NewConnection: Boolean;
 begin
 
-    FConnection.Params.DriverID := 'SQLITE';
-    FConnection.DriverName := 'SQLITE';
-    FConnection.Params.Database := TFunctions.DataBasePath + DATABASE_NAME;
+  Result := False;
 
-    try
+  FConnection.DriverName := 'SQLite';
+  FConnection.Params.Database := TFunctions.DataBasePath + DATABASE_NAME;
 
-      FConnection.Connected := True;
+  try
 
-    except on e: Exception do
-      begin
-        showmessage('Erro ao tentar conectar no banco de dados.');
-      end;
+    Result := FConnection.Connected;
+
+  except on e: Exception do
+    begin
+      TFrmMessage.ShowMessageBox(mtError, '', 'Erro ao tentar conectar no banco de dados.');
     end;
+  end;
 
 end;
 
@@ -92,13 +90,17 @@ constructor TDataBaseConnection.CreatePrivate;
 begin
   inherited Create;
   FConnection := TFDConnection.Create(nil);
-  FDPhysSQLiteDriverLink := TFDPhysSQLiteDriverLink.Create(nil);
-  FDPhysSQLiteDriverLink.DriverID := 'SQLITE';
+  FConnection.DriverName := 'SQLite';
+  FDPhysSQLiteDriverLink := TFDPhysSQLiteDriverLink.Create(FConnection);
+  FDPhysSQLiteDriverLink.DriverID := 'SQLite';
+  FScripts := TFDScript.Create(nil);
+  FScripts.Connection := FConnection;
 end;
 
 destructor TDataBaseConnection.Destroy;
 begin
   inherited;
+  FScripts.Free;
   FDPhysSQLiteDriverLink.free;
   FConnection.Free;
 end;

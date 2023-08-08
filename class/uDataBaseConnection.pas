@@ -13,7 +13,9 @@ uses
   FireDAC.Stan.Async,
   FireDAC.Phys,
   FireDAC.VCLUI.Wait,
-  Data.DB,
+  FireDAC.Comp.ScriptCommands,
+  FireDAC.Stan.Util,
+  FireDAC.Comp.Script,
   FireDAC.Comp.Client,
   Firedac.dapt,
   FireDAC.Stan.Param,
@@ -31,6 +33,7 @@ type TDataBaseConnection = class
   private
     FDPhysSQLiteDriverLink: TFDPhysSQLiteDriverLink;
     FConnection: TFDConnection;
+    FScripts: TFDScript;
 
     class var FInstance: TDataBaseConnection;
 
@@ -41,6 +44,7 @@ type TDataBaseConnection = class
     destructor Destroy;
     function NewConnection: Boolean;
     property Connection: TFDConnection read FConnection write FConnection;
+    property Scripts: TFDScript read FScripts write FScripts;
     class function GetInstance: TDataBaseConnection ;
 end;
 
@@ -89,11 +93,14 @@ begin
   FConnection.DriverName := 'SQLite';
   FDPhysSQLiteDriverLink := TFDPhysSQLiteDriverLink.Create(FConnection);
   FDPhysSQLiteDriverLink.DriverID := 'SQLite';
+  FScripts := TFDScript.Create(nil);
+  FScripts.Connection := FConnection;
 end;
 
 destructor TDataBaseConnection.Destroy;
 begin
   inherited;
+  FScripts.Free;
   FDPhysSQLiteDriverLink.free;
   FConnection.Free;
 end;
@@ -101,8 +108,10 @@ end;
 class function TDataBaseConnection.GetInstance: TDataBaseConnection;
 begin
   if not Assigned(FInstance) then
-      FInstance := TDataBaseConnection.CreatePrivate;
-   Result := FInstance;
+  begin
+    FInstance := TDataBaseConnection.CreatePrivate;
+  end;
+  Result := FInstance;
 end;
 
 constructor TMyQuery.Create(AOwner: TComponent);

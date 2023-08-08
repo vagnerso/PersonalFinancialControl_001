@@ -36,9 +36,9 @@ inherited frmMovementGraphics: TfrmMovementGraphics
   end
   object pgcGeneral: TPageControl
     Left = 0
-    Top = 89
+    Top = 111
     Width = 1444
-    Height = 917
+    Height = 895
     ActivePage = tabGraphics
     Align = alClient
     TabOrder = 2
@@ -48,7 +48,7 @@ inherited frmMovementGraphics: TfrmMovementGraphics
         Left = 0
         Top = 0
         Width = 1436
-        Height = 883
+        Height = 861
         Align = alClient
         BevelInner = bvNone
         BevelOuter = bvNone
@@ -68,6 +68,7 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           View3DOptions.Orthogonal = False
           View3DOptions.Perspective = 0
           View3DOptions.Rotation = 360
+          Color = clWhite
           TabOrder = 0
           DefaultCanvas = 'TGDIPlusCanvas'
           ColorPaletteIndex = 13
@@ -108,6 +109,7 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           View3DOptions.Orthogonal = False
           View3DOptions.Perspective = 0
           View3DOptions.Rotation = 360
+          Color = clWhite
           TabOrder = 1
           DefaultCanvas = 'TGDIPlusCanvas'
           ColorPaletteIndex = 13
@@ -148,6 +150,7 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           View3DOptions.Orthogonal = False
           View3DOptions.Perspective = 0
           View3DOptions.Rotation = 360
+          Color = clWhite
           TabOrder = 2
           DefaultCanvas = 'TGDIPlusCanvas'
           ColorPaletteIndex = 13
@@ -188,6 +191,7 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           View3DOptions.Orthogonal = False
           View3DOptions.Perspective = 0
           View3DOptions.Rotation = 360
+          Color = clWhite
           TabOrder = 3
           DefaultCanvas = 'TGDIPlusCanvas'
           ColorPaletteIndex = 13
@@ -228,6 +232,7 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           View3DOptions.Orthogonal = False
           View3DOptions.Perspective = 0
           View3DOptions.Rotation = 360
+          Color = clWhite
           TabOrder = 4
           DefaultCanvas = 'TGDIPlusCanvas'
           ColorPaletteIndex = 13
@@ -268,6 +273,7 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           View3DOptions.Orthogonal = False
           View3DOptions.Perspective = 0
           View3DOptions.Rotation = 360
+          Color = clWhite
           TabOrder = 5
           DefaultCanvas = 'TGDIPlusCanvas'
           ColorPaletteIndex = 13
@@ -299,11 +305,15 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     object tabLists: TTabSheet
       Caption = 'Visualizar em listas'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object scrLists: TScrollBox
         Left = 0
         Top = 0
         Width = 1436
-        Height = 883
+        Height = 861
         Align = alClient
         BevelInner = bvNone
         BevelOuter = bvNone
@@ -315,11 +325,31 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           Width = 398
           Height = 326
           TabOrder = 0
+          object lb1: TLabel
+            Left = 1
+            Top = 1
+            Width = 249
+            Height = 23
+            Align = alTop
+            Alignment = taCenter
+            Caption = 'Sa'#237'das por forma de pagamento'
+            Color = 3684595
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWhite
+            Font.Height = -19
+            Font.Name = 'Calibri'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
           object grdFormPaymentsExpenses: TDBGrid
-            Left = 16
+            Left = 1
             Top = 24
-            Width = 353
-            Height = 281
+            Width = 396
+            Height = 301
+            Align = alClient
+            BorderStyle = bsNone
             DataSource = dtsFormPaymentsExpenses
             TabOrder = 0
             TitleFont.Charset = DEFAULT_CHARSET
@@ -335,11 +365,31 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           Width = 398
           Height = 326
           TabOrder = 1
+          object lb3: TLabel
+            Left = 1
+            Top = 1
+            Width = 268
+            Height = 23
+            Align = alTop
+            Alignment = taCenter
+            Caption = 'Entradas por forma de pagamento'
+            Color = 6009689
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWhite
+            Font.Height = -19
+            Font.Name = 'Calibri'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
           object grdFormPaymentsRevenues: TDBGrid
-            Left = 16
+            Left = 1
             Top = 24
-            Width = 353
-            Height = 281
+            Width = 396
+            Height = 301
+            Align = alClient
+            BorderStyle = bsNone
             DataSource = dtsFormPaymentsRevenues
             TabOrder = 0
             TitleFont.Charset = DEFAULT_CHARSET
@@ -355,11 +405,31 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           Width = 398
           Height = 326
           TabOrder = 2
+          object lb2: TLabel
+            Left = 1
+            Top = 1
+            Width = 159
+            Height = 23
+            Align = alTop
+            Alignment = taCenter
+            Caption = 'Sa'#237'das por categoria'
+            Color = 3684595
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWhite
+            Font.Height = -19
+            Font.Name = 'Calibri'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
           object grdSubCategorysExpenses: TDBGrid
-            Left = 16
+            Left = 1
             Top = 24
-            Width = 353
-            Height = 281
+            Width = 396
+            Height = 301
+            Align = alClient
+            BorderStyle = bsNone
             DataSource = dtsSubCategorysExpenses
             TabOrder = 0
             TitleFont.Charset = DEFAULT_CHARSET
@@ -375,11 +445,31 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           Width = 398
           Height = 326
           TabOrder = 3
+          object lb4: TLabel
+            Left = 1
+            Top = 1
+            Width = 178
+            Height = 23
+            Align = alTop
+            Alignment = taCenter
+            Caption = 'Entradas por categoria'
+            Color = 6009689
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWhite
+            Font.Height = -19
+            Font.Name = 'Calibri'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
           object grdSubCategorysRevenues: TDBGrid
-            Left = 16
+            Left = 1
             Top = 24
-            Width = 353
-            Height = 281
+            Width = 396
+            Height = 301
+            Align = alClient
+            BorderStyle = bsNone
             DataSource = dtsSubCategorysRevenues
             TabOrder = 0
             TitleFont.Charset = DEFAULT_CHARSET
@@ -395,11 +485,31 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           Width = 398
           Height = 326
           TabOrder = 4
+          object Label1: TLabel
+            Left = 1
+            Top = 1
+            Width = 193
+            Height = 23
+            Align = alTop
+            Alignment = taCenter
+            Caption = 'Sa'#237'das por sub-categoria'
+            Color = 3684595
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWhite
+            Font.Height = -19
+            Font.Name = 'Calibri'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
           object grdCategorysExpenses: TDBGrid
-            Left = 16
+            Left = 1
             Top = 24
-            Width = 353
-            Height = 281
+            Width = 396
+            Height = 301
+            Align = alClient
+            BorderStyle = bsNone
             DataSource = dtsCategorysExpenses
             TabOrder = 0
             TitleFont.Charset = DEFAULT_CHARSET
@@ -415,11 +525,31 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           Width = 398
           Height = 326
           TabOrder = 5
+          object lb5: TLabel
+            Left = 1
+            Top = 1
+            Width = 212
+            Height = 23
+            Align = alTop
+            Alignment = taCenter
+            Caption = 'Entradas por sub-categoria'
+            Color = 6009689
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWhite
+            Font.Height = -19
+            Font.Name = 'Calibri'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+          end
           object grdCategorysRevenues: TDBGrid
-            Left = 16
+            Left = 1
             Top = 24
-            Width = 353
-            Height = 281
+            Width = 396
+            Height = 301
+            Align = alClient
+            BorderStyle = bsNone
             DataSource = dtsCategorysRevenues
             TabOrder = 0
             TitleFont.Charset = DEFAULT_CHARSET
@@ -434,11 +564,15 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     object tabTotals: TTabSheet
       Caption = 'Visualizar os totais'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object scrTotals: TScrollBox
         Left = 0
         Top = 0
         Width = 1436
-        Height = 883
+        Height = 861
         Align = alClient
         BevelInner = bvNone
         BevelOuter = bvNone
@@ -451,9 +585,135 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     Left = 0
     Top = 41
     Width = 1444
-    Height = 48
+    Height = 70
     Align = alTop
     TabOrder = 3
+    object lb6: TLabel
+      Left = 8
+      Top = 6
+      Width = 55
+      Height = 19
+      Caption = 'Situa'#231#227'o'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -16
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblMonthYear: TLabel
+      Left = 296
+      Top = 6
+      Width = 58
+      Height = 19
+      Caption = 'M'#234's/Ano'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -16
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblFilterInitialDate: TLabel
+      Left = 464
+      Top = 6
+      Width = 74
+      Height = 19
+      Caption = 'Data Inicial'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -16
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblFilterEndDate: TLabel
+      Left = 616
+      Top = 6
+      Width = 66
+      Height = 19
+      Caption = 'Data Final'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -16
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label3: TLabel
+      Left = 136
+      Top = 6
+      Width = 103
+      Height = 19
+      Caption = 'Filtrar datas por'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -16
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
+    end
+    object cbxFilterSituation: TComboBox
+      Left = 8
+      Top = 31
+      Width = 113
+      Height = 27
+      ItemIndex = 2
+      TabOrder = 0
+      Text = 'Pagos'
+      Items.Strings = (
+        'Todas'
+        'N'#227'o Pagos'
+        'Pagos')
+    end
+    object cbxFilterMonthOrYear: TComboBox
+      Left = 296
+      Top = 31
+      Width = 141
+      Height = 27
+      TabOrder = 1
+    end
+    object edtFilterInitialDate: TDateTimePicker
+      Left = 464
+      Top = 32
+      Width = 129
+      Height = 27
+      Date = 44903.348942754630000000
+      Time = 44903.348942754630000000
+      TabOrder = 2
+    end
+    object edtFilterEndDate: TDateTimePicker
+      Left = 616
+      Top = 32
+      Width = 129
+      Height = 27
+      Date = 44903.348942754630000000
+      Time = 44903.348942754630000000
+      TabOrder = 3
+    end
+    object cbxFilterDateBy: TComboBox
+      Left = 136
+      Top = 31
+      Width = 141
+      Height = 27
+      ItemIndex = 0
+      TabOrder = 4
+      Text = 'M'#234's'
+      OnChange = cbxFilterDateByChange
+      Items.Strings = (
+        'M'#234's'
+        'Ano'
+        'Per'#237'odo')
+    end
+    object btnSearchExecute: TButton
+      Left = 768
+      Top = 16
+      Width = 180
+      Height = 40
+      Caption = 'Atualizar pesquisa'
+      TabOrder = 5
+      OnClick = btnSearchExecuteClick
+    end
   end
   object dtsFormPaymentsExpenses: TDataSource
     Left = 104
