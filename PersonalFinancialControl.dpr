@@ -36,7 +36,8 @@ uses
   fMovementGraphics in 'forms\fMovementGraphics.pas' {frmMovementGraphics},
   uClassHelperTEdit in 'class\uClassHelperTEdit.pas',
   fUser in 'forms\fUser.pas' {frmUser},
-  fMessage in 'forms\fMessage.pas' {frmMessage};
+  fMessage in 'forms\fMessage.pas' {frmMessage},
+  uDataBaseScripts in 'class\uDataBaseScripts.pas';
 
 {$R *.res}
 

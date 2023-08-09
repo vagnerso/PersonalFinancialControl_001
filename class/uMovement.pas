@@ -582,7 +582,6 @@ end;
 procedure TMovement.Search(ADataSet: TMyQuery);
 var
   lSQL: TStringList;
-  I: Integer;
 begin
 
   TDatabaseConnection.GetInstance.NewConnection;
@@ -618,13 +617,27 @@ begin
     lSQL.Add('  ON (FP.ID = M.ID_FORM_PAYMENT)     ');
     lSQL.Add('  LEFT JOIN PERSON P                 ');
     lSQL.Add('  ON (P.ID  = M.ID_PROVIDER)         ');
+    lSQL.Add(' WHERE 1>0                           ');
 
     if (Length(Trim(FSearchFiltersCustomized.ValueSearch)) > 0) then
     begin
-      lSQL.Add('WHERE M.DESCRIPTION LIKE ' + QuotedStr('%' + FSearchFiltersCustomized.ValueSearch + '%'));
+      lSQL.Add('AND M.DESCRIPTION LIKE ' + QuotedStr('%' + FSearchFiltersCustomized.ValueSearch + '%'));
+    end;
+
+    if FSearchFiltersCustomized.Situation >= 0 then
+    begin
+      lSql.Add('AND M.SITUATION = ' + FSearchFiltersCustomized.Situation.ToString);
+    end;
+
+    if FSearchFiltersCustomized.Month > 0 then
+    begin
+      lSql.Add('AND STRFTIME(''%m'', M.ISSUE_DATE) = ' + QuotedStr(FormatFloat('00', FSearchFiltersCustomized.Month)));
+      lSql.Add('AND STRFTIME(''%Y'', M.ISSUE_DATE) = ' + QuotedStr(YearOf(Now).tostring));
     end;
 
     lSQL.Add('ORDER BY M.DESCRIPTION DESC   ');
+
+    lSQL.SaveToFile(TFunctions.ApplicationPath + 'TMovement.Search.txt');
 
     ADataSet.Close;
     ADataSet.SQL.Clear;

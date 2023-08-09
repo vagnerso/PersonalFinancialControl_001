@@ -74,6 +74,7 @@ begin
   Color := FBackgroundColor;
   pnlTitle.Color := FTitleColor;
   pnlTitle.Font.Color := FTitleFontColor;
+  pnlMenu.Color := FTitleColor;
 
 end;
 

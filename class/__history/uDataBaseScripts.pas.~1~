@@ -1,0 +1,13 @@
+unit uDataBaseScripts;
+
+interface
+
+type TDataBaseScripts = class
+  private
+
+  public
+end;
+
+implementation
+
+end.

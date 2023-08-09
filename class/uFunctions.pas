@@ -4,7 +4,8 @@ interface
 
 uses
   Vcl.Forms,
-  System.SysUtils, Vcl.StdCtrls, Vcl.Dialogs, Data.DB, fMessage, uEnumTypes;
+  System.SysUtils, Vcl.StdCtrls, Vcl.Dialogs, Data.DB, fMessage, uEnumTypes,
+  Vcl.ExtCtrls;
 
 type TFunctions=class
   private
@@ -20,6 +21,7 @@ type TFunctions=class
   class procedure clearFormFields(AForm: TForm);
   class function IntegerToBoolean(AValue: Int8): Boolean;
   class procedure FormatDataSetDecimalFields(ADataSet: TDataSet; AMask: String);
+  class procedure CenterPanel(AForm: TForm; APanel: TPanel);
 end;
 
 implementation
@@ -117,6 +119,15 @@ begin
       TCurrencyField(ADataSet.Fields[I]).DisplayFormat:= AMask;
     end;
   end;
+end;
+
+class procedure TFunctions.CenterPanel(AForm: TForm; APanel: TPanel);
+begin
+  APanel.Left := (AForm.ClientWidth div 2) - (APanel.Width div 2);
+  APanel.Top := (AForm.ClientHeight div 2) - (APanel.Height div 2);
+
+  APanel.Update;
+  AForm.Update;
 end;
 
 end.

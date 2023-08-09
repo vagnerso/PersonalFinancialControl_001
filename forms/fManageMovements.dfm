@@ -1,7 +1,8 @@
 inherited frmManageMovements: TfrmManageMovements
   Caption = 'frmManageMovements'
   OnDestroy = FormDestroy
-  PixelsPerInch = 96
+  ExplicitLeft = 3
+  ExplicitTop = 3
   TextHeight = 19
   inherited pnlTitle: TPanel
     Caption = 'Gerenciar movimenta'#231#245'es'
@@ -9,22 +10,82 @@ inherited frmManageMovements: TfrmManageMovements
   inherited pnlGeneral: TPanel
     inherited pgcGeneral: TPageControl
       inherited tabGrid: TTabSheet
-        ExplicitLeft = 4
-        ExplicitTop = 25
-        ExplicitWidth = 887
-        ExplicitHeight = 408
+        inherited grdSearch: TDBGrid
+          Height = 367
+        end
+        object pnlSum: TPanel
+          Left = 0
+          Top = 367
+          Width = 887
+          Height = 41
+          Align = alBottom
+          BevelOuter = bvNone
+          TabOrder = 1
+          ExplicitLeft = 352
+          ExplicitTop = 184
+          ExplicitWidth = 185
+          object lblSumRevenues: TLabel
+            AlignWithMargins = True
+            Left = 10
+            Top = 3
+            Width = 118
+            Height = 35
+            Margins.Left = 10
+            Margins.Right = 0
+            Align = alLeft
+            Caption = 'lblSumRevenues'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 7909724
+            Font.Height = -17
+            Font.Name = 'Calibri'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Layout = tlCenter
+            ExplicitHeight = 21
+          end
+          object lblSumExpenses: TLabel
+            AlignWithMargins = True
+            Left = 138
+            Top = 3
+            Width = 114
+            Height = 35
+            Margins.Left = 10
+            Margins.Right = 0
+            Align = alLeft
+            Caption = 'lblSumExpenses'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 3684595
+            Font.Height = -17
+            Font.Name = 'Calibri'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Layout = tlCenter
+            ExplicitHeight = 21
+          end
+          object lblBalance: TLabel
+            AlignWithMargins = True
+            Left = 262
+            Top = 3
+            Width = 72
+            Height = 35
+            Margins.Left = 10
+            Margins.Right = 0
+            Align = alLeft
+            Caption = 'lblBalance'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -17
+            Font.Name = 'Calibri'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Layout = tlCenter
+            ExplicitHeight = 21
+          end
+        end
       end
       inherited tabRegister: TTabSheet
-        ExplicitLeft = 4
-        ExplicitTop = 25
-        ExplicitWidth = 887
-        ExplicitHeight = 408
         inherited pgcRegister: TPageControl
           inherited tabRegisterBasic: TTabSheet
-            ExplicitLeft = 4
-            ExplicitTop = 25
-            ExplicitWidth = 879
-            ExplicitHeight = 338
             inherited pnlRegisterBasic: TPanel
               object Label2: TLabel
                 Left = 8
@@ -336,8 +397,8 @@ inherited frmManageMovements: TfrmManageMovements
                 Top = 227
                 Width = 433
                 Height = 27
-                Date = 44888.714996817130000000
-                Time = 44888.714996817130000000
+                Date = 44888.000000000000000000
+                Time = 0.714996817128849200
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clBlack
                 Font.Height = -16
@@ -354,10 +415,70 @@ inherited frmManageMovements: TfrmManageMovements
   end
   inherited pgcSearch: TPageControl
     inherited tabSearch: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
-      ExplicitWidth = 1037
-      ExplicitHeight = 83
+      inherited pnlSearch: TPanel
+        object Label3: TLabel [3]
+          Left = 352
+          Top = 6
+          Width = 55
+          Height = 19
+          Caption = 'Situa'#231#227'o'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -16
+          Font.Name = 'Calibri'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label4: TLabel [4]
+          Left = 512
+          Top = 7
+          Width = 28
+          Height = 19
+          Caption = 'M'#234's'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -16
+          Font.Name = 'Calibri'
+          Font.Style = []
+          ParentFont = False
+        end
+        object cbxFilterSituation: TComboBox
+          Left = 352
+          Top = 32
+          Width = 145
+          Height = 27
+          ItemIndex = 0
+          TabOrder = 1
+          Text = 'Todas'
+          Items.Strings = (
+            'Todas'
+            'N'#227'o Pagas'
+            'Pagas')
+        end
+        object cbxFilterMonth: TComboBox
+          Left = 512
+          Top = 32
+          Width = 145
+          Height = 27
+          ItemIndex = 0
+          TabOrder = 2
+          Text = 'Todos'
+          Items.Strings = (
+            'Todos'
+            'Janeiro'
+            'Fevereiro'
+            'Mar'#231'o'
+            'Abril'
+            'Maio'
+            'Junho'
+            'Julho'
+            'Agosto'
+            'Setembro'
+            'Outubro'
+            'Novembro'
+            'Dezembro')
+        end
+      end
     end
   end
   inherited pmActionMenu: TPopupMenu

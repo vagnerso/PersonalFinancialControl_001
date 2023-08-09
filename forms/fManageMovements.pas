@@ -30,6 +30,14 @@ type
     lbFirstIssueDate: TLabel;
     N2: TMenuItem;
     Efetuarpagamento1: TMenuItem;
+    cbxFilterSituation: TComboBox;
+    Label3: TLabel;
+    Label4: TLabel;
+    cbxFilterMonth: TComboBox;
+    pnlSum: TPanel;
+    lblSumRevenues: TLabel;
+    lblSumExpenses: TLabel;
+    lblBalance: TLabel;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -41,6 +49,7 @@ type
     FRegisterObject: TMovement;
     procedure EnabledRegister;
     procedure DisabledRegister;
+    procedure SumMovements;
     { Private declarations }
   public
     { Public declarations }
@@ -278,23 +287,10 @@ procedure TfrmManageMovements.SearchExecute;
 begin
   inherited;
   FRegisterObject.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
+  FRegisterObject.SearchFiltersCustomized.Situation := cbxFilterSituation.ItemIndex -1;
+  FRegisterObject.SearchFiltersCustomized.Month := cbxFilterMonth.ItemIndex;
   FRegisterObject.Search(FQuerySearch);
-
-  {
-  lSQL.Add('    M.ID                             ');
-    lSQL.Add('  , M.UNIQUE_ID                      ');
-    lSQL.Add('  , M.DESCRIPTION       "Descrição"  ');
-    lSQL.Add('  , M.ID_SUB_CATEGORY                ');
-    lSQL.Add('  , M.ID_FORM_PAYMENT                ');
-    lSQL.Add('  , M.ISSUE_DATE        "Vencimento" ');
-    lSQL.Add('  , M.INSTALLMENT_VALUE "R$ Valor"   ');
-    lSQL.Add('  , M.NUMBER_PARCEL     "Número"     ');
-    lSQL.Add('  , M.TYPE_MOVEMENT     "Tipo"       ');
-    lSQL.Add('  , M.ID_PROVIDER                    ');
-    lSQL.Add('  , SC.NAME "Sub Categoria"          ');
-    lSQL.Add('  , FP.NAME "Forma de Pagamento"     ');
-    lSQL.Add('  , P.NAME "Fornecedor"              ');
-  }
+  SumMovements;
 
   grdSearch.Columns[0].Visible := False;
   grdSearch.Columns[1].Visible := False;
@@ -309,6 +305,42 @@ begin
   grdSearch.Columns[10].Width := 250;
   grdSearch.Columns[11].Width := 250;
   grdSearch.Columns[12].Width := 250;
+end;
+
+procedure TfrmManageMovements.SumMovements;
+var
+  lSumRevenues, lSumExpenses: Currency;
+begin
+  inherited;
+
+  lSumRevenues := 0;
+  lSumExpenses := 0;
+
+  dtsSearch.DataSet.DisableControls;
+  dtsSearch.DataSet.First;
+
+  while not dtsSearch.DataSet.Eof do
+  begin
+
+    if dtsSearch.DataSet.FieldByName('tipo').AsString = 'Entrada' then
+    begin
+      lSumRevenues := lSumRevenues + dtsSearch.DataSet.FieldByName('R$ Valor').AsFloat;
+    end;
+
+    if dtsSearch.DataSet.FieldByName('tipo').AsString = 'Saída' then
+    begin
+      lSumExpenses := lSumExpenses + dtsSearch.DataSet.FieldByName('R$ Valor').AsFloat;
+    end;
+
+    dtsSearch.DataSet.Next;
+  end;
+
+  lblSumRevenues.Caption := 'Total de Receitas: R$ ' + FormatCurr('#,##0.00', lSumRevenues);
+  lblSumExpenses.Caption := 'Total de Despesas: R$ ' + FormatCurr('#,##0.00', lSumExpenses);
+  lblBalance.Caption := 'Saldo: R$ ' + FormatCurr('#,##0.00', lSumRevenues - lSumExpenses);
+
+  dtsSearch.DataSet.First;
+  dtsSearch.DataSet.EnableControls;
 end;
 
 end.
