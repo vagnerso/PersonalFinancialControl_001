@@ -169,6 +169,10 @@
             <Form>frmMessage</Form>
         </DCCReference>
         <DCCReference Include="class\uDataBaseScripts.pas"/>
+        <DCCReference Include="forms\fUtilities.pas">
+            <Form>frmUtilities</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

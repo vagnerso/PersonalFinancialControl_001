@@ -37,7 +37,8 @@ uses
   uClassHelperTEdit in 'class\uClassHelperTEdit.pas',
   fUser in 'forms\fUser.pas' {frmUser},
   fMessage in 'forms\fMessage.pas' {frmMessage},
-  uDataBaseScripts in 'class\uDataBaseScripts.pas';
+  uDataBaseScripts in 'class\uDataBaseScripts.pas',
+  fUtilities in 'forms\fUtilities.pas' {frmUtilities};
 
 {$R *.res}
 

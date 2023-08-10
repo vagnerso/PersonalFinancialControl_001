@@ -1,0 +1,42 @@
+unit uDataBaseScripts;
+
+interface
+
+uses
+  uDataBaseConnection;
+
+type
+  TDataBaseScripts = class
+  private
+    FScripts: TMyScript;
+
+  public
+
+    procedure EmptyAllTables;
+
+    constructor Create;
+  end;
+
+implementation
+
+{ TDataBaseScripts }
+
+constructor TDataBaseScripts.Create;
+begin
+  FScripts := TMyScript.Create(nil);
+end;
+
+procedure TDataBaseScripts.EmptyAllTables;
+begin
+  FScripts.SQLScripts.Clear;
+  FScripts.SQLScripts.Add('DELETE FROM USER;');
+  FScripts.SQLScripts.Add('DELETE FROM TYPE_PAYMENT;');
+  FScripts.SQLScripts.Add('DELETE FROM CATEGORY;');
+  FScripts.SQLScripts.Add('DELETE FROM FORM_PAYMENT;');
+  FScripts.SQLScripts.Add('DELETE FROM PERSON;');
+  FScripts.SQLScripts.Add('DELETE FROM SUB_CATEGORY;');
+  FScripts.SQLScripts.Add('DELETE FROM MOVEMENT;');
+  FScripts.ExecuteAll;
+end;
+
+end.

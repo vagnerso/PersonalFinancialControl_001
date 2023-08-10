@@ -27,6 +27,4 @@ FROM MOVEMENT M
   LEFT JOIN PERSON P                 
   ON (P.ID  = M.ID_PROVIDER)         
  WHERE 1>0                           
-AND STRFTIME('%m', M.ISSUE_DATE) = '10'
-AND STRFTIME('%Y', M.ISSUE_DATE) = '2023'
 ORDER BY M.DESCRIPTION DESC   

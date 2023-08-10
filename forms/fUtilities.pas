@@ -1,0 +1,54 @@
+unit fUtilities;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, Vcl.StdCtrls, Vcl.ComCtrls,
+  Vcl.ExtCtrls, uDataBaseScripts;
+
+type
+  TfrmUtilities = class(TfrmBase)
+    pnlTitle: TPanel;
+    pnlBottom: TPanel;
+    pgcMain: TPageControl;
+    tbsScriptsSql: TTabSheet;
+    pnlScriptsSql: TPanel;
+    tbsThemes: TTabSheet;
+    pnlThemes: TPanel;
+    btnDeleteAll: TButton;
+    procedure btnDeleteAllClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmUtilities: TfrmUtilities;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmUtilities.btnDeleteAllClick(Sender: TObject);
+var
+  lDataBaseScripts: TDataBaseScripts;
+begin
+  inherited;
+  lDataBaseScripts := TDataBaseScripts.Create;
+  try
+    if Application.MessageBox(PChar('Deseja realmente apagar todos os dados do sistema?'),
+       PChar(Application.Title), MB_USEGLYPHCHARS + MB_DEFBUTTON2) = ID_YES then
+    begin
+      lDataBaseScripts.EmptyAllTables;
+      lDataBaseScripts.InsertAdminUser;
+      lDataBaseScripts.InsertDefaultTypePayments;
+      lDataBaseScripts.InsertDefaultCategories;
+    end;
+  finally
+    lDataBaseScripts.Free;
+  end;
+end;
+
+end.
