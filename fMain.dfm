@@ -38,7 +38,7 @@ object frmMain: TfrmMain
     Align = alLeft
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitHeight = 629
+    ExplicitHeight = 637
     object imIconApp: TImage
       Left = 0
       Top = 53
@@ -14642,20 +14642,20 @@ object frmMain: TfrmMain
     Align = alRight
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = 418
-    ExplicitHeight = 629
+    ExplicitLeft = 420
+    ExplicitHeight = 637
     object pnlMenuRevenues: TPanel
-      Left = 278
-      Top = 28
-      Width = 290
-      Height = 117
+      Left = 14
+      Top = 188
+      Width = 259
+      Height = 80
       Cursor = crHandPoint
       BevelOuter = bvNone
       Caption = 'Cadastrar Receitas'
       Color = 7909724
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
-      Font.Height = -33
+      Font.Height = -31
       Font.Name = 'Calibri'
       Font.Style = []
       ParentBackground = False
@@ -14664,17 +14664,17 @@ object frmMain: TfrmMain
       OnClick = pnlMenuRevenuesClick
     end
     object pnlMenuExpenses: TPanel
-      Left = 278
-      Top = 160
-      Width = 290
-      Height = 110
+      Left = 288
+      Top = 188
+      Width = 280
+      Height = 80
       Cursor = crHandPoint
       BevelOuter = bvNone
       Caption = 'Cadastrar Despesas'
       Color = 3684595
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
-      Font.Height = -33
+      Font.Height = -31
       Font.Name = 'Calibri'
       Font.Style = []
       ParentBackground = False
@@ -14749,9 +14749,9 @@ object frmMain: TfrmMain
       OnClick = pnButtonMovementGraphicsClick
     end
     object pnlMenuSubCategory: TPanel
-      Left = 14
-      Top = 180
-      Width = 250
+      Left = 288
+      Top = 28
+      Width = 280
       Height = 40
       Cursor = crHandPoint
       BevelOuter = bvNone
@@ -14768,9 +14768,9 @@ object frmMain: TfrmMain
       OnClick = pnlMenuSubCategoryClick
     end
     object pnlMenuProvider: TPanel
-      Left = 14
-      Top = 230
-      Width = 250
+      Left = 288
+      Top = 79
+      Width = 280
       Height = 40
       Cursor = crHandPoint
       BevelOuter = bvNone
@@ -14789,7 +14789,7 @@ object frmMain: TfrmMain
     object pnlMenuCategory: TPanel
       Left = 14
       Top = 129
-      Width = 250
+      Width = 259
       Height = 40
       Cursor = crHandPoint
       BevelOuter = bvNone
@@ -14808,7 +14808,7 @@ object frmMain: TfrmMain
     object pnlMenuFormPayment: TPanel
       Left = 14
       Top = 79
-      Width = 250
+      Width = 259
       Height = 40
       Cursor = crHandPoint
       BevelOuter = bvNone
@@ -14827,7 +14827,7 @@ object frmMain: TfrmMain
     object pnlMenuTypePayment: TPanel
       Left = 14
       Top = 28
-      Width = 250
+      Width = 259
       Height = 40
       Cursor = crHandPoint
       BevelOuter = bvNone
@@ -14851,7 +14851,7 @@ object frmMain: TfrmMain
       Align = alBottom
       BevelOuter = bvNone
       TabOrder = 11
-      ExplicitTop = 569
+      ExplicitTop = 577
       object imgButtonUtilities: TImage
         Left = 524
         Top = 0
@@ -14890,6 +14890,25 @@ object frmMain: TfrmMain
         OnClick = imgButtonUtilitiesClick
         ExplicitLeft = 479
       end
+    end
+    object pnlMenuCustomer: TPanel
+      Left = 288
+      Top = 129
+      Width = 280
+      Height = 40
+      Cursor = crHandPoint
+      BevelOuter = bvNone
+      Caption = 'Clientes'
+      Color = 9668619
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -20
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentBackground = False
+      ParentFont = False
+      TabOrder = 12
+      OnClick = pnlMenuCustomerClick
     end
   end
 end

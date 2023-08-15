@@ -32,10 +32,10 @@ type
     dtsInstallments: TDataSource;
     lbInstallmentsValue: TLabel;
     edtInstallmentesValue: TEdit;
-    Label5: TLabel;
+    lblPerson: TLabel;
     imButtonClearEdtProvider: TImage;
     imButtonSearchProvider: TImage;
-    edtProvider: TEdit;
+    edtPerson: TEdit;
     Label6: TLabel;
     edtSubCategory: TEdit;
     imButtonClearEdtSubCategory: TImage;
@@ -232,7 +232,7 @@ begin
 
     if frmGeneralSearch.ShowModal = mrOk then
     begin
-      edtProvider.Text := frmGeneralSearch.Provider.Name;
+      edtPerson.Text := frmGeneralSearch.Provider.Name;
       FRegisterObject.Provider.Id := frmGeneralSearch.Provider.Id;
     end;
 

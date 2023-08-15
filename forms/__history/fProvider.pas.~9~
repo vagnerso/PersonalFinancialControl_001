@@ -1,0 +1,223 @@
+unit fProvider;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fMasterRegister, Data.DB, Vcl.Menus, Vcl.StdCtrls, Vcl.Imaging.pngimage,
+  Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls, uProvider, uEnumTypes,
+  uFunctions;
+
+type
+  TfrmProvider = class(TfrmMasterRegister)
+    edtName: TEdit;
+    lb3: TLabel;
+    edtPhone: TEdit;
+    Label1: TLabel;
+    edtEmail: TEdit;
+    Label2: TLabel;
+    edtAdress: TEdit;
+    Label3: TLabel;
+    edtNumber: TEdit;
+    Label4: TLabel;
+    edtDistrict: TEdit;
+    Label5: TLabel;
+    Label6: TLabel;
+    edtCity: TEdit;
+    imButtonClearEdtCity: TImage;
+    imButtonSearchCity: TImage;
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+  private
+    FRegisterObject: TProvider;
+    procedure EnabledRegister;
+    procedure DisabledRegister;
+    { Private declarations }
+  public
+    { Public declarations }
+    procedure InsertRegister; override;
+    procedure EditRegister; override;
+    procedure DeleteRegister; override;
+    procedure PrintRegister; override;
+    procedure CloseForm; override;
+    procedure SearchExecute; override;
+    procedure SaveRegister; override;
+    procedure CancelRegister; override;
+    procedure ClearFields;
+    procedure GetTypePaymentList;
+
+    property RegisterObject: TProvider read FRegisterObject write FRegisterObject;
+  end;
+
+var
+  frmProvider: TfrmProvider;
+
+implementation
+
+{$R *.dfm}
+
+{ TfrmProvider }
+
+procedure TfrmProvider.CancelRegister;
+begin
+  inherited;
+  DisabledRegister;
+end;
+
+procedure TfrmProvider.ClearFields;
+begin
+  TFunctions.clearFormFields(Self);
+end;
+
+procedure TfrmProvider.CloseForm;
+begin
+  inherited;
+  Close;
+end;
+
+procedure TfrmProvider.DeleteRegister;
+begin
+  inherited;
+  if Application.MessageBox(PChar('Deseja realmente excluir o registro?'),
+  PChar(Application.Title), MB_USEGLYPHCHARS + MB_DEFBUTTON2) = ID_NO then
+  begin
+    Abort;
+  end;
+
+  FRegisterObject.UniqueId := dtsSearch.DataSet.FieldByName('UNIQUE_ID').AsString;
+  FRegisterObject.DeleteRegister;
+  SearchExecute;
+
+end;
+
+procedure TfrmProvider.DisabledRegister;
+begin
+  pgcSearch.Visible := True;
+  pnlMain.Visible := True;
+  tabGrid.TabVisible := True;
+  tabRegister.TabVisible := False;
+  tabRegisterBasic.TabVisible := False;
+end;
+
+procedure TfrmProvider.EditRegister;
+begin
+  inherited;
+  FOperationType := otUpdate;
+  EnabledRegister;
+  FRegisterObject.Clear;
+  GetTypePaymentList;
+
+  edtName.Text := dtsSearch.DataSet.FieldByName('Nome').AsString;
+  edtPhone.Text := dtsSearch.DataSet.FieldByName('Fone').AsString;
+  edtEmail.Text := dtsSearch.DataSet.FieldByName('E-Mail').AsString;
+  edtAdress.Text := dtsSearch.DataSet.FieldByName('Endereço').AsString;
+  edtNumber.Text := dtsSearch.DataSet.FieldByName('Número').AsString;
+  edtDistrict.Text := dtsSearch.DataSet.FieldByName('Bairro').AsString;
+  edtCity.Text := dtsSearch.DataSet.FieldByName('Cidade').AsString;
+
+  edtName.SetFocus;
+end;
+
+procedure TfrmProvider.EnabledRegister;
+begin
+  pgcSearch.Visible := False;
+  pnlMain.Visible := False;
+  tabGrid.TabVisible := False;
+  tabRegister.TabVisible := True;
+  tabRegisterBasic.TabVisible := True;
+  tabRegisterBasic.Show;
+end;
+
+procedure TfrmProvider.FormCreate(Sender: TObject);
+begin
+  inherited;
+  FRegisterObject := TProvider.Create;
+end;
+
+procedure TfrmProvider.FormDestroy(Sender: TObject);
+begin
+  inherited;
+  FRegisterObject.Free;
+end;
+
+procedure TfrmProvider.FormShow(Sender: TObject);
+begin
+  FTitleForm := 'Fornecedores';
+  inherited;
+  tabGrid.TabVisible := True;
+  tabRegister.TabVisible := False;
+  tabRegisterBasic.TabVisible := False;
+  searchExecute;
+end;
+
+procedure TfrmProvider.GetTypePaymentList;
+begin
+
+end;
+
+procedure TfrmProvider.InsertRegister;
+begin
+  inherited;
+  FOperationType := otInsert;
+  EnabledRegister;
+  FRegisterObject.Clear;
+  ClearFields;
+  GetTypePaymentList;
+  edtName.SetFocus;
+end;
+
+procedure TfrmProvider.PrintRegister;
+begin
+  inherited;
+
+end;
+
+procedure TfrmProvider.SaveRegister;
+begin
+  inherited;
+  FRegisterObject.Name := edtName.Text;
+  FRegisterObject.Phone := edtPhone.Text;
+  FRegisterObject.Email := edtEmail.Text;
+  FRegisterObject.Adress := edtAdress.Text;
+  FRegisterObject.Number := edtNumber.Text;
+  FRegisterObject.District := edtDistrict.Text;
+  FRegisterObject.IdCity := edtCity.Text;
+
+//  FRegisterObject.TypePayment.Id := Integer(cbxTypePayment.Items.Objects[cbxTypePayment.ItemIndex]);
+
+  case FOperationType of
+    otInsert:
+    begin
+      FRegisterObject.InsertRegister;
+    end;
+    otUpdate:
+    begin
+      FRegisterObject.UniqueId := dtsSearch.DataSet.FieldByName('UNIQUE_ID').AsString;
+      FRegisterObject.UpdateRegister;
+    end;
+  end;
+  DisabledRegister;
+  SearchExecute;
+
+end;
+
+procedure TfrmProvider.SearchExecute;
+begin
+  inherited;
+  FRegisterObject.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
+  FRegisterObject.Search(FQuerySearch);
+
+  grdSearch.Columns[0].Visible := False;
+  grdSearch.Columns[1].Visible := False;
+  grdSearch.Columns[2].Width := 250;
+  grdSearch.Columns[3].Width := 250;
+  grdSearch.Columns[4].Width := 100;
+  grdSearch.Columns[5].Width := 150;
+  grdSearch.Columns[6].Width := 150;
+  grdSearch.Columns[7].Width := 150;
+  grdSearch.Columns[8].Width := 150;
+
+end;
+
+end.

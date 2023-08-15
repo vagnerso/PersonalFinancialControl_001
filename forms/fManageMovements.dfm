@@ -1,8 +1,6 @@
 inherited frmManageMovements: TfrmManageMovements
   Caption = 'frmManageMovements'
   OnDestroy = FormDestroy
-  ExplicitLeft = 3
-  ExplicitTop = 3
   TextHeight = 19
   inherited pnlTitle: TPanel
     Caption = 'Gerenciar movimenta'#231#245'es'
@@ -21,9 +19,8 @@ inherited frmManageMovements: TfrmManageMovements
           Align = alBottom
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitLeft = 352
-          ExplicitTop = 184
-          ExplicitWidth = 185
+          ExplicitTop = 358
+          ExplicitWidth = 881
           object lblSumRevenues: TLabel
             AlignWithMargins = True
             Left = 10

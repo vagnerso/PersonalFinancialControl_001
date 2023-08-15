@@ -173,6 +173,11 @@
             <Form>frmUtilities</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="class\uCustomer.pas"/>
+        <DCCReference Include="forms\fCustomer.pas">
+            <Form>frmCustomer</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

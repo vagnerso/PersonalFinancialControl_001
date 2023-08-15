@@ -38,7 +38,9 @@ uses
   fUser in 'forms\fUser.pas' {frmUser},
   fMessage in 'forms\fMessage.pas' {frmMessage},
   uDataBaseScripts in 'class\uDataBaseScripts.pas',
-  fUtilities in 'forms\fUtilities.pas' {frmUtilities};
+  fUtilities in 'forms\fUtilities.pas' {frmUtilities},
+  uCustomer in 'class\uCustomer.pas',
+  fCustomer in 'forms\fCustomer.pas' {frmCustomer};
 
 {$R *.res}
 

@@ -33,6 +33,7 @@ type
     pnButtonMovementGraphics: TPanel;
     pnlSettings: TPanel;
     imgButtonUtilities: TImage;
+    pnlMenuCustomer: TPanel;
     procedure FormShow(Sender: TObject);
     procedure pnlMenuCategoryClick(Sender: TObject);
     procedure pnlMenuTypePaymentClick(Sender: TObject);
@@ -45,6 +46,7 @@ type
     procedure pnButtonManageMovementsClick(Sender: TObject);
     procedure pnButtonMovementGraphicsClick(Sender: TObject);
     procedure imgButtonUtilitiesClick(Sender: TObject);
+    procedure pnlMenuCustomerClick(Sender: TObject);
   private
     procedure loginCall;
     { Private declarations }
@@ -59,7 +61,7 @@ var
 implementation
 
 uses
-  uDataBaseConnection;
+  uDataBaseConnection, fCustomer;
 
 {$R *.dfm}
 
@@ -146,6 +148,19 @@ begin
   finally
     lForm.Free;
   end;
+end;
+
+procedure TfrmMain.pnlMenuCustomerClick(Sender: TObject);
+var
+  lForm: TfrmCustomer;
+begin
+  lForm := TfrmCustomer.Create(nil);
+  try
+    lForm.ShowModal;
+  finally
+    lForm.Free;
+  end;
+
 end;
 
 procedure TfrmMain.pnlMenuExpensesClick(Sender: TObject);

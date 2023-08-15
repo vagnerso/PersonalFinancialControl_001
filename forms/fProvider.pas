@@ -55,6 +55,9 @@ var
 
 implementation
 
+uses
+  uPerson;
+
 {$R *.dfm}
 
 { TfrmProvider }
@@ -206,6 +209,7 @@ procedure TfrmProvider.SearchExecute;
 begin
   inherited;
   FRegisterObject.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
+  FRegisterObject.SearchFiltersCustomized.TypePerson := tpProvider;
   FRegisterObject.Search(FQuerySearch);
 
   grdSearch.Columns[0].Visible := False;
