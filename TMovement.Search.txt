@@ -1,0 +1,30 @@
+SELECT                               
+    M.ID                             
+  , M.UNIQUE_ID                      
+  , M.DESCRIPTION       "Descrição"  
+  , M.ID_SUB_CATEGORY                
+  , M.ID_FORM_PAYMENT                
+  , M.ISSUE_DATE        "Vencimento" 
+  , M.INSTALLMENT_VALUE "R$ Valor"   
+  , M.NUMBER_PARCEL     "Número"     
+  , CASE M.TYPE_MOVEMENT             
+      WHEN 0 THEN "Entrada"          
+      ELSE "Saída"                   
+    END "Tipo"                       
+  , M.ID_PROVIDER                    
+  , SC.NAME "Sub Categoria"          
+  , FP.NAME "Forma de Pagamento"     
+  , P.NAME "Fornecedor"              
+  , CASE M.SITUATION                 
+      WHEN 0 THEN "Não Pago"         
+      ELSE "Pago"                    
+    END "Situação"                   
+FROM MOVEMENT M                      
+  LEFT JOIN SUB_CATEGORY SC          
+  ON (SC.ID = M.ID_SUB_CATEGORY)     
+  LEFT JOIN FORM_PAYMENT FP          
+  ON (FP.ID = M.ID_FORM_PAYMENT)     
+  LEFT JOIN PERSON P                 
+  ON (P.ID  = M.ID_PROVIDER)         
+ WHERE 1>0                           
+ORDER BY M.DESCRIPTION DESC   

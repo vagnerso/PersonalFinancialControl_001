@@ -14645,17 +14645,17 @@ object frmMain: TfrmMain
     ExplicitLeft = 420
     ExplicitHeight = 637
     object pnlMenuRevenues: TPanel
-      Left = 278
-      Top = 28
-      Width = 290
-      Height = 117
+      Left = 14
+      Top = 188
+      Width = 259
+      Height = 80
       Cursor = crHandPoint
       BevelOuter = bvNone
       Caption = 'Cadastrar Receitas'
       Color = 7909724
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
-      Font.Height = -33
+      Font.Height = -31
       Font.Name = 'Calibri'
       Font.Style = []
       ParentBackground = False
@@ -14664,17 +14664,17 @@ object frmMain: TfrmMain
       OnClick = pnlMenuRevenuesClick
     end
     object pnlMenuExpenses: TPanel
-      Left = 278
-      Top = 160
-      Width = 290
-      Height = 110
+      Left = 288
+      Top = 188
+      Width = 280
+      Height = 80
       Cursor = crHandPoint
       BevelOuter = bvNone
       Caption = 'Cadastrar Despesas'
       Color = 3684595
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
-      Font.Height = -33
+      Font.Height = -31
       Font.Name = 'Calibri'
       Font.Style = []
       ParentBackground = False
@@ -14749,9 +14749,9 @@ object frmMain: TfrmMain
       OnClick = pnButtonMovementGraphicsClick
     end
     object pnlMenuSubCategory: TPanel
-      Left = 14
-      Top = 180
-      Width = 250
+      Left = 288
+      Top = 28
+      Width = 280
       Height = 40
       Cursor = crHandPoint
       BevelOuter = bvNone
@@ -14768,9 +14768,9 @@ object frmMain: TfrmMain
       OnClick = pnlMenuSubCategoryClick
     end
     object pnlMenuProvider: TPanel
-      Left = 14
-      Top = 230
-      Width = 250
+      Left = 288
+      Top = 79
+      Width = 280
       Height = 40
       Cursor = crHandPoint
       BevelOuter = bvNone
@@ -14789,7 +14789,7 @@ object frmMain: TfrmMain
     object pnlMenuCategory: TPanel
       Left = 14
       Top = 129
-      Width = 250
+      Width = 259
       Height = 40
       Cursor = crHandPoint
       BevelOuter = bvNone
@@ -14808,7 +14808,7 @@ object frmMain: TfrmMain
     object pnlMenuFormPayment: TPanel
       Left = 14
       Top = 79
-      Width = 250
+      Width = 259
       Height = 40
       Cursor = crHandPoint
       BevelOuter = bvNone
@@ -14827,7 +14827,7 @@ object frmMain: TfrmMain
     object pnlMenuTypePayment: TPanel
       Left = 14
       Top = 28
-      Width = 250
+      Width = 259
       Height = 40
       Cursor = crHandPoint
       BevelOuter = bvNone
@@ -14842,6 +14842,73 @@ object frmMain: TfrmMain
       ParentFont = False
       TabOrder = 4
       OnClick = pnlMenuTypePaymentClick
+    end
+    object pnlSettings: TPanel
+      Left = 0
+      Top = 578
+      Width = 584
+      Height = 60
+      Align = alBottom
+      BevelOuter = bvNone
+      TabOrder = 11
+      ExplicitTop = 577
+      object imgButtonUtilities: TImage
+        Left = 524
+        Top = 0
+        Width = 60
+        Height = 60
+        Cursor = crHandPoint
+        Align = alRight
+        Center = True
+        Picture.Data = {
+          0954506E67496D61676589504E470D0A1A0A0000000D49484452000000300000
+          00300804000000FD0B310C000002E14944415478DAC5985B48546110C7FF43AD
+          5D1E8CE862910516F5909511C66A49D14554BA68171FCC8730C8975E7C8884B0
+          97EE091111053DAC18D1CD1E22A44DB4AC90028D0AAC4843E942908F2B2114C5
+          7ECD7E7D9CDD7376DB76CE39E107879D9933677E9C6FE7FBBE9943F8CF83C605
+          A0F2B007AB918F89988F610CA217D7E9834F00B50A67B03985E7031CA2579E01
+          AA065731E12FBE515CC041FAE50D10C02DEC48E3DF856A1AF5364501B4A1CA28
+          EFB11763588F5A14590EDD28A79F2E006A1BEE51340931800D34C2B65284F80F
+          FF33CE538318A056E239AEA0DE42DC46A503311B77CD7B44514C7D524097CE9C
+          505A440E5E609EB674529908A01662C8A0D2233671B2EA9B584A031240138E59
+          9638228B11DB1D883E5E80B1D148CD12403BB626D8E288DD8C8099F71A6A634B
+          3D2E6BBD832A24804F5860B36A84AAE46CCA32E1F7538BF62CE464888D215A2C
+          018C225B6B5F906B21C2B889803D3C7B4E43440BDF285B0218C354AD15A0DDF1
+          2EB6F0EC39075FB510A1E912C067B38816F1F5C886B08567CFE5E8D7C247CA93
+          003A51AAB53A6AE5948D231CE1D9B301E7B410A62D12C0511CD19ACE0D0B9114
+          9EEFF5A0440B87E99404908F37462FA25E83C84D11BE0A778C5840FD02003FFA
+          0CC55A184430B61D332248379CCEEA3ECA8D18C64EFA2101AC458F91BBB18B22
+          A99D79C3EBE6835484886FD721EC33E2306A6313650B5DC19372DA0D220E98C4
+          8FAEB1EC8FD18A97788B1CCCE003A79A2FA0991AE58884134DCDE265164CEBED
+          02613B32D5145C449DBF88E43379238E9B8CF20591BAF02AE473601D96602E2B
+          2378872778CDDBF44C37888C4B47B5020FDD2004B5A93B84A8F875831056D772
+          84B87C97225CF4073284AB06448270D9E1648E70DD42658AF0D0A36586F0D404
+          FE03A12D1EBBCC1488327418FD2995F8D0C6DA11B896A01DA04BBEF4C936C477
+          4C36D2096A8AFDF8D288DB10B6F0BE75FA0E8415DEC74F09098884F0BE7EAB50
+          CBD0C2E5F3493A9B681D9F8F217E8EDFF91E4D40472621F80000000049454E44
+          AE426082}
+        OnClick = imgButtonUtilitiesClick
+        ExplicitLeft = 479
+      end
+    end
+    object pnlMenuCustomer: TPanel
+      Left = 288
+      Top = 129
+      Width = 280
+      Height = 40
+      Cursor = crHandPoint
+      BevelOuter = bvNone
+      Caption = 'Clientes'
+      Color = 9668619
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -20
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentBackground = False
+      ParentFont = False
+      TabOrder = 12
+      OnClick = pnlMenuCustomerClick
     end
   end
 end

@@ -1,0 +1,30 @@
+inherited frmCustomer: TfrmCustomer
+  Caption = 'frmCustomer'
+  TextHeight = 19
+  inherited pnlTitle: TPanel
+    ExplicitWidth = 1039
+  end
+  inherited pnlBottom: TPanel
+    ExplicitTop = 581
+    ExplicitWidth = 1039
+  end
+  inherited pnlMain: TPanel
+    ExplicitHeight = 428
+  end
+  inherited pnlGeneral: TPanel
+    ExplicitWidth = 889
+    ExplicitHeight = 428
+    inherited pgcGeneral: TPageControl
+      ExplicitWidth = 889
+      ExplicitHeight = 428
+    end
+  end
+  inherited pgcSearch: TPageControl
+    ExplicitWidth = 1039
+    inherited tabSearch: TTabSheet
+      inherited pnlSearch: TPanel
+        ExplicitWidth = 1031
+      end
+    end
+  end
+end

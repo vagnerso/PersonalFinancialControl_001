@@ -57,6 +57,14 @@ type TMyQuery = class(TFDQuery)
 
 end;
 
+type TMyScript = class(TFDScript)
+  private
+
+  public
+    constructor Create(AOwner: TComponent); override;
+
+end;
+
 implementation
 
 { TDataBaseConnection }
@@ -124,6 +132,14 @@ destructor TMyQuery.Destroy;
 begin
 
   inherited;
+end;
+
+{ TMyScripts }
+
+constructor TMyScript.Create(AOwner: TComponent);
+begin
+  inherited;
+  Connection := TDataBaseConnection.GetInstance.Connection;
 end;
 
 end.

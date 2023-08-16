@@ -49,6 +49,9 @@ end;
 
 implementation
 
+uses
+  uSystemManager;
+
 { TFormPayment }
 
 procedure TFormPayment.Clear;
@@ -139,16 +142,19 @@ begin
     FDataSet.SQL.Add(' , NAME                     ');
     FDataSet.SQL.Add(' , ID_TYPE_PAYMENT          ');
     FDataSet.SQL.Add(' , NUMBER_MAX_INSTALLMENTS  ');
+    FDataSet.SQL.Add(' , ID_USER                  ');
     FDataSet.SQL.Add(' ) VALUES (                 ');
     FDataSet.SQL.Add('   :UNIQUE_ID               ');
     FDataSet.SQL.Add(' , :NAME                    ');
     FDataSet.SQL.Add(' , :ID_TYPE_PAYMENT         ');
     FDataSet.SQL.Add(' , :NUMBER_MAX_INSTALLMENTS ');
-    FDataSet.SQL.Add(' )                      ');
+    FDataSet.SQL.Add(' , :ID_USER                 ');
+    FDataSet.SQL.Add(' )                          ');
     FDataSet.ParamByName('UNIQUE_ID').AsString := TFunctions.GenerateUUID;
     FDataSet.ParamByName('NAME').AsString := FName;
     FDataSet.ParamByName('ID_TYPE_PAYMENT').AsInteger := FTypePayment.Id;
     FDataSet.ParamByName('NUMBER_MAX_INSTALLMENTS').AsInteger := FNumberMaxInstallments;
+    FDataSet.ParamByName('ID_USER').AsInteger := TSystemManager.GetInstance.LoggedUser.Id;
     FDataSet.ExecSQL;
     FDataSet.Connection.Commit;
   except on E: Exception do

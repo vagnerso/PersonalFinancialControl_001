@@ -5,7 +5,7 @@ interface
 uses
   uSearchFilters, uDataBaseConnection, uSubCategory, uFormPayment,
   System.SysUtils, Vcl.Dialogs, uAppConstants, System.Classes, uProvider,
-  uFunctions, uEnumTypes, Data.DB, System.DateUtils, fMessage;
+  uFunctions, uEnumTypes, Data.DB, System.DateUtils, fMessage, uCustomer;
 
 type TSearchFiltersCustomized = class(TSearchFilters)
   private
@@ -37,6 +37,7 @@ type TMovement = class
     FNumberParcel: Integer;
     FTypeMovement: TTypeMovement;
     FProvider: TProvider;
+    FCustomer: TCustomer;
     FSituation: Byte;
     FQueryFormPaymentsRevenues: TMyQuery;
     FQueryFormPaymentsExpenses: TMyQuery;
@@ -75,6 +76,7 @@ type TMovement = class
     property NumberParcel: Integer read FNumberParcel write FNumberParcel;
     property TypeMovement: TTypeMovement read FTypeMovement write FTypeMovement;
     property Provider: TProvider read FProvider write FProvider;
+    property Customer: TCustomer read FCustomer write FCustomer;
     property Situation: Byte read FSituation write FSituation;
     property QueryFormPaymentsRevenues: TMyQuery read FQueryFormPaymentsRevenues write FQueryFormPaymentsRevenues;
     property QueryFormPaymentsExpenses: TMyQuery read FQueryFormPaymentsExpenses write FQueryFormPaymentsExpenses;
@@ -100,6 +102,9 @@ end;
 
 implementation
 
+uses
+  uSystemManager;
+
 { TSearchFiltersCustomized }
 
 procedure TMovement.Clear;
@@ -114,6 +119,7 @@ begin
   FNumberParcel := 0;
   FTypeMovement := tmRevenues;
   FProvider.Clear;
+  FCustomer.Clear;
   FSituation := 0;
 end;
 
@@ -124,6 +130,7 @@ begin
   FFormPayment := TFormPayment.Create;
   FSubCategory := TSubCategory.Create;
   FProvider := TProvider.Create;
+  FCustomer := TCustomer.Create;
   FQueryFormPaymentsRevenues := TMyQuery.Create(nil);
   FQueryFormPaymentsExpenses := TMyQuery.Create(nil);
   FQuerySubCategorysRevenues := TMyQuery.Create(nil);
@@ -159,6 +166,7 @@ begin
   FQuerySubCategorysRevenues.Free;
   FQueryFormPaymentsExpenses.Free;
   FQueryFormPaymentsRevenues.Free;
+  FCustomer.Free;
   FProvider.Free;
   FSubCategory.Free;
   FFormPayment.Free;
@@ -526,6 +534,7 @@ begin
     FDataSet.SQL.Add(', TYPE_MOVEMENT        ');
     FDataSet.SQL.Add(', ID_PROVIDER          ');
     FDataSet.SQL.Add(', SITUATION            ');
+    FDataSet.SQL.Add(', ID_USER              ');
     FDataSet.SQL.Add(') VALUES (             ');
     FDataSet.SQL.Add('  :UNIQUE_ID           ');
     FDataSet.SQL.Add(', :DESCRIPTION         ');
@@ -537,6 +546,7 @@ begin
     FDataSet.SQL.Add(', :TYPE_MOVEMENT       ');
     FDataSet.SQL.Add(', :ID_PROVIDER         ');
     FDataSet.SQL.Add(', :SITUATION           ');
+    FDataSet.SQL.Add(', :ID_USER             ');
     FDataSet.SQL.Add(');                     ');
     FDataSet.ParamByName('UNIQUE_ID').AsString := TFunctions.GenerateUUID;
     FDataSet.ParamByName('DESCRIPTION').AsString := FDescription;
@@ -546,8 +556,9 @@ begin
     FDataSet.ParamByName('INSTALLMENT_VALUE').AsCurrency := FInstallmentValue;
     FDataSet.ParamByName('NUMBER_PARCEL').AsInteger := FNumberParcel;
     FDataSet.ParamByName('TYPE_MOVEMENT').AsInteger := Integer(FTypeMovement);
-    FDataSet.ParamByName('ID_PROVIDER').AsInteger := FProvider.Id;
+    FDataSet.ParamByName('ID_PERSON').AsInteger := FProvider.Id;
     FDataSet.ParamByName('SITUATION').AsInteger := FSituation;
+    FDataSet.ParamByName('ID_USER').AsInteger := TSystemManager.GetInstance.LoggedUser.Id;
     FDataSet.ExecSQL;
     FDataSet.Connection.Commit;
   except on E: Exception do
@@ -582,7 +593,6 @@ end;
 procedure TMovement.Search(ADataSet: TMyQuery);
 var
   lSQL: TStringList;
-  I: Integer;
 begin
 
   TDatabaseConnection.GetInstance.NewConnection;
@@ -603,7 +613,7 @@ begin
     lSQL.Add('      WHEN 0 THEN "Entrada"          ');
     lSQL.Add('      ELSE "Saída"                   ');
     lSQL.Add('    END "Tipo"                       ');
-    lSQL.Add('  , M.ID_PROVIDER                    ');
+    lSQL.Add('  , M.ID_PERSON                    ');
     lSQL.Add('  , SC.NAME "Sub Categoria"          ');
     lSQL.Add('  , FP.NAME "Forma de Pagamento"     ');
     lSQL.Add('  , P.NAME "Fornecedor"              ');
@@ -617,14 +627,28 @@ begin
     lSQL.Add('  LEFT JOIN FORM_PAYMENT FP          ');
     lSQL.Add('  ON (FP.ID = M.ID_FORM_PAYMENT)     ');
     lSQL.Add('  LEFT JOIN PERSON P                 ');
-    lSQL.Add('  ON (P.ID  = M.ID_PROVIDER)         ');
+    lSQL.Add('  ON (P.ID  = M.ID_PERSON)         ');
+    lSQL.Add(' WHERE 1>0                           ');
 
     if (Length(Trim(FSearchFiltersCustomized.ValueSearch)) > 0) then
     begin
-      lSQL.Add('WHERE M.DESCRIPTION LIKE ' + QuotedStr('%' + FSearchFiltersCustomized.ValueSearch + '%'));
+      lSQL.Add('AND M.DESCRIPTION LIKE ' + QuotedStr('%' + FSearchFiltersCustomized.ValueSearch + '%'));
+    end;
+
+    if FSearchFiltersCustomized.Situation >= 0 then
+    begin
+      lSql.Add('AND M.SITUATION = ' + FSearchFiltersCustomized.Situation.ToString);
+    end;
+
+    if FSearchFiltersCustomized.Month > 0 then
+    begin
+      lSql.Add('AND STRFTIME(''%m'', M.ISSUE_DATE) = ' + QuotedStr(FormatFloat('00', FSearchFiltersCustomized.Month)));
+      lSql.Add('AND STRFTIME(''%Y'', M.ISSUE_DATE) = ' + QuotedStr(YearOf(Now).tostring));
     end;
 
     lSQL.Add('ORDER BY M.DESCRIPTION DESC   ');
+
+    lSQL.SaveToFile(TFunctions.ApplicationPath + 'TMovement.Search.txt');
 
     ADataSet.Close;
     ADataSet.SQL.Clear;
@@ -652,7 +676,7 @@ begin
     FDataSet.SQL.Add(' , INSTALLMENT_VALUE = :INSTALLMENT_VALUE ');
     FDataSet.SQL.Add(' , NUMBER_PARCEL     = :NUMBER_PARCEL     ');
     FDataSet.SQL.Add(' , TYPE_MOVEMENT     = :TYPE_MOVEMENT     ');
-    FDataSet.SQL.Add(' , ID_PROVIDER       = :ID_PROVIDER       ');
+    FDataSet.SQL.Add(' , ID_PERSON       = :ID_PERSON       ');
     FDataSet.SQL.Add(' , SITUATION         = :SITUATION         ');
     FDataSet.SQL.Add('WHERE UNIQUE_ID      = :UNIQUE_ID;        ');
     FDataSet.ParamByName('DESCRIPTION').AsString := FDescription;
@@ -663,7 +687,7 @@ begin
     FDataSet.ParamByName('NUMBER_PARCEL').AsInteger := FNumberParcel;
     FDataSet.ParamByName('TYPE_MOVEMENT').AsInteger := Integer(FTypeMovement);
     FDataSet.ParamByName('UNIQUE_ID').AsString := FUniqueId;
-    FDataSet.ParamByName('ID_PROVIDER').AsInteger := FProvider.Id;
+    FDataSet.ParamByName('ID_PERSON').AsInteger := FProvider.Id;
     FDataSet.ParamByName('SITUATION').AsInteger := FSituation;
     FDataSet.ExecSQL;
     FDataSet.Connection.Commit;

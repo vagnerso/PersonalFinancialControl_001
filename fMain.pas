@@ -8,7 +8,8 @@ uses
   FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async,
   FireDAC.Phys, FireDAC.VCLUI.Wait, Data.DB, Vcl.StdCtrls, Vcl.Imaging.pngimage,
   fTypePayment, uSystemManager, fFormPayment, fSubCategory, fMovement,
-  fProvider, fImport, uEnumTypes, fManageMovements, fMovementGraphics;
+  fProvider, fImport, uEnumTypes, fManageMovements, fMovementGraphics,
+  fUtilities;
 
 type
   TfrmMain = class(TForm)
@@ -30,6 +31,9 @@ type
     pnButtonManageMovements: TPanel;
     pnlButtonMovementReports: TPanel;
     pnButtonMovementGraphics: TPanel;
+    pnlSettings: TPanel;
+    imgButtonUtilities: TImage;
+    pnlMenuCustomer: TPanel;
     procedure FormShow(Sender: TObject);
     procedure pnlMenuCategoryClick(Sender: TObject);
     procedure pnlMenuTypePaymentClick(Sender: TObject);
@@ -41,6 +45,8 @@ type
     procedure btImportClick(Sender: TObject);
     procedure pnButtonManageMovementsClick(Sender: TObject);
     procedure pnButtonMovementGraphicsClick(Sender: TObject);
+    procedure imgButtonUtilitiesClick(Sender: TObject);
+    procedure pnlMenuCustomerClick(Sender: TObject);
   private
     procedure loginCall;
     { Private declarations }
@@ -55,7 +61,7 @@ var
 implementation
 
 uses
-  uDataBaseConnection;
+  uDataBaseConnection, fCustomer;
 
 {$R *.dfm}
 
@@ -80,6 +86,18 @@ end;
 procedure TfrmMain.GetUserInfos;
 begin
   lbUser.Caption := TSystemManager.GetInstance.LoggedUser.Name;
+end;
+
+procedure TfrmMain.imgButtonUtilitiesClick(Sender: TObject);
+var
+  lForm: TFrmUtilities;
+begin
+   lForm := TfrmUtilities.Create(nil);
+   try
+     lform.ShowModal;
+   finally
+     lForm.Free;
+   end;
 end;
 
 procedure TfrmMain.loginCall;
@@ -130,6 +148,19 @@ begin
   finally
     lForm.Free;
   end;
+end;
+
+procedure TfrmMain.pnlMenuCustomerClick(Sender: TObject);
+var
+  lForm: TfrmCustomer;
+begin
+  lForm := TfrmCustomer.Create(nil);
+  try
+    lForm.ShowModal;
+  finally
+    lForm.Free;
+  end;
+
 end;
 
 procedure TfrmMain.pnlMenuExpensesClick(Sender: TObject);

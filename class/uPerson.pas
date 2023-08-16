@@ -15,12 +15,15 @@ type TTypePerson = (tpProvider, tpCustomer);
 
 type TSearchFiltersCustomized = class(TSearchFilters)
   private
-
+    FTypePerson: TTypePerson;
   public
+    property TypePerson: TTypePerson read FTypePerson write FTypePerson;
 end;
 
 type TPerson = class(TInterfacedObject, ICrudInterface)
   private
+
+  protected
     FId: integer;
     FTypePerson: TTypePerson;
     FName: string;
@@ -40,7 +43,7 @@ type TPerson = class(TInterfacedObject, ICrudInterface)
     procedure InsertRegister;
     procedure UpdateRegister;
     procedure DeleteRegister;
-    procedure Clear;
+    procedure Clear; virtual;
     procedure GetById;
     procedure Search(ADataSet: TMyQuery);
     destructor Destroy; override;
@@ -62,12 +65,14 @@ end;
 
 implementation
 
+uses
+  uSystemManager;
+
 { TPerson }
 
 procedure TPerson.Clear;
 begin
   FId:= 0;
-  FTypePerson:= tpProvider;
   FName:= EmptyStr;
   FPhone:= EmptyStr;
   FEmail:= EmptyStr;
@@ -172,6 +177,7 @@ begin
     FDataSet.SQL.Add(' , NUMBER               ');
     FDataSet.SQL.Add(' , DISTRICT             ');
     FDataSet.SQL.Add(' , ID_CITY              ');
+    FDataSet.SQL.Add(' , ID_USER              ');
     FDataSet.SQL.Add(' ) VALUES (             ');
     FDataSet.SQL.Add('   :UNIQUE_ID           ');
     FDataSet.SQL.Add(' , :NAME                ');
@@ -182,6 +188,7 @@ begin
     FDataSet.SQL.Add(' , :NUMBER              ');
     FDataSet.SQL.Add(' , :DISTRICT            ');
     FDataSet.SQL.Add(' , :ID_CITY             ');
+    FDataSet.SQL.Add(' , :ID_USER             ');
     FDataSet.SQL.Add(' )                      ');
     FDataSet.ParamByName('UNIQUE_ID').AsString := TFunctions.GenerateUUID;
     FDataSet.ParamByName('NAME').AsString := FName;
@@ -192,6 +199,7 @@ begin
     FDataSet.ParamByName('NUMBER').AsString := FNumber ;
     FDataSet.ParamByName('DISTRICT').AsString := FDistrict ;
     FDataSet.ParamByName('ID_CITY').AsString := FIdCity ;
+    FDataSet.ParamByName('ID_USER').AsInteger := TSystemManager.GetInstance.LoggedUser.Id;
     FDataSet.ExecSQL;
     FDataSet.Connection.Commit;
   except on E: Exception do
@@ -225,6 +233,9 @@ begin
     lSQL.Add(' , DISTRICT    "Bairro"     ');
     lSQL.Add(' , ID_CITY     "Cidade"     ');
     lSQL.Add('FROM PERSON                 ');
+    lSQL.Add('WHERE 1>0                   ');
+
+    lSQL.Add('AND TYPE_PERSON = ' + (Integer(FSearchFiltersCustomized.TypePerson)).ToString);
 
     if (Length(Trim(FSearchFiltersCustomized.ValueSearch)) > 0) then
     begin

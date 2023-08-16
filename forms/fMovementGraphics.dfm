@@ -7,9 +7,10 @@ inherited frmMovementGraphics: TfrmMovementGraphics
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  ExplicitWidth = 1460
-  ExplicitHeight = 1062
-  PixelsPerInch = 96
+  ExplicitLeft = 3
+  ExplicitTop = 3
+  ExplicitWidth = 1456
+  ExplicitHeight = 1061
   TextHeight = 19
   object pnlTitle: TPanel
     Left = 0
@@ -25,6 +26,7 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     Font.Style = []
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 1440
   end
   object pnlBottom: TPanel
     Left = 0
@@ -33,6 +35,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     Height = 17
     Align = alBottom
     TabOrder = 1
+    ExplicitTop = 1005
+    ExplicitWidth = 1440
   end
   object pgcGeneral: TPageControl
     Left = 0
@@ -42,6 +46,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     ActivePage = tabGraphics
     Align = alClient
     TabOrder = 2
+    ExplicitWidth = 1440
+    ExplicitHeight = 894
     object tabGraphics: TTabSheet
       Caption = 'Visualizar em Gr'#225'ficos'
       object scrGraphics: TScrollBox
@@ -73,6 +79,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           DefaultCanvas = 'TGDIPlusCanvas'
           ColorPaletteIndex = 13
           object Series2: TPieSeries
+            HoverElement = []
+            Marks.Tail.Margin = 2
             XValues.Order = loAscending
             YValues.Name = 'Pie'
             YValues.Order = loNone
@@ -114,6 +122,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           DefaultCanvas = 'TGDIPlusCanvas'
           ColorPaletteIndex = 13
           object PieSeries1: TPieSeries
+            HoverElement = []
+            Marks.Tail.Margin = 2
             XValues.Order = loAscending
             YValues.Name = 'Pie'
             YValues.Order = loNone
@@ -155,6 +165,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           DefaultCanvas = 'TGDIPlusCanvas'
           ColorPaletteIndex = 13
           object PieSeries4: TPieSeries
+            HoverElement = []
+            Marks.Tail.Margin = 2
             XValues.Order = loAscending
             YValues.Name = 'Pie'
             YValues.Order = loNone
@@ -196,6 +208,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           DefaultCanvas = 'TGDIPlusCanvas'
           ColorPaletteIndex = 13
           object PieSeries2: TPieSeries
+            HoverElement = []
+            Marks.Tail.Margin = 2
             XValues.Order = loAscending
             YValues.Name = 'Pie'
             YValues.Order = loNone
@@ -237,6 +251,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           DefaultCanvas = 'TGDIPlusCanvas'
           ColorPaletteIndex = 13
           object PieSeries6: TPieSeries
+            HoverElement = []
+            Marks.Tail.Margin = 2
             XValues.Order = loAscending
             YValues.Name = 'Pie'
             YValues.Order = loNone
@@ -278,6 +294,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           DefaultCanvas = 'TGDIPlusCanvas'
           ColorPaletteIndex = 13
           object PieSeries5: TPieSeries
+            HoverElement = []
+            Marks.Tail.Margin = 2
             XValues.Order = loAscending
             YValues.Name = 'Pie'
             YValues.Order = loNone
@@ -586,6 +604,7 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     Height = 70
     Align = alTop
     TabOrder = 3
+    ExplicitWidth = 1440
     object lb6: TLabel
       Left = 8
       Top = 6
@@ -676,8 +695,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
       Top = 32
       Width = 129
       Height = 27
-      Date = 44903.348942754630000000
-      Time = 44903.348942754630000000
+      Date = 44903.000000000000000000
+      Time = 0.348942754630115800
       TabOrder = 2
     end
     object edtFilterEndDate: TDateTimePicker
@@ -685,8 +704,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
       Top = 32
       Width = 129
       Height = 27
-      Date = 44903.348942754630000000
-      Time = 44903.348942754630000000
+      Date = 44903.000000000000000000
+      Time = 0.348942754630115800
       TabOrder = 3
     end
     object cbxFilterDateBy: TComboBox

@@ -5,20 +5,21 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Imaging.pngimage,
-  uSystemManager, uUser, fMessage, uEnumTypes;
+  uSystemManager, uUser, fMessage, uEnumTypes, uFunctions;
 
 type
   TfrmLogin = class(TfrmBase)
+    pnlCenter: TPanel;
     pnlDetail: TPanel;
+    imIconApp: TImage;
+    lblTitle: TLabel;
+    lblDeveloper: TLabel;
     pnlLogin: TPanel;
     lb1: TLabel;
     lblUser: TLabel;
     lblPassword: TLabel;
     edtUser: TEdit;
     edtPassword: TEdit;
-    imIconApp: TImage;
-    lblTitle: TLabel;
-    lblDeveloper: TLabel;
     pnlButtonConfirm: TPanel;
     pnlButtonCancel: TPanel;
     pnUserRegister: TPanel;
@@ -28,6 +29,7 @@ type
     procedure pnUserRegisterClick(Sender: TObject);
   private
     { Private declarations }
+    FLoginColor: TColor;
   public
     { Public declarations }
   end;
@@ -45,7 +47,14 @@ uses
 procedure TfrmLogin.FormShow(Sender: TObject);
 begin
   inherited;
-  pnlLogin.Color := TSystemManager.GetInstance.LayoutConfiguration.BackgroundColor;
+  WindowState := TWindowState.wsMaximized;
+  FLoginColor := $001A4D4B;
+  lblTitle.Font.Color := FLoginColor;
+  pnlLogin.Color := FLoginColor;
+  edtUser.Font.Color := FLoginColor;
+  edtPassword.Font.Color := FLoginColor;
+  color := TSystemManager.GetInstance.LayoutConfiguration.BackgroundColor;
+  TFunctions.CenterPanel(self, pnlCenter);
 end;
 
 procedure TfrmLogin.pnlButtonCancelClick(Sender: TObject);

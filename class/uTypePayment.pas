@@ -47,6 +47,9 @@ end;
 
 implementation
 
+uses
+  uSystemManager;
+
 { TTypePayment }
 
 procedure TTypePayment.Clear;
@@ -130,14 +133,17 @@ begin
     FDataSet.SQL.Add('   UNIQUE_ID                ');
     FDataSet.SQL.Add(' , NAME                     ');
     FDataSet.SQL.Add(' , ALLOWS_INSTALLMENT       ');
+    FDataSet.SQL.Add(' , ID_USER                  ');
     FDataSet.SQL.Add(' ) VALUES (                 ');
     FDataSet.SQL.Add('   :UNIQUE_ID               ');
     FDataSet.SQL.Add(' , :NAME                    ');
     FDataSet.SQL.Add(' , :ALLOWS_INSTALLMENT      ');
+    FDataSet.SQL.Add(' , :ID_USER                 ');
     FDataSet.SQL.Add(' )                          ');
     FDataSet.ParamByName('UNIQUE_ID').AsString := TFunctions.GenerateUUID;
     FDataSet.ParamByName('NAME').AsString := FName;
     FDataSet.ParamByName('ALLOWS_INSTALLMENT').AsBoolean := FAllowsInstallment;
+    FDataSet.ParamByName('ID_USER').AsInteger := TSystemManager.GetInstance.LoggedUser.Id;
     FDataSet.ExecSQL;
     FDataSet.Connection.Commit;
   except on E: Exception do

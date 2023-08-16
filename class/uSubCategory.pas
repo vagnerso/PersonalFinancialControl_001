@@ -49,6 +49,9 @@ end;
 
 implementation
 
+uses
+  uSystemManager;
+
 { TSubCategory }
 
 procedure TSubCategory.Clear;
@@ -136,14 +139,17 @@ begin
     FDataSet.SQL.Add('   UNIQUE_ID            ');
     FDataSet.SQL.Add(' , NAME                 ');
     FDataSet.SQL.Add(' , ID_CATEGORY          ');
+    FDataSet.SQL.Add(' , ID_USER              ');
     FDataSet.SQL.Add(' ) VALUES (             ');
     FDataSet.SQL.Add('   :UNIQUE_ID           ');
     FDataSet.SQL.Add(' , :NAME                ');
     FDataSet.SQL.Add(' , :ID_CATEGORY         ');
+    FDataSet.SQL.Add(' , :ID_USER             ');
     FDataSet.SQL.Add(' )                      ');
     FDataSet.ParamByName('UNIQUE_ID').AsString := TFunctions.GenerateUUID;
     FDataSet.ParamByName('NAME').AsString := FName;
     FDataSet.ParamByName('ID_CATEGORY').AsInteger := FCategory.Id;
+    FDataSet.ParamByName('ID_USER').AsInteger := TSystemManager.GetInstance.LoggedUser.Id;
     FDataSet.ExecSQL;
     FDataSet.Connection.Commit;
   except on E: Exception do

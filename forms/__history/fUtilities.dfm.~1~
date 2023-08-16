@@ -1,0 +1,6 @@
+inherited frmUtilities: TfrmUtilities
+  Caption = 'frmUtilities'
+  ClientHeight = 410
+  ClientWidth = 652
+  TextHeight = 19
+end

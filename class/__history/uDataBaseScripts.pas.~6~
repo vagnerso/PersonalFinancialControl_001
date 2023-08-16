@@ -1,0 +1,68 @@
+unit uDataBaseScripts;
+
+interface
+
+uses
+  uDataBaseConnection;
+
+type
+  TDataBaseScripts = class
+  private
+    FScripts: TMyScript;
+
+  public
+
+    procedure EmptyAllTables;
+    procedure InsertAdminUser;
+
+    constructor Create;
+  end;
+
+implementation
+
+uses
+  uUser;
+
+{ TDataBaseScripts }
+
+constructor TDataBaseScripts.Create;
+begin
+  FScripts := TMyScript.Create(nil);
+end;
+
+procedure TDataBaseScripts.EmptyAllTables;
+begin
+  FScripts.SQLScripts.Clear;
+  FScripts.SQLScripts.Add;
+
+  FScripts.SQLScripts[0].SQL.Add('DELETE FROM MOVEMENT;');
+
+  FScripts.SQLScripts[0].SQL.Add('DELETE FROM FORM_PAYMENT;');
+  FScripts.SQLScripts[0].SQL.Add('DELETE FROM PERSON;');
+  FScripts.SQLScripts[0].SQL.Add('DELETE FROM SUB_CATEGORY;');
+
+  FScripts.SQLScripts[0].SQL.Add('DELETE FROM USER;');
+  FScripts.SQLScripts[0].SQL.Add('DELETE FROM TYPE_PAYMENT;');
+  FScripts.SQLScripts[0].SQL.Add('DELETE FROM CATEGORY;');
+
+
+  FScripts.ExecuteAll;
+end;
+
+procedure TDataBaseScripts.InsertAdminUser;
+var
+  lUser: TUser;
+begin
+  lUser := TUser.Create;
+  try
+    lUser.Clear;
+    lUser.Name := 'Administrador';
+    lUser.Login := 'admin';
+    lUser.Password := 'admin';
+    lUser.InsertRegister;
+  finally
+    lUser.Free;
+  end;
+end;
+
+end.
