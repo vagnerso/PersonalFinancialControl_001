@@ -57,6 +57,10 @@ inherited frmGeneralSearch: TfrmGeneralSearch
     TabOrder = 2
     object tabSearch: TTabSheet
       Caption = 'Op'#231#245'es de pesquisa'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object pnlSearch: TPanel
         Left = 0
         Top = 0
@@ -163,6 +167,10 @@ inherited frmGeneralSearch: TfrmGeneralSearch
       TabOrder = 0
       object tabGrid: TTabSheet
         Caption = 'Consulta'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object grdSearch: TDBGrid
           Left = 0
           Top = 0

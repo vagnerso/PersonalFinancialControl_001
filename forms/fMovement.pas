@@ -176,11 +176,13 @@ begin
     begin
       Caption := TFunctions.AppName + ' - Versão: ' + TFunctions.AppVersion + ' - ' + 'Receitas';
       pnlTitle.Caption := 'Cadastro de Receitas';
+      lblPerson.Caption := 'Clientes';
     end;
     tmExpenses:
     begin
       Caption := TFunctions.AppName + ' - Versão: ' + TFunctions.AppVersion + ' - ' + 'Receitas';
       pnlTitle.Caption := 'Cadastro de Despesas';
+      lblPerson.Caption := 'Fornecedores';
     end;
   end;
 

@@ -95,7 +95,7 @@ CREATE TABLE MOVEMENT (
 	ID_SUB_CATEGORY INTEGER,
 	ID_FORM_PAYMENT INTEGER,
 	ISSUE_DATE DATETIME
-,   INSTALLMENT_VALUE DOUBLE DEFAULT 0, NUMBER_PARCEL INTEGER DEFAULT 0, TYPE_MOVEMENT INTEGER DEFAULT 0, ID_PROVIDER INTEGER);
+,   INSTALLMENT_VALUE DOUBLE DEFAULT 0, NUMBER_PARCEL INTEGER DEFAULT 0, TYPE_MOVEMENT INTEGER DEFAULT 0, ID_PERSON INTEGER);
   }
 
 end;
@@ -191,7 +191,7 @@ begin
     FDataSet.SQL.Add('  , INSTALLMENT_VALUE ');
     FDataSet.SQL.Add('  , NUMBER_PARCEL     ');
     FDataSet.SQL.Add('  , TYPE_MOVEMENT     ');
-    FDataSet.SQL.Add('  , ID_PROVIDER       ');
+    FDataSet.SQL.Add('  , ID_PERSON       ');
     FDataSet.SQL.Add('  , SITUATION         ');
     FDataSet.SQL.Add('FROM MOVEMENT         ');
     FDataSet.SQL.Add('  WHERE ID = :ID      ');
@@ -211,7 +211,7 @@ begin
       FInstallmentValue := FDataSet.FieldByName('INSTALLMENT_VALUE').AsCurrency;
       FNumberParcel := FDataSet.FieldByName('NUMBER_PARCEL').AsInteger;
       FTypeMovement := TTypeMovement(FDataSet.FieldByName('TYPE_MOVEMENT').AsInteger);
-      FProvider.Id := FDataSet.FieldByName('ID_PROVIDER').AsInteger;
+      FProvider.Id := FDataSet.FieldByName('ID_PERSON').AsInteger;
       FProvider.GetById;
       FSituation := FDataSet.FieldByName('SITUATION').AsInteger;
     end;
@@ -532,7 +532,7 @@ begin
     FDataSet.SQL.Add(', INSTALLMENT_VALUE    ');
     FDataSet.SQL.Add(', NUMBER_PARCEL        ');
     FDataSet.SQL.Add(', TYPE_MOVEMENT        ');
-    FDataSet.SQL.Add(', ID_PROVIDER          ');
+    FDataSet.SQL.Add(', ID_PERSON          ');
     FDataSet.SQL.Add(', SITUATION            ');
     FDataSet.SQL.Add(', ID_USER              ');
     FDataSet.SQL.Add(') VALUES (             ');
@@ -544,7 +544,7 @@ begin
     FDataSet.SQL.Add(', :INSTALLMENT_VALUE   ');
     FDataSet.SQL.Add(', :NUMBER_PARCEL       ');
     FDataSet.SQL.Add(', :TYPE_MOVEMENT       ');
-    FDataSet.SQL.Add(', :ID_PROVIDER         ');
+    FDataSet.SQL.Add(', :ID_PERSON         ');
     FDataSet.SQL.Add(', :SITUATION           ');
     FDataSet.SQL.Add(', :ID_USER             ');
     FDataSet.SQL.Add(');                     ');

@@ -9,8 +9,9 @@ inherited frmMovement: TfrmMovement
   OnDestroy = FormDestroy
   OnKeyPress = FormKeyPress
   OnShow = FormShow
-  ExplicitWidth = 904
-  ExplicitHeight = 583
+  ExplicitWidth = 908
+  ExplicitHeight = 584
+  PixelsPerInch = 96
   TextHeight = 26
   object pnlTitle: TPanel
     Left = 0
@@ -29,7 +30,6 @@ inherited frmMovement: TfrmMovement
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
-    ExplicitWidth = 886
   end
   object pnlBottom: TPanel
     Left = 0
@@ -40,8 +40,6 @@ inherited frmMovement: TfrmMovement
     BevelOuter = bvNone
     ParentBackground = False
     TabOrder = 1
-    ExplicitTop = 490
-    ExplicitWidth = 886
     object pnlButtonSave: TPanel
       Left = 598
       Top = 0
@@ -57,7 +55,6 @@ inherited frmMovement: TfrmMovement
       OnClick = pnlButtonSaveClick
       OnMouseEnter = pnlButtonSaveMouseEnter
       OnMouseLeave = pnlButtonSaveMouseLeave
-      ExplicitLeft = 592
     end
     object pnlButtonCancel: TPanel
       Left = 745
@@ -74,7 +71,6 @@ inherited frmMovement: TfrmMovement
       OnClick = pnlButtonCancelClick
       OnMouseEnter = pnlButtonCancelMouseEnter
       OnMouseLeave = pnlButtonCancelMouseLeave
-      ExplicitLeft = 739
     end
   end
   object pgcNavigator: TPageControl
@@ -85,8 +81,6 @@ inherited frmMovement: TfrmMovement
     ActivePage = tabDescription
     Align = alClient
     TabOrder = 2
-    ExplicitWidth = 886
-    ExplicitHeight = 449
     object tabDescription: TTabSheet
       Caption = 'Informa'#231#245'es da conta'
       object pnlDescription: TPanel
@@ -98,8 +92,6 @@ inherited frmMovement: TfrmMovement
         BevelOuter = bvNone
         ParentBackground = False
         TabOrder = 0
-        ExplicitWidth = 878
-        ExplicitHeight = 408
         object Label1: TLabel
           Left = 16
           Top = 179
@@ -416,8 +408,8 @@ inherited frmMovement: TfrmMovement
           Top = 291
           Width = 433
           Height = 34
-          Date = 44888.000000000000000000
-          Time = 0.714996817128849200
+          Date = 44888.714996817130000000
+          Time = 44888.714996817130000000
           TabOrder = 7
         end
       end

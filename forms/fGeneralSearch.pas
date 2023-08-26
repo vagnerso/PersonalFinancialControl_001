@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Imaging.pngimage,
   Vcl.ExtCtrls, Vcl.ComCtrls, uEnumTypes, uCategory, uSubCategory, uProvider,
-  uTypePayment, uFormPayment, uSystemManager, uFunctions;
+  uTypePayment, uFormPayment, uSystemManager, uFunctions, uCustomer;
 
 type
   TfrmGeneralSearch = class(TfrmBase)
@@ -40,6 +40,7 @@ type
     FProvider: TProvider;
     FTypePayment: TTypePayment;
     FFormPayment: TFormPayment;
+    FCustomer: TCustomer;
     FBackgroundColor : TColor;
     FTitleColor : TColor;
     FTitleFontColor : TColor;
@@ -66,6 +67,7 @@ type
     property Provider: TProvider read FProvider  write FProvider;
     property TypePayment: TTypePayment read FTypePayment  write FTypePayment;
     property FormPayment: TFormPayment read FFormPayment  write FFormPayment;
+    property Customer: TCustomer read FCustomer write FCustomer;
   end;
 
 var
@@ -86,13 +88,12 @@ end;
 procedure TfrmGeneralSearch.FormCreate(Sender: TObject);
 begin
   inherited;
-
-  FCategory := TCategory.Create;
+  FCategory    := TCategory.Create;
   FSubCategory := TSubCategory.Create;
-  FProvider := TProvider.Create;
+  FProvider    := TProvider.Create;
   FTypePayment := TTypePayment.Create;
   FFormPayment := TFormPayment.Create;
-
+  FCustomer    := TCustomer.Create;
 end;
 
 procedure TfrmGeneralSearch.FormDestroy(Sender: TObject);
@@ -122,6 +123,11 @@ begin
   if Assigned(FFormPayment) then
   begin
     FFormPayment.Free;
+  end;
+
+  if Assigned(FCustomer) then
+  begin
+    FCustomer.Free;
   end;
 
 end;
@@ -186,7 +192,9 @@ begin
     end;
     setCustomer:
     begin
-
+      dtsSearch.DataSet := FCustomer.DataSet;
+      FCustomer.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
+      FCustomer.Search(FCustomer.DataSet);
     end;
     setProvider:
     begin
@@ -236,7 +244,10 @@ begin
         end;
       setCustomer:
         begin
-
+          FCustomer.Clear;
+          FCustomer.Id := dtsSearch.DataSet.FieldByName('ID').AsInteger;
+          FCustomer.GetById;
+          lSelected := True;
         end;
       setProvider:
         begin

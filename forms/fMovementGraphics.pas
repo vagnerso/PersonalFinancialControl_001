@@ -6,8 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, uMovement, VclTee.TeeGDIPlus, Data.DB, VCLTee.TeEngine, VCLTee.Series,
   Vcl.ExtCtrls, VCLTee.TeeProcs, VCLTee.Chart, VCLTee.DBChart, Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls,
-  uSystemManager, FireDAC.UI.Intf, FireDAC.Stan.Async, FireDAC.Comp.ScriptCommands, FireDAC.Stan.Util,
-  FireDAC.Stan.Intf, FireDAC.Comp.Script;
+  uSystemManager;
 
 type
   TfrmMovementGraphics = class(TfrmBase)
@@ -68,7 +67,6 @@ type
     Label3: TLabel;
     cbxFilterDateBy: TComboBox;
     btnSearchExecute: TButton;
-    FDScript1: TFDScript;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);

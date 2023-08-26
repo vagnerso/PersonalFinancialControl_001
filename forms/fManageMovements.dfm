@@ -1,6 +1,7 @@
 inherited frmManageMovements: TfrmManageMovements
   Caption = 'frmManageMovements'
   OnDestroy = FormDestroy
+  PixelsPerInch = 96
   TextHeight = 19
   inherited pnlTitle: TPanel
     Caption = 'Gerenciar movimenta'#231#245'es'
@@ -19,8 +20,6 @@ inherited frmManageMovements: TfrmManageMovements
           Align = alBottom
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitTop = 358
-          ExplicitWidth = 881
           object lblSumRevenues: TLabel
             AlignWithMargins = True
             Left = 10
@@ -81,8 +80,16 @@ inherited frmManageMovements: TfrmManageMovements
         end
       end
       inherited tabRegister: TTabSheet
+        ExplicitLeft = 4
+        ExplicitTop = 25
+        ExplicitWidth = 887
+        ExplicitHeight = 408
         inherited pgcRegister: TPageControl
           inherited tabRegisterBasic: TTabSheet
+            ExplicitLeft = 4
+            ExplicitTop = 25
+            ExplicitWidth = 879
+            ExplicitHeight = 338
             inherited pnlRegisterBasic: TPanel
               object Label2: TLabel
                 Left = 8
@@ -394,8 +401,8 @@ inherited frmManageMovements: TfrmManageMovements
                 Top = 227
                 Width = 433
                 Height = 27
-                Date = 44888.000000000000000000
-                Time = 0.714996817128849200
+                Date = 44888.714996817130000000
+                Time = 44888.714996817130000000
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clBlack
                 Font.Height = -16

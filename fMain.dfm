@@ -10,9 +10,11 @@ object frmMain: TfrmMain
   Font.Height = -16
   Font.Name = 'Calibri'
   Font.Style = []
+  OldCreateOrder = True
   Position = poScreenCenter
   WindowState = wsMaximized
   OnShow = FormShow
+  PixelsPerInch = 96
   TextHeight = 19
   object lblDeveloper: TLabel
     Left = 0
@@ -38,7 +40,6 @@ object frmMain: TfrmMain
     Align = alLeft
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitHeight = 637
     object imIconApp: TImage
       Left = 0
       Top = 53
@@ -14642,11 +14643,9 @@ object frmMain: TfrmMain
     Align = alRight
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = 420
-    ExplicitHeight = 637
     object pnlMenuRevenues: TPanel
       Left = 14
-      Top = 188
+      Top = 180
       Width = 259
       Height = 80
       Cursor = crHandPoint
@@ -14665,7 +14664,7 @@ object frmMain: TfrmMain
     end
     object pnlMenuExpenses: TPanel
       Left = 288
-      Top = 188
+      Top = 180
       Width = 280
       Height = 80
       Cursor = crHandPoint
@@ -14694,7 +14693,7 @@ object frmMain: TfrmMain
     end
     object pnButtonManageMovements: TPanel
       Left = 15
-      Top = 280
+      Top = 272
       Width = 553
       Height = 49
       Cursor = crHandPoint
@@ -14713,7 +14712,7 @@ object frmMain: TfrmMain
     end
     object pnlButtonMovementReports: TPanel
       Left = 14
-      Top = 402
+      Top = 394
       Width = 554
       Height = 49
       Cursor = crHandPoint
@@ -14731,7 +14730,7 @@ object frmMain: TfrmMain
     end
     object pnButtonMovementGraphics: TPanel
       Left = 15
-      Top = 340
+      Top = 332
       Width = 553
       Height = 49
       Cursor = crHandPoint
@@ -14851,7 +14850,6 @@ object frmMain: TfrmMain
       Align = alBottom
       BevelOuter = bvNone
       TabOrder = 11
-      ExplicitTop = 577
       object imgButtonUtilities: TImage
         Left = 524
         Top = 0

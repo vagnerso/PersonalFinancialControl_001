@@ -11,7 +11,7 @@ SELECT
       WHEN 0 THEN "Entrada"          
       ELSE "Saída"                   
     END "Tipo"                       
-  , M.ID_PROVIDER                    
+  , M.ID_PERSON                    
   , SC.NAME "Sub Categoria"          
   , FP.NAME "Forma de Pagamento"     
   , P.NAME "Fornecedor"              
@@ -25,6 +25,6 @@ FROM MOVEMENT M
   LEFT JOIN FORM_PAYMENT FP          
   ON (FP.ID = M.ID_FORM_PAYMENT)     
   LEFT JOIN PERSON P                 
-  ON (P.ID  = M.ID_PROVIDER)         
+  ON (P.ID  = M.ID_PERSON)         
  WHERE 1>0                           
 ORDER BY M.DESCRIPTION DESC   
