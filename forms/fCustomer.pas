@@ -29,6 +29,8 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure imButtonSearchCityClick(Sender: TObject);
+    procedure imButtonClearEdtCityClick(Sender: TObject);
   private
     FRegisterObject: TCustomer;
     procedure EnabledRegister;
@@ -56,7 +58,7 @@ var
 implementation
 
 uses
-  uEnumTypes, uFunctions, uPerson;
+  uEnumTypes, uFunctions, uPerson, fGeneralSearch;
 
 {$R *.dfm}
 
@@ -159,6 +161,32 @@ begin
 
 end;
 
+procedure TfrmCustomer.imButtonClearEdtCityClick(Sender: TObject);
+begin
+  inherited;
+  edtCity.Clear;
+end;
+
+procedure TfrmCustomer.imButtonSearchCityClick(Sender: TObject);
+var
+  frmGeneralSearch : TfrmGeneralSearch;
+begin
+  inherited;
+  frmGeneralSearch := TfrmGeneralSearch.Create(nil);
+  try
+    frmGeneralSearch.SearchEntityType := setCity;
+
+    if frmGeneralSearch.ShowModal = mrOk then
+    begin
+      edtCity.Text := frmGeneralSearch.City.Name;
+      FRegisterObject.City.Id := frmGeneralSearch.City.Id;
+    end;
+
+  finally
+    frmGeneralSearch.Free;
+  end;
+end;
+
 procedure TfrmCustomer.InsertRegister;
 begin
   inherited;
@@ -185,7 +213,6 @@ begin
   FRegisterObject.Adress := edtAdress.Text;
   FRegisterObject.Number := edtNumber.Text;
   FRegisterObject.District := edtDistrict.Text;
-  FRegisterObject.IdCity := edtCity.Text;
 
 //  FRegisterObject.TypePayment.Id := Integer(cbxTypePayment.Items.Objects[cbxTypePayment.ItemIndex]);
 

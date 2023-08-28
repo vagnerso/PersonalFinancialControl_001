@@ -19,38 +19,41 @@ inherited frmCategory: TfrmCategory
     ExplicitWidth = 818
   end
   inherited pnlMain: TPanel
-    Height = 313
-    ExplicitHeight = 313
+    Height = 294
+    ExplicitTop = 172
+    ExplicitHeight = 294
   end
   inherited pnlGeneral: TPanel
     Width = 668
-    Height = 313
+    Height = 294
+    ExplicitTop = 172
     ExplicitWidth = 668
-    ExplicitHeight = 313
+    ExplicitHeight = 294
     inherited pgcGeneral: TPageControl
       Width = 668
-      Height = 313
+      Height = 294
+      ActivePage = tabGrid
       ExplicitWidth = 668
-      ExplicitHeight = 313
+      ExplicitHeight = 294
       inherited tabGrid: TTabSheet
         ExplicitLeft = 4
         ExplicitTop = 25
         ExplicitWidth = 660
-        ExplicitHeight = 284
+        ExplicitHeight = 265
         inherited grdSearch: TDBGrid
           Width = 660
-          Height = 284
+          Height = 265
         end
       end
       inherited tabRegister: TTabSheet
         ExplicitLeft = 4
         ExplicitTop = 25
         ExplicitWidth = 660
-        ExplicitHeight = 284
+        ExplicitHeight = 265
         inherited pnlMainRegister: TPanel
-          Top = 243
+          Top = 224
           Width = 660
-          ExplicitTop = 243
+          ExplicitTop = 224
           ExplicitWidth = 660
           inherited pnlButtonSave: TPanel
             Left = 366
@@ -63,19 +66,19 @@ inherited frmCategory: TfrmCategory
         end
         inherited pgcRegister: TPageControl
           Width = 660
-          Height = 243
+          Height = 224
           ExplicitWidth = 660
-          ExplicitHeight = 243
+          ExplicitHeight = 224
           inherited tabRegisterBasic: TTabSheet
             ExplicitLeft = 4
             ExplicitTop = 25
             ExplicitWidth = 652
-            ExplicitHeight = 214
+            ExplicitHeight = 195
             inherited pnlRegisterBasic: TPanel
               Width = 652
-              Height = 214
+              Height = 195
               ExplicitWidth = 652
-              ExplicitHeight = 214
+              ExplicitHeight = 195
               object lb3: TLabel
                 Left = 8
                 Top = 11
@@ -104,6 +107,7 @@ inherited frmCategory: TfrmCategory
   end
   inherited pgcSearch: TPageControl
     Width = 818
+    ExplicitTop = 60
     ExplicitWidth = 818
     inherited tabSearch: TTabSheet
       ExplicitLeft = 4

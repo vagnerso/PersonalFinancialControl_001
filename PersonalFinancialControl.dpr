@@ -40,7 +40,9 @@ uses
   uDataBaseScripts in 'class\uDataBaseScripts.pas',
   fUtilities in 'forms\fUtilities.pas' {frmUtilities},
   uCustomer in 'class\uCustomer.pas',
-  fCustomer in 'forms\fCustomer.pas' {frmCustomer};
+  fCustomer in 'forms\fCustomer.pas' {frmCustomer},
+  uCity in 'class\uCity.pas',
+  fCity in 'forms\fCity.pas' {frmCity};
 
 {$R *.res}
 
@@ -50,20 +52,32 @@ begin
   ReportMemoryLeaksOnShutdown := False;
   Application.Title := 'Personal Financial Control';
 
-  TSystemManager.GetInstance.LayoutConfiguration.TitleColor := $0078B15C;
-  TSystemManager.GetInstance.LayoutConfiguration.TitleFontColor := clWhite;
-  TSystemManager.GetInstance.LayoutConfiguration.ActionButtonColor := $00635A4B;
-  TSystemManager.GetInstance.LayoutConfiguration.HoverActionButtonColor := $0077DCEA;
-  TSystemManager.GetInstance.LayoutConfiguration.ActionButtonFontColor := clWhite;
-  TSystemManager.GetInstance.LayoutConfiguration.ActionButtonHoverFontColor := clBlack;
-  TSystemManager.GetInstance.LayoutConfiguration.BackgroundColor :=$00635A4B ;
-  TSystemManager.GetInstance.LayoutConfiguration.SearchPanelColor :=$00635A4B;
-  TSystemManager.GetInstance.LayoutConfiguration.MainPanelColor := $00635A4B;
-  TSystemManager.GetInstance.LayoutConfiguration.MainPanelRegisterColor := $00635A4B;
-  TSystemManager.GetInstance.LayoutConfiguration.RegisterPanelColor := $00635A4B;
-  TSystemManager.GetInstance.LayoutConfiguration.PanelBottomColor := $00635A4B;
+  if not (TDataBaseScripts.ExecuteScripts) then
+  begin
+    TFrmMessage.ShowMessageBox(mtError, '', 'Atenção, ocorreu um erro ao tentarmos atualizar a estrutura do banco de dados. Tente novamente mais tarde.');
+    Application.Terminate;
+  end
+  else
+  begin
 
-  Application.CreateForm(TfrmMain, frmMain);
-  Application.Run;
+    TSystemManager.GetInstance.LayoutConfiguration.TitleColor := $007DA640;
+    TSystemManager.GetInstance.LayoutConfiguration.TitleFontColor := clWhite;
+    TSystemManager.GetInstance.LayoutConfiguration.ActionButtonColor := $00635A4B;
+    TSystemManager.GetInstance.LayoutConfiguration.HoverActionButtonColor := clWhite;
+    TSystemManager.GetInstance.LayoutConfiguration.ActionButtonFontColor := clWhite;
+    TSystemManager.GetInstance.LayoutConfiguration.ActionButtonHoverFontColor := clBlack;
+    TSystemManager.GetInstance.LayoutConfiguration.BackgroundColor := $00242424 ;
+    TSystemManager.GetInstance.LayoutConfiguration.SearchPanelColor := $00242424;
+    TSystemManager.GetInstance.LayoutConfiguration.MainPanelColor := $00242424;
+    TSystemManager.GetInstance.LayoutConfiguration.MainPanelRegisterColor := $00242424;
+    TSystemManager.GetInstance.LayoutConfiguration.RegisterPanelColor := $00242424;
+    TSystemManager.GetInstance.LayoutConfiguration.PanelBottomColor := $00242424;
+    TSystemManager.GetInstance.LayoutConfiguration.PopUpBackgroundColor := $004A4B49;
+
+    Application.CreateForm(TfrmMain, frmMain);
+
+    Application.Run;
+
+  end;
 
 end.

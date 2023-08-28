@@ -33,8 +33,8 @@ type
     lbInstallmentsValue: TLabel;
     edtInstallmentesValue: TEdit;
     lblPerson: TLabel;
-    imButtonClearEdtProvider: TImage;
-    imButtonSearchProvider: TImage;
+    imButtonClearEdtPerson: TImage;
+    imButtonSearchPerson: TImage;
     edtPerson: TEdit;
     Label6: TLabel;
     edtSubCategory: TEdit;
@@ -48,7 +48,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure pnlButtonCancelClick(Sender: TObject);
     procedure pnlButtonSaveClick(Sender: TObject);
-    procedure imButtonSearchProviderClick(Sender: TObject);
+    procedure imButtonSearchPersonClick(Sender: TObject);
     procedure imButtonSearchSubCategoryClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -222,7 +222,7 @@ begin
   pnlBottom.Color := FPanelBottomColor;
 end;
 
-procedure TfrmMovement.imButtonSearchProviderClick(Sender: TObject);
+procedure TfrmMovement.imButtonSearchPersonClick(Sender: TObject);
 var
   frmGeneralSearch : TfrmGeneralSearch;
 begin
@@ -230,12 +230,35 @@ begin
 
   frmGeneralSearch := TfrmGeneralSearch.Create(nil);
   try
-    frmGeneralSearch.SearchEntityType := setProvider;
+
+
+    case FTypeMovement of
+      tmRevenues:
+      begin
+        frmGeneralSearch.SearchEntityType := setCustomer;
+      end;
+      tmExpenses:
+      begin
+        frmGeneralSearch.SearchEntityType := setProvider;
+      end;
+    end;
 
     if frmGeneralSearch.ShowModal = mrOk then
     begin
-      edtPerson.Text := frmGeneralSearch.Provider.Name;
-      FRegisterObject.Provider.Id := frmGeneralSearch.Provider.Id;
+
+      case FTypeMovement of
+        tmRevenues:
+        begin
+          edtPerson.Text := frmGeneralSearch.Customer.Name;
+          FRegisterObject.Provider.Id := frmGeneralSearch.Customer.Id;
+        end;
+        tmExpenses:
+        begin
+          edtPerson.Text := frmGeneralSearch.Provider.Name;
+          FRegisterObject.Provider.Id := frmGeneralSearch.Provider.Id;
+        end;
+      end;
+
     end;
 
   finally

@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fMasterRegister, Data.DB, Vcl.Menus, Vcl.StdCtrls, Vcl.Imaging.pngimage,
   Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls, uProvider, uEnumTypes,
-  uFunctions;
+  uFunctions, fGeneralSearch;
 
 type
   TfrmProvider = class(TfrmMasterRegister)
@@ -29,6 +29,8 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure imButtonClearEdtCityClick(Sender: TObject);
+    procedure imButtonSearchCityClick(Sender: TObject);
   private
     FRegisterObject: TProvider;
     procedure EnabledRegister;
@@ -159,6 +161,32 @@ begin
 
 end;
 
+procedure TfrmProvider.imButtonClearEdtCityClick(Sender: TObject);
+begin
+  inherited;
+  edtCity.Clear;
+end;
+
+procedure TfrmProvider.imButtonSearchCityClick(Sender: TObject);
+var
+  frmGeneralSearch : TfrmGeneralSearch;
+begin
+  inherited;
+  frmGeneralSearch := TfrmGeneralSearch.Create(nil);
+  try
+    frmGeneralSearch.SearchEntityType := setCity;
+
+    if frmGeneralSearch.ShowModal = mrOk then
+    begin
+      edtCity.Text := frmGeneralSearch.City.Name;
+      FRegisterObject.City.Id := frmGeneralSearch.City.Id;
+    end;
+
+  finally
+    frmGeneralSearch.Free;
+  end;
+end;
+
 procedure TfrmProvider.InsertRegister;
 begin
   inherited;
@@ -185,9 +213,6 @@ begin
   FRegisterObject.Adress := edtAdress.Text;
   FRegisterObject.Number := edtNumber.Text;
   FRegisterObject.District := edtDistrict.Text;
-  FRegisterObject.IdCity := edtCity.Text;
-
-//  FRegisterObject.TypePayment.Id := Integer(cbxTypePayment.Items.Objects[cbxTypePayment.ItemIndex]);
 
   case FOperationType of
     otInsert:

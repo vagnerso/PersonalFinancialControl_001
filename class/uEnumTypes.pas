@@ -6,7 +6,9 @@ type
 
   TOperationType = (otInsert, otUpdate, otDelete);
   TFormMode = (fmRegister, fmSearch);
-  TSearchEntityType = (setCategory, setSubCategory, setCustomer, setProvider, setTypePayment, setFormPayment);
+  TTypePerson = (tpProvider, tpCustomer);
+  TSearchEntityType = (setCategory, setSubCategory, setCustomer, setProvider, setTypePayment, setFormPayment,
+                       setCity);
   TTypeMovement = (tmRevenues, tmExpenses);
   TMessageType = (mtSuccess, mtWarning, mtError, mtInformation);
 

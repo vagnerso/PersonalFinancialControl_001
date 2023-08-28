@@ -8,10 +8,9 @@ inherited frmLogin: TfrmLogin
   Font.Color = clBlack
   Position = poScreenCenter
   OnShow = FormShow
-  ExplicitLeft = 3
-  ExplicitTop = 3
   ExplicitWidth = 1066
   ExplicitHeight = 690
+  PixelsPerInch = 96
   TextHeight = 19
   object pnlCenter: TPanel
     Left = 200
@@ -30,7 +29,6 @@ inherited frmLogin: TfrmLogin
       Color = clWhite
       ParentBackground = False
       TabOrder = 0
-      ExplicitHeight = 562
       object imIconApp: TImage
         Left = 16
         Top = 104
@@ -12887,7 +12885,7 @@ inherited frmLogin: TfrmLogin
       end
       object lblDeveloper: TLabel
         Left = 8
-        Top = 544
+        Top = 552
         Width = 155
         Height = 13
         Caption = 'Desenvolvido por Vagner Oliveira'
@@ -12909,17 +12907,15 @@ inherited frmLogin: TfrmLogin
       Color = 1723723
       ParentBackground = False
       TabOrder = 1
-      ExplicitWidth = 288
-      ExplicitHeight = 562
       object lb1: TLabel
-        Left = 64
-        Top = 88
-        Width = 152
-        Height = 26
+        Left = 48
+        Top = 64
+        Width = 194
+        Height = 33
         Caption = 'Seja bem vindo(a)'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
-        Font.Height = -21
+        Font.Height = -27
         Font.Name = 'Calibri'
         Font.Style = []
         ParentFont = False
@@ -12927,12 +12923,12 @@ inherited frmLogin: TfrmLogin
       object lblUser: TLabel
         Left = 24
         Top = 144
-        Width = 50
-        Height = 19
+        Width = 60
+        Height = 23
         Caption = 'Usu'#225'rio'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
-        Font.Height = -16
+        Font.Height = -19
         Font.Name = 'Calibri'
         Font.Style = []
         ParentFont = False
@@ -12940,12 +12936,12 @@ inherited frmLogin: TfrmLogin
       object lblPassword: TLabel
         Left = 24
         Top = 216
-        Width = 39
-        Height = 19
+        Width = 47
+        Height = 23
         Caption = 'Senha'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
-        Font.Height = -16
+        Font.Height = -19
         Font.Name = 'Calibri'
         Font.Style = []
         ParentFont = False
@@ -12954,10 +12950,10 @@ inherited frmLogin: TfrmLogin
         Left = 24
         Top = 169
         Width = 249
-        Height = 27
+        Height = 31
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
-        Font.Height = -16
+        Font.Height = -19
         Font.Name = 'Calibri'
         Font.Style = [fsBold]
         ParentFont = False
@@ -12967,10 +12963,10 @@ inherited frmLogin: TfrmLogin
         Left = 24
         Top = 241
         Width = 249
-        Height = 27
+        Height = 31
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
-        Font.Height = -16
+        Font.Height = -19
         Font.Name = 'Calibri'
         Font.Style = [fsBold]
         ParentFont = False
@@ -12988,13 +12984,17 @@ inherited frmLogin: TfrmLogin
         Color = 6009689
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
-        Font.Height = -19
+        Font.Height = -21
         Font.Name = 'Calibri'
         Font.Style = []
         ParentBackground = False
         ParentFont = False
         TabOrder = 2
         OnClick = pnlButtonConfirmClick
+        OnEnter = pnlButtonConfirmEnter
+        OnExit = pnlButtonConfirmExit
+        OnMouseEnter = pnlButtonConfirmMouseEnter
+        OnMouseLeave = pnlButtonConfirmMouseLeave
       end
       object pnlButtonCancel: TPanel
         Left = 24
@@ -13007,15 +13007,19 @@ inherited frmLogin: TfrmLogin
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 6009689
-        Font.Height = -19
+        Font.Height = -21
         Font.Name = 'Calibri'
         Font.Style = []
         ParentBackground = False
         ParentFont = False
         TabOrder = 3
         OnClick = pnlButtonCancelClick
+        OnEnter = pnlButtonCancelEnter
+        OnExit = pnlButtonCancelExit
+        OnMouseEnter = pnlButtonCancelMouseEnter
+        OnMouseLeave = pnlButtonCancelMouseLeave
       end
-      object pnUserRegister: TPanel
+      object pnButtonUserRegister: TPanel
         Left = 24
         Top = 520
         Width = 249
@@ -13026,13 +13030,17 @@ inherited frmLogin: TfrmLogin
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 6009689
-        Font.Height = -19
+        Font.Height = -21
         Font.Name = 'Calibri'
         Font.Style = []
         ParentBackground = False
         ParentFont = False
         TabOrder = 4
-        OnClick = pnUserRegisterClick
+        OnClick = pnButtonUserRegisterClick
+        OnEnter = pnButtonUserRegisterEnter
+        OnExit = pnButtonUserRegisterExit
+        OnMouseEnter = pnButtonUserRegisterMouseEnter
+        OnMouseLeave = pnButtonUserRegisterMouseLeave
       end
     end
   end

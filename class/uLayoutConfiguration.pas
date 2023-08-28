@@ -22,6 +22,7 @@ type TLayoutConfiguration = class
     FRegisterPanelColor: TColor;
     FMainPanelRegisterColor: TColor;
     FPanelBottomColor: TColor;
+    FPopUpBackgroundColor: TColor;
 
   public
     property TitleColor: TColor read FtitleColor write FtitleColor;
@@ -39,7 +40,9 @@ type TLayoutConfiguration = class
     property RegisterPanelColor: TColor read FRegisterPanelColor write FRegisterPanelColor;
     property MainPanelRegisterColor: TColor read FMainPanelRegisterColor write FMainPanelRegisterColor;
     property PanelBottomColor: TColor read FPanelBottomColor write FPanelBottomColor;
+    property PopUpBackgroundColor: TColor read FPopUpBackgroundColor write FPopUpBackgroundColor;
 end;
+
 
 implementation
 

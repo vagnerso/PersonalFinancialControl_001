@@ -3,7 +3,8 @@ unit uProvider;
 interface
 
 uses
-  uPerson;
+  uPerson,
+  uEnumTypes;
 
 type TProvider = class(TPerson)
   private

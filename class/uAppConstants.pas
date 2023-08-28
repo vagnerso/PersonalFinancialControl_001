@@ -41,6 +41,11 @@ const
   MSG_ERROR_CUSTOMER_DELETE = 'Erro ao tentar excluir um cliente.';
   MSG_ERROR_CUSTOMER_SEARCH = 'Erro ao tentar consultar cliente.';
 
+  MSG_ERROR_CITY_INSERT = 'Erro ao tentar incluir uma cidade.';
+  MSG_ERROR_CITY_UPDATE = 'Erro ao tentar alterar um cidade.';
+  MSG_ERROR_CITY_DELETE = 'Erro ao tentar excluir um cidade.';
+  MSG_ERROR_CITY_SEARCH = 'Erro ao tentar consultar cidade.';
+
   MSG_ERROR_INSERT = 'Erro ao tentar incluir ';
   MSG_ERROR_UPDATE = 'Erro ao tentar alterar ';
   MSG_ERROR_DELETE = 'Erro ao tentar excluir ';

@@ -9,9 +9,10 @@ uses
   System.SysUtils,
   uAppConstants,
   uFunctions,
-  Vcl.Dialogs, System.Classes, uEnumTypes, fMessage;
-
-type TTypePerson = (tpProvider, tpCustomer);
+  Vcl.Dialogs,
+  System.Classes,
+  uEnumTypes,
+  fMessage, uCity;
 
 type TSearchFiltersCustomized = class(TSearchFilters)
   private
@@ -32,7 +33,7 @@ type TPerson = class(TInterfacedObject, ICrudInterface)
     FAdress: string;
     FNumber: string;
     FDistrict: string;
-    FIdCity: string;
+    FCity: TCity;
     FDataSet : TMyQuery;
     FSearchFiltersCustomized: TSearchFiltersCustomized;
     FUniqueId: string;
@@ -59,7 +60,7 @@ type TPerson = class(TInterfacedObject, ICrudInterface)
     property Adress: string read FAdress write FAdress;
     property Number: string read FNumber write FNumber;
     property District: string read FDistrict write FDistrict;
-    property IdCity: string read FIdCity write FIdCity;
+    property City: TCity read FCity write FCity;
 
 end;
 
@@ -72,21 +73,22 @@ uses
 
 procedure TPerson.Clear;
 begin
-  FId:= 0;
-  FName:= EmptyStr;
-  FPhone:= EmptyStr;
-  FEmail:= EmptyStr;
-  FAdress:= EmptyStr;
-  FNumber:= EmptyStr;
-  FDistrict:= EmptyStr;
-  FIdCity:= EmptyStr;
-  FUniqueId:= EmptyStr;
+  FId         := 0;
+  FName       := EmptyStr;
+  FPhone      := EmptyStr;
+  FEmail      := EmptyStr;
+  FAdress     := EmptyStr;
+  FNumber     := EmptyStr;
+  FDistrict   := EmptyStr;
+  FCity.Clear;
+  FUniqueId   := EmptyStr;
 end;
 
 constructor TPerson.Create;
 begin
   FDataSet := TMyQuery.Create(nil);
   FSearchFiltersCustomized := TSearchFiltersCustomized.Create;
+  FCity := TCity.Create;
 end;
 
 procedure TPerson.DeleteRegister;
@@ -111,6 +113,7 @@ end;
 
 destructor TPerson.Destroy;
 begin
+  FCity.Free;
   FSearchFiltersCustomized.Free;
   FDataSet.Free;
   inherited;
@@ -149,7 +152,8 @@ begin
       FAdress := FDataSet.FieldByName('ADRESS').AsString;
       FNumber := FDataSet.FieldByName('NUMBER').AsString;
       FDistrict := FDataSet.FieldByName('DISTRICT').AsString;
-      FIdCity := FDataSet.FieldByName('ID_CITY').AsString;
+      FCity.Id := FDataSet.FieldByName('ID_CITY').AsInteger;
+      FCity.GetById;
     end;
 
   except on E: Exception do
@@ -198,7 +202,7 @@ begin
     FDataSet.ParamByName('ADRESS').AsString := FAdress ;
     FDataSet.ParamByName('NUMBER').AsString := FNumber ;
     FDataSet.ParamByName('DISTRICT').AsString := FDistrict ;
-    FDataSet.ParamByName('ID_CITY').AsString := FIdCity ;
+    FDataSet.ParamByName('ID_CITY').AsInteger := FCity.Id;
     FDataSet.ParamByName('ID_USER').AsInteger := TSystemManager.GetInstance.LoggedUser.Id;
     FDataSet.ExecSQL;
     FDataSet.Connection.Commit;
@@ -239,7 +243,7 @@ begin
 
     if (Length(Trim(FSearchFiltersCustomized.ValueSearch)) > 0) then
     begin
-      lSQL.Add('WHERE NAME LIKE ' + QuotedStr('%' + FSearchFiltersCustomized.ValueSearch + '%'));
+      lSQL.Add('AND NAME LIKE ' + QuotedStr('%' + FSearchFiltersCustomized.ValueSearch + '%'));
     end;
 
     lSQL.Add('ORDER BY NAME DESC   ');
@@ -280,7 +284,7 @@ begin
     FDataSet.ParamByName('ADRESS').AsString := FAdress;
     FDataSet.ParamByName('NUMBER').AsString := FNumber;
     FDataSet.ParamByName('DISTRICT').AsString := FDistrict;
-    FDataSet.ParamByName('ID_CITY').AsString := FIdCity;
+    FDataSet.ParamByName('ID_CITY').AsInteger := FCity.Id;
     FDataSet.ExecSQL;
     FDataSet.Connection.Commit;
   except on E: Exception do

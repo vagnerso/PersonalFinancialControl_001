@@ -19,22 +19,25 @@ type
     procedure InsertAdminUser;
     procedure InsertDefaultTypePayments;
     procedure InsertDefaultCategories;
+    procedure CreateCityTable;
 
     constructor Create;
     destructor Destroy; override;
+
+    class function ExecuteScripts: Boolean;
   end;
 
 implementation
 
 uses
-  uUser, uTypePayment, uFormPayment, uCategory;
+  uUser, uTypePayment, uFormPayment, uCategory, System.SysUtils;
 
 { TDataBaseScripts }
 
 function TDataBaseScripts.ColumnExists(ATable, AColumn: string): Boolean;
 begin
   FQuery.SQL.Clear;
-  FQuery.SQL.Add('SELECT COUNT(*) AS CNTREC FROM pragma_table_info('':TABLE_NAME'') WHERE name='':COLUMN'')');
+  FQuery.SQL.Add('SELECT COUNT(*) AS CNTREC FROM pragma_table_info(:TABLE_NAME) WHERE name=:COLUMN)');
   FQuery.ParamByName('TABLE_NAME').AsString := ATable;
   FQuery.ParamByName('COLUMN').AsString := AColumn;
   FQuery.Open;
@@ -46,6 +49,30 @@ constructor TDataBaseScripts.Create;
 begin
   FScripts := TMyScript.Create(nil);
   FQuery := TMyQuery.Create(nil);
+end;
+
+procedure TDataBaseScripts.CreateCityTable;
+var
+  lSQL: string;
+begin
+
+  FScripts.SQLScripts.Clear;
+  FScripts.SQLScripts.Add;
+
+  lSQL := 'CREATE TABLE CITY(                             '+
+	        'ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, '+
+	        'UNIQUE_ID VARCHAR(200) NOT NULL,               '+
+	        'NAME VARCHAR(300) NOT NULL,                    '+
+          'SEFAZ_CODE INTEGER,                            '+
+          'UF VARCHAR(2),                                 '+
+          'ID_USER INTEGER);                              ';  
+  FScripts.SQLScripts[0].SQL.Add(lSQL);
+
+  lSQL := 'CREATE UNIQUE INDEX CITY_ID_IDX ON CITY (ID);  ';
+  FScripts.SQLScripts[0].SQL.Add(lSQL);
+
+  FScripts.ExecuteAll;
+  FScripts.Connection.Commit;
 end;
 
 destructor TDataBaseScripts.Destroy;
@@ -72,6 +99,38 @@ begin
 
 
   FScripts.ExecuteAll;
+end;
+
+class function TDataBaseScripts.ExecuteScripts: Boolean;
+var
+  lDataBaseScripts: TDataBaseScripts;
+begin
+  Result := False;
+
+  lDataBaseScripts := TDataBaseScripts.Create;
+  try
+
+    try
+
+      TDataBaseConnection.GetInstance.NewConnection;
+
+      if not (lDataBaseScripts.TableExists('CITY')) then
+      begin
+        lDataBaseScripts.CreateCityTable;
+      end;
+
+      Result := True;
+      
+    except on E: Exception do
+    begin
+      Result := False;
+    end;
+    end;     
+
+  finally
+    lDataBaseScripts.Free;
+  end;
+
 end;
 
 procedure TDataBaseScripts.InsertAdminUser;
@@ -148,7 +207,7 @@ end;
 function TDataBaseScripts.TableExists(ATable: string): Boolean;
 begin
   FQuery.SQL.Clear;
-  FQuery.SQL.Add('SELECT name FROM sqlite_master WHERE type=''table'' AND name='':TABLE_NAME'';');
+  FQuery.SQL.Add('SELECT name FROM sqlite_master WHERE type=''table'' AND name=:TABLE_NAME;');
   FQuery.ParamByName('TABLE_NAME').AsString := ATable;
   FQuery.Open;
 

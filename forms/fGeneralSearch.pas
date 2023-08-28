@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Imaging.pngimage,
   Vcl.ExtCtrls, Vcl.ComCtrls, uEnumTypes, uCategory, uSubCategory, uProvider,
-  uTypePayment, uFormPayment, uSystemManager, uFunctions, uCustomer;
+  uTypePayment, uFormPayment, uSystemManager, uFunctions, uCustomer, uCity;
 
 type
   TfrmGeneralSearch = class(TfrmBase)
@@ -54,6 +54,7 @@ type
     FMainPanelRegisterColor: TColor;
     FPanelBottomColor : TColor;
     FTitleForm : string;
+    FCity: TCity;
 
     procedure SetColors;
     procedure SelectRegister;
@@ -68,6 +69,7 @@ type
     property TypePayment: TTypePayment read FTypePayment  write FTypePayment;
     property FormPayment: TFormPayment read FFormPayment  write FFormPayment;
     property Customer: TCustomer read FCustomer write FCustomer;
+    property City: TCity read FCity write FCity;
   end;
 
 var
@@ -94,6 +96,7 @@ begin
   FTypePayment := TTypePayment.Create;
   FFormPayment := TFormPayment.Create;
   FCustomer    := TCustomer.Create;
+  FCity        := TCity.Create;
 end;
 
 procedure TfrmGeneralSearch.FormDestroy(Sender: TObject);
@@ -130,6 +133,11 @@ begin
     FCustomer.Free;
   end;
 
+  if Assigned(FCity) then
+  begin
+    FCity.Free;
+  end;
+
 end;
 
 procedure TfrmGeneralSearch.FormShow(Sender: TObject);
@@ -144,6 +152,7 @@ begin
     setProvider: FTitleForm := 'Fornecedores';
     setTypePayment: FTitleForm := 'Tipos de Pagamento';
     setFormPayment: FTitleForm := 'Formas de pagamento';
+    setCity       : FTitleForm := 'Cidades';
   end;
 
   FTitleForm := 'Pesquisar ' + FTitleForm;
@@ -176,6 +185,7 @@ end;
 
 procedure TfrmGeneralSearch.searchExecute;
 begin
+
   case FSearchEntityType of
     setCategory:
     begin
@@ -193,12 +203,14 @@ begin
     setCustomer:
     begin
       dtsSearch.DataSet := FCustomer.DataSet;
+      FCustomer.SearchFiltersCustomized.TypePerson := tpCustomer;
       FCustomer.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
       FCustomer.Search(FCustomer.DataSet);
     end;
     setProvider:
     begin
       dtsSearch.DataSet := FProvider.DataSet;
+      FProvider.SearchFiltersCustomized.TypePerson := tpProvider;
       FProvider.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
       FProvider.Search(FProvider.DataSet);
     end;
@@ -214,7 +226,14 @@ begin
       FFormPayment.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
       FFormPayment.Search(FFormPayment.DataSet);
     end;
+    setCity:
+    begin
+      dtsSearch.DataSet := FCity.DataSet;
+      FCity.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
+      FCity.Search(FCity.DataSet);
+    end;
   end;
+
   grdSearch.Columns[0].Visible := False;
   grdSearch.Columns[1].Visible := False;
 end;
@@ -268,6 +287,13 @@ begin
           FFormPayment.Clear;
           FFormPayment.Id := dtsSearch.DataSet.FieldByName('ID').AsInteger;
           FFormPayment.GetById;
+          lSelected := True;
+        end;
+      setCity:
+        begin
+          FCity.Clear;
+          FCity.Id := dtsSearch.DataSet.FieldByName('ID').AsInteger;
+          FCity.GetById;
           lSelected := True;
         end;
     end;

@@ -8,27 +8,27 @@ inherited frmMasterRegister: TfrmMasterRegister
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
   OnShow = FormShow
-  ExplicitWidth = 1057
-  ExplicitHeight = 658
+  ExplicitWidth = 1061
+  ExplicitHeight = 659
+  PixelsPerInch = 96
   TextHeight = 19
   object pnlTitle: TPanel
     Left = 0
     Top = 0
     Width = 1045
-    Height = 41
+    Height = 60
     Align = alTop
     BevelOuter = bvNone
     Caption = 'TITLE'
-    Color = 1152991
+    Color = 2368548
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
-    Font.Height = -19
+    Font.Height = -33
     Font.Name = 'Calibri'
     Font.Style = []
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
-    ExplicitWidth = 1041
   end
   object pnlBottom: TPanel
     Left = 0
@@ -39,20 +39,19 @@ inherited frmMasterRegister: TfrmMasterRegister
     BevelOuter = bvNone
     ParentBackground = False
     TabOrder = 1
-    ExplicitTop = 589
-    ExplicitWidth = 1041
   end
   object pnlMain: TPanel
     Left = 0
-    Top = 153
+    Top = 172
     Width = 150
-    Height = 437
+    Height = 418
     Align = alLeft
     BevelOuter = bvNone
     Color = 6511179
     ParentBackground = False
     TabOrder = 2
-    ExplicitHeight = 436
+    ExplicitTop = 153
+    ExplicitHeight = 437
     object pnlButtonInsert: TPanel
       Left = 0
       Top = 0
@@ -60,19 +59,21 @@ inherited frmMasterRegister: TfrmMasterRegister
       Height = 41
       Cursor = crHandPoint
       Align = alTop
-      BevelKind = bkFlat
+      BevelKind = bkTile
       BevelOuter = bvNone
       Caption = 'Incluir'
-      Color = 7855338
+      Color = 6009689
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
-      Font.Height = -16
+      Font.Height = -20
       Font.Name = 'Calibri'
       Font.Style = []
       ParentBackground = False
       ParentFont = False
       TabOrder = 0
       OnClick = pnlButtonInsertClick
+      OnEnter = pnlButtonInsertEnter
+      OnExit = pnlButtonInsertExit
       OnMouseEnter = pnlButtonInsertMouseEnter
       OnMouseLeave = pnlButtonInsertMouseLeave
     end
@@ -83,18 +84,21 @@ inherited frmMasterRegister: TfrmMasterRegister
       Height = 41
       Cursor = crHandPoint
       Align = alTop
-      BevelKind = bkFlat
+      BevelKind = bkTile
       BevelOuter = bvNone
       Caption = 'Alterar'
+      Color = 4868937
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
-      Font.Height = -16
+      Font.Height = -20
       Font.Name = 'Calibri'
       Font.Style = []
       ParentBackground = False
       ParentFont = False
       TabOrder = 1
       OnClick = pnlButtonEditClick
+      OnEnter = pnlButtonEditEnter
+      OnExit = pnlButtonEditExit
       OnMouseEnter = pnlButtonEditMouseEnter
       OnMouseLeave = pnlButtonEditMouseLeave
     end
@@ -105,18 +109,20 @@ inherited frmMasterRegister: TfrmMasterRegister
       Height = 41
       Cursor = crHandPoint
       Align = alTop
-      BevelKind = bkFlat
+      BevelKind = bkTile
       BevelOuter = bvNone
       Caption = 'Excluir'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
-      Font.Height = -16
+      Font.Height = -20
       Font.Name = 'Calibri'
       Font.Style = []
       ParentBackground = False
       ParentFont = False
       TabOrder = 2
       OnClick = pnlButtonDeleteClick
+      OnEnter = pnlButtonDeleteEnter
+      OnExit = pnlButtonDeleteExit
       OnMouseEnter = pnlButtonDeleteMouseEnter
       OnMouseLeave = pnlButtonDeleteMouseLeave
     end
@@ -127,18 +133,20 @@ inherited frmMasterRegister: TfrmMasterRegister
       Height = 41
       Cursor = crHandPoint
       Align = alTop
-      BevelKind = bkFlat
+      BevelKind = bkTile
       BevelOuter = bvNone
       Caption = 'Imprimir'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
-      Font.Height = -16
+      Font.Height = -20
       Font.Name = 'Calibri'
       Font.Style = []
       ParentBackground = False
       ParentFont = False
       TabOrder = 3
       OnClick = pnlButtonPrintClick
+      OnEnter = pnlButtonPrintEnter
+      OnExit = pnlButtonPrintExit
       OnMouseEnter = pnlButtonPrintMouseEnter
       OnMouseLeave = pnlButtonPrintMouseLeave
     end
@@ -149,38 +157,40 @@ inherited frmMasterRegister: TfrmMasterRegister
       Height = 41
       Cursor = crHandPoint
       Align = alTop
-      BevelKind = bkFlat
+      BevelKind = bkTile
       BevelOuter = bvNone
       Caption = 'Fechar'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
-      Font.Height = -16
+      Font.Height = -20
       Font.Name = 'Calibri'
       Font.Style = []
       ParentBackground = False
       ParentFont = False
       TabOrder = 4
       OnClick = pnlButtonCloseClick
+      OnEnter = pnlButtonCloseEnter
+      OnExit = pnlButtonCloseExit
       OnMouseEnter = pnlButtonCloseMouseEnter
       OnMouseLeave = pnlButtonCloseMouseLeave
     end
   end
   object pnlGeneral: TPanel
     Left = 150
-    Top = 153
+    Top = 172
     Width = 895
-    Height = 437
+    Height = 418
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 3
-    ExplicitWidth = 891
-    ExplicitHeight = 436
+    ExplicitTop = 153
+    ExplicitHeight = 437
     object pgcGeneral: TPageControl
       Left = 0
       Top = 0
       Width = 895
-      Height = 437
-      ActivePage = tabGrid
+      Height = 418
+      ActivePage = tabRegister
       Align = alClient
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
@@ -189,15 +199,15 @@ inherited frmMasterRegister: TfrmMasterRegister
       Font.Style = []
       ParentFont = False
       TabOrder = 0
-      ExplicitWidth = 891
-      ExplicitHeight = 436
+      ExplicitHeight = 437
       object tabGrid: TTabSheet
         Caption = 'Consulta'
+        ExplicitHeight = 408
         object grdSearch: TDBGrid
           Left = 0
           Top = 0
           Width = 887
-          Height = 408
+          Height = 389
           Align = alClient
           BorderStyle = bsNone
           DataSource = dtsSearch
@@ -223,9 +233,10 @@ inherited frmMasterRegister: TfrmMasterRegister
       object tabRegister: TTabSheet
         Caption = 'Cadastro'
         ImageIndex = 1
+        ExplicitHeight = 408
         object pnlMainRegister: TPanel
           Left = 0
-          Top = 367
+          Top = 348
           Width = 887
           Height = 41
           Align = alBottom
@@ -238,6 +249,7 @@ inherited frmMasterRegister: TfrmMasterRegister
           ParentBackground = False
           ParentFont = False
           TabOrder = 0
+          ExplicitTop = 367
           object pnlButtonSave: TPanel
             Left = 740
             Top = 0
@@ -248,9 +260,17 @@ inherited frmMasterRegister: TfrmMasterRegister
             BevelKind = bkTile
             BevelOuter = bvNone
             Caption = 'Salvar'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -20
+            Font.Name = 'Calibri'
+            Font.Style = []
             ParentBackground = False
+            ParentFont = False
             TabOrder = 0
             OnClick = pnlButtonSaveClick
+            OnEnter = pnlButtonSaveEnter
+            OnExit = pnlButtonSaveExit
             OnMouseEnter = pnlButtonSaveMouseEnter
             OnMouseLeave = pnlButtonSaveMouseLeave
           end
@@ -264,9 +284,17 @@ inherited frmMasterRegister: TfrmMasterRegister
             BevelKind = bkTile
             BevelOuter = bvNone
             Caption = 'Cancelar'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -20
+            Font.Name = 'Calibri'
+            Font.Style = []
             ParentBackground = False
+            ParentFont = False
             TabOrder = 1
             OnClick = pnlButtonCancelClick
+            OnEnter = pnlButtonCancelEnter
+            OnExit = pnlButtonCancelExit
             OnMouseEnter = pnlButtonCancelMouseEnter
             OnMouseLeave = pnlButtonCancelMouseLeave
           end
@@ -275,7 +303,7 @@ inherited frmMasterRegister: TfrmMasterRegister
           Left = 0
           Top = 0
           Width = 887
-          Height = 367
+          Height = 348
           ActivePage = tabRegisterBasic
           Align = alClient
           Font.Charset = DEFAULT_CHARSET
@@ -285,13 +313,15 @@ inherited frmMasterRegister: TfrmMasterRegister
           Font.Style = []
           ParentFont = False
           TabOrder = 1
+          ExplicitHeight = 367
           object tabRegisterBasic: TTabSheet
             Caption = 'B'#225'sico'
+            ExplicitHeight = 338
             object pnlRegisterBasic: TPanel
               Left = 0
               Top = 0
               Width = 879
-              Height = 338
+              Height = 319
               Align = alClient
               BevelOuter = bvNone
               Color = 14276046
@@ -303,6 +333,7 @@ inherited frmMasterRegister: TfrmMasterRegister
               ParentBackground = False
               ParentFont = False
               TabOrder = 0
+              ExplicitHeight = 338
             end
           end
         end
@@ -311,7 +342,7 @@ inherited frmMasterRegister: TfrmMasterRegister
   end
   object pgcSearch: TPageControl
     Left = 0
-    Top = 41
+    Top = 60
     Width = 1045
     Height = 112
     ActivePage = tabSearch
@@ -323,7 +354,7 @@ inherited frmMasterRegister: TfrmMasterRegister
     Font.Style = []
     ParentFont = False
     TabOrder = 4
-    ExplicitWidth = 1041
+    ExplicitTop = 41
     object tabSearch: TTabSheet
       Caption = 'Op'#231#245'es de pesquisa'
       object pnlSearch: TPanel
@@ -341,7 +372,6 @@ inherited frmMasterRegister: TfrmMasterRegister
         ParentBackground = False
         ParentFont = False
         TabOrder = 0
-        ExplicitWidth = 1033
         object lb1: TLabel
           Left = 16
           Top = 6
@@ -368,20 +398,21 @@ inherited frmMasterRegister: TfrmMasterRegister
             0954506E67496D61676589504E470D0A1A0A0000000D49484452000000180000
             00180806000000E0773DF80000000467414D410000B18F0BFC61050000000662
             4B4744000000000000F943BB7F0000000970485973000000600000006000F06B
-            42CF000001334944415478DADDD53F4A034114C7F159580CA416044DC2A287B0
-            50037A87A8E805C414B6365A68632BA29EC07FE40E11510BEF20BAA8B1B11715
-            0BBF0FDF1282C9EC8CBB5BE8830F53ECBCF991CDCC6C600AAEE05F07CCA0A9E3
-            305E70897D5C650908B187154BDF01D6F0F99B80435DFC153B38C2132A58C63A
-            CA1AD2F40DA8E342179FC34D9F9E49B435641AD73E01A758C026B62D7D1BD8C2
-            09967C023A18C504EE2C7DF2FC56E7577C02DE3184123E2C7DF2FC4DE7948AFC
-            05CF18F3099077BA68DCFF83339DEF1C20BB420E93EB2EAAEB7CE7002939A9AB
-            A67B0E8EF188AAF9DE31C9396861DEA4D4A093BCAB21834A166F20C6AC8ECE01
-            494D99EE5D34627AEF2219EF11A58564B94D6B38C7381E34E4C7CECB7A5DA786
-            E4F13DB086E4F5C14942C2A202A4221DE3BC5F91B5FE7EC0171B6C4819A051CA
-            340000002574455874646174653A63726561746500323032322D30382D303654
-            31323A34373A34372B30303A30309647D7A10000002574455874646174653A6D
-            6F6469667900323032322D30382D30365431323A34373A34372B30303A3030E7
-            1A6F1D0000000049454E44AE426082}
+            42CF0000014F4944415478DADD95CD4A02511886CF0169A0B520D824A217D1A2
+            49B07BA8A46E2072D1B64D2D72E33642BD02B5F01E8A185B740F5152D9A67D94
+            08D33379422BE7E78CCEC6030FAF30DFF91E87393F52C43CE4E20A1CC7D920CA
+            E06612DEC0869A94B21B5940E304710EFB3EF3EA7088681845D050CDDFA10A4D
+            780113F6E008965D0982B29680E605E24635DFA4C1DD943FB0465C298945CDAD
+            8EE082D881132656BC2651774C9C429BBA5D1D419F48439E890F3E823C710F7D
+            EA4C1DC127B1040613073E0283F8800175469C6FF04ADD8A8EA04D9434BEC125
+            75251D8125469B29EC2A2A50638716A80635E2408CF7410B9E6115DC15F3B30F
+            3A34DF1601C36B279F2989D7E8C016F4A088A8175A30215A17E3B328257E9F45
+            36CF1FF99D0D92443E4D1164886BC8C19392FC5B79331DD7612433DF074192B9
+            5C381392442C0225C97E37FCF3B117F84E9ED7F802083296196F48DCCB000000
+            2574455874646174653A63726561746500323032322D30382D30365431323A34
+            373A34362B30303A30303030DC150000002574455874646174653A6D6F646966
+            7900323032322D30382D30365431323A34373A34362B30303A3030416D64A900
+            00000049454E44AE426082}
           ShowHint = True
           OnClick = imButtonSearchExecuteClick
         end
@@ -398,15 +429,16 @@ inherited frmMasterRegister: TfrmMasterRegister
             0954506E67496D61676589504E470D0A1A0A0000000D49484452000000180000
             00180806000000E0773DF80000000467414D410000B18F0BFC61050000000662
             4B4744000000000000F943BB7F0000000970485973000000600000006000F06B
-            42CF0000009C4944415478DA6364A031601CB560D05AA001C4D3813812885F10
-            3043148857007101105F26D682BD40EC04C457A0F46B3C86EF03621D28ED4CAC
-            05A2504B7481F806103B62F109316AF0C6013E0388329C9005B80CFA4BACE1C4
-            58801ECE57A0623036BEF821DA02749F3010E3F24165014D8388A6914CD3644A
-            F38C46F3A202A4612210473010884406446197CF80480444C50155C0A805036F
-            01006B284419F40874B80000002574455874646174653A637265617465003230
-            32322D30382D32305430323A33313A31342B30303A3030D1C8BEC90000002574
-            455874646174653A6D6F6469667900323032322D30382D32305430323A33313A
-            31342B30303A3030A09506750000000049454E44AE426082}
+            42CF000000A84944415478DA6364A031601CB560705AF0FFFF7F0D20351D8823
+            1919195FE03300A8561448AD00E202A0DACBC45AB017483901F115100DD4F81A
+            8FE1FB8058074403D539136B014823C8125D20BE01C48EE83E21460D4E0B0819
+            40ACE1782DC0651010FF25D67082166009E72B5061181B67FC106D01169F3010
+            E3F2C163014D8388A6914CD3644AF38C468FA202A461221047108A44A4C22E1F
+            A8F60A511650138C5A30F0160000E46A861908EB94D100000025744558746461
+            74653A63726561746500323032322D30382D32305430323A33313A35372B3030
+            3A3030646AAAAE0000002574455874646174653A6D6F6469667900323032322D
+            30382D32305430323A33313A35372B30303A3030153712120000000049454E44
+            AE426082}
           ShowHint = True
           OnClick = imButtonClearEdtSearchClick
         end

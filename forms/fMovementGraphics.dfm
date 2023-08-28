@@ -15,12 +15,12 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     Left = 0
     Top = 0
     Width = 1444
-    Height = 41
+    Height = 60
     Align = alTop
     Caption = 'Gr'#225'ficos de movimenta'#231#227'o financeira'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -19
+    Font.Height = -33
     Font.Name = 'Calibri'
     Font.Style = []
     ParentFont = False
@@ -36,24 +36,28 @@ inherited frmMovementGraphics: TfrmMovementGraphics
   end
   object pgcGeneral: TPageControl
     Left = 0
-    Top = 111
+    Top = 130
     Width = 1444
-    Height = 895
+    Height = 876
     ActivePage = tabGraphics
     Align = alClient
     TabOrder = 2
+    ExplicitTop = 111
+    ExplicitHeight = 895
     object tabGraphics: TTabSheet
       Caption = 'Visualizar em Gr'#225'ficos'
+      ExplicitHeight = 861
       object scrGraphics: TScrollBox
         Left = 0
         Top = 0
         Width = 1436
-        Height = 861
+        Height = 842
         Align = alClient
         BevelInner = bvNone
         BevelOuter = bvNone
         BorderStyle = bsNone
         TabOrder = 0
+        ExplicitHeight = 861
         object chtFormPaymentsExpenses: TChart
           Left = 4
           Top = 0
@@ -305,16 +309,18 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     object tabLists: TTabSheet
       Caption = 'Visualizar em listas'
       ImageIndex = 1
+      ExplicitHeight = 861
       object scrLists: TScrollBox
         Left = 0
         Top = 0
         Width = 1436
-        Height = 861
+        Height = 842
         Align = alClient
         BevelInner = bvNone
         BevelOuter = bvNone
         BorderStyle = bsNone
         TabOrder = 0
+        ExplicitHeight = 861
         object pn1: TPanel
           Left = 3
           Top = 3
@@ -566,26 +572,29 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     object tabTotals: TTabSheet
       Caption = 'Visualizar os totais'
       ImageIndex = 2
+      ExplicitHeight = 861
       object scrTotals: TScrollBox
         Left = 0
         Top = 0
         Width = 1436
-        Height = 861
+        Height = 842
         Align = alClient
         BevelInner = bvNone
         BevelOuter = bvNone
         BorderStyle = bsNone
         TabOrder = 0
+        ExplicitHeight = 861
       end
     end
   end
   object pnlFilters: TPanel
     Left = 0
-    Top = 41
+    Top = 60
     Width = 1444
     Height = 70
     Align = alTop
     TabOrder = 3
+    ExplicitTop = 41
     object lb6: TLabel
       Left = 8
       Top = 6

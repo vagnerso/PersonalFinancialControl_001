@@ -79,6 +79,20 @@ type
     procedure grdSearchDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn;
       State: TGridDrawState);
     procedure grdSearchDblClick(Sender: TObject);
+    procedure pnlButtonInsertEnter(Sender: TObject);
+    procedure pnlButtonEditEnter(Sender: TObject);
+    procedure pnlButtonDeleteEnter(Sender: TObject);
+    procedure pnlButtonPrintEnter(Sender: TObject);
+    procedure pnlButtonCloseEnter(Sender: TObject);
+    procedure pnlButtonCancelEnter(Sender: TObject);
+    procedure pnlButtonSaveEnter(Sender: TObject);
+    procedure pnlButtonInsertExit(Sender: TObject);
+    procedure pnlButtonEditExit(Sender: TObject);
+    procedure pnlButtonDeleteExit(Sender: TObject);
+    procedure pnlButtonPrintExit(Sender: TObject);
+    procedure pnlButtonCloseExit(Sender: TObject);
+    procedure pnlButtonCancelExit(Sender: TObject);
+    procedure pnlButtonSaveExit(Sender: TObject);
   private
     { Private declarations }
     FBackgroundColor : TColor;
@@ -87,7 +101,7 @@ type
     FActionButtonColor : TColor;
     FHoverActionButtonColor: TColor;
     FActionButtonFontColor : TColor;
-    FActionButtonHoverColor: TColor;
+    FHoverActionButtonFontColor: TColor;
     FSearchPanelColor : TColor;
     FMainPanelColor : TColor;
     FRegisterPanelColor: TColor;
@@ -231,18 +245,28 @@ begin
   cancelRegister;
 end;
 
+procedure TfrmMasterRegister.pnlButtonCancelEnter(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
+end;
+
+procedure TfrmMasterRegister.pnlButtonCancelExit(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
+end;
+
 procedure TfrmMasterRegister.pnlButtonCancelMouseEnter(Sender: TObject);
 begin
   inherited;
-  TPanel(Sender).Color := FHoverActionButtonColor;
-  TPanel(Sender).Font.Color := FActionButtonHoverColor;
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
 end;
 
 procedure TfrmMasterRegister.pnlButtonCancelMouseLeave(Sender: TObject);
 begin
   inherited;
-  TPanel(Sender).Color := FActionButtonColor;
-  TPanel(Sender).Font.Color := FActionButtonFontColor;
+  TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
 end;
 
 procedure TfrmMasterRegister.pnlButtonCloseClick(Sender: TObject);
@@ -251,18 +275,28 @@ begin
   closeForm;
 end;
 
+procedure TfrmMasterRegister.pnlButtonCloseEnter(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
+end;
+
+procedure TfrmMasterRegister.pnlButtonCloseExit(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
+end;
+
 procedure TfrmMasterRegister.pnlButtonCloseMouseEnter(Sender: TObject);
 begin
   inherited;
-  TPanel(Sender).Color := FHoverActionButtonColor;
-  TPanel(Sender).Font.Color := FActionButtonHoverColor;
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
 end;
 
 procedure TfrmMasterRegister.pnlButtonCloseMouseLeave(Sender: TObject);
 begin
   inherited;
-  TPanel(Sender).Color := FActionButtonColor;
-  TPanel(Sender).Font.Color := FActionButtonFontColor;
+  TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
 end;
 
 procedure TfrmMasterRegister.pnlButtonDeleteClick(Sender: TObject);
@@ -271,18 +305,28 @@ begin
   deleteRegister;
 end;
 
+procedure TfrmMasterRegister.pnlButtonDeleteEnter(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
+end;
+
+procedure TfrmMasterRegister.pnlButtonDeleteExit(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
+end;
+
 procedure TfrmMasterRegister.pnlButtonDeleteMouseEnter(Sender: TObject);
 begin
   inherited;
-  TPanel(Sender).Color := FHoverActionButtonColor;
-  TPanel(Sender).Font.Color := FActionButtonHoverColor;
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
 end;
 
 procedure TfrmMasterRegister.pnlButtonDeleteMouseLeave(Sender: TObject);
 begin
   inherited;
-  TPanel(Sender).Color := FActionButtonColor;
-  TPanel(Sender).Font.Color := FActionButtonFontColor;
+  TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
 end;
 
 procedure TfrmMasterRegister.pnlButtonEditClick(Sender: TObject);
@@ -291,18 +335,28 @@ begin
   editRegister;
 end;
 
+procedure TfrmMasterRegister.pnlButtonEditEnter(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
+end;
+
+procedure TfrmMasterRegister.pnlButtonEditExit(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
+end;
+
 procedure TfrmMasterRegister.pnlButtonEditMouseEnter(Sender: TObject);
 begin
   inherited;
-  TPanel(Sender).Color := FHoverActionButtonColor;
-  TPanel(Sender).Font.Color := FActionButtonHoverColor;
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
 end;
 
 procedure TfrmMasterRegister.pnlButtonEditMouseLeave(Sender: TObject);
 begin
   inherited;
-  TPanel(Sender).Color := FActionButtonColor;
-  TPanel(Sender).Font.Color := FActionButtonFontColor;
+  TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
 end;
 
 procedure TfrmMasterRegister.pnlButtonInsertClick(Sender: TObject);
@@ -311,18 +365,28 @@ begin
   insertRegister;
 end;
 
+procedure TfrmMasterRegister.pnlButtonInsertEnter(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
+end;
+
+procedure TfrmMasterRegister.pnlButtonInsertExit(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
+end;
+
 procedure TfrmMasterRegister.pnlButtonInsertMouseEnter(Sender: TObject);
 begin
   inherited;
-  TPanel(Sender).Color := FHoverActionButtonColor;
-  TPanel(Sender).Font.Color := FActionButtonHoverColor;
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
 end;
 
 procedure TfrmMasterRegister.pnlButtonInsertMouseLeave(Sender: TObject);
 begin
   inherited;
-  TPanel(Sender).Color := FActionButtonColor;
-  TPanel(Sender).Font.Color := FActionButtonFontColor;
+  TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
 end;
 
 procedure TfrmMasterRegister.pnlButtonPrintClick(Sender: TObject);
@@ -331,18 +395,28 @@ begin
   printRegister;
 end;
 
+procedure TfrmMasterRegister.pnlButtonPrintEnter(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
+end;
+
+procedure TfrmMasterRegister.pnlButtonPrintExit(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
+end;
+
 procedure TfrmMasterRegister.pnlButtonPrintMouseEnter(Sender: TObject);
 begin
   inherited;
-  TPanel(Sender).Color := FHoverActionButtonColor;
-  TPanel(Sender).Font.Color := FActionButtonHoverColor;
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
 end;
 
 procedure TfrmMasterRegister.pnlButtonPrintMouseLeave(Sender: TObject);
 begin
   inherited;
-  TPanel(Sender).Color := FActionButtonColor;
-  TPanel(Sender).Font.Color := FActionButtonFontColor;
+  TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
 end;
 
 procedure TfrmMasterRegister.pnlButtonSaveClick(Sender: TObject);
@@ -351,18 +425,28 @@ begin
   saveRegister;
 end;
 
+procedure TfrmMasterRegister.pnlButtonSaveEnter(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
+end;
+
+procedure TfrmMasterRegister.pnlButtonSaveExit(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
+end;
+
 procedure TfrmMasterRegister.pnlButtonSaveMouseEnter(Sender: TObject);
 begin
   inherited;
-  TPanel(Sender).Color := FHoverActionButtonColor;
-  TPanel(Sender).Font.Color := FActionButtonHoverColor;
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
 end;
 
 procedure TfrmMasterRegister.pnlButtonSaveMouseLeave(Sender: TObject);
 begin
   inherited;
-  TPanel(Sender).Color := FActionButtonColor;
-  TPanel(Sender).Font.Color := FActionButtonFontColor;
+  TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
 end;
 
 procedure TfrmMasterRegister.SetColors;
@@ -373,7 +457,7 @@ begin
   FActionButtonColor := TSystemManager.GetInstance.LayoutConfiguration.ActionButtonColor;
   FHoverActionButtonColor:= TSystemManager.GetInstance.LayoutConfiguration.HoverActionButtonColor;
   FActionButtonFontColor := TSystemManager.GetInstance.LayoutConfiguration.ActionButtonFontColor;
-  FActionButtonHoverColor:= TSystemManager.GetInstance.LayoutConfiguration.ActionButtonHoverFontColor;
+  FHoverActionButtonFontColor := TSystemManager.GetInstance.LayoutConfiguration.ActionButtonHoverFontColor;
   FSearchPanelColor := TSystemManager.GetInstance.LayoutConfiguration.SearchPanelColor;
   FMainPanelColor := TSystemManager.GetInstance.LayoutConfiguration.MainPanelColor;
   FRegisterPanelColor := TSystemManager.GetInstance.LayoutConfiguration.RegisterPanelColor;

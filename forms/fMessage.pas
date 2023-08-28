@@ -8,16 +8,21 @@ uses
 
 type
   TfrmMessage = class(TForm)
-    pnlTitle: TPanel;
+    pnlCenter: TPanel;
     pnlGeneral: TPanel;
-    pnlMenu: TPanel;
     lblMessageType: TLabel;
     lblMessage: TLabel;
-    pnlButtonOk: TPanel;
     imgIcon: TImage;
+    pnlMenu: TPanel;
+    pnlButtonOk: TPanel;
+    pnlTitle: TPanel;
     procedure pnlButtonOkClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FormShow(Sender: TObject);
+    procedure pnlButtonOkMouseEnter(Sender: TObject);
+    procedure pnlButtonOkEnter(Sender: TObject);
+    procedure pnlButtonOkMouseLeave(Sender: TObject);
+    procedure pnlButtonOkExit(Sender: TObject);
   private
     FTitle: string;
     FMessageText: string;
@@ -25,6 +30,10 @@ type
     FBackgroundColor : TColor;
     FTitleColor : TColor;
     FTitleFontColor : TColor;
+    FActionButtonColor : TColor;
+    FHoverActionButtonColor: TColor;
+    FActionButtonFontColor : TColor;
+    FHoverActionButtonFontColor: TColor;
 
     procedure SetColors;
     { Private declarations }
@@ -70,23 +79,51 @@ begin
   FBackgroundColor := TSystemManager.GetInstance.LayoutConfiguration.BackgroundColor;
   FTitleColor := TSystemManager.GetInstance.LayoutConfiguration.TitleColor;
   FTitleFontColor := TSystemManager.GetInstance.LayoutConfiguration.TitleFontColor;
+  FActionButtonColor := TSystemManager.GetInstance.LayoutConfiguration.ActionButtonColor;
+  FHoverActionButtonColor:= TSystemManager.GetInstance.LayoutConfiguration.HoverActionButtonColor;
+  FActionButtonFontColor := TSystemManager.GetInstance.LayoutConfiguration.ActionButtonFontColor;
+  FHoverActionButtonFontColor := TSystemManager.GetInstance.LayoutConfiguration.ActionButtonHoverFontColor;
 
-  Color := FBackgroundColor;
+  Color := TSystemManager.GetInstance.LayoutConfiguration.PopUpBackgroundColor;
   pnlTitle.Color := FTitleColor;
   pnlTitle.Font.Color := FTitleFontColor;
   pnlMenu.Color := FTitleColor;
+  pnlGeneral.Color := FBackgroundColor;
 
 end;
 
 procedure TfrmMessage.FormShow(Sender: TObject);
 begin
+  WindowState := TWindowState.wsMaximized;
   SetColors;
   Caption := TFunctions.AppName + ' - Versão: ' + TFunctions.AppVersion;
+  TFunctions.CenterPanel(self, pnlCenter);
+  pnlButtonOk.SetFocus;
 end;
 
 procedure TfrmMessage.pnlButtonOkClick(Sender: TObject);
 begin
   Confirm;
+end;
+
+procedure TfrmMessage.pnlButtonOkEnter(Sender: TObject);
+begin
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
+end;
+
+procedure TfrmMessage.pnlButtonOkExit(Sender: TObject);
+begin
+  TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
+end;
+
+procedure TfrmMessage.pnlButtonOkMouseEnter(Sender: TObject);
+begin
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
+end;
+
+procedure TfrmMessage.pnlButtonOkMouseLeave(Sender: TObject);
+begin
+  TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
 end;
 
 procedure TfrmMessage.PrepareMessageBox;

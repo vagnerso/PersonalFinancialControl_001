@@ -5,7 +5,7 @@ interface
 uses
   Vcl.Forms,
   System.SysUtils, Vcl.StdCtrls, Vcl.Dialogs, Data.DB, fMessage, uEnumTypes,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, System.UITypes;
 
 type TFunctions=class
   private
@@ -22,6 +22,7 @@ type TFunctions=class
   class function IntegerToBoolean(AValue: Int8): Boolean;
   class procedure FormatDataSetDecimalFields(ADataSet: TDataSet; AMask: String);
   class procedure CenterPanel(AForm: TForm; APanel: TPanel);
+  class procedure SetButtonColors(ASender: TObject; AButtonColor, AFontColor: TColor);
 end;
 
 implementation
@@ -62,6 +63,12 @@ begin
   begin
     Result := True;
   end;
+end;
+
+class procedure TFunctions.SetButtonColors(ASender: TObject; AButtonColor, AFontColor: TColor);
+begin
+  TPanel(ASender).Color := AButtonColor;
+  TPanel(ASender).Font.Color := AFontColor;
 end;
 
 class function TFunctions.ApplicationPath: string;

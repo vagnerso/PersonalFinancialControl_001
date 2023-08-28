@@ -3,7 +3,8 @@ unit uCustomer;
 interface
 
 uses
-  uPerson;
+  uPerson,
+  uEnumTypes;
 
 type TCustomer = class(TPerson)
   private
