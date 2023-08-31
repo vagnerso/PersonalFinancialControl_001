@@ -14645,7 +14645,7 @@ object frmMain: TfrmMain
     TabOrder = 1
     object pnlMenuRevenues: TPanel
       Left = 14
-      Top = 180
+      Top = 231
       Width = 259
       Height = 80
       Cursor = crHandPoint
@@ -14666,7 +14666,7 @@ object frmMain: TfrmMain
       Left = 288
       Top = 180
       Width = 280
-      Height = 80
+      Height = 131
       Cursor = crHandPoint
       BevelOuter = bvNone
       Caption = 'Cadastrar Despesas'
@@ -14693,7 +14693,7 @@ object frmMain: TfrmMain
     end
     object pnButtonManageMovements: TPanel
       Left = 15
-      Top = 272
+      Top = 322
       Width = 553
       Height = 49
       Cursor = crHandPoint
@@ -14712,7 +14712,7 @@ object frmMain: TfrmMain
     end
     object pnlButtonMovementReports: TPanel
       Left = 14
-      Top = 394
+      Top = 444
       Width = 554
       Height = 49
       Cursor = crHandPoint
@@ -14730,7 +14730,7 @@ object frmMain: TfrmMain
     end
     object pnButtonMovementGraphics: TPanel
       Left = 15
-      Top = 332
+      Top = 382
       Width = 553
       Height = 49
       Cursor = crHandPoint
@@ -14748,9 +14748,9 @@ object frmMain: TfrmMain
       OnClick = pnButtonMovementGraphicsClick
     end
     object pnlMenuSubCategory: TPanel
-      Left = 288
-      Top = 28
-      Width = 280
+      Left = 14
+      Top = 180
+      Width = 259
       Height = 40
       Cursor = crHandPoint
       BevelOuter = bvNone
@@ -14768,7 +14768,7 @@ object frmMain: TfrmMain
     end
     object pnlMenuProvider: TPanel
       Left = 288
-      Top = 79
+      Top = 28
       Width = 280
       Height = 40
       Cursor = crHandPoint
@@ -14891,7 +14891,7 @@ object frmMain: TfrmMain
     end
     object pnlMenuCustomer: TPanel
       Left = 288
-      Top = 129
+      Top = 79
       Width = 280
       Height = 40
       Cursor = crHandPoint
@@ -14907,6 +14907,25 @@ object frmMain: TfrmMain
       ParentFont = False
       TabOrder = 12
       OnClick = pnlMenuCustomerClick
+    end
+    object pnlMainCity: TPanel
+      Left = 287
+      Top = 129
+      Width = 280
+      Height = 40
+      Cursor = crHandPoint
+      BevelOuter = bvNone
+      Caption = 'Cidades'
+      Color = 9668619
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -20
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentBackground = False
+      ParentFont = False
+      TabOrder = 13
+      OnClick = pnlMainCityClick
     end
   end
 end

@@ -11,6 +11,7 @@ inherited frmCustomer: TfrmCustomer
     ExplicitTop = 172
     ExplicitHeight = 418
     inherited pgcGeneral: TPageControl
+      ActivePage = tabGrid
       ExplicitHeight = 418
       inherited tabGrid: TTabSheet
         ExplicitLeft = 4

@@ -8,14 +8,18 @@ uses
   FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async,
   FireDAC.Phys, FireDAC.VCLUI.Wait, Data.DB, Vcl.StdCtrls, Vcl.Imaging.pngimage,
   fTypePayment, uSystemManager, fFormPayment, fSubCategory, fMovement,
-  fProvider, fImport, uEnumTypes;
+  fProvider, fImport, uEnumTypes, fManageMovements, fMovementGraphics,
+  fUtilities;
 
 type
   TfrmMain = class(TForm)
     pnlDetail: TPanel;
     imIconApp: TImage;
     lblTitle: TLabel;
+    lbUser: TLabel;
+    imUser: TImage;
     lblDeveloper: TLabel;
+    pnMenus: TPanel;
     pnlMenuCategory: TPanel;
     pnlMenuSubCategory: TPanel;
     pnlMenuRevenues: TPanel;
@@ -24,6 +28,12 @@ type
     pnlMenuExpenses: TPanel;
     pnlMenuProvider: TPanel;
     btImport: TButton;
+    pnButtonManageMovements: TPanel;
+    pnlButtonMovementReports: TPanel;
+    pnButtonMovementGraphics: TPanel;
+    pnlSettings: TPanel;
+    imgButtonUtilities: TImage;
+    pnlMenuCustomer: TPanel;
     procedure FormShow(Sender: TObject);
     procedure pnlMenuCategoryClick(Sender: TObject);
     procedure pnlMenuTypePaymentClick(Sender: TObject);
@@ -33,11 +43,16 @@ type
     procedure pnlMenuRevenuesClick(Sender: TObject);
     procedure pnlMenuProviderClick(Sender: TObject);
     procedure btImportClick(Sender: TObject);
+    procedure pnButtonManageMovementsClick(Sender: TObject);
+    procedure pnButtonMovementGraphicsClick(Sender: TObject);
+    procedure imgButtonUtilitiesClick(Sender: TObject);
+    procedure pnlMenuCustomerClick(Sender: TObject);
   private
     procedure loginCall;
     { Private declarations }
   public
     { Public declarations }
+    procedure GetUserInfos;
   end;
 
 var
@@ -46,7 +61,7 @@ var
 implementation
 
 uses
-  uDataBaseConnection;
+  uDataBaseConnection, fCustomer;
 
 {$R *.dfm}
 
@@ -68,6 +83,23 @@ begin
   loginCall;
 end;
 
+procedure TfrmMain.GetUserInfos;
+begin
+  lbUser.Caption := TSystemManager.GetInstance.LoggedUser.Name;
+end;
+
+procedure TfrmMain.imgButtonUtilitiesClick(Sender: TObject);
+var
+  lForm: TFrmUtilities;
+begin
+   lForm := TfrmUtilities.Create(nil);
+   try
+     lform.ShowModal;
+   finally
+     lForm.Free;
+   end;
+end;
+
 procedure TfrmMain.loginCall;
 var
   lform: TFrmLogin;
@@ -80,16 +112,55 @@ begin
   end;
 end;
 
-procedure TfrmMain.pnlMenuCategoryClick(Sender: TObject);
+procedure TfrmMain.pnButtonManageMovementsClick(Sender: TObject);
 var
-  lForm: TFrmCategory;
+  lForm: TFrmManageMovements;
 begin
-  lForm := TfrmCategory.Create(Self);
+  lForm := TFrmManageMovements.Create(nil);
   try
     lForm.showmodal;
   finally
     lForm.Free;
   end;
+
+end;
+
+procedure TfrmMain.pnButtonMovementGraphicsClick(Sender: TObject);
+var
+  lForm: TFrmMovementGraphics;
+begin
+  lForm := TFrmMovementGraphics.Create(nil);
+  try
+    lForm.showmodal;
+  finally
+    lForm.Free;
+  end;
+
+end;
+
+procedure TfrmMain.pnlMenuCategoryClick(Sender: TObject);
+var
+  lForm: TFrmCategory;
+begin
+  lForm := TfrmCategory.Create(nil);
+  try
+    lForm.showmodal;
+  finally
+    lForm.Free;
+  end;
+end;
+
+procedure TfrmMain.pnlMenuCustomerClick(Sender: TObject);
+var
+  lForm: TfrmCustomer;
+begin
+  lForm := TfrmCustomer.Create(nil);
+  try
+    lForm.ShowModal;
+  finally
+    lForm.Free;
+  end;
+
 end;
 
 procedure TfrmMain.pnlMenuExpensesClick(Sender: TObject);
@@ -110,7 +181,7 @@ procedure TfrmMain.pnlMenuFormPaymentClick(Sender: TObject);
 var
   lForm: TFrmFormPayment;
 begin
-  lForm := TFrmFormPayment.Create(Self);
+  lForm := TFrmFormPayment.Create(nil);
   try
     lForm.showmodal;
   finally
@@ -151,7 +222,7 @@ procedure TfrmMain.pnlMenuSubCategoryClick(Sender: TObject);
 var
   lForm: TFrmSubCategory;
 begin
-  lForm := TfrmSubCategory.Create(Self);
+  lForm := TfrmSubCategory.Create(nil);
   try
     lForm.showmodal;
   finally
@@ -163,7 +234,7 @@ procedure TfrmMain.pnlMenuTypePaymentClick(Sender: TObject);
 var
   lForm: TFrmTypePayment;
 begin
-  lForm := TFrmTypePayment.Create(Self);
+  lForm := TFrmTypePayment.Create(nil);
   try
     lForm.showmodal;
   finally
