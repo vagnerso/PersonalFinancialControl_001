@@ -1,49 +1,67 @@
 inherited frmCustomer: TfrmCustomer
   Caption = 'frmCustomer'
   OnDestroy = FormDestroy
-  PixelsPerInch = 96
-  TextHeight = 19
+  ExplicitWidth = 1053
+  ExplicitHeight = 657
+  TextHeight = 24
+  inherited pnlTitle: TPanel
+    ExplicitWidth = 1037
+  end
+  inherited pnlBottom: TPanel
+    ExplicitTop = 588
+    ExplicitWidth = 1037
+  end
   inherited pnlMain: TPanel
-    ExplicitTop = 172
-    ExplicitHeight = 418
+    ExplicitHeight = 416
   end
   inherited pnlGeneral: TPanel
-    ExplicitTop = 172
-    ExplicitHeight = 418
+    ExplicitWidth = 887
+    ExplicitHeight = 416
     inherited pgcGeneral: TPageControl
-      ExplicitHeight = 418
+      Width = 891
+      Height = 417
+      ActivePage = tabRegister
+      ExplicitWidth = 887
+      ExplicitHeight = 416
       inherited tabGrid: TTabSheet
-        ExplicitLeft = 4
-        ExplicitTop = 25
-        ExplicitWidth = 887
-        ExplicitHeight = 389
+        ExplicitWidth = 883
+        ExplicitHeight = 388
+        inherited grdSearch: TDBGrid
+          Width = 883
+          Height = 388
+        end
       end
       inherited tabRegister: TTabSheet
-        ExplicitLeft = 4
-        ExplicitTop = 25
-        ExplicitWidth = 887
-        ExplicitHeight = 389
+        ExplicitWidth = 883
+        ExplicitHeight = 388
         inherited pnlMainRegister: TPanel
-          ExplicitTop = 348
+          Top = 347
+          Width = 883
+          inherited pnlButtonSave: TPanel
+            Left = 736
+          end
+          inherited pnlButtonCancel: TPanel
+            Left = 589
+          end
         end
         inherited pgcRegister: TPageControl
-          ExplicitHeight = 348
+          Width = 883
+          Height = 347
           inherited tabRegisterBasic: TTabSheet
-            ExplicitLeft = 4
-            ExplicitTop = 25
-            ExplicitWidth = 879
-            ExplicitHeight = 319
+            ExplicitWidth = 875
+            ExplicitHeight = 318
             inherited pnlRegisterBasic: TPanel
-              ExplicitHeight = 319
+              Width = 875
+              Height = 318
               object lb3: TLabel
                 Left = 8
                 Top = 11
-                Width = 38
-                Height = 19
+                Width = 50
+                Height = 24
                 Caption = 'Nome'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -51,12 +69,12 @@ inherited frmCustomer: TfrmCustomer
               object Label1: TLabel
                 Left = 440
                 Top = 11
-                Width = 56
-                Height = 19
+                Width = 71
+                Height = 24
                 Caption = 'Telefone'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -64,12 +82,12 @@ inherited frmCustomer: TfrmCustomer
               object Label2: TLabel
                 Left = 8
                 Top = 75
-                Width = 42
-                Height = 19
+                Width = 53
+                Height = 24
                 Caption = 'E-Mail'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -77,12 +95,12 @@ inherited frmCustomer: TfrmCustomer
               object Label3: TLabel
                 Left = 8
                 Top = 139
-                Width = 60
-                Height = 19
+                Width = 78
+                Height = 24
                 Caption = 'Endere'#231'o'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -90,12 +108,12 @@ inherited frmCustomer: TfrmCustomer
               object Label4: TLabel
                 Left = 359
                 Top = 139
-                Width = 51
-                Height = 19
+                Width = 68
+                Height = 24
                 Caption = 'N'#250'mero'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -103,12 +121,12 @@ inherited frmCustomer: TfrmCustomer
               object Label5: TLabel
                 Left = 535
                 Top = 139
-                Width = 39
-                Height = 19
+                Width = 51
+                Height = 24
                 Caption = 'Bairro'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -116,12 +134,12 @@ inherited frmCustomer: TfrmCustomer
               object Label6: TLabel
                 Left = 8
                 Top = 203
-                Width = 45
-                Height = 19
+                Width = 58
+                Height = 24
                 Caption = 'Cidade'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -187,21 +205,21 @@ inherited frmCustomer: TfrmCustomer
                 Left = 8
                 Top = 36
                 Width = 409
-                Height = 27
+                Height = 32
                 TabOrder = 0
               end
               object edtPhone: TEdit
                 Left = 439
                 Top = 36
                 Width = 418
-                Height = 27
+                Height = 32
                 TabOrder = 1
               end
               object edtEmail: TEdit
                 Left = 8
                 Top = 100
                 Width = 849
-                Height = 27
+                Height = 32
                 CharCase = ecLowerCase
                 TabOrder = 2
               end
@@ -209,7 +227,7 @@ inherited frmCustomer: TfrmCustomer
                 Left = 8
                 Top = 164
                 Width = 337
-                Height = 27
+                Height = 32
                 CharCase = ecLowerCase
                 TabOrder = 3
               end
@@ -217,7 +235,7 @@ inherited frmCustomer: TfrmCustomer
                 Left = 359
                 Top = 164
                 Width = 162
-                Height = 27
+                Height = 32
                 CharCase = ecLowerCase
                 TabOrder = 4
               end
@@ -225,7 +243,7 @@ inherited frmCustomer: TfrmCustomer
                 Left = 535
                 Top = 164
                 Width = 322
-                Height = 27
+                Height = 32
                 CharCase = ecLowerCase
                 TabOrder = 5
               end
@@ -233,7 +251,7 @@ inherited frmCustomer: TfrmCustomer
                 Left = 8
                 Top = 228
                 Width = 409
-                Height = 27
+                Height = 32
                 CharCase = ecLowerCase
                 TabOrder = 6
               end
@@ -244,12 +262,13 @@ inherited frmCustomer: TfrmCustomer
     end
   end
   inherited pgcSearch: TPageControl
-    ExplicitTop = 60
+    ExplicitWidth = 1037
     inherited tabSearch: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
-      ExplicitWidth = 1037
-      ExplicitHeight = 83
+      ExplicitWidth = 1033
+      inherited pnlSearch: TPanel
+        Width = 1033
+        ExplicitWidth = 1029
+      end
     end
   end
 end

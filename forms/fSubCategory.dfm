@@ -1,46 +1,72 @@
 inherited frmSubCategory: TfrmSubCategory
   Caption = 'frmSubCategory'
+  ClientHeight = 620
+  ClientWidth = 1045
   OnDestroy = FormDestroy
-  PixelsPerInch = 96
-  TextHeight = 19
+  TextHeight = 24
   inherited pnlTitle: TPanel
+    Width = 1045
     Caption = 'Sub-Categorias'
   end
+  inherited pnlBottom: TPanel
+    Top = 590
+    Width = 1045
+  end
+  inherited pnlMain: TPanel
+    Height = 418
+  end
   inherited pnlGeneral: TPanel
+    Width = 895
+    Height = 418
     inherited pgcGeneral: TPageControl
+      ActivePage = tabRegister
       inherited tabRegister: TTabSheet
+        inherited pnlMainRegister: TPanel
+          ExplicitTop = 348
+          ExplicitWidth = 887
+          inherited pnlButtonSave: TPanel
+            ExplicitLeft = 740
+          end
+          inherited pnlButtonCancel: TPanel
+            ExplicitLeft = 593
+          end
+        end
         inherited pgcRegister: TPageControl
+          ExplicitWidth = 887
+          ExplicitHeight = 348
           inherited tabRegisterBasic: TTabSheet
             inherited pnlRegisterBasic: TPanel
+              ExplicitWidth = 879
+              ExplicitHeight = 319
               object lb3: TLabel
                 Left = 8
                 Top = 11
-                Width = 38
-                Height = 19
-                Caption = 'Name'
+                Width = 50
+                Height = 24
+                Caption = 'Nome'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
               end
               object Label1: TLabel
                 Left = 8
-                Top = 67
-                Width = 58
-                Height = 19
-                Caption = 'Category'
+                Top = 75
+                Width = 80
+                Height = 24
+                Caption = 'Categoria'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
               end
               object imButtonClearEdtCategory: TImage
                 Left = 439
-                Top = 92
+                Top = 100
                 Width = 30
                 Height = 30
                 Cursor = crHandPoint
@@ -66,7 +92,7 @@ inherited frmSubCategory: TfrmSubCategory
               end
               object imButtonSearchCategory: TImage
                 Left = 475
-                Top = 92
+                Top = 100
                 Width = 30
                 Height = 30
                 Cursor = crHandPoint
@@ -99,14 +125,14 @@ inherited frmSubCategory: TfrmSubCategory
                 Left = 8
                 Top = 36
                 Width = 497
-                Height = 27
+                Height = 32
                 TabOrder = 0
               end
               object edtCategory: TEdit
                 Left = 8
-                Top = 92
+                Top = 100
                 Width = 425
-                Height = 27
+                Height = 32
                 TabOrder = 1
               end
             end
@@ -114,6 +140,9 @@ inherited frmSubCategory: TfrmSubCategory
         end
       end
     end
+  end
+  inherited pgcSearch: TPageControl
+    Width = 1045
   end
   inherited dtsSearch: TDataSource
     Top = 400

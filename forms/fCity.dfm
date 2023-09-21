@@ -1,53 +1,65 @@
 inherited frmCity: TfrmCity
   Caption = 'Cidades'
+  ClientWidth = 1041
   OnDestroy = FormDestroy
-  PixelsPerInch = 96
-  TextHeight = 19
+  ExplicitWidth = 1053
+  TextHeight = 24
   inherited pnlTitle: TPanel
+    Width = 1041
     Caption = 'Cidades'
+    ExplicitWidth = 1037
+  end
+  inherited pnlBottom: TPanel
+    Width = 1041
+    ExplicitTop = 588
+    ExplicitWidth = 1037
   end
   inherited pnlMain: TPanel
-    ExplicitTop = 172
-    ExplicitHeight = 418
+    ExplicitHeight = 416
   end
   inherited pnlGeneral: TPanel
-    ExplicitTop = 172
-    ExplicitHeight = 418
+    Width = 891
+    ExplicitWidth = 887
+    ExplicitHeight = 416
     inherited pgcGeneral: TPageControl
-      ActivePage = tabGrid
-      ExplicitHeight = 418
+      Width = 891
+      ExplicitWidth = 887
+      ExplicitHeight = 416
       inherited tabGrid: TTabSheet
-        ExplicitLeft = 4
-        ExplicitTop = 25
-        ExplicitWidth = 887
-        ExplicitHeight = 389
+        ExplicitWidth = 883
+        inherited grdSearch: TDBGrid
+          Width = 883
+        end
       end
       inherited tabRegister: TTabSheet
-        ExplicitLeft = 4
-        ExplicitTop = 25
-        ExplicitWidth = 887
-        ExplicitHeight = 389
+        ExplicitWidth = 883
         inherited pnlMainRegister: TPanel
-          ExplicitTop = 348
+          Width = 883
+          ExplicitTop = 347
+          inherited pnlButtonSave: TPanel
+            Left = 736
+          end
+          inherited pnlButtonCancel: TPanel
+            Left = 589
+          end
         end
         inherited pgcRegister: TPageControl
-          ExplicitHeight = 348
+          Width = 883
+          ExplicitHeight = 347
           inherited tabRegisterBasic: TTabSheet
-            ExplicitLeft = 4
-            ExplicitTop = 25
-            ExplicitWidth = 879
-            ExplicitHeight = 319
+            ExplicitWidth = 875
             inherited pnlRegisterBasic: TPanel
-              ExplicitHeight = 319
+              Width = 875
+              ExplicitHeight = 318
               object lb3: TLabel
                 Left = 8
                 Top = 11
-                Width = 38
-                Height = 19
+                Width = 49
+                Height = 24
                 Caption = 'Name'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -55,12 +67,12 @@ inherited frmCity: TfrmCity
               object Label1: TLabel
                 Left = 8
                 Top = 75
-                Width = 87
-                Height = 19
+                Width = 111
+                Height = 24
                 Caption = 'C'#243'digo SEFAZ'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -68,12 +80,12 @@ inherited frmCity: TfrmCity
               object lb2: TLabel
                 Left = 264
                 Top = 75
-                Width = 17
-                Height = 19
+                Width = 22
+                Height = 24
                 Caption = 'UF'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -82,14 +94,14 @@ inherited frmCity: TfrmCity
                 Left = 8
                 Top = 36
                 Width = 497
-                Height = 27
+                Height = 32
                 TabOrder = 0
               end
               object edtSefazCode: TEdit
                 Left = 8
                 Top = 100
                 Width = 233
-                Height = 27
+                Height = 32
                 NumbersOnly = True
                 TabOrder = 1
               end
@@ -97,7 +109,7 @@ inherited frmCity: TfrmCity
                 Left = 264
                 Top = 100
                 Width = 241
-                Height = 27
+                Height = 32
                 Style = csDropDownList
                 ItemIndex = 20
                 TabOrder = 2
@@ -138,12 +150,14 @@ inherited frmCity: TfrmCity
     end
   end
   inherited pgcSearch: TPageControl
-    ExplicitTop = 60
+    Width = 1041
+    ExplicitWidth = 1037
     inherited tabSearch: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
-      ExplicitWidth = 1037
-      ExplicitHeight = 83
+      ExplicitWidth = 1033
+      inherited pnlSearch: TPanel
+        Width = 1033
+        ExplicitWidth = 1029
+      end
     end
   end
   inherited pmActionMenu: TPopupMenu

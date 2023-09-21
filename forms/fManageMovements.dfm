@@ -1,30 +1,51 @@
 inherited frmManageMovements: TfrmManageMovements
   Caption = 'frmManageMovements'
+  ClientWidth = 1041
   OnDestroy = FormDestroy
-  PixelsPerInch = 96
-  TextHeight = 19
+  ExplicitWidth = 1053
+  TextHeight = 24
   inherited pnlTitle: TPanel
+    Width = 1041
     Caption = 'Gerenciar movimenta'#231#245'es'
+    ExplicitWidth = 1037
+  end
+  inherited pnlBottom: TPanel
+    Width = 1041
+    ExplicitTop = 588
+    ExplicitWidth = 1037
+  end
+  inherited pnlMain: TPanel
+    ExplicitHeight = 416
   end
   inherited pnlGeneral: TPanel
+    Width = 891
+    ExplicitWidth = 887
+    ExplicitHeight = 416
     inherited pgcGeneral: TPageControl
+      Width = 891
+      ExplicitWidth = 887
+      ExplicitHeight = 416
       inherited tabGrid: TTabSheet
+        ExplicitWidth = 883
         inherited grdSearch: TDBGrid
-          Height = 367
+          Width = 883
+          Height = 348
         end
         object pnlSum: TPanel
           Left = 0
-          Top = 367
-          Width = 887
+          Top = 348
+          Width = 883
           Height = 41
           Align = alBottom
           BevelOuter = bvNone
           TabOrder = 1
+          ExplicitTop = 346
+          ExplicitWidth = 879
           object lblSumRevenues: TLabel
             AlignWithMargins = True
             Left = 10
             Top = 3
-            Width = 118
+            Width = 144
             Height = 35
             Margins.Left = 10
             Margins.Right = 0
@@ -32,18 +53,18 @@ inherited frmManageMovements: TfrmManageMovements
             Caption = 'lblSumRevenues'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = 7909724
-            Font.Height = -17
+            Font.Height = -21
             Font.Name = 'Calibri'
             Font.Style = [fsBold]
             ParentFont = False
             Layout = tlCenter
-            ExplicitHeight = 21
+            ExplicitHeight = 26
           end
           object lblSumExpenses: TLabel
             AlignWithMargins = True
-            Left = 138
+            Left = 164
             Top = 3
-            Width = 114
+            Width = 139
             Height = 35
             Margins.Left = 10
             Margins.Right = 0
@@ -51,18 +72,18 @@ inherited frmManageMovements: TfrmManageMovements
             Caption = 'lblSumExpenses'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = 3684595
-            Font.Height = -17
+            Font.Height = -21
             Font.Name = 'Calibri'
             Font.Style = [fsBold]
             ParentFont = False
             Layout = tlCenter
-            ExplicitHeight = 21
+            ExplicitHeight = 26
           end
           object lblBalance: TLabel
             AlignWithMargins = True
-            Left = 262
+            Left = 313
             Top = 3
-            Width = 72
+            Width = 89
             Height = 35
             Margins.Left = 10
             Margins.Right = 0
@@ -70,28 +91,41 @@ inherited frmManageMovements: TfrmManageMovements
             Caption = 'lblBalance'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBlack
-            Font.Height = -17
+            Font.Height = -21
             Font.Name = 'Calibri'
             Font.Style = [fsBold]
             ParentFont = False
             Layout = tlCenter
-            ExplicitHeight = 21
+            ExplicitHeight = 26
           end
         end
       end
       inherited tabRegister: TTabSheet
+        ExplicitWidth = 883
+        inherited pnlMainRegister: TPanel
+          Width = 883
+          inherited pnlButtonSave: TPanel
+            Left = 736
+          end
+          inherited pnlButtonCancel: TPanel
+            Left = 589
+          end
+        end
         inherited pgcRegister: TPageControl
+          Width = 883
           inherited tabRegisterBasic: TTabSheet
+            ExplicitWidth = 875
             inherited pnlRegisterBasic: TPanel
+              Width = 875
               object Label2: TLabel
                 Left = 8
                 Top = 11
-                Width = 124
-                Height = 19
+                Width = 157
+                Height = 24
                 Caption = 'Descri'#231#227'o da conta'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -99,19 +133,19 @@ inherited frmManageMovements: TfrmManageMovements
               object Label5: TLabel
                 Left = 8
                 Top = 75
-                Width = 72
-                Height = 19
+                Width = 95
+                Height = 24
                 Caption = 'Fornecedor'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
               end
               object imButtonClearEdtProvider: TImage
                 Left = 343
-                Top = 100
+                Top = 102
                 Width = 30
                 Height = 30
                 Cursor = crHandPoint
@@ -136,7 +170,7 @@ inherited frmManageMovements: TfrmManageMovements
               end
               object imButtonSearchProvider: TImage
                 Left = 379
-                Top = 100
+                Top = 102
                 Width = 30
                 Height = 30
                 Cursor = crHandPoint
@@ -168,19 +202,19 @@ inherited frmManageMovements: TfrmManageMovements
               object Label6: TLabel
                 Left = 424
                 Top = 75
-                Width = 91
-                Height = 19
+                Width = 117
+                Height = 24
                 Caption = 'Sub-Categoria'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
               end
               object imButtonClearEdtSubCategory: TImage
                 Left = 791
-                Top = 100
+                Top = 102
                 Width = 30
                 Height = 30
                 Cursor = crHandPoint
@@ -205,7 +239,7 @@ inherited frmManageMovements: TfrmManageMovements
               end
               object imButtonSearchSubCategory: TImage
                 Left = 827
-                Top = 100
+                Top = 102
                 Width = 30
                 Height = 30
                 Cursor = crHandPoint
@@ -237,19 +271,19 @@ inherited frmManageMovements: TfrmManageMovements
               object Label1: TLabel
                 Left = 8
                 Top = 139
-                Width = 137
-                Height = 19
+                Width = 179
+                Height = 24
                 Caption = 'Forma de pagamento'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
               end
               object imButtonClearEdtFormPayment: TImage
                 Left = 343
-                Top = 164
+                Top = 166
                 Width = 30
                 Height = 30
                 Cursor = crHandPoint
@@ -274,7 +308,7 @@ inherited frmManageMovements: TfrmManageMovements
               end
               object imButtonSearchFormPayment: TImage
                 Left = 379
-                Top = 164
+                Top = 166
                 Width = 30
                 Height = 30
                 Cursor = crHandPoint
@@ -306,12 +340,12 @@ inherited frmManageMovements: TfrmManageMovements
               object lbInstallmentsValue: TLabel
                 Left = 8
                 Top = 203
-                Width = 54
-                Height = 19
+                Width = 69
+                Height = 24
                 Caption = 'R$ Valor'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -319,24 +353,24 @@ inherited frmManageMovements: TfrmManageMovements
               object lbFirstIssueDate: TLabel
                 Left = 424
                 Top = 203
-                Width = 130
-                Height = 19
+                Width = 168
+                Height = 24
                 Caption = 'Data de vencimento'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
               end
               object edtDescription: TEdit
                 Left = 8
-                Top = 35
+                Top = 37
                 Width = 849
-                Height = 27
+                Height = 32
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clBlack
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -344,12 +378,12 @@ inherited frmManageMovements: TfrmManageMovements
               end
               object edtProvider: TEdit
                 Left = 8
-                Top = 99
+                Top = 101
                 Width = 329
-                Height = 27
+                Height = 32
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clBlack
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -357,12 +391,12 @@ inherited frmManageMovements: TfrmManageMovements
               end
               object edtSubCategory: TEdit
                 Left = 424
-                Top = 99
+                Top = 101
                 Width = 361
-                Height = 27
+                Height = 32
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clBlack
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -370,12 +404,12 @@ inherited frmManageMovements: TfrmManageMovements
               end
               object edtFormPayment: TEdit
                 Left = 8
-                Top = 163
+                Top = 165
                 Width = 329
-                Height = 27
+                Height = 32
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clBlack
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -383,12 +417,12 @@ inherited frmManageMovements: TfrmManageMovements
               end
               object edtInstallmentesValue: TEdit
                 Left = 8
-                Top = 227
+                Top = 229
                 Width = 401
-                Height = 27
+                Height = 32
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clBlack
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -396,14 +430,14 @@ inherited frmManageMovements: TfrmManageMovements
               end
               object edtIssueDate: TDateTimePicker
                 Left = 424
-                Top = 227
+                Top = 229
                 Width = 433
-                Height = 27
-                Date = 44888.714996817130000000
-                Time = 44888.714996817130000000
+                Height = 32
+                Date = 44888.000000000000000000
+                Time = 0.714996817128849200
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clBlack
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -416,40 +450,51 @@ inherited frmManageMovements: TfrmManageMovements
     end
   end
   inherited pgcSearch: TPageControl
+    Width = 1041
+    ExplicitWidth = 1037
     inherited tabSearch: TTabSheet
+      ExplicitWidth = 1033
       inherited pnlSearch: TPanel
+        Width = 1033
+        ExplicitWidth = 1029
         object Label3: TLabel [3]
-          Left = 352
+          Left = 402
           Top = 6
-          Width = 55
-          Height = 19
+          Width = 71
+          Height = 24
           Caption = 'Situa'#231#227'o'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
-          Font.Height = -16
+          Font.Height = -20
           Font.Name = 'Calibri'
           Font.Style = []
           ParentFont = False
         end
         object Label4: TLabel [4]
-          Left = 512
-          Top = 7
-          Width = 28
-          Height = 19
+          Left = 562
+          Top = 6
+          Width = 35
+          Height = 24
           Caption = 'M'#234's'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
-          Font.Height = -16
+          Font.Height = -20
           Font.Name = 'Calibri'
           Font.Style = []
           ParentFont = False
         end
         object cbxFilterSituation: TComboBox
-          Left = 352
-          Top = 32
+          Left = 402
+          Top = 31
           Width = 145
-          Height = 27
+          Height = 32
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -20
+          Font.Name = 'Calibri'
+          Font.Style = []
           ItemIndex = 0
+          ParentFont = False
           TabOrder = 1
           Text = 'Todas'
           Items.Strings = (
@@ -458,11 +503,17 @@ inherited frmManageMovements: TfrmManageMovements
             'Pagas')
         end
         object cbxFilterMonth: TComboBox
-          Left = 512
-          Top = 32
+          Left = 562
+          Top = 31
           Width = 145
-          Height = 27
+          Height = 32
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -20
+          Font.Name = 'Calibri'
+          Font.Style = []
           ItemIndex = 0
+          ParentFont = False
           TabOrder = 2
           Text = 'Todos'
           Items.Strings = (

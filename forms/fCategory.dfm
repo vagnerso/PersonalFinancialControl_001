@@ -3,41 +3,36 @@ inherited frmCategory: TfrmCategory
   ClientHeight = 496
   ClientWidth = 818
   OnDestroy = FormDestroy
-  ExplicitWidth = 834
-  ExplicitHeight = 535
-  PixelsPerInch = 96
-  TextHeight = 19
+  ExplicitWidth = 830
+  ExplicitHeight = 534
+  TextHeight = 24
   inherited pnlTitle: TPanel
     Width = 818
     Caption = 'CATEGORIAS'
-    ExplicitWidth = 818
+    ExplicitWidth = 814
   end
   inherited pnlBottom: TPanel
     Top = 466
     Width = 818
-    ExplicitTop = 466
-    ExplicitWidth = 818
+    ExplicitTop = 465
+    ExplicitWidth = 814
   end
   inherited pnlMain: TPanel
     Height = 294
-    ExplicitTop = 172
-    ExplicitHeight = 294
+    ExplicitHeight = 293
   end
   inherited pnlGeneral: TPanel
     Width = 668
     Height = 294
-    ExplicitTop = 172
-    ExplicitWidth = 668
-    ExplicitHeight = 294
+    ExplicitWidth = 664
+    ExplicitHeight = 293
     inherited pgcGeneral: TPageControl
       Width = 668
       Height = 294
-      ActivePage = tabGrid
-      ExplicitWidth = 668
-      ExplicitHeight = 294
+      ActivePage = tabRegister
+      ExplicitWidth = 664
+      ExplicitHeight = 293
       inherited tabGrid: TTabSheet
-        ExplicitLeft = 4
-        ExplicitTop = 25
         ExplicitWidth = 660
         ExplicitHeight = 265
         inherited grdSearch: TDBGrid
@@ -46,8 +41,6 @@ inherited frmCategory: TfrmCategory
         end
       end
       inherited tabRegister: TTabSheet
-        ExplicitLeft = 4
-        ExplicitTop = 25
         ExplicitWidth = 660
         ExplicitHeight = 265
         inherited pnlMainRegister: TPanel
@@ -70,8 +63,6 @@ inherited frmCategory: TfrmCategory
           ExplicitWidth = 660
           ExplicitHeight = 224
           inherited tabRegisterBasic: TTabSheet
-            ExplicitLeft = 4
-            ExplicitTop = 25
             ExplicitWidth = 652
             ExplicitHeight = 195
             inherited pnlRegisterBasic: TPanel
@@ -82,12 +73,12 @@ inherited frmCategory: TfrmCategory
               object lb3: TLabel
                 Left = 8
                 Top = 11
-                Width = 38
-                Height = 19
+                Width = 49
+                Height = 24
                 Caption = 'Name'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -96,7 +87,7 @@ inherited frmCategory: TfrmCategory
                 Left = 8
                 Top = 36
                 Width = 497
-                Height = 27
+                Height = 32
                 TabOrder = 0
               end
             end
@@ -107,16 +98,12 @@ inherited frmCategory: TfrmCategory
   end
   inherited pgcSearch: TPageControl
     Width = 818
-    ExplicitTop = 60
-    ExplicitWidth = 818
+    ExplicitWidth = 814
     inherited tabSearch: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 810
-      ExplicitHeight = 83
       inherited pnlSearch: TPanel
         Width = 810
-        ExplicitWidth = 810
+        ExplicitWidth = 806
       end
     end
   end

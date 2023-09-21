@@ -3,15 +3,15 @@ inherited frmMasterRegister: TfrmMasterRegister
   ClientHeight = 620
   ClientWidth = 1045
   Font.Color = clBlack
+  Font.Height = -20
   KeyPreview = True
   Position = poScreenCenter
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
   OnShow = FormShow
-  ExplicitWidth = 1061
-  ExplicitHeight = 659
-  PixelsPerInch = 96
-  TextHeight = 19
+  ExplicitWidth = 1057
+  ExplicitHeight = 658
+  TextHeight = 24
   object pnlTitle: TPanel
     Left = 0
     Top = 0
@@ -29,6 +29,7 @@ inherited frmMasterRegister: TfrmMasterRegister
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 1041
   end
   object pnlBottom: TPanel
     Left = 0
@@ -39,6 +40,8 @@ inherited frmMasterRegister: TfrmMasterRegister
     BevelOuter = bvNone
     ParentBackground = False
     TabOrder = 1
+    ExplicitTop = 589
+    ExplicitWidth = 1041
   end
   object pnlMain: TPanel
     Left = 0
@@ -50,8 +53,21 @@ inherited frmMasterRegister: TfrmMasterRegister
     Color = 6511179
     ParentBackground = False
     TabOrder = 2
-    ExplicitTop = 153
-    ExplicitHeight = 437
+    ExplicitHeight = 417
+    object lblFontTest: TLabel
+      Left = 12
+      Top = 336
+      Width = 107
+      Height = 28
+      Caption = 'Fonte Teste'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -23
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
+      Visible = False
+    end
     object pnlButtonInsert: TPanel
       Left = 0
       Top = 0
@@ -183,14 +199,14 @@ inherited frmMasterRegister: TfrmMasterRegister
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 3
-    ExplicitTop = 153
-    ExplicitHeight = 437
+    ExplicitWidth = 891
+    ExplicitHeight = 417
     object pgcGeneral: TPageControl
       Left = 0
       Top = 0
       Width = 895
       Height = 418
-      ActivePage = tabRegister
+      ActivePage = tabGrid
       Align = alClient
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
@@ -199,10 +215,10 @@ inherited frmMasterRegister: TfrmMasterRegister
       Font.Style = []
       ParentFont = False
       TabOrder = 0
-      ExplicitHeight = 437
+      ExplicitWidth = 891
+      ExplicitHeight = 417
       object tabGrid: TTabSheet
         Caption = 'Consulta'
-        ExplicitHeight = 408
         object grdSearch: TDBGrid
           Left = 0
           Top = 0
@@ -213,7 +229,7 @@ inherited frmMasterRegister: TfrmMasterRegister
           DataSource = dtsSearch
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -16
+          Font.Height = -23
           Font.Name = 'Calibri'
           Font.Style = []
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -223,7 +239,7 @@ inherited frmMasterRegister: TfrmMasterRegister
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clBlack
-          TitleFont.Height = -16
+          TitleFont.Height = -23
           TitleFont.Name = 'Calibri'
           TitleFont.Style = []
           OnDrawColumnCell = grdSearchDrawColumnCell
@@ -233,7 +249,6 @@ inherited frmMasterRegister: TfrmMasterRegister
       object tabRegister: TTabSheet
         Caption = 'Cadastro'
         ImageIndex = 1
-        ExplicitHeight = 408
         object pnlMainRegister: TPanel
           Left = 0
           Top = 348
@@ -249,7 +264,6 @@ inherited frmMasterRegister: TfrmMasterRegister
           ParentBackground = False
           ParentFont = False
           TabOrder = 0
-          ExplicitTop = 367
           object pnlButtonSave: TPanel
             Left = 740
             Top = 0
@@ -313,10 +327,8 @@ inherited frmMasterRegister: TfrmMasterRegister
           Font.Style = []
           ParentFont = False
           TabOrder = 1
-          ExplicitHeight = 367
           object tabRegisterBasic: TTabSheet
             Caption = 'B'#225'sico'
-            ExplicitHeight = 338
             object pnlRegisterBasic: TPanel
               Left = 0
               Top = 0
@@ -327,13 +339,12 @@ inherited frmMasterRegister: TfrmMasterRegister
               Color = 14276046
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clBlack
-              Font.Height = -16
+              Font.Height = -20
               Font.Name = 'Calibri'
               Font.Style = []
               ParentBackground = False
               ParentFont = False
               TabOrder = 0
-              ExplicitHeight = 338
             end
           end
         end
@@ -354,7 +365,7 @@ inherited frmMasterRegister: TfrmMasterRegister
     Font.Style = []
     ParentFont = False
     TabOrder = 4
-    ExplicitTop = 41
+    ExplicitWidth = 1041
     object tabSearch: TTabSheet
       Caption = 'Op'#231#245'es de pesquisa'
       object pnlSearch: TPanel
@@ -372,22 +383,23 @@ inherited frmMasterRegister: TfrmMasterRegister
         ParentBackground = False
         ParentFont = False
         TabOrder = 0
+        ExplicitWidth = 1033
         object lb1: TLabel
           Left = 16
           Top = 6
-          Width = 63
-          Height = 19
+          Width = 80
+          Height = 24
           Caption = 'Pesquisar'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
-          Font.Height = -16
+          Font.Height = -20
           Font.Name = 'Calibri'
           Font.Style = []
           ParentFont = False
         end
         object imButtonSearchExecute: TImage
-          Left = 308
-          Top = 30
+          Left = 364
+          Top = 31
           Width = 30
           Height = 30
           Cursor = crHandPoint
@@ -417,8 +429,8 @@ inherited frmMasterRegister: TfrmMasterRegister
           OnClick = imButtonSearchExecuteClick
         end
         object imButtonClearEdtSearch: TImage
-          Left = 272
-          Top = 30
+          Left = 328
+          Top = 31
           Width = 30
           Height = 30
           Cursor = crHandPoint
@@ -445,8 +457,14 @@ inherited frmMasterRegister: TfrmMasterRegister
         object edtSearch: TEdit
           Left = 16
           Top = 31
-          Width = 250
-          Height = 27
+          Width = 306
+          Height = 32
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -20
+          Font.Name = 'Calibri'
+          Font.Style = []
+          ParentFont = False
           TabOrder = 0
           TextHint = 'Digite aqui o que deseja pesquisar'
           OnKeyPress = edtSearchKeyPress

@@ -6,9 +6,8 @@ inherited frmGeneralSearch: TfrmGeneralSearch
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  ExplicitWidth = 814
-  ExplicitHeight = 520
-  PixelsPerInch = 96
+  ExplicitWidth = 810
+  ExplicitHeight = 519
   TextHeight = 19
   object pnlTitle: TPanel
     Left = 0
@@ -26,6 +25,7 @@ inherited frmGeneralSearch: TfrmGeneralSearch
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 794
   end
   object pnlBottom: TPanel
     Left = 0
@@ -36,6 +36,8 @@ inherited frmGeneralSearch: TfrmGeneralSearch
     BevelOuter = bvNone
     ParentBackground = False
     TabOrder = 1
+    ExplicitTop = 439
+    ExplicitWidth = 794
     object btnSelect: TButton
       Left = 0
       Top = 0
@@ -55,6 +57,7 @@ inherited frmGeneralSearch: TfrmGeneralSearch
     ActivePage = tabSearch
     Align = alTop
     TabOrder = 2
+    ExplicitWidth = 794
     object tabSearch: TTabSheet
       Caption = 'Op'#231#245'es de pesquisa'
       object pnlSearch: TPanel
@@ -66,22 +69,23 @@ inherited frmGeneralSearch: TfrmGeneralSearch
         BevelOuter = bvNone
         ParentBackground = False
         TabOrder = 0
+        ExplicitWidth = 786
         object lb1: TLabel
           Left = 16
           Top = 6
-          Width = 63
-          Height = 19
+          Width = 80
+          Height = 24
           Caption = 'Pesquisar'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
-          Font.Height = -16
+          Font.Height = -20
           Font.Name = 'Calibri'
           Font.Style = []
           ParentFont = False
         end
         object imButtonSearchExecute: TImage
           Left = 308
-          Top = 30
+          Top = 31
           Width = 30
           Height = 30
           Cursor = crHandPoint
@@ -112,7 +116,7 @@ inherited frmGeneralSearch: TfrmGeneralSearch
         end
         object imButtonClearEdtSearch: TImage
           Left = 272
-          Top = 30
+          Top = 31
           Width = 30
           Height = 30
           Cursor = crHandPoint
@@ -140,7 +144,13 @@ inherited frmGeneralSearch: TfrmGeneralSearch
           Left = 16
           Top = 31
           Width = 250
-          Height = 27
+          Height = 32
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -20
+          Font.Name = 'Calibri'
+          Font.Style = []
+          ParentFont = False
           TabOrder = 0
           TextHint = 'Digite aqui o que deseja pesquisar'
         end
@@ -155,6 +165,8 @@ inherited frmGeneralSearch: TfrmGeneralSearch
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 3
+    ExplicitWidth = 794
+    ExplicitHeight = 267
     object pgcGeneral: TPageControl
       Left = 0
       Top = 0
@@ -163,6 +175,8 @@ inherited frmGeneralSearch: TfrmGeneralSearch
       ActivePage = tabGrid
       Align = alClient
       TabOrder = 0
+      ExplicitWidth = 794
+      ExplicitHeight = 267
       object tabGrid: TTabSheet
         Caption = 'Consulta'
         object grdSearch: TDBGrid

@@ -10,36 +10,36 @@ object frmMain: TfrmMain
   Font.Height = -16
   Font.Name = 'Calibri'
   Font.Style = []
-  OldCreateOrder = True
   Position = poScreenCenter
   WindowState = wsMaximized
   OnShow = FormShow
-  PixelsPerInch = 96
   TextHeight = 19
   object lblDeveloper: TLabel
     Left = 0
-    Top = 638
+    Top = 636
     Width = 1008
-    Height = 13
+    Height = 15
     Align = alBottom
     Alignment = taCenter
     Caption = 'Desenvolvido por Vagner Oliveira'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWhite
-    Font.Height = -11
+    Font.Height = -13
     Font.Name = 'Calibri'
     Font.Style = []
     ParentFont = False
-    ExplicitWidth = 155
+    ExplicitTop = 638
+    ExplicitWidth = 184
   end
   object pnlDetail: TPanel
     Left = 0
     Top = 0
     Width = 400
-    Height = 638
+    Height = 636
     Align = alLeft
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitHeight = 637
     object imIconApp: TImage
       Left = 0
       Top = 53
@@ -12904,7 +12904,7 @@ object frmMain: TfrmMain
     object lbUser: TLabel
       AlignWithMargins = True
       Left = 3
-      Top = 407
+      Top = 405
       Width = 394
       Height = 24
       Margins.Top = 10
@@ -12917,11 +12917,12 @@ object frmMain: TfrmMain
       Font.Name = 'Calibri'
       Font.Style = [fsBold]
       ParentFont = False
+      ExplicitTop = 407
       ExplicitWidth = 65
     end
     object imUser: TImage
       Left = 0
-      Top = 434
+      Top = 432
       Width = 400
       Height = 204
       Align = alBottom
@@ -14639,10 +14640,12 @@ object frmMain: TfrmMain
     Left = 424
     Top = 0
     Width = 584
-    Height = 638
+    Height = 636
     Align = alRight
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitLeft = 420
+    ExplicitHeight = 637
     object pnlMenuRevenues: TPanel
       Left = 14
       Top = 231
@@ -14844,12 +14847,13 @@ object frmMain: TfrmMain
     end
     object pnlSettings: TPanel
       Left = 0
-      Top = 578
+      Top = 576
       Width = 584
       Height = 60
       Align = alBottom
       BevelOuter = bvNone
       TabOrder = 11
+      ExplicitTop = 577
       object imgButtonUtilities: TImage
         Left = 524
         Top = 0

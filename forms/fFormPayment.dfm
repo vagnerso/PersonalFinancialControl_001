@@ -1,8 +1,7 @@
 inherited frmFormPayment: TfrmFormPayment
   Caption = 'frmFormPayment'
   OnDestroy = FormDestroy
-  PixelsPerInch = 96
-  TextHeight = 19
+  TextHeight = 24
   inherited pnlTitle: TPanel
     Caption = 'FORMAS DE PAGAMENTO'
   end
@@ -15,12 +14,12 @@ inherited frmFormPayment: TfrmFormPayment
               object lb3: TLabel
                 Left = 8
                 Top = 11
-                Width = 38
-                Height = 19
+                Width = 50
+                Height = 24
                 Caption = 'Nome'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -28,12 +27,12 @@ inherited frmFormPayment: TfrmFormPayment
               object lb2: TLabel
                 Left = 8
                 Top = 71
-                Width = 125
-                Height = 19
+                Width = 162
+                Height = 24
                 Caption = 'Tipo de Pagamento'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -41,12 +40,12 @@ inherited frmFormPayment: TfrmFormPayment
               object lblNumberInstallmentes: TLabel
                 Left = 8
                 Top = 131
-                Width = 155
-                Height = 19
+                Width = 197
+                Height = 24
                 Caption = 'Quantidade de Parcelas'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -55,14 +54,14 @@ inherited frmFormPayment: TfrmFormPayment
                 Left = 8
                 Top = 36
                 Width = 497
-                Height = 27
+                Height = 32
                 TabOrder = 0
               end
               object cbxTypePayment: TComboBox
                 Left = 8
                 Top = 96
                 Width = 497
-                Height = 27
+                Height = 32
                 Style = csDropDownList
                 TabOrder = 1
                 OnChange = cbxTypePaymentChange
@@ -71,7 +70,7 @@ inherited frmFormPayment: TfrmFormPayment
                 Left = 8
                 Top = 156
                 Width = 125
-                Height = 27
+                Height = 32
                 NumbersOnly = True
                 TabOrder = 2
               end

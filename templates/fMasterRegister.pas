@@ -44,6 +44,7 @@ type
     N1: TMenuItem;
     Fechar1: TMenuItem;
     imButtonClearEdtSearch: TImage;
+    lblFontTest: TLabel;
     procedure imButtonSearchExecuteClick(Sender: TObject);
     procedure pnlButtonInsertClick(Sender: TObject);
     procedure pnlButtonEditClick(Sender: TObject);

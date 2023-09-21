@@ -294,13 +294,13 @@ begin
 
   grdSearch.Columns[0].Visible := False;
   grdSearch.Columns[1].Visible := False;
-  grdSearch.Columns[2].Width := 250;
+  grdSearch.Columns[2].Width := 300;
   grdSearch.Columns[3].Visible := False;
   grdSearch.Columns[4].Visible := False;
-  grdSearch.Columns[5].Width := 100;
-  grdSearch.Columns[6].Width := 100;
-  grdSearch.Columns[7].Width := 50;
-  grdSearch.Columns[8].Width := 100;
+  grdSearch.Columns[5].Width := 150;
+  grdSearch.Columns[6].Width := 150;
+  grdSearch.Columns[7].Width := 100;
+  grdSearch.Columns[8].Width := 150;
   grdSearch.Columns[9].Visible := False;
   grdSearch.Columns[10].Width := 250;
   grdSearch.Columns[11].Width := 250;

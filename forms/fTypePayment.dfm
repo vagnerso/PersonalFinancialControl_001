@@ -1,40 +1,25 @@
 inherited frmTypePayment: TfrmTypePayment
   Caption = 'frmTypePayment'
   OnDestroy = FormDestroy
-  PixelsPerInch = 96
-  TextHeight = 19
+  TextHeight = 24
   inherited pnlTitle: TPanel
     Caption = 'TIPOS DE PAGAMENTO'
   end
   inherited pnlGeneral: TPanel
     inherited pgcGeneral: TPageControl
-      inherited tabGrid: TTabSheet
-        ExplicitLeft = 4
-        ExplicitTop = 25
-        ExplicitWidth = 887
-        ExplicitHeight = 408
-      end
       inherited tabRegister: TTabSheet
-        ExplicitLeft = 4
-        ExplicitTop = 25
-        ExplicitWidth = 887
-        ExplicitHeight = 408
         inherited pgcRegister: TPageControl
           inherited tabRegisterBasic: TTabSheet
-            ExplicitLeft = 4
-            ExplicitTop = 25
-            ExplicitWidth = 879
-            ExplicitHeight = 338
             inherited pnlRegisterBasic: TPanel
               object lb3: TLabel
                 Left = 8
                 Top = 11
-                Width = 38
-                Height = 19
+                Width = 49
+                Height = 24
                 Caption = 'Name'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -42,12 +27,12 @@ inherited frmTypePayment: TfrmTypePayment
               object lb2: TLabel
                 Left = 8
                 Top = 71
-                Width = 143
-                Height = 19
+                Width = 185
+                Height = 24
                 Caption = 'Permite Parcelamento'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWhite
-                Font.Height = -16
+                Font.Height = -20
                 Font.Name = 'Calibri'
                 Font.Style = []
                 ParentFont = False
@@ -56,14 +41,14 @@ inherited frmTypePayment: TfrmTypePayment
                 Left = 8
                 Top = 36
                 Width = 497
-                Height = 27
+                Height = 32
                 TabOrder = 0
               end
               object cbxAllowsInstallment: TComboBox
                 Left = 8
                 Top = 96
                 Width = 89
-                Height = 27
+                Height = 32
                 Style = csDropDownList
                 ItemIndex = 0
                 TabOrder = 1
@@ -76,14 +61,6 @@ inherited frmTypePayment: TfrmTypePayment
           end
         end
       end
-    end
-  end
-  inherited pgcSearch: TPageControl
-    inherited tabSearch: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
-      ExplicitWidth = 1037
-      ExplicitHeight = 83
     end
   end
 end
