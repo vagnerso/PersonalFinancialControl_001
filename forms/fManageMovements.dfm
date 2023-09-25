@@ -1,5 +1,6 @@
 inherited frmManageMovements: TfrmManageMovements
   Caption = 'frmManageMovements'
+  ClientHeight = 620
   ClientWidth = 1041
   OnDestroy = FormDestroy
   ExplicitWidth = 1053
@@ -7,24 +8,27 @@ inherited frmManageMovements: TfrmManageMovements
   inherited pnlTitle: TPanel
     Width = 1041
     Caption = 'Gerenciar movimenta'#231#245'es'
-    ExplicitWidth = 1037
+    ExplicitWidth = 1035
   end
   inherited pnlBottom: TPanel
+    Top = 590
     Width = 1041
-    ExplicitTop = 588
-    ExplicitWidth = 1037
+    ExplicitTop = 581
+    ExplicitWidth = 1035
   end
   inherited pnlMain: TPanel
-    ExplicitHeight = 416
+    Height = 418
+    ExplicitHeight = 409
   end
   inherited pnlGeneral: TPanel
     Width = 891
-    ExplicitWidth = 887
-    ExplicitHeight = 416
+    Height = 418
+    ExplicitWidth = 885
+    ExplicitHeight = 409
     inherited pgcGeneral: TPageControl
       Width = 891
-      ExplicitWidth = 887
-      ExplicitHeight = 416
+      ExplicitWidth = 885
+      ExplicitHeight = 409
       inherited tabGrid: TTabSheet
         ExplicitWidth = 883
         inherited grdSearch: TDBGrid
@@ -39,8 +43,8 @@ inherited frmManageMovements: TfrmManageMovements
           Align = alBottom
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitTop = 346
-          ExplicitWidth = 879
+          ExplicitTop = 339
+          ExplicitWidth = 877
           object lblSumRevenues: TLabel
             AlignWithMargins = True
             Left = 10
@@ -104,19 +108,24 @@ inherited frmManageMovements: TfrmManageMovements
         ExplicitWidth = 883
         inherited pnlMainRegister: TPanel
           Width = 883
+          ExplicitWidth = 883
           inherited pnlButtonSave: TPanel
             Left = 736
+            ExplicitLeft = 736
           end
           inherited pnlButtonCancel: TPanel
             Left = 589
+            ExplicitLeft = 589
           end
         end
         inherited pgcRegister: TPageControl
           Width = 883
+          ExplicitWidth = 883
           inherited tabRegisterBasic: TTabSheet
             ExplicitWidth = 875
             inherited pnlRegisterBasic: TPanel
               Width = 875
+              ExplicitWidth = 875
               object Label2: TLabel
                 Left = 8
                 Top = 11
@@ -451,12 +460,12 @@ inherited frmManageMovements: TfrmManageMovements
   end
   inherited pgcSearch: TPageControl
     Width = 1041
-    ExplicitWidth = 1037
+    ExplicitWidth = 1035
     inherited tabSearch: TTabSheet
       ExplicitWidth = 1033
       inherited pnlSearch: TPanel
         Width = 1033
-        ExplicitWidth = 1029
+        ExplicitWidth = 1027
         object Label3: TLabel [3]
           Left = 402
           Top = 6

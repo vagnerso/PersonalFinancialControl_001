@@ -72,6 +72,9 @@ var
 
 implementation
 
+uses
+  System.DateUtils;
+
 {$R *.dfm}
 
 { TfrmManageMovements }
@@ -164,12 +167,16 @@ begin
 end;
 
 procedure TfrmManageMovements.FormShow(Sender: TObject);
+var
+  lMonth: SmallInt;
 begin
   FTitleForm := 'Gerenciar Movimentações';
   inherited;
   tabGrid.TabVisible := True;
   tabRegister.TabVisible := False;
   tabRegisterBasic.TabVisible := False;
+  lMonth := MonthOf(now);
+  cbxFilterMonth.ItemIndex := lMonth;
   searchExecute;
   WindowState := wsMaximized;
 end;
