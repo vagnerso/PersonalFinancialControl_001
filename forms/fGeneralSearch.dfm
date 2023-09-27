@@ -1,18 +1,18 @@
 inherited frmGeneralSearch: TfrmGeneralSearch
   Caption = 'frmGeneralSearch'
-  ClientHeight = 481
-  ClientWidth = 798
+  ClientHeight = 562
+  ClientWidth = 1012
   Position = poScreenCenter
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  ExplicitWidth = 810
-  ExplicitHeight = 519
+  ExplicitWidth = 1024
+  ExplicitHeight = 600
   TextHeight = 19
   object pnlTitle: TPanel
     Left = 0
     Top = 0
-    Width = 798
+    Width = 1012
     Height = 60
     Align = alTop
     BevelOuter = bvNone
@@ -29,8 +29,8 @@ inherited frmGeneralSearch: TfrmGeneralSearch
   end
   object pnlBottom: TPanel
     Left = 0
-    Top = 440
-    Width = 798
+    Top = 521
+    Width = 1012
     Height = 41
     Align = alBottom
     BevelOuter = bvNone
@@ -38,21 +38,63 @@ inherited frmGeneralSearch: TfrmGeneralSearch
     TabOrder = 1
     ExplicitTop = 439
     ExplicitWidth = 794
-    object btnSelect: TButton
-      Left = 0
+    object pnlButtonSelect: TPanel
+      Left = 862
       Top = 0
-      Width = 129
+      Width = 150
       Height = 41
-      Align = alLeft
+      Cursor = crHandPoint
+      Align = alRight
+      BevelKind = bkTile
+      BevelOuter = bvNone
       Caption = 'Selecionar'
+      Color = 6009689
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -20
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentBackground = False
+      ParentFont = False
       TabOrder = 0
-      OnClick = btnSelectClick
+      OnClick = pnlButtonSelectClick
+      OnEnter = pnlButtonSelectEnter
+      OnExit = pnlButtonSelectExit
+      OnMouseEnter = pnlButtonSelectMouseEnter
+      OnMouseLeave = pnlButtonSelectMouseLeave
+      ExplicitLeft = 848
+    end
+    object pnlButtomCancel: TPanel
+      Left = 712
+      Top = 0
+      Width = 150
+      Height = 41
+      Cursor = crHandPoint
+      Align = alRight
+      BevelKind = bkTile
+      BevelOuter = bvNone
+      Caption = 'Cancelar'
+      Color = 6009689
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -20
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentBackground = False
+      ParentFont = False
+      TabOrder = 1
+      OnClick = pnlButtomCancelClick
+      OnEnter = pnlButtomCancelEnter
+      OnExit = pnlButtomCancelExit
+      OnMouseEnter = pnlButtomCancelMouseEnter
+      OnMouseLeave = pnlButtomCancelMouseLeave
+      ExplicitLeft = 698
     end
   end
   object pgcSearch: TPageControl
     Left = 0
     Top = 60
-    Width = 798
+    Width = 1012
     Height = 112
     ActivePage = tabSearch
     Align = alTop
@@ -63,7 +105,7 @@ inherited frmGeneralSearch: TfrmGeneralSearch
       object pnlSearch: TPanel
         Left = 0
         Top = 0
-        Width = 790
+        Width = 1004
         Height = 78
         Align = alClient
         BevelOuter = bvNone
@@ -84,7 +126,7 @@ inherited frmGeneralSearch: TfrmGeneralSearch
           ParentFont = False
         end
         object imButtonSearchExecute: TImage
-          Left = 308
+          Left = 396
           Top = 31
           Width = 30
           Height = 30
@@ -115,7 +157,7 @@ inherited frmGeneralSearch: TfrmGeneralSearch
           OnClick = imButtonSearchExecuteClick
         end
         object imButtonClearEdtSearch: TImage
-          Left = 272
+          Left = 360
           Top = 31
           Width = 30
           Height = 30
@@ -143,7 +185,7 @@ inherited frmGeneralSearch: TfrmGeneralSearch
         object edtSearch: TEdit
           Left = 16
           Top = 31
-          Width = 250
+          Width = 338
           Height = 32
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -160,8 +202,8 @@ inherited frmGeneralSearch: TfrmGeneralSearch
   object pnlGeneral: TPanel
     Left = 0
     Top = 172
-    Width = 798
-    Height = 268
+    Width = 1012
+    Height = 349
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 3
@@ -170,8 +212,8 @@ inherited frmGeneralSearch: TfrmGeneralSearch
     object pgcGeneral: TPageControl
       Left = 0
       Top = 0
-      Width = 798
-      Height = 268
+      Width = 1012
+      Height = 349
       ActivePage = tabGrid
       Align = alClient
       TabOrder = 0
@@ -182,19 +224,26 @@ inherited frmGeneralSearch: TfrmGeneralSearch
         object grdSearch: TDBGrid
           Left = 0
           Top = 0
-          Width = 790
-          Height = 234
+          Width = 1004
+          Height = 315
           Align = alClient
           BorderStyle = bsNone
           DataSource = dtsSearch
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -23
+          Font.Name = 'Calibri'
+          Font.Style = []
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+          ParentFont = False
           ReadOnly = True
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
-          TitleFont.Height = -16
+          TitleFont.Height = -23
           TitleFont.Name = 'Calibri'
           TitleFont.Style = []
+          OnDrawColumnCell = grdSearchDrawColumnCell
           OnDblClick = grdSearchDblClick
         end
       end

@@ -24,14 +24,26 @@ type
     tabGrid: TTabSheet;
     grdSearch: TDBGrid;
     dtsSearch: TDataSource;
-    btnSelect: TButton;
+    pnlButtonSelect: TPanel;
+    pnlButtomCancel: TPanel;
     procedure FormDestroy(Sender: TObject);
     procedure imButtonSearchExecuteClick(Sender: TObject);
     procedure imButtonClearEdtSearchClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure btnSelectClick(Sender: TObject);
     procedure grdSearchDblClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure pnlButtonSelectClick(Sender: TObject);
+    procedure pnlButtonSelectEnter(Sender: TObject);
+    procedure pnlButtonSelectExit(Sender: TObject);
+    procedure pnlButtonSelectMouseEnter(Sender: TObject);
+    procedure pnlButtonSelectMouseLeave(Sender: TObject);
+    procedure pnlButtomCancelClick(Sender: TObject);
+    procedure pnlButtomCancelEnter(Sender: TObject);
+    procedure pnlButtomCancelExit(Sender: TObject);
+    procedure pnlButtomCancelMouseEnter(Sender: TObject);
+    procedure pnlButtomCancelMouseLeave(Sender: TObject);
+    procedure grdSearchDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
   private
     { Private declarations }
     FSearchEntityType: TSearchEntityType;
@@ -47,7 +59,7 @@ type
     FActionButtonColor : TColor;
     FHoverActionButtonColor: TColor;
     FActionButtonFontColor : TColor;
-    FActionButtonHoverColor: TColor;
+    FHoverActionButtonFontColor: TColor;
     FSearchPanelColor : TColor;
     FMainPanelColor : TColor;
     FRegisterPanelColor: TColor;
@@ -58,6 +70,14 @@ type
 
     procedure SetColors;
     procedure SelectRegister;
+    procedure CategorySearchExecute;
+    procedure SubCategorySearchExecute;
+    procedure CustomerSearchExecute;
+    procedure ProviderSearchExecute;
+    procedure TypePaymentSearchExecute;
+    procedure FormPaymentSearchExecute;
+    procedure CitySearchExecute;
+    procedure GridIdColumnsHide;
   public
     { Public declarations }
     procedure searchExecute;
@@ -80,12 +100,6 @@ implementation
 {$R *.dfm}
 
 { TfrmGeneralSearch }
-
-procedure TfrmGeneralSearch.btnSelectClick(Sender: TObject);
-begin
-  inherited;
-  SelectRegister;
-end;
 
 procedure TfrmGeneralSearch.FormCreate(Sender: TObject);
 begin
@@ -170,6 +184,20 @@ begin
   SelectRegister;
 end;
 
+procedure TfrmGeneralSearch.grdSearchDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  inherited;
+  if gdSelected in State then
+  begin
+    TDBGrid(Sender).Canvas.Brush.Color := TSystemManager.GetInstance.LayoutConfiguration.TitleColor;
+    TDBGrid(Sender).Canvas.Font.Color := TSystemManager.GetInstance.LayoutConfiguration.TitleFontColor;
+  end;
+
+  TDBGrid(Sender).Canvas.FillRect(Rect);
+  TDBGrid(Sender).DefaultDrawColumnCell(Rect,DataCol,Column,State);
+end;
+
 procedure TfrmGeneralSearch.imButtonClearEdtSearchClick(Sender: TObject);
 begin
   inherited;
@@ -183,59 +211,168 @@ begin
   searchExecute;
 end;
 
+procedure TfrmGeneralSearch.pnlButtomCancelClick(Sender: TObject);
+begin
+  inherited;
+  close;
+end;
+
+procedure TfrmGeneralSearch.pnlButtomCancelEnter(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
+end;
+
+procedure TfrmGeneralSearch.pnlButtomCancelExit(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
+end;
+
+procedure TfrmGeneralSearch.pnlButtomCancelMouseEnter(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
+end;
+
+procedure TfrmGeneralSearch.pnlButtomCancelMouseLeave(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
+end;
+
+procedure TfrmGeneralSearch.pnlButtonSelectClick(Sender: TObject);
+begin
+  inherited;
+  SelectRegister;
+end;
+
+procedure TfrmGeneralSearch.pnlButtonSelectEnter(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
+end;
+
+procedure TfrmGeneralSearch.pnlButtonSelectExit(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
+end;
+
+procedure TfrmGeneralSearch.pnlButtonSelectMouseEnter(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
+end;
+
+procedure TfrmGeneralSearch.pnlButtonSelectMouseLeave(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
+end;
+
 procedure TfrmGeneralSearch.searchExecute;
 begin
 
   case FSearchEntityType of
     setCategory:
     begin
-      dtsSearch.DataSet := FCategory.DataSet;
-      FCategory.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
-      FCategory.Search(FCategory.DataSet);
-      grdSearch.Columns[2].Width := 400;
+      CategorySearchExecute;
     end;
     setSubCategory:
     begin
-      dtsSearch.DataSet := FSubCategory.DataSet;
-      FSubCategory.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
-      FSubCategory.Search(FSubCategory.DataSet);
+      SubCategorySearchExecute;
     end;
     setCustomer:
     begin
-      dtsSearch.DataSet := FCustomer.DataSet;
-      FCustomer.SearchFiltersCustomized.TypePerson := tpCustomer;
-      FCustomer.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
-      FCustomer.Search(FCustomer.DataSet);
+      CustomerSearchExecute;
     end;
     setProvider:
     begin
-      dtsSearch.DataSet := FProvider.DataSet;
-      FProvider.SearchFiltersCustomized.TypePerson := tpProvider;
-      FProvider.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
-      FProvider.Search(FProvider.DataSet);
+      ProviderSearchExecute;
     end;
     setTypePayment:
     begin
-      dtsSearch.DataSet := FTypePayment.DataSet;
-      FTypePayment.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
-      FTypePayment.Search(FTypePayment.DataSet);
+      TypePaymentSearchExecute;
     end;
     setFormPayment:
     begin
-      dtsSearch.DataSet := FFormPayment.DataSet;
-      FFormPayment.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
-      FFormPayment.Search(FFormPayment.DataSet);
+      FormPaymentSearchExecute;
     end;
     setCity:
     begin
-      dtsSearch.DataSet := FCity.DataSet;
-      FCity.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
-      FCity.Search(FCity.DataSet);
+      CitySearchExecute;
     end;
   end;
 
+  GridIdColumnsHide;
+
+end;
+
+procedure TfrmGeneralSearch.GridIdColumnsHide;
+begin
   grdSearch.Columns[0].Visible := False;
   grdSearch.Columns[1].Visible := False;
+end;
+
+procedure TfrmGeneralSearch.CitySearchExecute;
+begin
+  dtsSearch.DataSet := FCity.DataSet;
+  FCity.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
+  FCity.Search(FCity.DataSet);
+  grdSearch.Columns[2].Width := 600;
+end;
+
+procedure TfrmGeneralSearch.FormPaymentSearchExecute;
+begin
+  dtsSearch.DataSet := FFormPayment.DataSet;
+  FFormPayment.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
+  FFormPayment.Search(FFormPayment.DataSet);
+  grdSearch.Columns[2].Width := 600;
+end;
+
+procedure TfrmGeneralSearch.TypePaymentSearchExecute;
+begin
+  dtsSearch.DataSet := FTypePayment.DataSet;
+  FTypePayment.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
+  FTypePayment.Search(FTypePayment.DataSet);
+  grdSearch.Columns[2].Width := 600;
+end;
+
+procedure TfrmGeneralSearch.ProviderSearchExecute;
+begin
+  dtsSearch.DataSet := FProvider.DataSet;
+  FProvider.SearchFiltersCustomized.TypePerson := tpProvider;
+  FProvider.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
+  FProvider.Search(FProvider.DataSet);
+  grdSearch.Columns[2].Width := 600;
+end;
+
+procedure TfrmGeneralSearch.CustomerSearchExecute;
+begin
+  dtsSearch.DataSet := FCustomer.DataSet;
+  FCustomer.SearchFiltersCustomized.TypePerson := tpCustomer;
+  FCustomer.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
+  FCustomer.Search(FCustomer.DataSet);
+  grdSearch.Columns[2].Width := 600;
+end;
+
+procedure TfrmGeneralSearch.SubCategorySearchExecute;
+begin
+  dtsSearch.DataSet := FSubCategory.DataSet;
+  FSubCategory.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
+  FSubCategory.Search(FSubCategory.DataSet);
+  grdSearch.Columns[2].Width := 400;
+  grdSearch.Columns[3].Visible := False;
+  grdSearch.Columns[4].Width := 400;
+end;
+
+procedure TfrmGeneralSearch.CategorySearchExecute;
+begin
+  dtsSearch.DataSet := FCategory.DataSet;
+  FCategory.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
+  FCategory.Search(FCategory.DataSet);
+  grdSearch.Columns[2].Width := 600;
 end;
 
 procedure TfrmGeneralSearch.SelectRegister;
@@ -313,7 +450,7 @@ begin
   FActionButtonColor := TSystemManager.GetInstance.LayoutConfiguration.ActionButtonColor;
   FHoverActionButtonColor:= TSystemManager.GetInstance.LayoutConfiguration.HoverActionButtonColor;
   FActionButtonFontColor := TSystemManager.GetInstance.LayoutConfiguration.ActionButtonFontColor;
-  FActionButtonHoverColor:= TSystemManager.GetInstance.LayoutConfiguration.ActionButtonHoverFontColor;
+  FHoverActionButtonFontColor := TSystemManager.GetInstance.LayoutConfiguration.ActionButtonHoverFontColor;
   FSearchPanelColor := TSystemManager.GetInstance.LayoutConfiguration.SearchPanelColor;
   FMainPanelColor := TSystemManager.GetInstance.LayoutConfiguration.MainPanelColor;
   FRegisterPanelColor := TSystemManager.GetInstance.LayoutConfiguration.RegisterPanelColor;
@@ -325,6 +462,10 @@ begin
   pnlTitle.Font.Color := FTitleFontColor;
   pnlSearch.Color := FSearchPanelColor;
   pnlBottom.Color := FPanelBottomColor;
+  pnlButtonSelect.Color := FActionButtonColor;
+  pnlButtonSelect.Font.Color := FActionButtonFontColor;
+  pnlButtomCancel.Color := FActionButtonColor;
+  pnlButtomCancel.Font.Color := FActionButtonFontColor;
 end;
 
 end.
