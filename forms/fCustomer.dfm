@@ -1,28 +1,11 @@
 inherited frmCustomer: TfrmCustomer
   Caption = 'frmCustomer'
   OnDestroy = FormDestroy
-  ExplicitWidth = 1053
-  ExplicitHeight = 657
+  PixelsPerInch = 96
   TextHeight = 24
-  inherited pnlTitle: TPanel
-    ExplicitWidth = 1037
-  end
-  inherited pnlBottom: TPanel
-    ExplicitTop = 588
-    ExplicitWidth = 1037
-  end
-  inherited pnlMain: TPanel
-    ExplicitHeight = 416
-  end
   inherited pnlGeneral: TPanel
-    ExplicitWidth = 887
-    ExplicitHeight = 416
     inherited pgcGeneral: TPageControl
-      Width = 891
-      Height = 417
       ActivePage = tabRegister
-      ExplicitWidth = 887
-      ExplicitHeight = 416
       inherited tabGrid: TTabSheet
         ExplicitWidth = 883
         ExplicitHeight = 388
@@ -32,27 +15,17 @@ inherited frmCustomer: TfrmCustomer
         end
       end
       inherited tabRegister: TTabSheet
-        ExplicitWidth = 883
-        ExplicitHeight = 388
-        inherited pnlMainRegister: TPanel
-          Top = 347
-          Width = 883
-          inherited pnlButtonSave: TPanel
-            Left = 736
-          end
-          inherited pnlButtonCancel: TPanel
-            Left = 589
-          end
-        end
+        ExplicitLeft = 4
+        ExplicitTop = 25
+        ExplicitWidth = 887
+        ExplicitHeight = 389
         inherited pgcRegister: TPageControl
-          Width = 883
-          Height = 347
           inherited tabRegisterBasic: TTabSheet
-            ExplicitWidth = 875
-            ExplicitHeight = 318
+            ExplicitLeft = 4
+            ExplicitTop = 25
+            ExplicitWidth = 879
+            ExplicitHeight = 319
             inherited pnlRegisterBasic: TPanel
-              Width = 875
-              Height = 318
               object lb3: TLabel
                 Left = 8
                 Top = 11
@@ -262,13 +235,11 @@ inherited frmCustomer: TfrmCustomer
     end
   end
   inherited pgcSearch: TPageControl
-    ExplicitWidth = 1037
     inherited tabSearch: TTabSheet
-      ExplicitWidth = 1033
-      inherited pnlSearch: TPanel
-        Width = 1033
-        ExplicitWidth = 1029
-      end
+      ExplicitLeft = 4
+      ExplicitTop = 25
+      ExplicitWidth = 1037
+      ExplicitHeight = 83
     end
   end
 end

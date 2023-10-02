@@ -59,6 +59,9 @@ type
     procedure edtInstallmentesValueKeyPress(Sender: TObject; var Key: Char);
     procedure edtNumberInstallmentsExit(Sender: TObject);
     procedure edtInstallmentesValueExit(Sender: TObject);
+    procedure edtPersonKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure edtSubCategoryKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure edtFormPaymentKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     FMemInstallmentsList: TFDMemTable;
     FTypeMovement: TTypeMovement;
@@ -78,6 +81,9 @@ type
 
     procedure InstallmentsGenerate;
     procedure SetColors;
+    procedure SearchPerson;
+    procedure SearchSubCategory;
+    procedure SearchFormPayment;
 
     { Private declarations }
   public
@@ -92,6 +98,15 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmMovement.edtFormPaymentKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  inherited;
+  if (Key = VK_F12) then
+  begin
+    SearchFormPayment;
+  end;
+end;
 
 procedure TfrmMovement.edtInstallmentesValueExit(Sender: TObject);
 begin
@@ -122,17 +137,33 @@ begin
   begin
     pnlButtonInstallmentsGenerate.Visible := True;
     tabInstallments.TabVisible := True;
-    lbFirstIssueDate.Visible := True;
-    edtFirstIssueDate.Visible := True;
+    lbFirstIssueDate.Caption := 'Data do primeiro vencimento';
     lbInstallmentsValue.Caption := 'Valor das parcelas';
   end
   else
   begin
     pnlButtonInstallmentsGenerate.Visible := False;
     tabInstallments.TabVisible := False;
-    lbFirstIssueDate.Visible := False;
-    edtFirstIssueDate.Visible := False;
+    lbFirstIssueDate.Caption := 'Data de vencimento';
     lbInstallmentsValue.Caption := 'Valor';
+  end;
+end;
+
+procedure TfrmMovement.edtPersonKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  inherited;
+  if (Key = VK_F12) then
+  begin
+    SearchPerson;
+  end;
+end;
+
+procedure TfrmMovement.edtSubCategoryKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  inherited;
+  if (Key = VK_F12) then
+  begin
+    SearchSubCategory;
   end;
 end;
 
@@ -222,11 +253,10 @@ begin
   pnlBottom.Color := FPanelBottomColor;
 end;
 
-procedure TfrmMovement.imButtonSearchPersonClick(Sender: TObject);
+procedure TfrmMovement.SearchPerson;
 var
   frmGeneralSearch : TfrmGeneralSearch;
 begin
-  inherited;
 
   frmGeneralSearch := TfrmGeneralSearch.Create(nil);
   try
@@ -266,11 +296,16 @@ begin
   end;
 end;
 
-procedure TfrmMovement.imButtonSearchSubCategoryClick(Sender: TObject);
+procedure TfrmMovement.imButtonSearchPersonClick(Sender: TObject);
+begin
+  inherited;
+  SearchPerson;
+end;
+
+procedure TfrmMovement.SearchSubCategory;
 var
   frmGeneralSearch : TfrmGeneralSearch;
 begin
-  inherited;
 
   frmGeneralSearch := TfrmGeneralSearch.Create(nil);
   try
@@ -287,11 +322,16 @@ begin
   end;
 end;
 
-procedure TfrmMovement.imButtonSearchFormPaymentClick(Sender: TObject);
+procedure TfrmMovement.imButtonSearchSubCategoryClick(Sender: TObject);
+begin
+  inherited;
+  SearchSubCategory;
+end;
+
+procedure TfrmMovement.SearchFormPayment;
 var
   frmGeneralSearch : TfrmGeneralSearch;
 begin
-  inherited;
 
   frmGeneralSearch := TfrmGeneralSearch.Create(nil);
   try
@@ -306,7 +346,12 @@ begin
   finally
     frmGeneralSearch.Free;
   end;
+end;
 
+procedure TfrmMovement.imButtonSearchFormPaymentClick(Sender: TObject);
+begin
+  inherited;
+  SearchFormPayment;
 end;
 
 procedure TfrmMovement.InstallmentsGenerate;

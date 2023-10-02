@@ -2,12 +2,14 @@ inherited frmGeneralSearch: TfrmGeneralSearch
   Caption = 'frmGeneralSearch'
   ClientHeight = 562
   ClientWidth = 1012
+  KeyPreview = True
   Position = poScreenCenter
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  ExplicitWidth = 1024
-  ExplicitHeight = 600
+  ExplicitWidth = 1028
+  ExplicitHeight = 601
+  PixelsPerInch = 96
   TextHeight = 19
   object pnlTitle: TPanel
     Left = 0
@@ -25,7 +27,6 @@ inherited frmGeneralSearch: TfrmGeneralSearch
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
-    ExplicitWidth = 794
   end
   object pnlBottom: TPanel
     Left = 0
@@ -36,8 +37,6 @@ inherited frmGeneralSearch: TfrmGeneralSearch
     BevelOuter = bvNone
     ParentBackground = False
     TabOrder = 1
-    ExplicitTop = 439
-    ExplicitWidth = 794
     object pnlButtonSelect: TPanel
       Left = 862
       Top = 0
@@ -62,7 +61,6 @@ inherited frmGeneralSearch: TfrmGeneralSearch
       OnExit = pnlButtonSelectExit
       OnMouseEnter = pnlButtonSelectMouseEnter
       OnMouseLeave = pnlButtonSelectMouseLeave
-      ExplicitLeft = 848
     end
     object pnlButtomCancel: TPanel
       Left = 712
@@ -88,7 +86,6 @@ inherited frmGeneralSearch: TfrmGeneralSearch
       OnExit = pnlButtomCancelExit
       OnMouseEnter = pnlButtomCancelMouseEnter
       OnMouseLeave = pnlButtomCancelMouseLeave
-      ExplicitLeft = 698
     end
   end
   object pgcSearch: TPageControl
@@ -99,7 +96,6 @@ inherited frmGeneralSearch: TfrmGeneralSearch
     ActivePage = tabSearch
     Align = alTop
     TabOrder = 2
-    ExplicitWidth = 794
     object tabSearch: TTabSheet
       Caption = 'Op'#231#245'es de pesquisa'
       object pnlSearch: TPanel
@@ -111,7 +107,6 @@ inherited frmGeneralSearch: TfrmGeneralSearch
         BevelOuter = bvNone
         ParentBackground = False
         TabOrder = 0
-        ExplicitWidth = 786
         object lb1: TLabel
           Left = 16
           Top = 6
@@ -195,6 +190,8 @@ inherited frmGeneralSearch: TfrmGeneralSearch
           ParentFont = False
           TabOrder = 0
           TextHint = 'Digite aqui o que deseja pesquisar'
+          OnKeyDown = edtSearchKeyDown
+          OnKeyPress = edtSearchKeyPress
         end
       end
     end
@@ -207,8 +204,6 @@ inherited frmGeneralSearch: TfrmGeneralSearch
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 3
-    ExplicitWidth = 794
-    ExplicitHeight = 267
     object pgcGeneral: TPageControl
       Left = 0
       Top = 0
@@ -217,8 +212,6 @@ inherited frmGeneralSearch: TfrmGeneralSearch
       ActivePage = tabGrid
       Align = alClient
       TabOrder = 0
-      ExplicitWidth = 794
-      ExplicitHeight = 267
       object tabGrid: TTabSheet
         Caption = 'Consulta'
         object grdSearch: TDBGrid

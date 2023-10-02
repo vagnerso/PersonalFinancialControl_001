@@ -98,7 +98,7 @@ begin
   FRegisterObject.Clear;
   edtName.Text := dtsSearch.DataSet.FieldByName('Nome').AsString;
   edtSefazCode.Text := dtsSearch.DataSet.FieldByName('Cod. Cidade').AsString;
-  cbxUF.Text := dtsSearch.DataSet.FieldByName('UF').AsString;
+  cbxUF.ItemIndex := cbxUF.Items.IndexOf(dtsSearch.DataSet.FieldByName('UF').AsString);
   edtName.SetFocus;
 end;
 

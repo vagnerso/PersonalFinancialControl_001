@@ -458,7 +458,6 @@ inherited frmMasterRegister: TfrmMasterRegister
           ParentFont = False
           TabOrder = 0
           TextHint = 'Digite aqui o que deseja pesquisar'
-          OnKeyDown = edtSearchKeyDown
           OnKeyPress = edtSearchKeyPress
         end
       end

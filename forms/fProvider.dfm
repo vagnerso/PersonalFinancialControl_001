@@ -1,58 +1,45 @@
 inherited frmProvider: TfrmProvider
   Caption = 'Cadastro de Fornecedor'
   OnDestroy = FormDestroy
-  ExplicitWidth = 1053
-  ExplicitHeight = 657
+  PixelsPerInch = 96
   TextHeight = 24
   inherited pnlTitle: TPanel
     Caption = 'Cadastro de Fornecedor'
-    ExplicitWidth = 1037
-  end
-  inherited pnlBottom: TPanel
-    ExplicitTop = 588
-    ExplicitWidth = 1037
-  end
-  inherited pnlMain: TPanel
-    ExplicitHeight = 416
   end
   inherited pnlGeneral: TPanel
-    ExplicitWidth = 887
-    ExplicitHeight = 416
     inherited pgcGeneral: TPageControl
-      Width = 891
-      Height = 417
-      ExplicitWidth = 887
-      ExplicitHeight = 416
       inherited tabGrid: TTabSheet
-        ExplicitWidth = 883
-        ExplicitHeight = 388
-        inherited grdSearch: TDBGrid
-          Width = 883
-          Height = 388
-        end
+        ExplicitLeft = 4
+        ExplicitTop = 25
+        ExplicitWidth = 887
+        ExplicitHeight = 389
       end
       inherited tabRegister: TTabSheet
         ExplicitWidth = 883
         ExplicitHeight = 388
         inherited pnlMainRegister: TPanel
-          Top = 347
-          Width = 883
+          ExplicitTop = 347
+          ExplicitWidth = 883
           inherited pnlButtonSave: TPanel
             Left = 736
+            ExplicitLeft = 736
           end
           inherited pnlButtonCancel: TPanel
             Left = 589
+            ExplicitLeft = 589
           end
         end
         inherited pgcRegister: TPageControl
-          Width = 883
-          Height = 347
+          ExplicitWidth = 883
+          ExplicitHeight = 347
           inherited tabRegisterBasic: TTabSheet
             ExplicitWidth = 875
             ExplicitHeight = 318
             inherited pnlRegisterBasic: TPanel
               Width = 875
               Height = 318
+              ExplicitWidth = 875
+              ExplicitHeight = 318
               object lb3: TLabel
                 Left = 8
                 Top = 11
@@ -262,13 +249,11 @@ inherited frmProvider: TfrmProvider
     end
   end
   inherited pgcSearch: TPageControl
-    ExplicitWidth = 1037
     inherited tabSearch: TTabSheet
-      ExplicitWidth = 1033
-      inherited pnlSearch: TPanel
-        Width = 1033
-        ExplicitWidth = 1029
-      end
+      ExplicitLeft = 4
+      ExplicitTop = 25
+      ExplicitWidth = 1037
+      ExplicitHeight = 83
     end
   end
   inherited pmActionMenu: TPopupMenu

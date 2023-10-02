@@ -10,6 +10,10 @@ object frmBase: TfrmBase
   Font.Height = -16
   Font.Name = 'Calibri'
   Font.Style = []
+  OldCreateOrder = True
+  OnCreate = FormCreate
   OnKeyDown = FormKeyDown
+  OnKeyPress = FormKeyPress
+  PixelsPerInch = 96
   TextHeight = 19
 end

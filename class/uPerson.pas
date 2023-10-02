@@ -225,28 +225,31 @@ begin
   lSQL := TStringList.Create;
   try
     lSQL.Clear;
-    lSQL.Add('SELECT                      ');
-    lSQL.Add('   ID                       ');
-    lSQL.Add(' , UNIQUE_ID                ');
-    lSQL.Add(' , NAME        "Nome"       ');
-    lSQL.Add(' , TYPE_PERSON "Tipo"       ');
-    lSQL.Add(' , PHONE       "Fone"       ');
-    lSQL.Add(' , EMAIL       "E-Mail"     ');
-    lSQL.Add(' , ADRESS      "Endereço"   ');
-    lSQL.Add(' , NUMBER      "Número"     ');
-    lSQL.Add(' , DISTRICT    "Bairro"     ');
-    lSQL.Add(' , ID_CITY     "Cidade"     ');
-    lSQL.Add('FROM PERSON                 ');
-    lSQL.Add('WHERE 1>0                   ');
+    lSQL.Add('SELECT                         ');
+    lSQL.Add('   P.ID                        ');
+    lSQL.Add(' , P.UNIQUE_ID                 ');
+    lSQL.Add(' , P.NAME        "Nome"        ');
+    lSQL.Add(' , P.TYPE_PERSON "Tipo"        ');
+    lSQL.Add(' , P.PHONE       "Fone"        ');
+    lSQL.Add(' , P.EMAIL       "E-Mail"      ');
+    lSQL.Add(' , P.ADRESS      "Endereço"    ');
+    lSQL.Add(' , P.NUMBER      "Número"      ');
+    lSQL.Add(' , P.DISTRICT    "Bairro"      ');
+    lSQL.Add(' , P.ID_CITY     "Cidade"      ');
+    lSQL.Add(' , C.NAME        "Nome Cidade" ');
+    lSQL.Add('FROM PERSON P                  ');
+    lSQL.Add(' INNER JOIN CITY C             ');
+    lSQL.Add(' ON C.ID = P.ID_CITY           ');
+    lSQL.Add('WHERE 1>0                      ');
 
-    lSQL.Add('AND TYPE_PERSON = ' + (Integer(FSearchFiltersCustomized.TypePerson)).ToString);
+    lSQL.Add('AND P.TYPE_PERSON = ' + (Integer(FSearchFiltersCustomized.TypePerson)).ToString);
 
     if (Length(Trim(FSearchFiltersCustomized.ValueSearch)) > 0) then
     begin
-      lSQL.Add('AND NAME LIKE ' + QuotedStr('%' + FSearchFiltersCustomized.ValueSearch + '%'));
+      lSQL.Add('AND P.NAME LIKE ' + QuotedStr('%' + FSearchFiltersCustomized.ValueSearch + '%'));
     end;
 
-    lSQL.Add('ORDER BY NAME DESC   ');
+    lSQL.Add('ORDER BY P.NAME DESC   ');
 
     ADataSet.Close;
     ADataSet.SQL.Clear;

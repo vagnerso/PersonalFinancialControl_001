@@ -2,29 +2,24 @@ inherited frmCity: TfrmCity
   Caption = 'Cidades'
   ClientWidth = 1041
   OnDestroy = FormDestroy
-  ExplicitWidth = 1053
+  ExplicitWidth = 1057
+  PixelsPerInch = 96
   TextHeight = 24
   inherited pnlTitle: TPanel
     Width = 1041
     Caption = 'Cidades'
-    ExplicitWidth = 1037
+    ExplicitWidth = 1041
   end
   inherited pnlBottom: TPanel
     Width = 1041
-    ExplicitTop = 588
-    ExplicitWidth = 1037
-  end
-  inherited pnlMain: TPanel
-    ExplicitHeight = 416
+    ExplicitWidth = 1041
   end
   inherited pnlGeneral: TPanel
     Width = 891
-    ExplicitWidth = 887
-    ExplicitHeight = 416
+    ExplicitWidth = 891
     inherited pgcGeneral: TPageControl
       Width = 891
-      ExplicitWidth = 887
-      ExplicitHeight = 416
+      ExplicitWidth = 891
       inherited tabGrid: TTabSheet
         ExplicitWidth = 883
         inherited grdSearch: TDBGrid
@@ -36,20 +31,25 @@ inherited frmCity: TfrmCity
         inherited pnlMainRegister: TPanel
           Width = 883
           ExplicitTop = 347
+          ExplicitWidth = 883
           inherited pnlButtonSave: TPanel
             Left = 736
+            ExplicitLeft = 736
           end
           inherited pnlButtonCancel: TPanel
             Left = 589
+            ExplicitLeft = 589
           end
         end
         inherited pgcRegister: TPageControl
           Width = 883
+          ExplicitWidth = 883
           ExplicitHeight = 347
           inherited tabRegisterBasic: TTabSheet
             ExplicitWidth = 875
             inherited pnlRegisterBasic: TPanel
               Width = 875
+              ExplicitWidth = 875
               ExplicitHeight = 318
               object lb3: TLabel
                 Left = 8
@@ -151,12 +151,12 @@ inherited frmCity: TfrmCity
   end
   inherited pgcSearch: TPageControl
     Width = 1041
-    ExplicitWidth = 1037
+    ExplicitWidth = 1041
     inherited tabSearch: TTabSheet
       ExplicitWidth = 1033
       inherited pnlSearch: TPanel
         Width = 1033
-        ExplicitWidth = 1029
+        ExplicitWidth = 1033
       end
     end
   end

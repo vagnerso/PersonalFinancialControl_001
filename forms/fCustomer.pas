@@ -242,12 +242,14 @@ begin
   grdSearch.Columns[0].Visible := False;
   grdSearch.Columns[1].Visible := False;
   grdSearch.Columns[2].Width := 250;
-  grdSearch.Columns[3].Width := 250;
+  grdSearch.Columns[3].Visible := False;
   grdSearch.Columns[4].Width := 100;
   grdSearch.Columns[5].Width := 150;
   grdSearch.Columns[6].Width := 150;
   grdSearch.Columns[7].Width := 150;
   grdSearch.Columns[8].Width := 150;
+  grdSearch.Columns[9].Visible := False;
+  grdSearch.Columns[10].Width := 300;
 end;
 
 end.

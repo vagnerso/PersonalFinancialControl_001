@@ -1,7 +1,9 @@
 inherited frmMovement: TfrmMovement
+  BorderIcons = []
+  BorderStyle = bsSingle
   Caption = 'frmMovement'
-  ClientHeight = 561
-  ClientWidth = 892
+  ClientHeight = 571
+  ClientWidth = 1018
   Font.Height = -21
   KeyPreview = True
   Position = poScreenCenter
@@ -9,14 +11,14 @@ inherited frmMovement: TfrmMovement
   OnDestroy = FormDestroy
   OnKeyPress = FormKeyPress
   OnShow = FormShow
-  ExplicitWidth = 908
+  ExplicitWidth = 1024
   ExplicitHeight = 600
   PixelsPerInch = 96
   TextHeight = 26
   object pnlTitle: TPanel
     Left = 0
     Top = 0
-    Width = 892
+    Width = 1018
     Height = 60
     Align = alTop
     BevelOuter = bvNone
@@ -30,19 +32,21 @@ inherited frmMovement: TfrmMovement
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 892
   end
   object pnlBottom: TPanel
     Left = 0
-    Top = 515
-    Width = 892
+    Top = 525
+    Width = 1018
     Height = 46
     Align = alBottom
     BevelOuter = bvNone
     ParentBackground = False
     TabOrder = 1
-    ExplicitTop = 499
+    ExplicitTop = 515
+    ExplicitWidth = 892
     object pnlButtonSave: TPanel
-      Left = 745
+      Left = 871
       Top = 0
       Width = 147
       Height = 46
@@ -56,9 +60,10 @@ inherited frmMovement: TfrmMovement
       OnClick = pnlButtonSaveClick
       OnMouseEnter = pnlButtonSaveMouseEnter
       OnMouseLeave = pnlButtonSaveMouseLeave
+      ExplicitLeft = 745
     end
     object pnlButtonCancel: TPanel
-      Left = 598
+      Left = 724
       Top = 0
       Width = 147
       Height = 46
@@ -72,31 +77,35 @@ inherited frmMovement: TfrmMovement
       OnClick = pnlButtonCancelClick
       OnMouseEnter = pnlButtonCancelMouseEnter
       OnMouseLeave = pnlButtonCancelMouseLeave
+      ExplicitLeft = 598
     end
   end
   object pgcNavigator: TPageControl
     Left = 0
     Top = 60
-    Width = 892
-    Height = 455
+    Width = 1018
+    Height = 465
     ActivePage = tabDescription
     Align = alClient
     TabOrder = 2
-    ExplicitTop = 41
-    ExplicitHeight = 458
+    ExplicitWidth = 892
+    ExplicitHeight = 455
     object tabDescription: TTabSheet
       Caption = 'Informa'#231#245'es da conta'
-      ExplicitHeight = 417
+      ExplicitWidth = 884
+      ExplicitHeight = 414
       object pnlDescription: TPanel
         Left = 0
         Top = 0
-        Width = 884
-        Height = 414
+        Width = 1010
+        Height = 424
         Align = alClient
         BevelOuter = bvNone
         ParentBackground = False
         TabOrder = 0
-        ExplicitHeight = 417
+        ExplicitTop = -2
+        ExplicitWidth = 1000
+        ExplicitHeight = 414
         object Label1: TLabel
           Left = 16
           Top = 179
@@ -111,7 +120,7 @@ inherited frmMovement: TfrmMovement
           ParentFont = False
         end
         object imButtonClearEdtFormPayment: TImage
-          Left = 351
+          Left = 423
           Top = 212
           Width = 30
           Height = 30
@@ -136,7 +145,7 @@ inherited frmMovement: TfrmMovement
           ShowHint = True
         end
         object imButtonSearchFormPayment: TImage
-          Left = 387
+          Left = 459
           Top = 212
           Width = 30
           Height = 30
@@ -180,7 +189,7 @@ inherited frmMovement: TfrmMovement
           ParentFont = False
         end
         object Label3: TLabel
-          Left = 432
+          Left = 512
           Top = 179
           Width = 201
           Height = 26
@@ -219,7 +228,7 @@ inherited frmMovement: TfrmMovement
           ParentFont = False
         end
         object imButtonClearEdtPerson: TImage
-          Left = 351
+          Left = 423
           Top = 132
           Width = 30
           Height = 30
@@ -244,7 +253,7 @@ inherited frmMovement: TfrmMovement
           ShowHint = True
         end
         object imButtonSearchPerson: TImage
-          Left = 387
+          Left = 459
           Top = 132
           Width = 30
           Height = 30
@@ -275,7 +284,7 @@ inherited frmMovement: TfrmMovement
           OnClick = imButtonSearchPersonClick
         end
         object Label6: TLabel
-          Left = 432
+          Left = 512
           Top = 99
           Width = 119
           Height = 26
@@ -288,7 +297,7 @@ inherited frmMovement: TfrmMovement
           ParentFont = False
         end
         object imButtonClearEdtSubCategory: TImage
-          Left = 799
+          Left = 918
           Top = 132
           Width = 30
           Height = 30
@@ -313,7 +322,7 @@ inherited frmMovement: TfrmMovement
           ShowHint = True
         end
         object imButtonSearchSubCategory: TImage
-          Left = 835
+          Left = 954
           Top = 132
           Width = 30
           Height = 30
@@ -344,7 +353,7 @@ inherited frmMovement: TfrmMovement
           OnClick = imButtonSearchSubCategoryClick
         end
         object lbFirstIssueDate: TLabel
-          Left = 432
+          Left = 512
           Top = 259
           Width = 250
           Height = 26
@@ -359,31 +368,37 @@ inherited frmMovement: TfrmMovement
         object edtDescription: TEdit
           Left = 16
           Top = 51
-          Width = 849
+          Width = 969
           Height = 34
           TabOrder = 0
         end
         object edtFormPayment: TEdit
           Left = 16
           Top = 211
-          Width = 329
+          Width = 400
           Height = 34
+          Hint = 'Pressiona a tecla F12 ou clique na lupinha ao lado para escolher'
+          ParentShowHint = False
+          ShowHint = True
           TabOrder = 3
+          TextHint = 'Clique na lupinha ao lado para escolher'
+          OnKeyDown = edtFormPaymentKeyDown
         end
         object edtNumberInstallments: TEdit
-          Left = 432
+          Left = 512
           Top = 211
-          Width = 433
+          Width = 472
           Height = 34
           TabOrder = 4
           OnExit = edtNumberInstallmentsExit
         end
         object pnlButtonInstallmentsGenerate: TPanel
-          Left = 294
+          Left = 296
           Top = 350
-          Width = 259
+          Width = 401
           Height = 51
           Cursor = crHandPoint
+          BevelKind = bkTile
           BevelOuter = bvNone
           Caption = 'Gerar Parcelas'
           ParentBackground = False
@@ -393,7 +408,7 @@ inherited frmMovement: TfrmMovement
         object edtInstallmentesValue: TEdit
           Left = 16
           Top = 291
-          Width = 401
+          Width = 473
           Height = 34
           TabOrder = 5
           OnExit = edtInstallmentesValueExit
@@ -402,21 +417,31 @@ inherited frmMovement: TfrmMovement
         object edtPerson: TEdit
           Left = 16
           Top = 131
-          Width = 329
+          Width = 400
           Height = 34
+          Hint = 'Pressiona a tecla F12 ou clique na lupinha ao lado para escolher'
+          ParentShowHint = False
+          ShowHint = True
           TabOrder = 1
+          TextHint = 'Clique na lupinha ao lado para escolher'
+          OnKeyDown = edtPersonKeyDown
         end
         object edtSubCategory: TEdit
-          Left = 432
+          Left = 512
           Top = 131
-          Width = 361
+          Width = 400
           Height = 34
+          Hint = 'Pressiona a tecla F12 ou clique na lupinha ao lado para escolher'
+          ParentShowHint = False
+          ShowHint = True
           TabOrder = 2
+          TextHint = 'Clique na lupinha ao lado para escolher'
+          OnKeyDown = edtSubCategoryKeyDown
         end
         object edtFirstIssueDate: TDateTimePicker
-          Left = 432
+          Left = 512
           Top = 291
-          Width = 433
+          Width = 472
           Height = 34
           Date = 44888.714996817130000000
           Time = 44888.714996817130000000
@@ -427,21 +452,23 @@ inherited frmMovement: TfrmMovement
     object tabInstallments: TTabSheet
       Caption = 'Parcelas'
       ImageIndex = 1
-      ExplicitHeight = 417
+      ExplicitWidth = 884
+      ExplicitHeight = 414
       object pnlInstallments: TPanel
         Left = 0
         Top = 0
-        Width = 884
-        Height = 414
+        Width = 1010
+        Height = 424
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 0
-        ExplicitHeight = 417
+        ExplicitWidth = 884
+        ExplicitHeight = 414
         object grInstallments: TDBGrid
           Left = 0
           Top = 0
-          Width = 884
-          Height = 414
+          Width = 1010
+          Height = 424
           Align = alClient
           DataSource = dtsInstallments
           TabOrder = 0

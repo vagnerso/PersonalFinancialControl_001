@@ -75,7 +75,6 @@ type
     procedure Fechar1Click(Sender: TObject);
     procedure pnlButtonCancelClick(Sender: TObject);
     procedure imButtonClearEdtSearchClick(Sender: TObject);
-    procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure edtSearchKeyPress(Sender: TObject; var Key: Char);
     procedure grdSearchDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn;
       State: TGridDrawState);
@@ -94,6 +93,7 @@ type
     procedure pnlButtonCloseExit(Sender: TObject);
     procedure pnlButtonCancelExit(Sender: TObject);
     procedure pnlButtonSaveExit(Sender: TObject);
+    procedure edtSearchKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
     FBackgroundColor : TColor;
@@ -143,10 +143,24 @@ begin
   editRegister;
 end;
 
+procedure TfrmMasterRegister.edtSearchKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  inherited;
+  if (Key = VK_UP) then
+  begin
+    dtsSearch.DataSet.Prior;
+  end;
+
+  if (Key = VK_DOWN) then
+  begin
+    dtsSearch.DataSet.Next;
+  end;
+end;
+
 procedure TfrmMasterRegister.edtSearchKeyPress(Sender: TObject; var Key: Char);
 begin
   inherited;
-  if Key = #13 then
+  if (Key = #13) then
   begin
     searchExecute;
   end;
@@ -169,16 +183,6 @@ begin
   inherited;
   FQuerySearch := TMyQuery.Create(Self);
   dtsSearch.DataSet := FQuerySearch;
-end;
-
-procedure TfrmMasterRegister.FormKeyPress(Sender: TObject; var Key: Char);
-begin
-  inherited;
-  if (Key = #13) and not (UpperCase(Screen.ActiveControl.Name) = 'EDTSEARCH') then
-  begin
-    Key := #0;
-    Perform(Wm_NextDlgCtl,0,0);
-  end;
 end;
 
 procedure TfrmMasterRegister.FormShow(Sender: TObject);

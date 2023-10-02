@@ -44,6 +44,8 @@ type
     procedure pnlButtomCancelMouseLeave(Sender: TObject);
     procedure grdSearchDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure edtSearchKeyPress(Sender: TObject; var Key: Char);
+    procedure edtSearchKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
     FSearchEntityType: TSearchEntityType;
@@ -355,6 +357,29 @@ begin
   FCustomer.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
   FCustomer.Search(FCustomer.DataSet);
   grdSearch.Columns[2].Width := 600;
+end;
+
+procedure TfrmGeneralSearch.edtSearchKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  inherited;
+  if (Key = VK_UP) then
+  begin
+    dtsSearch.DataSet.Prior;
+  end;
+
+  if (Key = VK_DOWN) then
+  begin
+    dtsSearch.DataSet.Next;
+  end;
+end;
+
+procedure TfrmGeneralSearch.edtSearchKeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if (Key = #13) then
+  begin
+    searchExecute;
+  end;
 end;
 
 procedure TfrmGeneralSearch.SubCategorySearchExecute;
