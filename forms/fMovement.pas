@@ -62,6 +62,10 @@ type
     procedure edtPersonKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edtSubCategoryKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edtFormPaymentKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure pnlButtonInstallmentsGenerateEnter(Sender: TObject);
+    procedure pnlButtonInstallmentsGenerateExit(Sender: TObject);
+    procedure pnlButtonInstallmentsGenerateMouseEnter(Sender: TObject);
+    procedure pnlButtonInstallmentsGenerateMouseLeave(Sender: TObject);
   private
     FMemInstallmentsList: TFDMemTable;
     FTypeMovement: TTypeMovement;
@@ -78,12 +82,14 @@ type
     FRegisterPanelColor :TColor;
     FMainPanelRegisterColor :TColor;
     FPanelBottomColor :TColor;
+    FHoverActionButtonFontColor: TColor;
 
     procedure InstallmentsGenerate;
     procedure SetColors;
     procedure SearchPerson;
     procedure SearchSubCategory;
     procedure SearchFormPayment;
+    procedure SetLayoutGridInstallments;
 
     { Private declarations }
   public
@@ -96,6 +102,9 @@ var
   frmMovement: TfrmMovement;
 
 implementation
+
+uses
+  uAppConstants;
 
 {$R *.dfm}
 
@@ -237,6 +246,7 @@ begin
   FRegisterPanelColor := TSystemManager.GetInstance.LayoutConfiguration.RegisterPanelColor;
   FMainPanelRegisterColor := TSystemManager.GetInstance.LayoutConfiguration.MainPanelRegisterColor;
   FPanelBottomColor := TSystemManager.GetInstance.LayoutConfiguration.PanelBottomColor;
+  FHoverActionButtonFontColor := TSystemManager.GetInstance.LayoutConfiguration.ActionButtonHoverFontColor;
 
   Color := FBackgroundColor;
   //pnlTitle.Color := FTitleColor;
@@ -247,6 +257,9 @@ begin
 
   pnlButtonSave.Font.Color := FActionButtonFontColor;
   pnlButtonCancel.Font.Color := FActionButtonFontColor;
+
+  pnlButtonInstallmentsGenerate.Color := FActionButtonColor;
+  pnlButtonInstallmentsGenerate.Font.Color := FActionButtonFontColor;
 
   pnlDescription.Color := FRegisterPanelColor;
 
@@ -260,7 +273,6 @@ begin
 
   frmGeneralSearch := TfrmGeneralSearch.Create(nil);
   try
-
 
     case FTypeMovement of
       tmRevenues:
@@ -348,6 +360,18 @@ begin
   end;
 end;
 
+procedure TfrmMovement.SetLayoutGridInstallments;
+begin
+  grInstallments.Columns[0].Width := 80;
+  grInstallments.Columns[1].Width := 300;
+  grInstallments.Columns[2].Width := 140;
+  grInstallments.Columns[3].Width := 140;
+  grInstallments.Columns[0].Title.Caption := 'Parcela';
+  grInstallments.Columns[1].Title.Caption := 'Descrição';
+  grInstallments.Columns[2].Title.Caption := 'R$ Valor';
+  grInstallments.Columns[3].Title.Caption := 'Vencimento';
+end;
+
 procedure TfrmMovement.imButtonSearchFormPaymentClick(Sender: TObject);
 begin
   inherited;
@@ -356,39 +380,29 @@ end;
 
 procedure TfrmMovement.InstallmentsGenerate;
 var
-  numberInstallments: Integer;
+  lNumberInstallments: Integer;
   I: Integer;
   lIssueDate: TDate;
 begin
 
-  numberInstallments := StrToIntDef(edtNumberInstallments.Text, 1);
+  lNumberInstallments := StrToIntDef(edtNumberInstallments.Text, 1);
   lIssueDate := edtFirstIssueDate.Date;
 
   dtsInstallments.DataSet := FMemInstallmentsList;
   FMemInstallmentsList.EmptyDataSet;
 
-  for I := 0 to numberInstallments - 1 do
+  for I := 0 to lNumberInstallments - 1 do
   begin
     FMemInstallmentsList.Append;
     FMemInstallmentsList.FieldByName('NUMBER_PARCEL').AsInteger := i + 1;
     FMemInstallmentsList.FieldByName('DESCRIPTION').AsString := edtDescription.Text;
     FMemInstallmentsList.FieldByName('INSTALLMENT_VALUE').AsCurrency := StrToCurrDef(edtInstallmentesValue.Text, 0);
     FMemInstallmentsList.FieldByName('ISSUE_DATE').AsDateTime := lIssueDate;
-
-
     FMemInstallmentsList.Post;
     lIssueDate := IncMonth(lIssueDate);
   end;
 
-  grInstallments.Columns[0].Width := 80;
-  grInstallments.Columns[1].Width := 300;
-  grInstallments.Columns[2].Width := 140;
-  grInstallments.Columns[3].Width := 140;
-
-  grInstallments.Columns[0].Title.Caption := 'Parcela';
-  grInstallments.Columns[1].Title.Caption := 'Descrição';
-  grInstallments.Columns[2].Title.Caption := 'R$ Valor';
-  grInstallments.Columns[3].Title.Caption := 'Vencimento';
+  SetLayoutGridInstallments;
 
   pgcNavigator.ActivePage := tabInstallments;
 
@@ -400,7 +414,7 @@ begin
 
   try
 
-    if StrToIntDef(edtNumberInstallments.Text, 1) = 1  then
+    if (StrToIntDef(edtNumberInstallments.Text, 1) = 1)  then
     begin
       InstallmentsGenerate;
     end;
@@ -409,24 +423,24 @@ begin
     while not FMemInstallmentsList.Eof do
     begin
 
-      FRegisterObject.Description := FMemInstallmentsList.FieldByName('DESCRIPTION').AsString;
+      FRegisterObject.Description      := FMemInstallmentsList.FieldByName('DESCRIPTION').AsString;
       FRegisterObject.InstallmentValue := FMemInstallmentsList.FieldByName('INSTALLMENT_VALUE').AsCurrency;
-      FRegisterObject.IssueDate := FMemInstallmentsList.FieldByName('ISSUE_DATE').AsDateTime;
-      FRegisterObject.NumberParcel := FMemInstallmentsList.FieldByName('NUMBER_PARCEL').AsInteger;
-      FRegisterObject.TypeMovement := FTypeMovement;
-      FRegisterObject.Situation := 0;
+      FRegisterObject.IssueDate        := FMemInstallmentsList.FieldByName('ISSUE_DATE').AsDateTime;
+      FRegisterObject.NumberParcel     := FMemInstallmentsList.FieldByName('NUMBER_PARCEL').AsInteger;
+      FRegisterObject.TypeMovement     := FTypeMovement;
+      FRegisterObject.Situation        := 0;
       FRegisterObject.InsertRegister;
 
       FMemInstallmentsList.Next;
     end;
 
-    TFrmMessage.ShowMessageBox(mtSuccess, '', 'Parcelas geradas com sucesso.');
+    TFrmMessage.ShowMessageBox(mtSuccess, '', MGS_SUCCESS_PARCEL_GENERATE);
 
     ModalResult := mrOk;
 
   except on E: Exception do
     begin
-      TFrmMessage.ShowMessageBox(mtError, 'Erro ao gerar parcelas', e.Message);
+      TFrmMessage.ShowMessageBox(mtError, MGS_ERROR_PARCEL_GENERATE, e.Message);
     end;
   end;
 end;
@@ -469,6 +483,30 @@ procedure TfrmMovement.pnlButtonInstallmentsGenerateClick(Sender: TObject);
 begin
   inherited;
   InstallmentsGenerate;
+end;
+
+procedure TfrmMovement.pnlButtonInstallmentsGenerateEnter(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
+end;
+
+procedure TfrmMovement.pnlButtonInstallmentsGenerateExit(Sender: TObject);
+begin
+  inherited;
+   TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
+end;
+
+procedure TfrmMovement.pnlButtonInstallmentsGenerateMouseEnter(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
+end;
+
+procedure TfrmMovement.pnlButtonInstallmentsGenerateMouseLeave(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
 end;
 
 end.

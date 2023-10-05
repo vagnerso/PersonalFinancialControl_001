@@ -8,7 +8,6 @@ inherited frmProvider: TfrmProvider
   end
   inherited pnlGeneral: TPanel
     inherited pgcGeneral: TPageControl
-      ActivePage = tabRegister
       inherited tabGrid: TTabSheet
         ExplicitLeft = 4
         ExplicitTop = 25
@@ -16,17 +15,31 @@ inherited frmProvider: TfrmProvider
         ExplicitHeight = 389
       end
       inherited tabRegister: TTabSheet
-        ExplicitLeft = 4
-        ExplicitTop = 25
-        ExplicitWidth = 887
-        ExplicitHeight = 389
+        ExplicitWidth = 883
+        ExplicitHeight = 388
+        inherited pnlMainRegister: TPanel
+          ExplicitTop = 347
+          ExplicitWidth = 883
+          inherited pnlButtonSave: TPanel
+            Left = 736
+            ExplicitLeft = 736
+          end
+          inherited pnlButtonCancel: TPanel
+            Left = 589
+            ExplicitLeft = 589
+          end
+        end
         inherited pgcRegister: TPageControl
+          ExplicitWidth = 883
+          ExplicitHeight = 347
           inherited tabRegisterBasic: TTabSheet
-            ExplicitLeft = 4
-            ExplicitTop = 25
-            ExplicitWidth = 879
-            ExplicitHeight = 319
+            ExplicitWidth = 875
+            ExplicitHeight = 318
             inherited pnlRegisterBasic: TPanel
+              Width = 875
+              Height = 318
+              ExplicitWidth = 875
+              ExplicitHeight = 318
               object lb3: TLabel
                 Left = 8
                 Top = 11

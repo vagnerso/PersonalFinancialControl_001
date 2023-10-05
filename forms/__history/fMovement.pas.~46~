@@ -1,4 +1,4 @@
-unit fMovement;
+Ôªøunit fMovement;
 
 interface
 
@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fBase, Vcl.ExtCtrls, Vcl.ComCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids,
   Vcl.Imaging.pngimage, Vcl.StdCtrls, fGeneralSearch, uEnumTypes,
-  FireDAC.Comp.Client, uFunctions, uMovement, uSystemManager;
+  FireDAC.Comp.Client, uFunctions, uMovement, uSystemManager, fMessage;
 
 type
   TfrmMovement = class(TfrmBase)
@@ -32,10 +32,10 @@ type
     dtsInstallments: TDataSource;
     lbInstallmentsValue: TLabel;
     edtInstallmentesValue: TEdit;
-    Label5: TLabel;
-    imButtonClearEdtProvider: TImage;
-    imButtonSearchProvider: TImage;
-    edtProvider: TEdit;
+    lblPerson: TLabel;
+    imButtonClearEdtPerson: TImage;
+    imButtonSearchPerson: TImage;
+    edtPerson: TEdit;
     Label6: TLabel;
     edtSubCategory: TEdit;
     imButtonClearEdtSubCategory: TImage;
@@ -43,13 +43,12 @@ type
     lbFirstIssueDate: TLabel;
     edtFirstIssueDate: TDateTimePicker;
     procedure imButtonSearchFormPaymentClick(Sender: TObject);
-    procedure edtNumberInstallmentsClick(Sender: TObject);
     procedure pnlButtonInstallmentsGenerateClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure pnlButtonCancelClick(Sender: TObject);
     procedure pnlButtonSaveClick(Sender: TObject);
-    procedure imButtonSearchProviderClick(Sender: TObject);
+    procedure imButtonSearchPersonClick(Sender: TObject);
     procedure imButtonSearchSubCategoryClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -57,6 +56,16 @@ type
     procedure pnlButtonSaveMouseEnter(Sender: TObject);
     procedure pnlButtonCancelMouseLeave(Sender: TObject);
     procedure pnlButtonSaveMouseLeave(Sender: TObject);
+    procedure edtInstallmentesValueKeyPress(Sender: TObject; var Key: Char);
+    procedure edtNumberInstallmentsExit(Sender: TObject);
+    procedure edtInstallmentesValueExit(Sender: TObject);
+    procedure edtPersonKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure edtSubCategoryKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure edtFormPaymentKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure pnlButtonInstallmentsGenerateEnter(Sender: TObject);
+    procedure pnlButtonInstallmentsGenerateExit(Sender: TObject);
+    procedure pnlButtonInstallmentsGenerateMouseEnter(Sender: TObject);
+    procedure pnlButtonInstallmentsGenerateMouseLeave(Sender: TObject);
   private
     FMemInstallmentsList: TFDMemTable;
     FTypeMovement: TTypeMovement;
@@ -73,9 +82,14 @@ type
     FRegisterPanelColor :TColor;
     FMainPanelRegisterColor :TColor;
     FPanelBottomColor :TColor;
+    FHoverActionButtonFontColor: TColor;
 
     procedure InstallmentsGenerate;
     procedure SetColors;
+    procedure SearchPerson;
+    procedure SearchSubCategory;
+    procedure SearchFormPayment;
+    procedure SetDesignGridInstallments;
 
     { Private declarations }
   public
@@ -91,7 +105,34 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrmMovement.edtNumberInstallmentsClick(Sender: TObject);
+procedure TfrmMovement.edtFormPaymentKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  inherited;
+  if (Key = VK_F12) then
+  begin
+    SearchFormPayment;
+  end;
+end;
+
+procedure TfrmMovement.edtInstallmentesValueExit(Sender: TObject);
+begin
+  inherited;
+  TEdit(Sender).Text := FormatCurr('#,##0.00', StrToCurrDef(TEdit(Sender).Text, 0));
+end;
+
+procedure TfrmMovement.edtInstallmentesValueKeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if not(key in ['0'..'9','.',',',#8,#13]) then
+    key := #0;
+  if key in [',','.'] then
+    key := FormatSettings.DecimalSeparator;
+  if key = FormatSettings.DecimalSeparator then
+  if pos(key,TEdit(Sender).Text) <> 0 then
+    key := #0;
+end;
+
+procedure TfrmMovement.edtNumberInstallmentsExit(Sender: TObject);
 var
   numberInstallments: Integer;
 begin
@@ -102,19 +143,34 @@ begin
   begin
     pnlButtonInstallmentsGenerate.Visible := True;
     tabInstallments.TabVisible := True;
-    lbFirstIssueDate.Visible := True;
-    edtFirstIssueDate.Visible := True;
+    lbFirstIssueDate.Caption := 'Data do primeiro vencimento';
     lbInstallmentsValue.Caption := 'Valor das parcelas';
   end
   else
   begin
     pnlButtonInstallmentsGenerate.Visible := False;
     tabInstallments.TabVisible := False;
-    lbFirstIssueDate.Visible := False;
-    edtFirstIssueDate.Visible := False;
+    lbFirstIssueDate.Caption := 'Data de vencimento';
     lbInstallmentsValue.Caption := 'Valor';
   end;
+end;
 
+procedure TfrmMovement.edtPersonKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  inherited;
+  if (Key = VK_F12) then
+  begin
+    SearchPerson;
+  end;
+end;
+
+procedure TfrmMovement.edtSubCategoryKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  inherited;
+  if (Key = VK_F12) then
+  begin
+    SearchSubCategory;
+  end;
 end;
 
 procedure TfrmMovement.FormCreate(Sender: TObject);
@@ -155,19 +211,21 @@ begin
   case FTypeMovement of
     tmRevenues:
     begin
-      Caption := TFunctions.AppName + ' - Vers„o: ' + TFunctions.AppVersion + ' - ' + 'Receitas';
+      Caption := TFunctions.AppName + ' - Vers√£o: ' + TFunctions.AppVersion + ' - ' + 'Receitas';
       pnlTitle.Caption := 'Cadastro de Receitas';
+      lblPerson.Caption := 'Clientes';
     end;
     tmExpenses:
     begin
-      Caption := TFunctions.AppName + ' - Vers„o: ' + TFunctions.AppVersion + ' - ' + 'Receitas';
+      Caption := TFunctions.AppName + ' - Vers√£o: ' + TFunctions.AppVersion + ' - ' + 'Receitas';
       pnlTitle.Caption := 'Cadastro de Despesas';
+      lblPerson.Caption := 'Fornecedores';
     end;
   end;
 
   edtFirstIssueDate.Date := now;
   edtNumberInstallments.Text := '1';
-  edtNumberInstallmentsClick(Self);
+  edtNumberInstallmentsExit(Self);
 end;
 
 
@@ -185,6 +243,7 @@ begin
   FRegisterPanelColor := TSystemManager.GetInstance.LayoutConfiguration.RegisterPanelColor;
   FMainPanelRegisterColor := TSystemManager.GetInstance.LayoutConfiguration.MainPanelRegisterColor;
   FPanelBottomColor := TSystemManager.GetInstance.LayoutConfiguration.PanelBottomColor;
+  FHoverActionButtonFontColor := TSystemManager.GetInstance.LayoutConfiguration.ActionButtonHoverFontColor;
 
   Color := FBackgroundColor;
   //pnlTitle.Color := FTitleColor;
@@ -196,62 +255,124 @@ begin
   pnlButtonSave.Font.Color := FActionButtonFontColor;
   pnlButtonCancel.Font.Color := FActionButtonFontColor;
 
+  pnlButtonInstallmentsGenerate.Color := FActionButtonColor;
+  pnlButtonInstallmentsGenerate.Font.Color := FActionButtonFontColor;
+
   pnlDescription.Color := FRegisterPanelColor;
 
   pnlBottom.Color := FPanelBottomColor;
 end;
 
-procedure TfrmMovement.imButtonSearchProviderClick(Sender: TObject);
+procedure TfrmMovement.SearchPerson;
 var
   frmGeneralSearch : TfrmGeneralSearch;
 begin
-  inherited;
 
   frmGeneralSearch := TfrmGeneralSearch.Create(nil);
   try
-    frmGeneralSearch.SearchEntityType := setProvider;
-    frmGeneralSearch.ShowModal;
-    edtProvider.Text := frmGeneralSearch.Provider.Name;
-    FRegisterObject.Provider.Id := frmGeneralSearch.Provider.Id;
+
+    case FTypeMovement of
+      tmRevenues:
+      begin
+        frmGeneralSearch.SearchEntityType := setCustomer;
+      end;
+      tmExpenses:
+      begin
+        frmGeneralSearch.SearchEntityType := setProvider;
+      end;
+    end;
+
+    if frmGeneralSearch.ShowModal = mrOk then
+    begin
+
+      case FTypeMovement of
+        tmRevenues:
+        begin
+          edtPerson.Text := frmGeneralSearch.Customer.Name;
+          FRegisterObject.Provider.Id := frmGeneralSearch.Customer.Id;
+        end;
+        tmExpenses:
+        begin
+          edtPerson.Text := frmGeneralSearch.Provider.Name;
+          FRegisterObject.Provider.Id := frmGeneralSearch.Provider.Id;
+        end;
+      end;
+
+    end;
+
+  finally
+    frmGeneralSearch.Free;
+  end;
+end;
+
+procedure TfrmMovement.imButtonSearchPersonClick(Sender: TObject);
+begin
+  inherited;
+  SearchPerson;
+end;
+
+procedure TfrmMovement.SearchSubCategory;
+var
+  frmGeneralSearch : TfrmGeneralSearch;
+begin
+
+  frmGeneralSearch := TfrmGeneralSearch.Create(nil);
+  try
+    frmGeneralSearch.SearchEntityType := setSubCategory;
+
+    if frmGeneralSearch.ShowModal = mrOk then
+    begin
+      edtSubCategory.Text := frmGeneralSearch.SubCategory.Name;
+      FRegisterObject.SubCategory.Id := frmGeneralSearch.SubCategory.Id;
+    end;
+
   finally
     frmGeneralSearch.Free;
   end;
 end;
 
 procedure TfrmMovement.imButtonSearchSubCategoryClick(Sender: TObject);
+begin
+  inherited;
+  SearchSubCategory;
+end;
+
+procedure TfrmMovement.SearchFormPayment;
 var
   frmGeneralSearch : TfrmGeneralSearch;
 begin
-  inherited;
 
   frmGeneralSearch := TfrmGeneralSearch.Create(nil);
   try
-    frmGeneralSearch.SearchEntityType := setSubCategory;
-    frmGeneralSearch.ShowModal;
-    edtSubCategory.Text := frmGeneralSearch.SubCategory.Name;
-    FRegisterObject.SubCategory.Id := frmGeneralSearch.SubCategory.Id;
+    frmGeneralSearch.SearchEntityType := setFormPayment;
+
+    if frmGeneralSearch.ShowModal = mrOk then
+    begin
+      edtFormPayment.Text := frmGeneralSearch.FormPayment.Name;
+      FRegisterObject.FormPayment.Id := frmGeneralSearch.FormPayment.Id;
+    end;
+
   finally
     frmGeneralSearch.Free;
   end;
 end;
 
+procedure TfrmMovement.SetDesignGridInstallments;
+begin
+  grInstallments.Columns[0].Width := 80;
+  grInstallments.Columns[1].Width := 300;
+  grInstallments.Columns[2].Width := 140;
+  grInstallments.Columns[3].Width := 140;
+  grInstallments.Columns[0].Title.Caption := 'Parcela';
+  grInstallments.Columns[1].Title.Caption := 'Descri√ß√£o';
+  grInstallments.Columns[2].Title.Caption := 'R$ Valor';
+  grInstallments.Columns[3].Title.Caption := 'Vencimento';
+end;
+
 procedure TfrmMovement.imButtonSearchFormPaymentClick(Sender: TObject);
-var
-  frmGeneralSearch : TfrmGeneralSearch;
 begin
   inherited;
-
-  frmGeneralSearch := TfrmGeneralSearch.Create(nil);
-  try
-    frmGeneralSearch.SearchEntityType := setFormPayment;
-    frmGeneralSearch.ShowModal;
-    edtFormPayment.Text := frmGeneralSearch.FormPayment.Name;
-    FRegisterObject.FormPayment.Id := frmGeneralSearch.FormPayment.Id;
-
-  finally
-    frmGeneralSearch.Free;
-  end;
-
+  SearchFormPayment;
 end;
 
 procedure TfrmMovement.InstallmentsGenerate;
@@ -274,21 +395,11 @@ begin
     FMemInstallmentsList.FieldByName('DESCRIPTION').AsString := edtDescription.Text;
     FMemInstallmentsList.FieldByName('INSTALLMENT_VALUE').AsCurrency := StrToCurrDef(edtInstallmentesValue.Text, 0);
     FMemInstallmentsList.FieldByName('ISSUE_DATE').AsDateTime := lIssueDate;
-
-
     FMemInstallmentsList.Post;
     lIssueDate := IncMonth(lIssueDate);
   end;
 
-  grInstallments.Columns[0].Width := 80;
-  grInstallments.Columns[1].Width := 300;
-  grInstallments.Columns[2].Width := 140;
-  grInstallments.Columns[3].Width := 140;
-
-  grInstallments.Columns[0].Title.Caption := 'Parcela';
-  grInstallments.Columns[1].Title.Caption := 'DescriÁ„o';
-  grInstallments.Columns[2].Title.Caption := 'R$ Valor';
-  grInstallments.Columns[3].Title.Caption := 'Vencimento';
+  SetDesignGridInstallments;
 
   pgcNavigator.ActivePage := tabInstallments;
 
@@ -298,26 +409,37 @@ procedure TfrmMovement.pnlButtonSaveClick(Sender: TObject);
 begin
   inherited;
 
-  if StrToIntDef(edtNumberInstallments.Text, 1) = 1  then
-  begin
-    InstallmentsGenerate;
+  try
+
+    if StrToIntDef(edtNumberInstallments.Text, 1) = 1  then
+    begin
+      InstallmentsGenerate;
+    end;
+
+    FMemInstallmentsList.First;
+    while not FMemInstallmentsList.Eof do
+    begin
+
+      FRegisterObject.Description := FMemInstallmentsList.FieldByName('DESCRIPTION').AsString;
+      FRegisterObject.InstallmentValue := FMemInstallmentsList.FieldByName('INSTALLMENT_VALUE').AsCurrency;
+      FRegisterObject.IssueDate := FMemInstallmentsList.FieldByName('ISSUE_DATE').AsDateTime;
+      FRegisterObject.NumberParcel := FMemInstallmentsList.FieldByName('NUMBER_PARCEL').AsInteger;
+      FRegisterObject.TypeMovement := FTypeMovement;
+      FRegisterObject.Situation := 0;
+      FRegisterObject.InsertRegister;
+
+      FMemInstallmentsList.Next;
+    end;
+
+    TFrmMessage.ShowMessageBox(mtSuccess, '', 'Parcelas geradas com sucesso.');
+
+    ModalResult := mrOk;
+
+  except on E: Exception do
+    begin
+      TFrmMessage.ShowMessageBox(mtError, 'Erro ao gerar parcelas', e.Message);
+    end;
   end;
-
-  FMemInstallmentsList.First;
-  while not FMemInstallmentsList.Eof do
-  begin
-
-    FRegisterObject.Description := FMemInstallmentsList.FieldByName('DESCRIPTION').AsString;
-    FRegisterObject.InstallmentValue := FMemInstallmentsList.FieldByName('INSTALLMENT_VALUE').AsCurrency;
-    FRegisterObject.IssueDate := FMemInstallmentsList.FieldByName('ISSUE_DATE').AsDateTime;
-    FRegisterObject.NumberParcel := FMemInstallmentsList.FieldByName('NUMBER_PARCEL').AsInteger;
-    FRegisterObject.TypeMovement := FTypeMovement;
-    FRegisterObject.InsertRegister;
-
-    FMemInstallmentsList.Next;
-  end;
-
-  ModalResult := mrOk;
 end;
 
 procedure TfrmMovement.pnlButtonSaveMouseEnter(Sender: TObject);
@@ -358,6 +480,30 @@ procedure TfrmMovement.pnlButtonInstallmentsGenerateClick(Sender: TObject);
 begin
   inherited;
   InstallmentsGenerate;
+end;
+
+procedure TfrmMovement.pnlButtonInstallmentsGenerateEnter(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
+end;
+
+procedure TfrmMovement.pnlButtonInstallmentsGenerateExit(Sender: TObject);
+begin
+  inherited;
+   TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
+end;
+
+procedure TfrmMovement.pnlButtonInstallmentsGenerateMouseEnter(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FHoverActionButtonColor, FHoverActionButtonFontColor);
+end;
+
+procedure TfrmMovement.pnlButtonInstallmentsGenerateMouseLeave(Sender: TObject);
+begin
+  inherited;
+  TFunctions.SetButtonColors(Sender, FActionButtonColor, FActionButtonFontColor);
 end;
 
 end.

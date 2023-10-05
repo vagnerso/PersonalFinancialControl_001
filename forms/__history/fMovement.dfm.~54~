@@ -7,7 +7,9 @@ inherited frmMovement: TfrmMovement
   Font.Height = -21
   KeyPreview = True
   Position = poScreenCenter
+  OnCreate = FormCreate
   OnDestroy = FormDestroy
+  OnKeyPress = FormKeyPress
   OnShow = FormShow
   ExplicitWidth = 1024
   ExplicitHeight = 600
@@ -30,6 +32,7 @@ inherited frmMovement: TfrmMovement
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 892
   end
   object pnlBottom: TPanel
     Left = 0
@@ -40,6 +43,8 @@ inherited frmMovement: TfrmMovement
     BevelOuter = bvNone
     ParentBackground = False
     TabOrder = 1
+    ExplicitTop = 515
+    ExplicitWidth = 892
     object pnlButtonSave: TPanel
       Left = 871
       Top = 0
@@ -55,6 +60,7 @@ inherited frmMovement: TfrmMovement
       OnClick = pnlButtonSaveClick
       OnMouseEnter = pnlButtonSaveMouseEnter
       OnMouseLeave = pnlButtonSaveMouseLeave
+      ExplicitLeft = 745
     end
     object pnlButtonCancel: TPanel
       Left = 724
@@ -71,6 +77,7 @@ inherited frmMovement: TfrmMovement
       OnClick = pnlButtonCancelClick
       OnMouseEnter = pnlButtonCancelMouseEnter
       OnMouseLeave = pnlButtonCancelMouseLeave
+      ExplicitLeft = 598
     end
   end
   object pgcNavigator: TPageControl
@@ -81,8 +88,12 @@ inherited frmMovement: TfrmMovement
     ActivePage = tabDescription
     Align = alClient
     TabOrder = 2
+    ExplicitWidth = 892
+    ExplicitHeight = 455
     object tabDescription: TTabSheet
       Caption = 'Informa'#231#245'es da conta'
+      ExplicitWidth = 884
+      ExplicitHeight = 414
       object pnlDescription: TPanel
         Left = 0
         Top = 0
@@ -92,6 +103,9 @@ inherited frmMovement: TfrmMovement
         BevelOuter = bvNone
         ParentBackground = False
         TabOrder = 0
+        ExplicitTop = -2
+        ExplicitWidth = 1000
+        ExplicitHeight = 414
         object Label1: TLabel
           Left = 16
           Top = 179
@@ -390,10 +404,6 @@ inherited frmMovement: TfrmMovement
           ParentBackground = False
           TabOrder = 6
           OnClick = pnlButtonInstallmentsGenerateClick
-          OnEnter = pnlButtonInstallmentsGenerateEnter
-          OnExit = pnlButtonInstallmentsGenerateExit
-          OnMouseEnter = pnlButtonInstallmentsGenerateMouseEnter
-          OnMouseLeave = pnlButtonInstallmentsGenerateMouseLeave
         end
         object edtInstallmentesValue: TEdit
           Left = 16
@@ -442,6 +452,8 @@ inherited frmMovement: TfrmMovement
     object tabInstallments: TTabSheet
       Caption = 'Parcelas'
       ImageIndex = 1
+      ExplicitWidth = 884
+      ExplicitHeight = 414
       object pnlInstallments: TPanel
         Left = 0
         Top = 0
@@ -450,6 +462,8 @@ inherited frmMovement: TfrmMovement
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 0
+        ExplicitWidth = 884
+        ExplicitHeight = 414
         object grInstallments: TDBGrid
           Left = 0
           Top = 0

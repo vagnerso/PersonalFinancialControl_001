@@ -53,6 +53,9 @@ const
 
   MSG_ERROR_MOVEMENT_PAYMENT = 'Erro ao tentar realizar pagamento ';
 
+  MGS_SUCCESS_PARCEL_GENERATE = 'Parcelas geradas com sucesso.';
+  MGS_ERROR_PARCEL_GENERATE   = 'Erro ao gerar parcelas!';
+
 implementation
 
 end.
