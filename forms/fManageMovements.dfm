@@ -1,6 +1,5 @@
 inherited frmManageMovements: TfrmManageMovements
   Caption = 'frmManageMovements'
-  ClientHeight = 620
   ClientWidth = 1041
   OnDestroy = FormDestroy
   ExplicitWidth = 1053
@@ -11,24 +10,46 @@ inherited frmManageMovements: TfrmManageMovements
     ExplicitWidth = 1035
   end
   inherited pnlBottom: TPanel
-    Top = 590
     Width = 1041
-    ExplicitTop = 581
     ExplicitWidth = 1035
   end
   inherited pnlMain: TPanel
-    Height = 418
-    ExplicitHeight = 409
+    inherited pnlButtonClose: TPanel
+      Top = 205
+    end
+    object pnlButtonPdfExport: TPanel
+      Left = 0
+      Top = 164
+      Width = 150
+      Height = 41
+      Cursor = crHandPoint
+      Align = alTop
+      BevelKind = bkTile
+      BevelOuter = bvNone
+      Caption = 'Exportar PDF'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -20
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentBackground = False
+      ParentFont = False
+      TabOrder = 5
+      OnClick = pnlButtonPdfExportClick
+      OnEnter = pnlButtonPrintEnter
+      OnExit = pnlButtonPrintExit
+      OnMouseEnter = pnlButtonPrintMouseEnter
+      OnMouseLeave = pnlButtonPrintMouseLeave
+      ExplicitLeft = -2
+      ExplicitTop = 179
+    end
   end
   inherited pnlGeneral: TPanel
     Width = 891
-    Height = 418
     ExplicitWidth = 885
-    ExplicitHeight = 409
     inherited pgcGeneral: TPageControl
       Width = 891
       ExplicitWidth = 885
-      ExplicitHeight = 409
       inherited tabGrid: TTabSheet
         ExplicitWidth = 883
         inherited grdSearch: TDBGrid

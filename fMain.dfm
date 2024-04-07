@@ -28,7 +28,6 @@ object frmMain: TfrmMain
     Font.Name = 'Calibri'
     Font.Style = []
     ParentFont = False
-    ExplicitTop = 638
     ExplicitWidth = 184
   end
   object pnlDetail: TPanel
@@ -39,7 +38,7 @@ object frmMain: TfrmMain
     Align = alLeft
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitHeight = 637
+    ExplicitHeight = 635
     object imIconApp: TImage
       Left = 0
       Top = 53
@@ -12917,7 +12916,6 @@ object frmMain: TfrmMain
       Font.Name = 'Calibri'
       Font.Style = [fsBold]
       ParentFont = False
-      ExplicitTop = 407
       ExplicitWidth = 65
     end
     object imUser: TImage
@@ -14645,7 +14643,7 @@ object frmMain: TfrmMain
     BevelOuter = bvNone
     TabOrder = 1
     ExplicitLeft = 420
-    ExplicitHeight = 637
+    ExplicitHeight = 635
     object pnlMenuRevenues: TPanel
       Left = 14
       Top = 231
@@ -14853,7 +14851,7 @@ object frmMain: TfrmMain
       Align = alBottom
       BevelOuter = bvNone
       TabOrder = 11
-      ExplicitTop = 577
+      ExplicitTop = 575
       object imgButtonUtilities: TImage
         Left = 524
         Top = 0

@@ -4,12 +4,10 @@ inherited frmMovementGraphics: TfrmMovementGraphics
   ClientWidth = 1444
   Position = poScreenCenter
   WindowState = wsMaximized
-  OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  ExplicitWidth = 1460
-  ExplicitHeight = 1062
-  PixelsPerInch = 96
+  ExplicitWidth = 1456
+  ExplicitHeight = 1061
   TextHeight = 19
   object pnlTitle: TPanel
     Left = 0
@@ -25,6 +23,7 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     Font.Style = []
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 1438
   end
   object pnlBottom: TPanel
     Left = 0
@@ -33,6 +32,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     Height = 17
     Align = alBottom
     TabOrder = 1
+    ExplicitTop = 997
+    ExplicitWidth = 1438
   end
   object pgcGeneral: TPageControl
     Left = 0
@@ -42,11 +43,10 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     ActivePage = tabGraphics
     Align = alClient
     TabOrder = 2
-    ExplicitTop = 111
-    ExplicitHeight = 895
+    ExplicitWidth = 1438
+    ExplicitHeight = 867
     object tabGraphics: TTabSheet
       Caption = 'Visualizar em Gr'#225'ficos'
-      ExplicitHeight = 861
       object scrGraphics: TScrollBox
         Left = 0
         Top = 0
@@ -57,7 +57,6 @@ inherited frmMovementGraphics: TfrmMovementGraphics
         BevelOuter = bvNone
         BorderStyle = bsNone
         TabOrder = 0
-        ExplicitHeight = 861
         object chtFormPaymentsExpenses: TChart
           Left = 4
           Top = 0
@@ -77,6 +76,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           DefaultCanvas = 'TGDIPlusCanvas'
           ColorPaletteIndex = 13
           object Series2: TPieSeries
+            HoverElement = []
+            Marks.Tail.Margin = 2
             XValues.Order = loAscending
             YValues.Name = 'Pie'
             YValues.Order = loNone
@@ -118,6 +119,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           DefaultCanvas = 'TGDIPlusCanvas'
           ColorPaletteIndex = 13
           object PieSeries1: TPieSeries
+            HoverElement = []
+            Marks.Tail.Margin = 2
             XValues.Order = loAscending
             YValues.Name = 'Pie'
             YValues.Order = loNone
@@ -159,6 +162,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           DefaultCanvas = 'TGDIPlusCanvas'
           ColorPaletteIndex = 13
           object PieSeries4: TPieSeries
+            HoverElement = []
+            Marks.Tail.Margin = 2
             XValues.Order = loAscending
             YValues.Name = 'Pie'
             YValues.Order = loNone
@@ -200,6 +205,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           DefaultCanvas = 'TGDIPlusCanvas'
           ColorPaletteIndex = 13
           object PieSeries2: TPieSeries
+            HoverElement = []
+            Marks.Tail.Margin = 2
             XValues.Order = loAscending
             YValues.Name = 'Pie'
             YValues.Order = loNone
@@ -241,6 +248,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           DefaultCanvas = 'TGDIPlusCanvas'
           ColorPaletteIndex = 13
           object PieSeries6: TPieSeries
+            HoverElement = []
+            Marks.Tail.Margin = 2
             XValues.Order = loAscending
             YValues.Name = 'Pie'
             YValues.Order = loNone
@@ -282,6 +291,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
           DefaultCanvas = 'TGDIPlusCanvas'
           ColorPaletteIndex = 13
           object PieSeries5: TPieSeries
+            HoverElement = []
+            Marks.Tail.Margin = 2
             XValues.Order = loAscending
             YValues.Name = 'Pie'
             YValues.Order = loNone
@@ -309,7 +320,6 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     object tabLists: TTabSheet
       Caption = 'Visualizar em listas'
       ImageIndex = 1
-      ExplicitHeight = 861
       object scrLists: TScrollBox
         Left = 0
         Top = 0
@@ -320,7 +330,6 @@ inherited frmMovementGraphics: TfrmMovementGraphics
         BevelOuter = bvNone
         BorderStyle = bsNone
         TabOrder = 0
-        ExplicitHeight = 861
         object pn1: TPanel
           Left = 3
           Top = 3
@@ -572,7 +581,6 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     object tabTotals: TTabSheet
       Caption = 'Visualizar os totais'
       ImageIndex = 2
-      ExplicitHeight = 861
       object scrTotals: TScrollBox
         Left = 0
         Top = 0
@@ -583,7 +591,6 @@ inherited frmMovementGraphics: TfrmMovementGraphics
         BevelOuter = bvNone
         BorderStyle = bsNone
         TabOrder = 0
-        ExplicitHeight = 861
       end
     end
   end
@@ -594,7 +601,7 @@ inherited frmMovementGraphics: TfrmMovementGraphics
     Height = 70
     Align = alTop
     TabOrder = 3
-    ExplicitTop = 41
+    ExplicitWidth = 1438
     object lb6: TLabel
       Left = 8
       Top = 6
@@ -685,8 +692,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
       Top = 32
       Width = 129
       Height = 27
-      Date = 44903.348942754630000000
-      Time = 44903.348942754630000000
+      Date = 44903.000000000000000000
+      Time = 0.348942754630115800
       TabOrder = 2
     end
     object edtFilterEndDate: TDateTimePicker
@@ -694,8 +701,8 @@ inherited frmMovementGraphics: TfrmMovementGraphics
       Top = 32
       Width = 129
       Height = 27
-      Date = 44903.348942754630000000
-      Time = 44903.348942754630000000
+      Date = 44903.000000000000000000
+      Time = 0.348942754630115800
       TabOrder = 3
     end
     object cbxFilterDateBy: TComboBox

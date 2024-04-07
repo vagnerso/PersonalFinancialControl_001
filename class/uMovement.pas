@@ -532,7 +532,7 @@ begin
     FDataSet.SQL.Add(', INSTALLMENT_VALUE    ');
     FDataSet.SQL.Add(', NUMBER_PARCEL        ');
     FDataSet.SQL.Add(', TYPE_MOVEMENT        ');
-    FDataSet.SQL.Add(', ID_PERSON          ');
+    FDataSet.SQL.Add(', ID_PERSON            ');
     FDataSet.SQL.Add(', SITUATION            ');
     FDataSet.SQL.Add(', ID_USER              ');
     FDataSet.SQL.Add(') VALUES (             ');
@@ -544,7 +544,7 @@ begin
     FDataSet.SQL.Add(', :INSTALLMENT_VALUE   ');
     FDataSet.SQL.Add(', :NUMBER_PARCEL       ');
     FDataSet.SQL.Add(', :TYPE_MOVEMENT       ');
-    FDataSet.SQL.Add(', :ID_PERSON         ');
+    FDataSet.SQL.Add(', :ID_PERSON           ');
     FDataSet.SQL.Add(', :SITUATION           ');
     FDataSet.SQL.Add(', :ID_USER             ');
     FDataSet.SQL.Add(');                     ');
@@ -613,7 +613,7 @@ begin
     lSQL.Add('      WHEN 0 THEN "Entrada"          ');
     lSQL.Add('      ELSE "Saída"                   ');
     lSQL.Add('    END "Tipo"                       ');
-    lSQL.Add('  , M.ID_PERSON                    ');
+    lSQL.Add('  , M.ID_PERSON                      ');
     lSQL.Add('  , SC.NAME "Sub Categoria"          ');
     lSQL.Add('  , FP.NAME "Forma de Pagamento"     ');
     lSQL.Add('  , P.NAME "Fornecedor"              ');
@@ -627,7 +627,7 @@ begin
     lSQL.Add('  LEFT JOIN FORM_PAYMENT FP          ');
     lSQL.Add('  ON (FP.ID = M.ID_FORM_PAYMENT)     ');
     lSQL.Add('  LEFT JOIN PERSON P                 ');
-    lSQL.Add('  ON (P.ID  = M.ID_PERSON)         ');
+    lSQL.Add('  ON (P.ID  = M.ID_PERSON)           ');
     lSQL.Add(' WHERE 1>0                           ');
 
     if (Length(Trim(FSearchFiltersCustomized.ValueSearch)) > 0) then

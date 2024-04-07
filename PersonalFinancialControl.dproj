@@ -183,6 +183,16 @@
             <Form>frmCity</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="dataModules\dMovements.pas">
+            <Form>dtmMovements</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="dataModules\dConnection.pas">
+            <Form>dtmConnection</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -211,7 +221,12 @@
             </Delphi.Personality>
             <Deployment Version="4">
                 <DeployFile LocalName="PersonalFinancialControl.exe" Configuration="Debug" Class="ProjectOutput"/>
-                <DeployFile LocalName="PersonalFinancialControl.exe" Configuration="Debug" Class="ProjectOutput"/>
+                <DeployFile LocalName="PersonalFinancialControl.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>PersonalFinancialControl.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployClass Name="AdditionalDebugSymbols">
                     <Platform Name="iOSSimulator">
                         <Operation>1</Operation>

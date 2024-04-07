@@ -6,12 +6,9 @@ inherited frmMasterRegister: TfrmMasterRegister
   Font.Height = -20
   KeyPreview = True
   Position = poScreenCenter
-  OnCreate = FormCreate
-  OnKeyPress = FormKeyPress
   OnShow = FormShow
-  ExplicitWidth = 1061
-  ExplicitHeight = 659
-  PixelsPerInch = 96
+  ExplicitWidth = 1057
+  ExplicitHeight = 658
   TextHeight = 24
   object pnlTitle: TPanel
     Left = 0
@@ -30,6 +27,7 @@ inherited frmMasterRegister: TfrmMasterRegister
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 1039
   end
   object pnlBottom: TPanel
     Left = 0
@@ -40,6 +38,8 @@ inherited frmMasterRegister: TfrmMasterRegister
     BevelOuter = bvNone
     ParentBackground = False
     TabOrder = 1
+    ExplicitTop = 581
+    ExplicitWidth = 1039
   end
   object pnlMain: TPanel
     Left = 0
@@ -51,6 +51,7 @@ inherited frmMasterRegister: TfrmMasterRegister
     Color = 6511179
     ParentBackground = False
     TabOrder = 2
+    ExplicitHeight = 409
     object lblFontTest: TLabel
       Left = 12
       Top = 336
@@ -196,6 +197,8 @@ inherited frmMasterRegister: TfrmMasterRegister
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 3
+    ExplicitWidth = 889
+    ExplicitHeight = 409
     object pgcGeneral: TPageControl
       Left = 0
       Top = 0
@@ -210,6 +213,8 @@ inherited frmMasterRegister: TfrmMasterRegister
       Font.Style = []
       ParentFont = False
       TabOrder = 0
+      ExplicitWidth = 889
+      ExplicitHeight = 409
       object tabGrid: TTabSheet
         Caption = 'Consulta'
         object grdSearch: TDBGrid
@@ -358,6 +363,7 @@ inherited frmMasterRegister: TfrmMasterRegister
     Font.Style = []
     ParentFont = False
     TabOrder = 4
+    ExplicitWidth = 1039
     object tabSearch: TTabSheet
       Caption = 'Op'#231#245'es de pesquisa'
       object pnlSearch: TPanel
@@ -375,6 +381,7 @@ inherited frmMasterRegister: TfrmMasterRegister
         ParentBackground = False
         ParentFont = False
         TabOrder = 0
+        ExplicitWidth = 1031
         object lb1: TLabel
           Left = 16
           Top = 6

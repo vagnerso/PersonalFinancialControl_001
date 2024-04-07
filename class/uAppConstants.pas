@@ -56,6 +56,13 @@ const
   MGS_SUCCESS_PARCEL_GENERATE = 'Parcelas geradas com sucesso.';
   MGS_ERROR_PARCEL_GENERATE   = 'Erro ao gerar parcelas!';
 
+  IMAGES_PATH = '/images';
+
+  WHITE_ICON_MSG_SUCCESS     = 'outline_check_circle_white_48dp.png';
+  WHITE_ICON_MSG_ERROR       = 'outline_error_white_48dp.png';
+  WHITE_ICON_MSG_WARNING     = 'outline_warning_white_48dp.png';
+  WHITE_ICON_MSG_INFORMATION = 'outline_priority_high_white_48dp.png';
+
 implementation
 
 end.

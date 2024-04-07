@@ -13,11 +13,9 @@ object frmMessage: TfrmMessage
   Font.Name = 'Calibri'
   Font.Style = []
   KeyPreview = True
-  OldCreateOrder = True
   Position = poScreenCenter
   OnKeyPress = FormKeyPress
   OnShow = FormShow
-  PixelsPerInch = 96
   TextHeight = 13
   object pnlCenter: TPanel
     Left = 8
@@ -38,13 +36,13 @@ object frmMessage: TfrmMessage
       TabOrder = 0
       object lblMessageType: TLabel
         Left = 144
-        Top = 70
-        Width = 214
-        Height = 40
+        Top = 54
+        Width = 272
+        Height = 51
         Caption = 'lblMessageType'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
-        Font.Height = -33
+        Font.Height = -42
         Font.Name = 'Calibri'
         Font.Style = []
         ParentFont = False
@@ -64,7 +62,7 @@ object frmMessage: TfrmMessage
         Caption = 'lblMessage'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
-        Font.Height = -20
+        Font.Height = -27
         Font.Name = 'Calibri'
         Font.Style = []
         ParentFont = False

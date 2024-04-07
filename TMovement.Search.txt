@@ -11,7 +11,7 @@ SELECT
       WHEN 0 THEN "Entrada"          
       ELSE "Saída"                   
     END "Tipo"                       
-  , M.ID_PERSON                    
+  , M.ID_PERSON                      
   , SC.NAME "Sub Categoria"          
   , FP.NAME "Forma de Pagamento"     
   , P.NAME "Fornecedor"              
@@ -25,8 +25,8 @@ FROM MOVEMENT M
   LEFT JOIN FORM_PAYMENT FP          
   ON (FP.ID = M.ID_FORM_PAYMENT)     
   LEFT JOIN PERSON P                 
-  ON (P.ID  = M.ID_PERSON)         
+  ON (P.ID  = M.ID_PERSON)           
  WHERE 1>0                           
-AND STRFTIME('%m', M.ISSUE_DATE) = '10'
-AND STRFTIME('%Y', M.ISSUE_DATE) = '2023'
+AND STRFTIME('%m', M.ISSUE_DATE) = '04'
+AND STRFTIME('%Y', M.ISSUE_DATE) = '2024'
 ORDER BY M.DESCRIPTION DESC   

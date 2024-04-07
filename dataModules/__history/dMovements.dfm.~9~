@@ -1,0 +1,476 @@
+object dtmMovements: TdtmMovements
+  Height = 600
+  Width = 800
+  PixelsPerInch = 120
+  object qryMovementsReport: TFDQuery
+    Active = True
+    Connection = dtmConnection.conConnection
+    SQL.Strings = (
+      'SELECT                               '
+      '    M.ID                             '
+      '  , M.UNIQUE_ID                      '
+      '  , M.DESCRIPTION       "Descri'#231#227'o"  '
+      '  , M.ID_SUB_CATEGORY                '
+      '  , M.ID_FORM_PAYMENT                '
+      '  , M.ISSUE_DATE        "Vencimento" '
+      '  , M.INSTALLMENT_VALUE "R$ Valor"   '
+      '  , M.NUMBER_PARCEL     "N'#250'mero"     '
+      '  , CASE M.TYPE_MOVEMENT             '
+      '      WHEN 0 THEN "Entrada"          '
+      '      ELSE "Sa'#237'da"                   '
+      '    END "Tipo"                       '
+      '  , M.ID_PERSON                      '
+      '  , SC.NAME "Sub Categoria"          '
+      '  , FP.NAME "Forma de Pagamento"    '
+      '  , P.NAME "Fornecedor"              '
+      '  , CASE M.SITUATION                 '
+      '      WHEN 0 THEN "N'#227'o Pago"         '
+      '      ELSE "Pago"                    '
+      '    END "Situa'#231#227'o"                   '
+      'FROM MOVEMENT M                     '
+      '  LEFT JOIN SUB_CATEGORY SC          '
+      '  ON (SC.ID = M.ID_SUB_CATEGORY)    '
+      '  LEFT JOIN FORM_PAYMENT FP          '
+      '  ON (FP.ID = M.ID_FORM_PAYMENT)     '
+      '  LEFT JOIN PERSON P                 '
+      '  ON (P.ID  = M.ID_PERSON)           '
+      ' WHERE 1>0                           '
+      '')
+    Left = 144
+    Top = 376
+  end
+  object frxReportMovements: TfrxReport
+    Version = '2022.2.10'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick, pbCopy, pbSelection]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 45388.465333275500000000
+    ReportOptions.LastChange = 45388.935404583330000000
+    ScriptLanguage = 'PascalScript'
+    ScriptText.Strings = (
+      'begin'
+      ''
+      'end.')
+    Left = 280
+    Top = 152
+    Datasets = <
+      item
+        DataSet = frxDBDatasetMovements
+        DataSetName = 'frxDBDatasetMovements'
+      end>
+    Variables = <>
+    Style = <>
+    object Data: TfrxDataPage
+      Height = 1000.000000000000000000
+      Width = 1000.000000000000000000
+    end
+    object Page1: TfrxReportPage
+      PaperWidth = 210.000000000000000000
+      PaperHeight = 297.000000000000000000
+      PaperSize = 9
+      LeftMargin = 10.000000000000000000
+      RightMargin = 10.000000000000000000
+      TopMargin = 10.000000000000000000
+      BottomMargin = 10.000000000000000000
+      Frame.Typ = []
+      MirrorMode = []
+      object ReportTitle1: TfrxReportTitle
+        FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
+        Height = 37.795300000000000000
+        Top = 18.897650000000000000
+        Width = 718.110700000000000000
+        object Memo1: TfrxMemoView
+          AllowVectorExport = True
+          Left = 185.196970000000000000
+          Top = 3.779530000000000000
+          Width = 302.362400000000000000
+          Height = 26.456710000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -19
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          HAlign = haCenter
+          Memo.UTF8W = (
+            'Relat'#243'rio de movimenta'#231#227'o')
+          ParentFont = False
+        end
+        object Memo10: TfrxMemoView
+          AllowVectorExport = True
+          Left = 37.795300000000000000
+          Top = 11.338590000000000000
+          Width = 94.488250000000000000
+          Height = 18.897650000000000000
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'teste')
+        end
+        object Shape1: TfrxShapeView
+          AllowVectorExport = True
+          Left = 619.842920000000000000
+          Top = 3.779530000000000000
+          Width = 94.488250000000000000
+          Height = 26.456710000000000000
+          Frame.Typ = []
+        end
+      end
+      object PageHeader1: TfrxPageHeader
+        FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
+        Height = 22.677180000000000000
+        Top = 79.370130000000000000
+        Width = 718.110700000000000000
+      end
+      object PageFooter1: TfrxPageFooter
+        FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
+        Height = 22.677180000000000000
+        Top = 317.480520000000000000
+        Width = 718.110700000000000000
+        object Memo6: TfrxMemoView
+          AllowVectorExport = True
+          Left = 249.448980000000000000
+          Top = 3.779530000000000000
+          Width = 211.653680000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Desenvolvido por Vagner Oliveira')
+          ParentFont = False
+        end
+        object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
+          Left = 68.031540000000000000
+          Top = 2.000000000000000000
+          Width = 98.267780000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[(<Date><Time>)]')
+          ParentFont = False
+        end
+        object Memo7: TfrxMemoView
+          AllowVectorExport = True
+          Left = 3.779530000000000000
+          Top = 2.000000000000000000
+          Width = 60.472480000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Data/Hora:')
+          ParentFont = False
+        end
+        object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
+          Left = 578.268090000000000000
+          Top = 3.779530000000000000
+          Width = 52.913420000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[(<Page>)]')
+          ParentFont = False
+        end
+        object Memo8: TfrxMemoView
+          AllowVectorExport = True
+          Left = 529.134200000000000000
+          Top = 3.779530000000000000
+          Width = 45.354360000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'P'#225'gina:')
+          ParentFont = False
+        end
+        object SysMemo3: TfrxSysMemoView
+          AllowVectorExport = True
+          Left = 661.417750000000000000
+          Top = 3.779530000000000000
+          Width = 52.913420000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[(<TotalPages>)]')
+          ParentFont = False
+        end
+        object Memo9: TfrxMemoView
+          AllowVectorExport = True
+          Left = 634.961040000000000000
+          Top = 3.779530000000000000
+          Width = 22.677180000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'de:')
+          ParentFont = False
+        end
+      end
+      object MasterData1: TfrxMasterData
+        FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
+        Height = 37.795300000000000000
+        Top = 219.212740000000000000
+        Width = 718.110700000000000000
+        DataSet = frxDBDatasetMovements
+        DataSetName = 'frxDBDatasetMovements'
+        RowCount = 0
+        object frxDBDatasetMovementsISSUE_DATE: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 3.779530000000000000
+          Top = 7.559060000000000000
+          Width = 105.826840000000000000
+          Height = 18.897650000000000000
+          DataField = 'Vencimento'
+          DataSet = frxDBDatasetMovements
+          DataSetName = 'frxDBDatasetMovements'
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDatasetMovements."Vencimento"]')
+        end
+        object frxDBDatasetMovementsDESCRIPTION: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 117.165430000000000000
+          Top = 7.559060000000000000
+          Width = 272.126160000000000000
+          Height = 18.897650000000000000
+          DataField = 'Descri'#231#227'o'
+          DataSet = frxDBDatasetMovements
+          DataSetName = 'frxDBDatasetMovements'
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDatasetMovements."Descri'#231#227'o"]')
+        end
+        object frxDBDatasetMovementsINSTALLMENT_VALUE: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 396.850650000000000000
+          Top = 7.559060000000000000
+          Width = 124.724490000000000000
+          Height = 18.897650000000000000
+          DataField = 'R$ Valor'
+          DataSet = frxDBDatasetMovements
+          DataSetName = 'frxDBDatasetMovements'
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDatasetMovements."R$ Valor"]')
+        end
+        object frxDBDatasetMovementsTYPE_MOVEMENT: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 529.134200000000000000
+          Top = 7.338590000000000000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          DataField = 'Tipo'
+          DataSet = frxDBDatasetMovements
+          DataSetName = 'frxDBDatasetMovements'
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDatasetMovements."Tipo"]')
+        end
+      end
+      object ColumnHeader1: TfrxColumnHeader
+        FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
+        Height = 34.015770000000000000
+        Top = 124.724490000000000000
+        Width = 718.110700000000000000
+        object Memo4: TfrxMemoView
+          AllowVectorExport = True
+          Left = 3.779530000000000000
+          Top = 7.559060000000000000
+          Width = 105.826840000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Data')
+          ParentFont = False
+        end
+        object Memo2: TfrxMemoView
+          AllowVectorExport = True
+          Left = 117.165430000000000000
+          Top = 7.559060000000000000
+          Width = 272.126160000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Descri'#231#227'o')
+          ParentFont = False
+        end
+        object Memo3: TfrxMemoView
+          AllowVectorExport = True
+          Left = 396.850650000000000000
+          Top = 7.559060000000000000
+          Width = 124.724490000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'R$ Valor')
+          ParentFont = False
+        end
+        object Memo5: TfrxMemoView
+          AllowVectorExport = True
+          Left = 529.134200000000000000
+          Top = 7.559060000000000000
+          Width = 124.724490000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Tipo')
+          ParentFont = False
+        end
+      end
+    end
+  end
+  object frxDBDatasetMovements: TfrxDBDataset
+    UserName = 'frxDBDatasetMovements'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'ID=ID'
+      'UNIQUE_ID=UNIQUE_ID'
+      'Descri'#231#227'o=Descri'#231#227'o'
+      'ID_SUB_CATEGORY=ID_SUB_CATEGORY'
+      'ID_FORM_PAYMENT=ID_FORM_PAYMENT'
+      'Vencimento=Vencimento'
+      'R$ Valor=R$ Valor'
+      'N'#250'mero=N'#250'mero'
+      'Tipo=Tipo'
+      'ID_PERSON=ID_PERSON'
+      'Sub Categoria=Sub Categoria'
+      'Forma de Pagamento=Forma de Pagamento'
+      'Fornecedor=Fornecedor'
+      'Situa'#231#227'o=Situa'#231#227'o')
+    DataSet = qryMovementsReport
+    BCDToCurrency = False
+    DataSetOptions = []
+    Left = 416
+    Top = 272
+  end
+  object frxPDFExport1: TfrxPDFExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    DataOnly = False
+    EmbedFontsIfProtected = False
+    InteractiveFormsFontSubset = 'A-Z,a-z,0-9,#43-#47 '
+    OpenAfterExport = False
+    PrintOptimized = False
+    Outline = False
+    Background = False
+    HTMLTags = True
+    Quality = 95
+    Author = 'FastReport'
+    Subject = 'FastReport PDF export'
+    Creator = 'FastReport'
+    ProtectionFlags = [ePrint, eModify, eCopy, eAnnot]
+    HideToolbar = False
+    HideMenubar = False
+    HideWindowUI = False
+    FitWindow = False
+    CenterWindow = False
+    PrintScaling = False
+    PdfA = False
+    PDFStandard = psNone
+    PDFVersion = pv17
+    Left = 336
+    Top = 376
+  end
+  object frxHTMLExport1: TfrxHTMLExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    DataOnly = False
+    OpenAfterExport = False
+    FixedWidth = True
+    Background = False
+    Centered = False
+    EmptyLines = True
+    Print = False
+    PictureType = gpPNG
+    Outline = False
+    Left = 592
+    Top = 488
+  end
+end

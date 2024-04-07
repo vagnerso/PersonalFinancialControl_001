@@ -1,0 +1,19 @@
+object dtmConnection: TdtmConnection
+  Height = 600
+  Width = 800
+  PixelsPerInch = 120
+  object conConnection: TFDConnection
+    Params.Strings = (
+      
+        'Database=C:\Arquivos_de_Trabalho\Projetos_Delphi\PersonalFinanci' +
+        'alControl_001\database\PersonalFinancialControl'
+      'DriverID=SQLite')
+    LoginPrompt = False
+    Left = 130
+    Top = 140
+  end
+  object FDPhysSQLiteDriverLink1: TFDPhysSQLiteDriverLink
+    Left = 150
+    Top = 270
+  end
+end

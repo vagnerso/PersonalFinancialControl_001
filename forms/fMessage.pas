@@ -55,7 +55,7 @@ var
 implementation
 
 uses
-  uFunctions, uSystemManager;
+  uFunctions, uSystemManager, uAppConstants;
 
 {$R *.dfm}
 
@@ -128,52 +128,51 @@ end;
 
 procedure TfrmMessage.PrepareMessageBox;
 var
-  lPathIconSuccessWhite, lPathIconErrorWhite, lPathIconWarningWhite, lPathIconInformationWhite: string;
+  lPathIconSuccessWhite, lPathIconErrorWhite, lPathIconWarningWhite, lPathIconInformationWhite, lMessageType, lPath, lApplicationPath: string;
 begin
 
-  lPathIconSuccessWhite     := TFunctions.ApplicationPath+'/images/outline_check_circle_white_48dp.png';
-  lPathIconErrorWhite       := TFunctions.ApplicationPath+'/images/outline_error_white_48dp.png';
-  lPathIconWarningWhite     := TFunctions.ApplicationPath+'/images/outline_warning_white_48dp.png';
-  lPathIconInformationWhite := TFunctions.ApplicationPath+'/images/outline_priority_high_white_48dp.png';
+  lApplicationPath          := TFunctions.ApplicationPath;
+  lPathIconSuccessWhite     := lApplicationPath + IMAGES_PATH + '/' + WHITE_ICON_MSG_SUCCESS;
+  lPathIconErrorWhite       := lApplicationPath + IMAGES_PATH + '/' + WHITE_ICON_MSG_ERROR;
+  lPathIconWarningWhite     := lApplicationPath + IMAGES_PATH + '/' + WHITE_ICON_MSG_WARNING;
+  lPathIconInformationWhite := lApplicationPath + IMAGES_PATH + '/' + WHITE_ICON_MSG_INFORMATION;
+  lMessageType              := EmptyStr;
 
   case MessageType of
     mtSuccess:
     begin
-      lblMessageType.Caption := 'Sucesso';
-      if FileExists(lPathIconSuccessWhite) then
-      begin
-        imgIcon.Picture.LoadFromFile(lPathIconSuccessWhite);
-      end;
+      lMessageType := 'Sucesso';
+      lPath        := lPathIconSuccessWhite;
     end;
     mtWarning:
     begin
-      lblMessageType.Caption := 'Atenção';
-      if FileExists(lPathIconWarningWhite) then
-      begin
-        imgIcon.Picture.LoadFromFile(lPathIconWarningWhite);
-      end;
+      lMessageType := 'Atenção';
+      lPath        := lPathIconWarningWhite;
     end;
     mtError:
     begin
-      lblMessageType.Caption := 'Erro';
-      if FileExists(lPathIconErrorWhite) then
-      begin
-        imgIcon.Picture.LoadFromFile(lPathIconErrorWhite);
-      end;
+      lMessageType := 'Erro';
+      lPath        := lPathIconErrorWhite;
     end;
     mtInformation:
     begin
-      lblMessageType.Caption := 'Informação';
-      if FileExists(lPathIconInformationWhite) then
-      begin
-        imgIcon.Picture.LoadFromFile(lPathIconInformationWhite);
-      end;
+      lMessageType := 'Informação';
+      lPath        := lPathIconInformationWhite;
     end;
+  end;
+
+  if (FileExists(lPath)) then
+  begin
+    imgIcon.Picture.LoadFromFile(lPath);
   end;
 
   if not (Trim(Title) = EmptyStr)  then
   begin
     lblMessageType.Caption := Title;
+  end
+  else
+  begin
+    lblMessageType.Caption := lMessageType;
   end;
 
   lblMessage.Caption := MessageText;

@@ -10,7 +10,6 @@ inherited frmLogin: TfrmLogin
   OnShow = FormShow
   ExplicitWidth = 1066
   ExplicitHeight = 690
-  PixelsPerInch = 96
   TextHeight = 19
   object pnlCenter: TPanel
     Left = 200

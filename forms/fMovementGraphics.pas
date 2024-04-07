@@ -93,6 +93,9 @@ var
 
 implementation
 
+uses
+  System.DateUtils;
+
 {$R *.dfm}
 
 procedure TfrmMovementGraphics.btnSearchExecuteClick(Sender: TObject);
@@ -307,13 +310,17 @@ begin
 end;
 
 procedure TfrmMovementGraphics.SetInitialStateFilters;
+var
+  lMonth: SmallInt;
 begin
   cbxFilterSituation.ItemIndex := 0;
   cbxFilterDateBy.ItemIndex := 0;
   edtFilterInitialDate.Date := Now - 30;
   edtFilterEndDate.Date := Now;
   SetFilterMonthOrYear;
-  cbxFilterMonthOrYear.ItemIndex := 0;
+
+  lMonth := MonthOf(now) -1;
+  cbxFilterMonthOrYear.ItemIndex := lMonth;
 end;
 
 procedure TfrmMovementGraphics.SetFilterMonthOrYear;

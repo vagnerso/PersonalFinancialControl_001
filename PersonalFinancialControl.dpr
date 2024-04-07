@@ -42,7 +42,9 @@ uses
   uCustomer in 'class\uCustomer.pas',
   fCustomer in 'forms\fCustomer.pas' {frmCustomer},
   uCity in 'class\uCity.pas',
-  fCity in 'forms\fCity.pas' {frmCity};
+  fCity in 'forms\fCity.pas' {frmCity},
+  dMovements in 'dataModules\dMovements.pas' {dtmMovements: TDataModule},
+  dConnection in 'dataModules\dConnection.pas' {dtmConnection: TDataModule};
 
 {$R *.res}
 
@@ -75,8 +77,9 @@ begin
     TSystemManager.GetInstance.LayoutConfiguration.PopUpBackgroundColor := $004A4B49;
 
     Application.CreateForm(TfrmMain, frmMain);
-
-    Application.Run;
+  Application.CreateForm(TdtmMovements, dtmMovements);
+  Application.CreateForm(TdtmConnection, dtmConnection);
+  Application.Run;
 
   end;
 
