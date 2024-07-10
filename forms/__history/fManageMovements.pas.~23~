@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fMasterRegister, Data.DB, Vcl.Menus, Vcl.StdCtrls, Vcl.Imaging.pngimage,
   Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls, uMovement, uEnumTypes,
-  uFunctions, fGeneralSearch;
+  uFunctions, fGeneralSearch, frxClass;
 
 type
   TfrmManageMovements = class(TfrmMasterRegister)
@@ -30,6 +30,15 @@ type
     lbFirstIssueDate: TLabel;
     N2: TMenuItem;
     Efetuarpagamento1: TMenuItem;
+    cbxFilterSituation: TComboBox;
+    Label3: TLabel;
+    Label4: TLabel;
+    cbxFilterMonth: TComboBox;
+    pnlSum: TPanel;
+    lblSumRevenues: TLabel;
+    lblSumExpenses: TLabel;
+    lblBalance: TLabel;
+    pnlButtonPdfExport: TPanel;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -37,10 +46,13 @@ type
     procedure imButtonSearchSubCategoryClick(Sender: TObject);
     procedure imButtonSearchFormPaymentClick(Sender: TObject);
     procedure Efetuarpagamento1Click(Sender: TObject);
+    procedure pnlButtonPrintClick(Sender: TObject);
+    procedure pnlButtonPdfExportClick(Sender: TObject);
   private
     FRegisterObject: TMovement;
     procedure EnabledRegister;
     procedure DisabledRegister;
+    procedure SumMovements;
     { Private declarations }
   public
     { Public declarations }
@@ -62,6 +74,9 @@ var
   frmManageMovements: TfrmManageMovements;
 
 implementation
+
+uses
+  System.DateUtils, dMovements, FireDAC.Comp.Client, uDataBaseConnection;
 
 {$R *.dfm}
 
@@ -155,12 +170,16 @@ begin
 end;
 
 procedure TfrmManageMovements.FormShow(Sender: TObject);
+var
+  lMonth: SmallInt;
 begin
   FTitleForm := 'Gerenciar Movimentações';
   inherited;
   tabGrid.TabVisible := True;
   tabRegister.TabVisible := False;
   tabRegisterBasic.TabVisible := False;
+  lMonth := MonthOf(now);
+  cbxFilterMonth.ItemIndex := lMonth;
   searchExecute;
   WindowState := wsMaximized;
 end;
@@ -242,6 +261,27 @@ begin
   FRegisterObject.MakePayment;
 end;
 
+procedure TfrmManageMovements.pnlButtonPdfExportClick(Sender: TObject);
+begin
+  inherited;
+  dtmMovements.frxReportMovements.PrintOptions.ShowDialog := True;
+  dtmMovements.frxReportMovements.FileName := 'C:\temp\relatorio_movimento.PDF';
+  dtmMovements.frxReportMovements.PrepareReport();
+  dtmMovements.frxReportMovements.Export(dtmMovements.frxPDFExport1);
+end;
+
+procedure TfrmManageMovements.pnlButtonPrintClick(Sender: TObject);
+begin
+  inherited;
+  TDatabaseConnection.GetInstance.NewConnection;
+  dtmMovements.qryMovementsReport.Connection := TDataBaseConnection.GetInstance.Connection;
+  dtmMovements.qryMovementsReport.Close;
+  dtmMovements.qryMovementsReport.SQL.Clear;
+  dtmMovements.qryMovementsReport.SQL.Add(TFDQuery(dtsSearch.DataSet).SQL.Text);
+  dtmMovements.qryMovementsReport.Open;
+  dtmMovements.frxReportMovements.ShowReport;
+end;
+
 procedure TfrmManageMovements.PrintRegister;
 begin
   inherited;
@@ -278,37 +318,60 @@ procedure TfrmManageMovements.SearchExecute;
 begin
   inherited;
   FRegisterObject.SearchFiltersCustomized.ValueSearch := edtSearch.Text;
+  FRegisterObject.SearchFiltersCustomized.Situation := cbxFilterSituation.ItemIndex -1;
+  FRegisterObject.SearchFiltersCustomized.Month := cbxFilterMonth.ItemIndex;
   FRegisterObject.Search(FQuerySearch);
-
-  {
-  lSQL.Add('    M.ID                             ');
-    lSQL.Add('  , M.UNIQUE_ID                      ');
-    lSQL.Add('  , M.DESCRIPTION       "Descrição"  ');
-    lSQL.Add('  , M.ID_SUB_CATEGORY                ');
-    lSQL.Add('  , M.ID_FORM_PAYMENT                ');
-    lSQL.Add('  , M.ISSUE_DATE        "Vencimento" ');
-    lSQL.Add('  , M.INSTALLMENT_VALUE "R$ Valor"   ');
-    lSQL.Add('  , M.NUMBER_PARCEL     "Número"     ');
-    lSQL.Add('  , M.TYPE_MOVEMENT     "Tipo"       ');
-    lSQL.Add('  , M.ID_PROVIDER                    ');
-    lSQL.Add('  , SC.NAME "Sub Categoria"          ');
-    lSQL.Add('  , FP.NAME "Forma de Pagamento"     ');
-    lSQL.Add('  , P.NAME "Fornecedor"              ');
-  }
+  SumMovements;
 
   grdSearch.Columns[0].Visible := False;
   grdSearch.Columns[1].Visible := False;
-  grdSearch.Columns[2].Width := 250;
+  grdSearch.Columns[2].Width := 300;
   grdSearch.Columns[3].Visible := False;
   grdSearch.Columns[4].Visible := False;
-  grdSearch.Columns[5].Width := 100;
-  grdSearch.Columns[6].Width := 100;
-  grdSearch.Columns[7].Width := 50;
-  grdSearch.Columns[8].Width := 100;
+  grdSearch.Columns[5].Width := 150;
+  grdSearch.Columns[6].Width := 150;
+  grdSearch.Columns[7].Width := 100;
+  grdSearch.Columns[8].Width := 150;
   grdSearch.Columns[9].Visible := False;
   grdSearch.Columns[10].Width := 250;
   grdSearch.Columns[11].Width := 250;
   grdSearch.Columns[12].Width := 250;
+end;
+
+procedure TfrmManageMovements.SumMovements;
+var
+  lSumRevenues, lSumExpenses: Currency;
+begin
+  inherited;
+
+  lSumRevenues := 0;
+  lSumExpenses := 0;
+
+  dtsSearch.DataSet.DisableControls;
+  dtsSearch.DataSet.First;
+
+  while not dtsSearch.DataSet.Eof do
+  begin
+
+    if dtsSearch.DataSet.FieldByName('tipo').AsString = 'Entrada' then
+    begin
+      lSumRevenues := lSumRevenues + dtsSearch.DataSet.FieldByName('R$ Valor').AsFloat;
+    end;
+
+    if dtsSearch.DataSet.FieldByName('tipo').AsString = 'Saída' then
+    begin
+      lSumExpenses := lSumExpenses + dtsSearch.DataSet.FieldByName('R$ Valor').AsFloat;
+    end;
+
+    dtsSearch.DataSet.Next;
+  end;
+
+  lblSumRevenues.Caption := 'Total de Receitas: R$ ' + FormatCurr('#,##0.00', lSumRevenues);
+  lblSumExpenses.Caption := 'Total de Despesas: R$ ' + FormatCurr('#,##0.00', lSumExpenses);
+  lblBalance.Caption := 'Saldo: R$ ' + FormatCurr('#,##0.00', lSumRevenues - lSumExpenses);
+
+  dtsSearch.DataSet.First;
+  dtsSearch.DataSet.EnableControls;
 end;
 
 end.

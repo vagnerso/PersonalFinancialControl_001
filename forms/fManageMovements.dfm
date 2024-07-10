@@ -1,21 +1,24 @@
 inherited frmManageMovements: TfrmManageMovements
   Caption = 'frmManageMovements'
-  ClientWidth = 1041
+  ClientHeight = 620
   OnDestroy = FormDestroy
   ExplicitWidth = 1053
   TextHeight = 24
   inherited pnlTitle: TPanel
-    Width = 1041
     Caption = 'Gerenciar movimenta'#231#245'es'
-    ExplicitWidth = 1035
+    ExplicitWidth = 1037
   end
   inherited pnlBottom: TPanel
-    Width = 1041
-    ExplicitWidth = 1035
+    Top = 590
+    ExplicitTop = 589
+    ExplicitWidth = 1037
   end
   inherited pnlMain: TPanel
+    Height = 418
+    ExplicitHeight = 417
     inherited pnlButtonClose: TPanel
       Top = 205
+      ExplicitTop = 205
     end
     object pnlButtonPdfExport: TPanel
       Left = 0
@@ -35,21 +38,20 @@ inherited frmManageMovements: TfrmManageMovements
       ParentBackground = False
       ParentFont = False
       TabOrder = 5
-      OnClick = pnlButtonPdfExportClick
       OnEnter = pnlButtonPrintEnter
       OnExit = pnlButtonPrintExit
       OnMouseEnter = pnlButtonPrintMouseEnter
       OnMouseLeave = pnlButtonPrintMouseLeave
-      ExplicitLeft = -2
-      ExplicitTop = 179
     end
   end
   inherited pnlGeneral: TPanel
-    Width = 891
-    ExplicitWidth = 885
+    Height = 418
+    ExplicitWidth = 887
+    ExplicitHeight = 417
     inherited pgcGeneral: TPageControl
       Width = 891
-      ExplicitWidth = 885
+      ExplicitWidth = 887
+      ExplicitHeight = 417
       inherited tabGrid: TTabSheet
         ExplicitWidth = 883
         inherited grdSearch: TDBGrid
@@ -64,8 +66,8 @@ inherited frmManageMovements: TfrmManageMovements
           Align = alBottom
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitTop = 339
-          ExplicitWidth = 877
+          ExplicitTop = 347
+          ExplicitWidth = 879
           object lblSumRevenues: TLabel
             AlignWithMargins = True
             Left = 10
@@ -480,13 +482,12 @@ inherited frmManageMovements: TfrmManageMovements
     end
   end
   inherited pgcSearch: TPageControl
-    Width = 1041
-    ExplicitWidth = 1035
+    ExplicitWidth = 1037
     inherited tabSearch: TTabSheet
       ExplicitWidth = 1033
       inherited pnlSearch: TPanel
         Width = 1033
-        ExplicitWidth = 1027
+        ExplicitWidth = 1029
         object Label3: TLabel [3]
           Left = 402
           Top = 6

@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fMasterRegister, Data.DB, Vcl.Menus, Vcl.StdCtrls, Vcl.Imaging.pngimage,
   Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls, uMovement, uEnumTypes,
-  uFunctions, fGeneralSearch, frxClass;
+  uFunctions, fGeneralSearch;
 
 type
   TfrmManageMovements = class(TfrmMasterRegister)
@@ -47,7 +47,6 @@ type
     procedure imButtonSearchFormPaymentClick(Sender: TObject);
     procedure Efetuarpagamento1Click(Sender: TObject);
     procedure pnlButtonPrintClick(Sender: TObject);
-    procedure pnlButtonPdfExportClick(Sender: TObject);
   private
     FRegisterObject: TMovement;
     procedure EnabledRegister;
@@ -261,15 +260,6 @@ begin
   FRegisterObject.MakePayment;
 end;
 
-procedure TfrmManageMovements.pnlButtonPdfExportClick(Sender: TObject);
-begin
-  inherited;
-  dtmMovements.frxReportMovements.PrintOptions.ShowDialog := True;
-  dtmMovements.frxReportMovements.FileName := 'C:\temp\relatorio_movimento.PDF';
-  dtmMovements.frxReportMovements.PrepareReport();
-  dtmMovements.frxReportMovements.Export(dtmMovements.frxPDFExport1);
-end;
-
 procedure TfrmManageMovements.pnlButtonPrintClick(Sender: TObject);
 begin
   inherited;
@@ -279,7 +269,7 @@ begin
   dtmMovements.qryMovementsReport.SQL.Clear;
   dtmMovements.qryMovementsReport.SQL.Add(TFDQuery(dtsSearch.DataSet).SQL.Text);
   dtmMovements.qryMovementsReport.Open;
-  dtmMovements.frxReportMovements.ShowReport;
+
 end;
 
 procedure TfrmManageMovements.PrintRegister;
