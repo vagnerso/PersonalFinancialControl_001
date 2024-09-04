@@ -38,7 +38,7 @@ object frmMain: TfrmMain
     Align = alLeft
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitHeight = 635
+    ExplicitHeight = 627
     object imIconApp: TImage
       Left = 0
       Top = 53
@@ -14642,11 +14642,11 @@ object frmMain: TfrmMain
     Align = alRight
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = 420
-    ExplicitHeight = 635
+    ExplicitLeft = 418
+    ExplicitHeight = 627
     object pnlMenuRevenues: TPanel
-      Left = 14
-      Top = 231
+      Left = 54
+      Top = 239
       Width = 259
       Height = 80
       Cursor = crHandPoint
@@ -14661,11 +14661,12 @@ object frmMain: TfrmMain
       ParentBackground = False
       ParentFont = False
       TabOrder = 2
+      StyleName = 'Windows'
       OnClick = pnlMenuRevenuesClick
     end
     object pnlMenuExpenses: TPanel
-      Left = 288
-      Top = 180
+      Left = 328
+      Top = 188
       Width = 280
       Height = 131
       Cursor = crHandPoint
@@ -14680,10 +14681,11 @@ object frmMain: TfrmMain
       ParentBackground = False
       ParentFont = False
       TabOrder = 5
+      StyleName = 'Windows'
       OnClick = pnlMenuExpensesClick
     end
     object btImport: TButton
-      Left = 397
+      Left = 589
       Top = -3
       Width = 75
       Height = 25
@@ -14693,8 +14695,8 @@ object frmMain: TfrmMain
       OnClick = btImportClick
     end
     object pnButtonManageMovements: TPanel
-      Left = 15
-      Top = 322
+      Left = 23
+      Top = 325
       Width = 553
       Height = 49
       Cursor = crHandPoint
@@ -14709,11 +14711,12 @@ object frmMain: TfrmMain
       ParentBackground = False
       ParentFont = False
       TabOrder = 8
+      StyleName = 'Windows'
       OnClick = pnButtonManageMovementsClick
     end
     object pnlButtonMovementReports: TPanel
-      Left = 14
-      Top = 444
+      Left = 39
+      Top = 466
       Width = 554
       Height = 49
       Cursor = crHandPoint
@@ -14728,12 +14731,13 @@ object frmMain: TfrmMain
       ParentBackground = False
       ParentFont = False
       TabOrder = 9
+      StyleName = 'Windows'
     end
     object pnButtonMovementGraphics: TPanel
-      Left = 15
-      Top = 382
-      Width = 553
-      Height = 49
+      Left = 55
+      Top = 390
+      Width = 561
+      Height = 56
       Cursor = crHandPoint
       BevelOuter = bvNone
       Caption = 'Gr'#225'ficos de movimenta'#231#245'es'
@@ -14746,11 +14750,12 @@ object frmMain: TfrmMain
       ParentBackground = False
       ParentFont = False
       TabOrder = 10
+      StyleName = 'Windows'
       OnClick = pnButtonMovementGraphicsClick
     end
     object pnlMenuSubCategory: TPanel
-      Left = 14
-      Top = 180
+      Left = 54
+      Top = 188
       Width = 259
       Height = 40
       Cursor = crHandPoint
@@ -14765,6 +14770,7 @@ object frmMain: TfrmMain
       ParentBackground = False
       ParentFont = False
       TabOrder = 1
+      StyleName = 'Windows'
       OnClick = pnlMenuSubCategoryClick
     end
     object pnlMenuProvider: TPanel
@@ -14784,10 +14790,11 @@ object frmMain: TfrmMain
       ParentBackground = False
       ParentFont = False
       TabOrder = 6
+      StyleName = 'Windows'
       OnClick = pnlMenuProviderClick
     end
     object pnlMenuCategory: TPanel
-      Left = 14
+      Left = 46
       Top = 129
       Width = 259
       Height = 40
@@ -14803,6 +14810,7 @@ object frmMain: TfrmMain
       ParentBackground = False
       ParentFont = False
       TabOrder = 0
+      StyleName = 'Windows'
       OnClick = pnlMenuCategoryClick
     end
     object pnlMenuFormPayment: TPanel
@@ -14822,6 +14830,7 @@ object frmMain: TfrmMain
       ParentBackground = False
       ParentFont = False
       TabOrder = 3
+      StyleName = 'Windows'
       OnClick = pnlMenuFormPaymentClick
     end
     object pnlMenuTypePayment: TPanel
@@ -14841,6 +14850,7 @@ object frmMain: TfrmMain
       ParentBackground = False
       ParentFont = False
       TabOrder = 4
+      StyleName = 'Windows'
       OnClick = pnlMenuTypePaymentClick
     end
     object pnlSettings: TPanel
@@ -14851,7 +14861,7 @@ object frmMain: TfrmMain
       Align = alBottom
       BevelOuter = bvNone
       TabOrder = 11
-      ExplicitTop = 575
+      ExplicitTop = 567
       object imgButtonUtilities: TImage
         Left = 524
         Top = 0
@@ -14908,10 +14918,11 @@ object frmMain: TfrmMain
       ParentBackground = False
       ParentFont = False
       TabOrder = 12
+      StyleName = 'Windows'
       OnClick = pnlMenuCustomerClick
     end
     object pnlMainCity: TPanel
-      Left = 287
+      Left = 319
       Top = 129
       Width = 280
       Height = 40
@@ -14927,6 +14938,7 @@ object frmMain: TfrmMain
       ParentBackground = False
       ParentFont = False
       TabOrder = 13
+      StyleName = 'Windows'
       OnClick = pnlMainCityClick
     end
   end

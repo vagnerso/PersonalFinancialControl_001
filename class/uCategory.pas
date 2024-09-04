@@ -8,23 +8,28 @@ uses
   System.SysUtils,
   Vcl.Dialogs,
   uAppConstants,
-  uFunctions,
-  uSearchFilters,
-  System.Classes, fMessage, uEnumTypes;
 
-type TSearchFiltersCustomized = class(TSearchFilters)
+  uSearchFilters,
+  System.Classes, fMessage, uEnumTypes, uFunctions;
+
+type
+  TSearchFiltersCustomized = class(TSearchFilters)
   private
 
   public
-end;
+  end;
 
-type TCategory = class(TInterfacedObject, ICrudInterface)
+type
+  TCategory = class(TInterfacedObject, ICrudInterface)
   private
     FId: Integer;
     FUniqueId: string;
     FName: string;
-    FDataSet : TMyQuery;
+    FDataSet: TMyQuery;
     FSearchFiltersCustomized: TSearchFiltersCustomized;
+    Fnome: string;
+    procedure Somar;
+    procedure Setnome(const Value: string);
   public
     constructor Create;
 
@@ -36,13 +41,16 @@ type TCategory = class(TInterfacedObject, ICrudInterface)
     procedure Search(ADataSet: TMyQuery);
     destructor Destroy; override;
 
+
     property DataSet: TMyQuery read FDataSet write FDataSet;
-    property SearchFiltersCustomized: TSearchFiltersCustomized read FSearchFiltersCustomized write FSearchFiltersCustomized;
+    property SearchFiltersCustomized: TSearchFiltersCustomized
+      read FSearchFiltersCustomized write FSearchFiltersCustomized;
     property Id: Integer read FId write FId;
     property UniqueId: string read FUniqueId write FUniqueId;
     property Name: string read FName write FName;
+    property nome: string read Fnome write Setnome;
 
-end;
+  end;
 
 implementation
 
@@ -64,22 +72,38 @@ begin
 end;
 
 procedure TCategory.DeleteRegister;
+var
+  MyElem: TObject;
 begin
   try
-    TDataBaseConnection.GetInstance.NewConnection;
-    FDataSet.Close;
-    FDataSet.SQL.Clear;
-    FDataSet.SQL.Add('DELETE FROM CATEGORY         ');
-    FDataSet.SQL.Add('WHERE UNIQUE_ID = :UNIQUE_ID ');
-    FDataSet.ParamByName('UNIQUE_ID').AsString := FUniqueId;
-    FDataSet.ExecSQL;
-    FDataSet.Connection.Commit;
-  except on E: Exception do
+    tdatabaseconnection.getinstance.newconnection;
+    fdataset.close;
+    fdataset.sql.clear;
+    fdataset.sql.add('delete from category         ');
+    fdataset.sql.add('where unique_id = :unique_id ');
+    fdataset.parambyname('unique_id').asstring := funiqueid;
+    fdataset.execsql;
+    fdataset.connection.commit;
+  except
+    on E: Exception do
     begin
       FDataSet.Connection.Rollback;
       TFrmMessage.ShowMessageBox(mtError, '', MSG_ERROR_CATEGORY_DELETE);
     end;
   end;
+
+  try
+
+
+  except on E: Exception do
+  end;
+
+  for MyElem in MyList do
+  begin
+
+  end;
+
+
 end;
 
 destructor TCategory.Destroy;
@@ -94,7 +118,7 @@ var
   lQuery: TMyQuery;
 begin
 
-  lQuery  := TMyQuery.Create(nil);
+  lQuery := TMyQuery.Create(nil);
   try
 
     try
@@ -110,14 +134,15 @@ begin
       lQuery.ParamByName('ID').AsInteger := FId;
       lQuery.Open;
 
-      if not (lQuery.IsEmpty) then
+      if not(lQuery.IsEmpty) then
       begin
         FId := lQuery.FieldByName('ID').AsInteger;
         FUniqueId := lQuery.FieldByName('UNIQUE_ID').AsString;
         FName := lQuery.FieldByName('NAME').AsString;
       end;
 
-    except on E: Exception do
+    except
+      on E: Exception do
       begin
         lQuery.Connection.Rollback;
         TFrmMessage.ShowMessageBox(mtError, '', MSG_ERROR_CATEGORY_SEARCH);
@@ -146,10 +171,12 @@ begin
     FDataSet.SQL.Add(' )                      ');
     FDataSet.ParamByName('UNIQUE_ID').AsString := TFunctions.GenerateUUID;
     FDataSet.ParamByName('NAME').AsString := FName;
-    FDataSet.ParamByName('ID_USER').AsInteger := TSystemManager.GetInstance.LoggedUser.Id;
+    FDataSet.ParamByName('ID_USER').AsInteger :=
+      TSystemManager.GetInstance.LoggedUser.Id;
     FDataSet.ExecSQL;
     FDataSet.Connection.Commit;
-  except on E: Exception do
+  except
+    on E: Exception do
     begin
       FDataSet.Connection.Rollback;
       TFrmMessage.ShowMessageBox(mtError, '', MSG_ERROR_CATEGORY_INSERT);
@@ -162,7 +189,7 @@ var
   lSQL: TStringList;
 begin
 
-  TDatabaseConnection.GetInstance.NewConnection;
+  TDataBaseConnection.GetInstance.NewConnection;
 
   lSQL := TStringList.Create;
   try
@@ -175,7 +202,8 @@ begin
 
     if (Length(Trim(FSearchFiltersCustomized.ValueSearch)) > 0) then
     begin
-      lSQL.Add('WHERE NAME LIKE ' + QuotedStr('%' + FSearchFiltersCustomized.ValueSearch + '%'));
+      lSQL.Add('WHERE NAME LIKE ' +
+        QuotedStr('%' + FSearchFiltersCustomized.ValueSearch + '%'));
     end;
 
     lSQL.Add('ORDER BY NAME DESC   ');
@@ -188,6 +216,16 @@ begin
   finally
     lSQL.Free;
   end;
+
+end;
+
+procedure TCategory.Setnome(const Value: string);
+begin
+  Fnome := Value;
+end;
+
+procedure TCategory.Somar;
+begin
 
 end;
 
@@ -204,7 +242,8 @@ begin
     FDataSet.ParamByName('NAME').AsString := FName;
     FDataSet.ExecSQL;
     FDataSet.Connection.Commit;
-  except on E: Exception do
+  except
+    on E: Exception do
     begin
       FDataSet.Connection.Rollback;
       TFrmMessage.ShowMessageBox(mtError, '', MSG_ERROR_CATEGORY_UPDATE);
