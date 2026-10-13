@@ -1,0 +1,21 @@
+.category-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.category-label {
+  color: var(--color-label);
+  font-size: 20px;
+}
+
+.category-input {
+  width: 497px;
+  max-width: 100%;
+  padding: 4px 6px;
+  border: 1px solid var(--color-grid-lines);
+  background: var(--color-input-background);
+  color: var(--color-input-font);
+  font: inherit;
+  font-size: 20px;
+}

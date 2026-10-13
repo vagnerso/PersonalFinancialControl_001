@@ -1,0 +1,239 @@
+.register-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--color-background);
+  font-family: var(--font-family);
+}
+
+.register-layout-title {
+  padding: 12px 16px;
+  background: var(--color-title);
+  color: var(--color-title-font);
+  font-size: 33px;
+  text-align: center;
+}
+
+/* Abas (TPageControl): só a aba visível do estado atual aparece. */
+.register-layout-tabs {
+  display: flex;
+}
+
+.register-layout-tab {
+  padding: 4px 12px;
+  font-size: 12px;
+}
+
+.register-layout-tab-active {
+  background: var(--color-background);
+  color: var(--color-label);
+  border: 1px solid var(--color-action-button);
+  border-bottom: none;
+}
+
+.register-layout-search-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 16px 12px;
+  border: 1px solid var(--color-action-button);
+}
+
+.register-layout-label {
+  color: var(--color-label);
+  font-size: 20px;
+}
+
+.register-layout-search-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.register-layout-input {
+  padding: 4px 6px;
+  border: 1px solid var(--color-grid-lines);
+  background: var(--color-input-background);
+  color: var(--color-input-font);
+  font: inherit;
+  font-size: 20px;
+}
+
+.register-layout-search-input {
+  width: 306px;
+}
+
+.register-layout-icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.register-layout-icon-button:focus-visible {
+  outline: 2px solid var(--color-title);
+}
+
+.register-layout-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.register-layout-actions {
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+  flex-shrink: 0;
+}
+
+.register-layout-button {
+  padding: 8px 16px;
+  border: none;
+  background: var(--color-action-button);
+  color: var(--color-action-button-font);
+  font: inherit;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.register-layout-actions .register-layout-button {
+  height: 41px;
+}
+
+.register-layout-button:hover,
+.register-layout-button:focus-visible {
+  background: var(--color-action-button-hover);
+  color: var(--color-action-button-hover-font);
+  outline: none;
+}
+
+.register-layout-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.register-layout-grid {
+  flex: 1;
+  overflow: auto;
+  background: var(--color-grid-background);
+}
+
+.register-layout-grid:focus-visible {
+  outline: 2px solid var(--color-title);
+  outline-offset: -2px;
+}
+
+.register-layout-table {
+  border-collapse: collapse;
+  width: 100%;
+  color: var(--color-grid-font);
+  font-size: 23px;
+  user-select: none;
+}
+
+.register-layout-table th,
+.register-layout-table td {
+  padding: 2px 6px;
+  border: 1px solid var(--color-grid-lines);
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.register-layout-table th {
+  position: sticky;
+  top: 0;
+  background: var(--color-grid-background);
+  font-weight: normal;
+}
+
+.register-layout-indicator {
+  width: 12px;
+}
+
+.register-layout-filler {
+  width: auto;
+}
+
+.register-layout-row-selected td {
+  background: var(--color-title);
+  color: var(--color-title-font);
+}
+
+.register-layout-register {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.register-layout-subtabs {
+  padding-top: 4px;
+}
+
+.register-layout-register-panel {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid var(--color-action-button);
+  color: var(--color-label);
+}
+
+.register-layout-register-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.register-layout-register-buttons .register-layout-button {
+  width: 147px;
+  height: 41px;
+}
+
+.register-layout-bottom {
+  height: 30px;
+  flex-shrink: 0;
+}
+
+.register-layout-context-menu {
+  position: fixed;
+  z-index: 10;
+  min-width: 140px;
+  margin: 0;
+  padding: 2px 0;
+  list-style: none;
+  border: 1px solid var(--color-grid-lines);
+  background: var(--color-input-background);
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 14px;
+}
+
+.register-layout-context-menu button {
+  display: block;
+  width: 100%;
+  padding: 4px 24px;
+  border: none;
+  background: transparent;
+  color: var(--color-input-font);
+  font: inherit;
+  text-align: left;
+  cursor: default;
+}
+
+.register-layout-context-menu button:hover,
+.register-layout-context-menu button:focus-visible {
+  background: var(--color-title);
+  color: var(--color-title-font);
+  outline: none;
+}
+
+.register-layout-context-separator {
+  margin: 2px 0;
+  border-top: 1px solid var(--color-grid-lines);
+}

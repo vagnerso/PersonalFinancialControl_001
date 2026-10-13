@@ -92,18 +92,6 @@ begin
     end;
   end;
 
-  try
-
-
-  except on E: Exception do
-  end;
-
-  for MyElem in MyList do
-  begin
-
-  end;
-
-
 end;
 
 destructor TCategory.Destroy;

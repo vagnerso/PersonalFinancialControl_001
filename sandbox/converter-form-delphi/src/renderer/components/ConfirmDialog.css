@@ -1,0 +1,38 @@
+/* Caixa de confirmação: visual neutro, como a MessageBox do Windows. */
+.confirm-dialog {
+  min-width: 320px;
+  padding: 0;
+  border: 1px solid var(--color-grid-lines);
+  background: var(--color-input-background);
+  color: var(--color-input-font);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.confirm-dialog::backdrop {
+  background: rgb(0 0 0 / 40%);
+}
+
+.confirm-dialog-title {
+  padding: 8px 12px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--color-grid-lines);
+}
+
+.confirm-dialog-text {
+  margin: 0;
+  padding: 20px 12px;
+  font-size: 15px;
+}
+
+.confirm-dialog-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 10px 12px;
+}
+
+.confirm-dialog-button {
+  min-width: 80px;
+  padding: 4px 12px;
+  font: inherit;
+}

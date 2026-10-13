@@ -1,0 +1,33 @@
+/* Tema visual do sistema (SCREENS.md §3.5). Valores convertidos de BGR (Delphi) para RGB. */
+:root {
+  --color-title: #40a67d;                    /* TitleColor */
+  --color-title-font: #ffffff;               /* TitleFontColor */
+  --color-action-button: #4b5a63;            /* ActionButtonColor */
+  --color-action-button-font: #ffffff;       /* ActionButtonFontColor */
+  --color-action-button-hover: #ffffff;      /* HoverActionButtonColor */
+  --color-action-button-hover-font: #000000; /* ActionButtonHoverFontColor */
+  --color-background: #242424;               /* BackgroundColor e demais painéis */
+  --color-popup-background: #494b4a;         /* PopUpBackgroundColor */
+
+  /* Cores padrão da VCL usadas sem configuração (clWhite, clWindow, clWindowText) */
+  --color-label: #ffffff;
+  --color-input-background: #ffffff;
+  --color-input-font: #000000;
+  --color-grid-background: #ffffff;
+  --color-grid-font: #000000;
+  --color-grid-lines: #c0c0c0;
+
+  --font-family: Calibri, 'Segoe UI', sans-serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--color-background);
+  font-family: var(--font-family);
+}
