@@ -1,0 +1,16 @@
+node_modules
+out
+dist
+package-lock.json
+*.md
+
+# Fora da versão nova
+.claude
+sandbox
+docs
+database
+images
+reports
+Win32
+__history
+__recovery

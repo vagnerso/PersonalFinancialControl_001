@@ -8,7 +8,7 @@ description: Guia de conversão dos tipos gravados pelo sistema Delphi no SQLite
 Regras de conversão baseadas no que **está gravado no banco** (verificado em 05/10/2026; detalhes em [docs/DATABASE.md §3](../../../docs/DATABASE.md#3-convenções) e §9).
 
 Implementação de referência, já testada contra os dados reais: [legacy-types.js](legacy-types.js).
-**Não reescreva essas funções.** Na primeira vez que precisar, copie o arquivo para `electron/src/domain/legacy-types.js` e importe dali.
+**Não reescreva essas funções.** Na primeira vez que precisar, copie o arquivo para `packages/domain/src/legacy-types.js` e importe dali: com `import { … } from '@pfc/domain/legacy-types'` a partir de outros pacotes (`@pfc/ui`, `apps/*`), ou por caminho relativo dentro do próprio `packages/domain/`.
 
 ## Datas
 

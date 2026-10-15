@@ -1,0 +1,16 @@
+{
+  "name": "@pfc/ui",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Telas e componentes React compartilhados pelo desktop e pela web",
+  "type": "module",
+  "exports": {
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@pfc/domain": "*"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  }
+}

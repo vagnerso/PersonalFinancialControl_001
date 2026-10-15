@@ -1,0 +1,17 @@
+/*
+ * Tema visual do sistema (docs/SCREENS.md §3.5).
+ * Os valores do Delphi estão em BGR; aqui, convertidos para RGB.
+ * As telas usam sempre estas variáveis, nunca a cor direto.
+ */
+:root {
+  --color-title: #40a67d; /* TitleColor */
+  --color-title-font: #ffffff; /* TitleFontColor */
+  --color-action-button: #4b5a63; /* ActionButtonColor */
+  --color-action-button-font: #ffffff; /* ActionButtonFontColor */
+  --color-action-button-hover: #ffffff; /* HoverActionButtonColor */
+  --color-action-button-hover-font: #000000; /* ActionButtonHoverFontColor */
+  --color-background: #242424; /* BackgroundColor, SearchPanelColor, MainPanelColor, MainPanelRegisterColor, RegisterPanelColor, PanelBottomColor */
+  --color-popup-background: #494b4a; /* PopUpBackgroundColor */
+
+  --font-family: Calibri, 'Segoe UI', sans-serif; /* Font.Name das telas */
+}

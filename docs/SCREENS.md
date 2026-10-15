@@ -1,6 +1,6 @@
 # Telas e rotinas: Personal Financial Control
 
-Mapeamento das telas (formulários) e das rotinas (classes e métodos) da versão Delphi. Serve de referência para manutenção e para a migração para Electron/JavaScript.
+Mapeamento das telas (formulários) e das rotinas (classes e métodos) da versão Delphi. Serve de referência para manutenção e para a migração para a versão nova em JavaScript (aplicação desktop com Electron e aplicação web, que compartilham regras e interface).
 
 > Este documento **descreve o estado atual** do sistema, incluindo botões sem ação e telas incompletas. As regras de negócio estão em [BUSINESS_RULES.md](BUSINESS_RULES.md) e o banco em [DATABASE.md](DATABASE.md).
 
@@ -176,6 +176,8 @@ Definido em `PersonalFinancialControl.dpr` e aplicado por cada tela no `SetColor
 | `ActionButtonHoverFontColor` | `clBlack` | `#000000` | Texto do botão com o mouse em cima ou com foco |
 | `BackgroundColor`, `SearchPanelColor`, `MainPanelColor`, `MainPanelRegisterColor`, `RegisterPanelColor`, `PanelBottomColor` | `$00242424` | `#242424` | Fundos |
 | `PopUpBackgroundColor` | `$004A4B49` | `#494B4A` | Fundo do login e das mensagens |
+
+**Fonte:** as telas usam **Calibri** (`Font.Name = 'Calibri'` nos `.dfm`). A exceção são os títulos de coluna das grades de `fMovementGraphics` (`Title.Font.Name = 'Tahoma'`). Na versão nova, a fonte é a variável `--font-family` de `packages/ui/src/styles/theme.css`.
 
 Os "botões" são `TPanel` com efeito de hover feito manualmente (`OnMouseEnter`/`OnMouseLeave`/`OnEnter`/`OnExit` → `TFunctions.SetButtonColors`).
 

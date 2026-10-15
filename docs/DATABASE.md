@@ -1,6 +1,6 @@
 # Banco de dados: Personal Financial Control
 
-Documentação da estrutura do banco SQLite usado pela versão Delphi do sistema. Serve de referência para manutenção e para a migração para Electron/JavaScript.
+Documentação da estrutura do banco SQLite usado pela versão Delphi do sistema. Serve de referência para manutenção e para a migração para a versão nova em JavaScript (aplicação desktop com Electron e aplicação web, que compartilham regras e interface).
 
 > Este documento **descreve o estado atual** do banco. As observações em [Pontos de atenção](#8-pontos-de-atenção) são apenas registro e não foram aplicadas.
 > Os números e o diagnóstico dos dados são de **05/10/2026**.

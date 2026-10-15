@@ -4,8 +4,8 @@ Sistema desktop para controle de finanças pessoais. Permite registrar receitas 
 
 É um projeto pessoal, desenvolvido para estudos e também usado no controle das minhas próprias finanças.
 
-> **🚧 Migração de tecnologia planejada**
-> A versão atual é escrita em **Delphi (VCL)**. O projeto será migrado para **Electron / JavaScript**, mantendo o banco de dados SQLite e as funcionalidades existentes. Este README descreve a versão Delphi e será atualizado conforme a migração avançar.
+> **🚧 Migração de tecnologia em andamento**
+> A versão atual é escrita em **Delphi (VCL)**. O projeto está sendo migrado para **JavaScript**, em duas aplicações: uma **desktop (Electron)** e uma **web**, que compartilham as regras de negócio e a interface. O banco de dados SQLite e as funcionalidades existentes serão mantidos. A maior parte deste README descreve a versão Delphi; a [versão nova](#versão-nova-em-desenvolvimento) tem uma seção própria no fim.
 
 ## Funcionalidades
 
@@ -77,6 +77,42 @@ O banco fica em `database/PersonalFinancialControl`, ao lado do executável. Na 
 1. Abra `PersonalFinancialControl.dproj` no RAD Studio (com TeeChart e FastReport instalados).
 2. Compile para a plataforma **Win32**.
 3. Mantenha as pastas `database/` e `images/` ao lado do executável gerado e execute.
+
+## Versão nova (em desenvolvimento)
+
+A versão nova fica no mesmo repositório, num monorepo com **npm workspaces**. As regras de negócio e as telas ficam em pacotes compartilhados. Cada aplicação guarda só o que é dela: janela, ponto de entrada e acesso aos dados.
+
+| Item | Tecnologia |
+|---|---|
+| Linguagem | JavaScript (ES modules) |
+| Interface | React 19, com um arquivo CSS por tela |
+| Desktop | Electron 44 + electron-vite (Vite 8) |
+| Testes | Vitest |
+| Web, driver SQLite, gráficos e relatórios | A definir |
+
+```
+packages/domain/   @pfc/domain: regras de negócio em JavaScript puro, com testes
+packages/ui/       @pfc/ui: App (componente raiz), telas, componentes, tema e contratos de serviço
+apps/desktop/      aplicação Electron: processo principal, preload e a entrada que monta o App
+apps/web/          aplicação web (ainda só a estrutura de pastas)
+```
+
+**Ordem:** primeiro o desktop é construído por inteiro; a web vem depois e reaproveita tudo o que está em `packages/`.
+
+**Situação:** o desktop abre a janela com o `App` de `@pfc/ui` (faixa de título e área vazia, com as cores do sistema). Nenhuma tela ou regra foi migrada até agora. O andamento de cada regra está em [BUSINESS_RULES.md §11](docs/BUSINESS_RULES.md#11-status-da-migração).
+
+### Como executar
+
+Requer Node.js 22 ou superior. Todos os comandos rodam na raiz do repositório:
+
+```bash
+npm install            # instala as dependências de todos os pacotes
+npm run dev:desktop    # abre o app desktop em modo de desenvolvimento
+npm run build:desktop  # gera o build de produção do desktop
+npm run lint           # verifica o código de todo o monorepo (ESLint)
+npm run format         # formata apps/ e packages/ (Prettier)
+npm test               # roda os testes das regras de negócio
+```
 
 ## Autor
 

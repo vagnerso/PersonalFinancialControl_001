@@ -15,8 +15,8 @@ Entrada: o identificador da regra (`RN-22`, `rn22`, `RN-022`…). Normalize para
 ## Antes de começar
 
 1. Leia o [CLAUDE.md](../../../CLAUDE.md): regras invioláveis, glossário e convenções da versão nova.
-2. Leia a skill [tipos-legado-delphi](../tipos-legado-delphi/SKILL.md). Datas, dinheiro, booleanos e IDs **devem** usar `electron/src/domain/legacy-types.js`. Se ele ainda não existir, copie-o de `.claude/skills/tipos-legado-delphi/legacy-types.js`.
-3. Confirme que existe `electron/package.json` com `"type": "module"` e `vitest` em `devDependencies`. **Se não existir, pare e pergunte ao usuário**: criar o esqueleto do projeto é uma decisão à parte.
+2. Leia a skill [tipos-legado-delphi](../tipos-legado-delphi/SKILL.md). Datas, dinheiro, booleanos e IDs **devem** usar `packages/domain/src/legacy-types.js`. Se ele ainda não existir, copie-o de `.claude/skills/tipos-legado-delphi/legacy-types.js`.
+3. Confirme que existe `packages/domain/package.json` com `"type": "module"` e `vitest` em `devDependencies`. **Se não existir, pare e pergunte ao usuário**: criar o esqueleto do projeto é uma decisão à parte.
 
 ## Passo 1: Entender a regra
 
@@ -45,8 +45,8 @@ Se a regra for essencialmente de interface ou infraestrutura (ex.: RN-02 encerra
 ## Passo 4: Implementar
 
 ```
-electron/src/domain/rules/<área>/<nome-em-kebab-case>.js
-electron/src/domain/rules/<área>/<nome-em-kebab-case>.test.js
+packages/domain/src/rules/<área>/<nome-em-kebab-case>.js
+packages/domain/src/rules/<área>/<nome-em-kebab-case>.test.js
 ```
 
 Áreas (seções do BUSINESS_RULES): `access`, `registers`, `movements`, `payment`, `queries`, `charts`, `maintenance`, `formatting`.
@@ -67,7 +67,7 @@ Use Vitest, importando explicitamente o que for usado: `import { describe, test,
   - **limites:** zero, vazio, valores inválidos, viradas de mês e de ano, ano bissexto;
   - **a decisão sobre cada D-xx** ligada (comportamento mantido ou corrigido).
 - Os testes não podem depender do banco real nem da data do sistema (injete a data).
-- Rode, dentro de `electron/`: `npx vitest run src/domain/` e mostre o resultado ao usuário. **Todos devem passar** antes do Passo 6. Se algum falhar, corrija a implementação, não o teste (a menos que o teste contradiga a regra).
+- Rode `npm test` na raiz (ou `npx vitest run` dentro de `packages/domain/`) e mostre o resultado ao usuário. **Todos devem passar** antes do Passo 6. Se algum falhar, corrija a implementação, não o teste (a menos que o teste contradiga a regra).
 
 ## Passo 6: Marcar como migrada
 
@@ -76,7 +76,7 @@ Só depois dos testes passarem:
 1. Em [BUSINESS_RULES.md](../../../docs/BUSINESS_RULES.md), logo abaixo do título da regra (`### RN-xx …`), adicione:
 
    ```markdown
-   > ✅ **Migrada** em AAAA-MM-DD · `electron/src/domain/rules/<área>/<arquivo>.js` · testes: `<arquivo>.test.js`
+   > ✅ **Migrada** em AAAA-MM-DD · `packages/domain/src/rules/<área>/<arquivo>.js` · testes: `<arquivo>.test.js`
    ```
 
 2. Em **§11 Status da migração**, atualize a linha da regra: status `✅ Migrada`, data e arquivo.

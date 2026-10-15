@@ -1,0 +1,29 @@
+{
+  "name": "personal-financial-control",
+  "private": true,
+  "description": "Personal Financial Control: versão JavaScript (desktop Electron e web) em monorepo",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:desktop": "npm run dev -w desktop",
+    "build:desktop": "npm run build -w desktop",
+    "lint": "eslint --cache .",
+    "format": "prettier --write apps packages eslint.config.mjs",
+    "test": "npm test --workspaces --if-present"
+  },
+  "devDependencies": {
+    "@electron-toolkit/eslint-config": "^3.0.0",
+    "@electron-toolkit/eslint-config-prettier": "^3.0.1",
+    "eslint": "^9.39.5",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.7",
+    "prettier": "^3.9.10"
+  }
+}

@@ -1,0 +1,30 @@
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--color-background);
+  font-family: var(--font-family);
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.app-title {
+  padding: 12px 16px;
+  background: var(--color-title);
+  color: var(--color-title-font);
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.app-content {
+  flex: 1;
+  overflow: auto;
+}

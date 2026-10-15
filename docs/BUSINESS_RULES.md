@@ -1,6 +1,6 @@
 # Regras de negócio: Personal Financial Control
 
-Regras de negócio implementadas na versão Delphi, extraídas do código-fonte. Serve de referência para manutenção e para a migração para Electron/JavaScript.
+Regras de negócio implementadas na versão Delphi, extraídas do código-fonte. Serve de referência para manutenção e para a migração para a versão nova em JavaScript (aplicação desktop com Electron e aplicação web, que compartilham regras e interface).
 
 > Este documento **descreve o comportamento atual**, inclusive o que parece não intencional. Cada regra indica onde está implementada. Comportamentos que divergem do esperado estão reunidos em [Divergências conhecidas](#8-divergências-conhecidas), para decidir na migração se serão mantidos ou corrigidos.
 > Documentos relacionados: [SCREENS.md](SCREENS.md) (telas e rotinas) e [DATABASE.md](DATABASE.md) (banco de dados).
@@ -328,7 +328,7 @@ Tela Utilitários → **Apagar todos os dados**, após confirmação ("Deseja re
 
 ## 11. Status da migração
 
-Situação de cada regra na versão Electron. Atualizada pela skill `migrar-regra-de-negocio`.
+Situação de cada regra na versão nova. As regras migradas ficam no pacote `@pfc/domain` (`packages/domain/src/rules/`), usado tanto pelo desktop quanto pela web. Atualizada pela skill `migrar-regra-de-negocio`.
 
 Legenda: ⬜ Pendente · ✅ Migrada
 

@@ -1,0 +1,16 @@
+{
+  "name": "@pfc/domain",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Regras de negócio (RN-xx) e conversões de tipos do legado, em JavaScript puro",
+  "type": "module",
+  "exports": {
+    "./*": "./src/*.js"
+  },
+  "scripts": {
+    "test": "vitest run --passWithNoTests"
+  },
+  "devDependencies": {
+    "vitest": "^5.0.5"
+  }
+}

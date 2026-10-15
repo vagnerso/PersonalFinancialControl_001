@@ -1,6 +1,6 @@
 // Conversões entre os tipos gravados pelo sistema Delphi (SQLite) e JavaScript.
 // Referência: .claude/skills/tipos-legado-delphi/SKILL.md e docs/DATABASE.md §3.
-// Copie para electron/src/domain/legacy-types.js na primeira vez que for necessário.
+// Copie para packages/domain/src/legacy-types.js na primeira vez que for necessário.
 
 // ---------------------------------------------------------------- Datas
 // O banco guarda datas como texto 'YYYY-MM-DD', sem hora (ex.: MOVEMENT.ISSUE_DATE).

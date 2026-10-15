@@ -15,7 +15,7 @@ Entrada: o nome da tela (ex.: `fCategory`, "Categorias") ou o caminho do `.pas`/
 
 1. Leia o [CLAUDE.md](../../../CLAUDE.md): regras invioláveis, glossário e convenções da versão nova (pastas, CSS, testes).
 2. Leia a skill [tipos-legado-delphi](../tipos-legado-delphi/SKILL.md): datas, dinheiro, booleanos e IDs seguem aquele guia.
-3. Confirme que o projeto `electron/` existe e tem React configurado (`electron/package.json`). **Se não existir, pare e pergunte ao usuário**: criar o esqueleto do projeto é uma decisão à parte.
+3. Confirme que o pacote `packages/ui/` existe e tem React configurado (`packages/ui/package.json`). **Se não existir, pare e pergunte ao usuário**: criar o esqueleto do projeto é uma decisão à parte.
 4. **Não altere** os arquivos Delphi; eles são só leitura.
 
 ## Passo 1: Entender a tela
@@ -31,30 +31,30 @@ Entrada: o nome da tela (ex.: `fCategory`, "Categorias") ou o caminho do `.pas`/
 | Categoria | Como reconhecer | Destino |
 |---|---|---|
 | **Interface** | Cor/hover (`SetButtonColors`), mostrar/ocultar abas e painéis, foco, larguras de coluna, títulos | Componente React (estado + JSX + CSS) |
-| **Regra de negócio** | Cálculo, validação, geração de dados, decisão (ex.: `InstallmentsGenerate`, `SumMovements`) | Função pura em `electron/src/domain/rules/`, importada pelo componente |
-| **Acesso a dados** | `TMyQuery`, `FRegisterObject.Insert/Update/Delete/Search/GetById` | Chamada ao serviço `electron/src/renderer/services/<entidade>Service.js` |
+| **Regra de negócio** | Cálculo, validação, geração de dados, decisão (ex.: `InstallmentsGenerate`, `SumMovements`) | Função pura em `packages/domain/src/rules/`, importada pelo componente como `@pfc/domain/rules/<área>/<nome>` |
+| **Acesso a dados** | `TMyQuery`, `FRegisterObject.Insert/Update/Delete/Search/GetById` | Serviço obtido com `useServices()` (`@pfc/ui/services/ServicesContext.js`), conforme o contrato `packages/ui/src/services/<entidade>Service.js` (a implementação fica em cada app) |
 
 - Para **regra de negócio**, procure a RN correspondente no status de migração ([BUSINESS_RULES.md §11](../../../docs/BUSINESS_RULES.md#11-status-da-migração)):
   - **Já migrada:** importe a função.
   - **Ainda não migrada:** crie a chamada para a função esperada, deixe `// TODO(migração): RN-xx pendente` e recomende a skill `migrar-regra-de-negocio`. **Não implemente regra de negócio dentro do componente.**
-- Para **acesso a dados**, se o serviço não existir, crie um stub com as funções e assinaturas usadas, retornando `Promise`, com `// TODO(migração): implementar via IPC` e sem SQL no renderer.
+- Para **acesso a dados**, se o serviço não existir, crie em `packages/ui/src/services/<entidade>Service.js` o contrato: JSDoc com a chave do objeto `Services` (ex.: `category`) e as funções e assinaturas usadas, todas retornando `Promise`, com `// TODO(migração): implementar no desktop (IPC) e na web`. A tela usa `const { category } = useServices()` e nunca importa uma implementação. Nada de SQL, IPC ou `fetch` dentro de `packages/ui/`: a tela roda nas duas aplicações.
 - Se um evento envolve uma **divergência D-xx** sem decisão registrada, não replique nem corrija: pergunte ao usuário (regra inviolável 4).
 
 ## Passo 3: Gerar os arquivos
 
 ```
-electron/src/renderer/screens/<Tela>/<Tela>.jsx   componente (PascalCase, nome em inglês sem o prefixo "f": fCategory → Category)
-electron/src/renderer/screens/<Tela>/<Tela>.css   estilos da tela
-electron/src/renderer/services/<entidade>Service.js   (se precisar de stub)
+packages/ui/src/screens/<Tela>/<Tela>.jsx   componente (PascalCase, nome em inglês sem o prefixo "f": fCategory → Category)
+packages/ui/src/screens/<Tela>/<Tela>.css   estilos da tela
+packages/ui/src/services/<entidade>Service.js   (contrato, se ainda não existir)
 ```
 
 - **Componente funcional** com hooks. Estado de formulário em `useState`; efeitos de carga em `useEffect`.
 - **Textos da interface em pt-BR**, iguais aos do Delphi (salvo erro registrado, ex.: D-17). Identificadores em inglês.
 - **CSS:**
   - Um arquivo por tela, com todas as classes prefixadas pelo nome da tela (`.category-…`).
-  - Cores **sempre** pelas variáveis de `electron/src/renderer/styles/theme.css`. Se o arquivo não existir, crie-o a partir de [SCREENS.md §3.5](../../../docs/SCREENS.md#35-tema-visual) (`--color-title: #40A67D`, `--color-background: #242424`, …).
+  - Cores **sempre** pelas variáveis de `packages/ui/src/styles/theme.css`. Se o arquivo não existir, crie-o a partir de [SCREENS.md §3.5](../../../docs/SCREENS.md#35-tema-visual) (`--color-title: #40A67D`, `--color-background: #242424`, …).
   - **Não copie** `Left`/`Top`/`Width`/`Height` do `.dfm`: reproduza a organização com flexbox/grid. Respeite a ordem visual e o agrupamento.
-- **Componentes compartilhados** (crie na primeira tela que precisar, em `electron/src/renderer/components/`, e reaproveite depois):
+- **Componentes compartilhados** (crie na primeira tela que precisar, em `packages/ui/src/components/`, e reaproveite depois):
 
 | Delphi | Componente React |
 |---|---|

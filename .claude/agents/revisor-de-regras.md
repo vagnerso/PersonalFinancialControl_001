@@ -17,7 +17,7 @@ Revise código migrado para verificar se cada regra de negócio preserva o compo
 - `docs/DATABASE.md`: tabelas, campos, relações e valores armazenados.
 - `docs/SCREENS.md`: telas, rotinas e pontos em que a regra aparece.
 - A skill `tipos-legado-delphi`: conversões e tratamento de datas, valores monetários, booleanos, IDs e valores codificados.
-- Testes existentes junto ao código migrado: cobertura dos casos de borda descritos na documentação.
+- Código migrado em `packages/domain/src/rules/<área>/*.js` (pacote `@pfc/domain`, compartilhado pelo desktop e pela web), com os testes `*.test.js` ao lado: cobertura dos casos de borda descritos na documentação.
 
 ## Procedimento
 

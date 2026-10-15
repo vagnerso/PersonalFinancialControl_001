@@ -284,3 +284,11 @@ templates/__history/fMasterRegister.pas.~51~
 *.~51~
 *.~52~
 *.~53~
+PersonalFinancialControl.exe
+
+# Node / versão nova
+node_modules/
+out/
+dist/
+.eslintcache
+*.log

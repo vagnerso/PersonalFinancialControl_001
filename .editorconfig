@@ -1,0 +1,19 @@
+root = true
+
+# Só a versão nova (JavaScript). Os arquivos Delphi (.pas, .dfm, .dpr) estão em
+# Windows-1252 com CRLF e não podem ser convertidos ao salvar.
+[{apps,packages}/**]
+charset = utf-8
+indent_style = space
+indent_size = 2
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[{package.json,eslint.config.mjs,.prettierrc.yaml,.prettierignore,.editorconfig}]
+charset = utf-8
+indent_style = space
+indent_size = 2
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true

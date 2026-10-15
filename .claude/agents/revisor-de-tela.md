@@ -21,7 +21,7 @@ A skill `converter-form-delphi` está carregada só como referência: use a tabe
   - Ignore blocos de imagem (`Picture.Data`, `Glyph`). `fMain.dfm` tem ~1 MB: use Grep, não leia o arquivo inteiro.
 - `docs/BUSINESS_RULES.md`: regras RN-xx, glossário (§1), divergências D-xx (§8) e status de migração (§11). Apoio para entender as regras que a tela aciona.
 - `docs/DATABASE.md`: apoio para entender tabelas, campos, tipos e valores codificados por trás de cada campo da tela.
-- Versão nova em `electron/src/`: componente da tela (`renderer/screens/<Tela>/`), componentes compartilhados (`renderer/components/`), serviços (`renderer/services/`) e regras (`domain/rules/`).
+- Versão nova: componente da tela em `packages/ui/src/screens/<Tela>/`, componentes compartilhados em `packages/ui/src/components/`, contratos de serviço em `packages/ui/src/services/` (a tela os obtém por `useServices()`, nunca importando uma implementação) e regras em `packages/domain/src/rules/`. A mesma tela roda no desktop (`apps/desktop/`) e na web (`apps/web/`).
 
 ## Procedimento
 
@@ -32,7 +32,7 @@ A skill `converter-form-delphi` está carregada só como referência: use a tabe
    - **Ações:** todo botão, item de menu e atalho tem equivalente e faz a mesma coisa: mesma operação, mesmas confirmações (incluindo o padrão **Não**), mesmas mensagens e o mesmo estado da tela depois da ação. Botão sem ação no Delphi deve continuar sem ação ou estar marcado como `TODO(migração)`, nunca ganhar comportamento novo.
    - **Validações:** as validações e mensagens do original foram mantidas, sem acrescentar nem remover nenhuma.
    - **Navegação:** de onde a tela abre, o que ela abre (Busca genérica, outras telas), o que retorna a quem chamou e como fecha (Esc, Fechar, Cancelar) estão previstos conforme §1, §3 e §4 de `SCREENS.md`.
-4. Verifique a separação de responsabilidades: cálculos, validações de negócio, geração de dados e decisões (RN-xx) devem estar em funções de `electron/src/domain/rules/` importadas pelo componente; acesso a dados deve passar pelos serviços, sem SQL no renderer. Regra implementada dentro do componente é divergência, mesmo que o resultado esteja correto. RN ainda não migrada deve aparecer como `TODO(migração): RN-xx`.
+4. Verifique a separação de responsabilidades: cálculos, validações de negócio, geração de dados e decisões (RN-xx) devem estar em funções de `packages/domain/src/rules/` importadas pelo componente; acesso a dados deve passar pelos serviços, sem SQL, IPC (`window.api`) ou `fetch` dentro de `packages/ui/`. Regra implementada dentro do componente é divergência, mesmo que o resultado esteja correto. RN ainda não migrada deve aparecer como `TODO(migração): RN-xx`.
 5. Confira se os nomes do código seguem o glossário de `BUSINESS_RULES.md §1` e a tabela de termos do `CLAUDE.md` (`Movement`, `IssueDate`, `Situation`, `TypePayment`, `FormPayment`, `Provider`/`Customer`…), e se os textos da interface usam os termos em pt-BR do glossário, sem sinônimos. Não exija tradução de identificadores que já estejam em inglês.
 6. Quando a tela envolver uma divergência D-xx, não presuma se ela deve ser corrigida ou mantida: confira se o comportamento do componente corresponde à decisão registrada em `BUSINESS_RULES.md §8`; se não houver decisão, sinalize que está pendente.
 7. Não avalie estética: cores, espaçamentos, tamanhos, fontes e CSS em geral estão fora do escopo, porque o CSS ainda é provisório. Ordem e agrupamento dos campos só contam quando mudam o significado ou o fluxo da tela.
