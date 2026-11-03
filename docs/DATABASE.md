@@ -29,8 +29,8 @@ Documentação da estrutura do banco SQLite usado pela versão Delphi do sistema
 | Localização em execução | pasta `database\` ao lado do executável (`TFunctions.DataBasePath`) |
 | Acesso | FireDAC, conexão única compartilhada (`TDataBaseConnection`, singleton) |
 | Codificação | UTF-8 |
-| Journal mode | `delete` (gera o arquivo `PersonalFinancialControl-journal` durante transações) |
-| `PRAGMA foreign_keys` | **desligado** (0): a única FK declarada não é verificada |
+| Journal mode | `delete` (gera o arquivo `PersonalFinancialControl-journal` durante transações). Observado em 03/11/2026: com o app Delphi aberto, o arquivo continua na pasta, com o cabeçalho zerado (sem rollback pendente). **Suspeita, não verificada:** efeito do modo de bloqueio exclusivo do FireDAC |
+| `PRAGMA foreign_keys` | **desligado** (0): a única FK declarada não é verificada. O `better-sqlite3`, da versão nova, liga por padrão, por isso a conexão do desktop o desliga de forma explícita (ver D-14) |
 | `PRAGMA user_version` | 0 (não há controle de versão do esquema) |
 | Tabelas | 8 tabelas de dados + `sqlite_sequence` (interna do SQLite) |
 

@@ -1,0 +1,32 @@
+/*
+ * Estilos globais: valem para todo o documento, antes de qualquer tela ou componente.
+ * Usam só os papéis de theme.css.
+ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--color-app-bg);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-tight);
+}
+
+/* Campos e botões herdam a fonte do tema (o navegador usa a fonte do sistema por padrão) */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}

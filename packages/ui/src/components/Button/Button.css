@@ -1,0 +1,32 @@
+/* A fonte vem de base.css (button { font: inherit }); aqui só o tamanho */
+.button {
+  min-width: var(--size-button-min-width);
+  min-height: var(--size-button);
+  padding: 0 var(--space-lg);
+  border: none;
+  border-radius: var(--radius-control);
+  background: var(--color-button-bg);
+  color: var(--color-button-text);
+  font-size: var(--font-size-control);
+  cursor: pointer;
+}
+
+/* Botões grandes de fMovement (Salvar/Cancelar com 46 px, "Gerar Parcelas" com 51 px) */
+.button-lg {
+  min-height: var(--size-button-lg);
+}
+
+/* No Delphi, hover e foco pintam o botão da mesma forma (TFunctions.SetButtonColors).
+   O contorno transparente não aparece no tema, mas o modo de alto contraste do Windows o
+   torna visível, porque nesse modo as cores de fundo são ignoradas */
+.button:hover:not(:disabled),
+.button:focus-visible {
+  background: var(--color-button-bg-hover);
+  color: var(--color-button-text-hover);
+  outline: var(--focus-ring-width) solid transparent;
+}
+
+.button:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: default;
+}

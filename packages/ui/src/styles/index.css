@@ -1,0 +1,7 @@
+/*
+ * Ponto de entrada dos estilos globais, importado uma única vez pelo App.
+ * A ordem importa: primitivos → papéis do tema → estilos globais.
+ */
+@import './tokens.css';
+@import './theme.css';
+@import './base.css';

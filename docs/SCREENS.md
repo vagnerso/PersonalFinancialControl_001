@@ -94,7 +94,7 @@ classDiagram
 
 | Template | Arquivo | O que oferece |
 |---|---|---|
-| `TfrmBase` | `templates/fBase` | Duas opções desligadas por padrão: fechar com **Esc** (`FormCloseWithEsc`) e **Enter funcionar como Tab** (`ChangeEnterToTab`; não vale para o campo de pesquisa) |
+| `TfrmBase` | `templates/fBase` | Duas opções desligadas por padrão: fechar com **Esc** (`FormCloseWithEsc`) e **Enter funcionar como Tab** (`ChangeEnterToTab`; não vale para o campo de pesquisa). Nenhuma tela liga o `ChangeEnterToTab`: o Enter como Tab de `fMovement` é um `FormKeyPress` próprio da tela |
 | `TfrmMasterRegister` | `templates/fMasterRegister` | Layout completo de cadastro (abaixo). Liga o fechamento com Esc e abre maximizado |
 
 ### 3.2 Layout de cadastro (`TfrmMasterRegister`)
@@ -164,22 +164,114 @@ As **perguntas de confirmação** (excluir, pagar, apagar tudo) **não** usam es
 
 ### 3.5 Tema visual
 
-Definido em `PersonalFinancialControl.dpr` e aplicado por cada tela no `SetColors`. Os valores Delphi estão em BGR; abaixo, convertidos para hexadecimal RGB.
+Levantamento feito em todos os `.dfm` e nos `SetColors` dos `.pas`. Os formulários foram desenhados a 96 DPI, então **1 px do Delphi = 1 px CSS** e `Font.Height = -20` corresponde a `font-size: 20px`. Os valores de cor do Delphi estão em BGR (`$00BBGGRR`, ou o mesmo número em decimal); abaixo, convertidos para hexadecimal RGB.
 
-| Propriedade | Delphi | Cor | Uso |
+Na versão nova, cada valor vira um token em `packages/ui/src/styles/` (`tokens.css` para os valores, `theme.css` para os papéis). A coluna **Token** indica o papel de `theme.css`. Como usar os tokens: [packages/ui/README.md](../packages/ui/README.md#design-tokens).
+
+#### 3.5.1 Cores do tema (`TLayoutConfiguration`)
+
+Definidas em `PersonalFinancialControl.dpr` e aplicadas por cada tela no `SetColors`, que sobrescreve a cor gravada no `.dfm`.
+
+| Propriedade | Delphi | Cor | Uso | Token |
+|---|---|---|---|---|
+| `TitleColor` | `$007DA640` | `#40A67D` (verde) | Faixa de título, linha selecionada na grade, textos do login, faixas da mensagem | `--color-title-bg`, `--color-grid-row-selected-bg`, `--color-text-accent` |
+| `TitleFontColor` | `clWhite` | `#FFFFFF` | Texto do título e da linha selecionada | `--color-title-text`, `--color-grid-row-selected-text` |
+| `ActionButtonColor` | `$00635A4B` | `#4B5A63` | Fundo dos botões | `--color-button-bg` |
+| `ActionButtonFontColor` | `clWhite` | `#FFFFFF` | Texto dos botões | `--color-button-text` |
+| `HoverActionButtonColor` | `clWhite` | `#FFFFFF` | Fundo do botão com o mouse em cima ou com foco | `--color-button-bg-hover` |
+| `ActionButtonHoverFontColor` | `clBlack` | `#000000` | Texto do botão com o mouse em cima ou com foco | `--color-button-text-hover` |
+| `BackgroundColor`, `SearchPanelColor`, `MainPanelColor`, `MainPanelRegisterColor`, `RegisterPanelColor`, `PanelBottomColor` | `$00242424` | `#242424` | Fundos | `--color-app-bg` |
+| `PopUpBackgroundColor` | `$004A4B49` | `#494B4A` | Fundo do login e das mensagens | `--color-overlay-bg` |
+
+`TLayoutConfiguration` também declara `FormColor`, `TextFontColor` e `DetailColor`, mas nenhuma tela grava ou lê essas propriedades.
+
+Os "botões" são `TPanel` com efeito de hover feito manualmente (`OnMouseEnter`/`OnMouseLeave`/`OnEnter`/`OnExit` → `TFunctions.SetButtonColors`). Hover e foco têm a mesma aparência. Os menus da tela principal **não** têm hover.
+
+#### 3.5.2 Cores fixas nos `.dfm`
+
+Cores que não vêm do `TLayoutConfiguration`, mas aparecem na tela:
+
+| Cor | Delphi | Onde aparece | Token |
 |---|---|---|---|
-| `TitleColor` | `$007DA640` | `#40A67D` (verde) | Faixa de título, linha selecionada na grade, textos do login |
-| `TitleFontColor` | `clWhite` | `#FFFFFF` | Texto do título |
-| `ActionButtonColor` | `$00635A4B` | `#4B5A63` | Fundo dos botões |
-| `ActionButtonFontColor` | `clWhite` | `#FFFFFF` | Texto dos botões |
-| `HoverActionButtonColor` | `clWhite` | `#FFFFFF` | Fundo do botão com o mouse em cima ou com foco |
-| `ActionButtonHoverFontColor` | `clBlack` | `#000000` | Texto do botão com o mouse em cima ou com foco |
-| `BackgroundColor`, `SearchPanelColor`, `MainPanelColor`, `MainPanelRegisterColor`, `RegisterPanelColor`, `PanelBottomColor` | `$00242424` | `#242424` | Fundos |
-| `PopUpBackgroundColor` | `$004A4B49` | `#494B4A` | Fundo do login e das mensagens |
+| `#5CB178` (verde) | `7909724` | Menu "Cadastrar Receitas"; faixa de título do Cadastro de Receitas (`fMain` copia a cor do menu para o `pnlTitle` de `fMovement`); "Total de Receitas" em Gerenciar movimentações | `--color-revenue` |
+| `#59B35B` (verde) | `6009689` | Cabeçalhos "Entradas por…" da aba "Visualizar em listas" dos gráficos | `--color-revenue` (unificada com `#5CB178`; ver nota abaixo) |
+| `#F33838` (vermelho) | `3684595` | Menu "Cadastrar Despesas"; faixa de título do Cadastro de Despesas; "Total de Despesas"; cabeçalhos "Saídas por…" dos gráficos | `--color-expense` |
+| `#0B8893` (azul-petróleo) | `9668619` | Menus de cadastros da tela principal: Tipos e Formas de Pagamento, Categorias, Sub-Categorias, Fornecedores, Clientes, Cidades | `--color-menu-register-bg` |
+| `#D39F03` (âmbar) | `237523` | Menus de movimentações da tela principal: Gerenciar, Relatórios e Gráficos | `--color-menu-movement-bg` |
+| `#FFFFFF` | `clWhite` | Painel do logotipo no login (`pnlDetail`). O nome do sistema e o crédito "Desenvolvido por" ficam em `TitleColor`, assim como o texto digitado nos campos Usuário e Senha | `--color-surface-light-bg` |
+| `#FF0000` / `#008000` | `clRed` / `clGreen` | Títulos dos gráficos de pizza de Despesas / Receitas (Tahoma, 19 px) | A definir com a biblioteca de gráficos |
+| `#000000` | `clBlack` | "Saldo" em Gerenciar movimentações. O fundo do painel (`pnlSum`) não é pintado pelo tema | `--color-text-on-light` |
 
-**Fonte:** as telas usam **Calibri** (`Font.Name = 'Calibri'` nos `.dfm`). A exceção são os títulos de coluna das grades de `fMovementGraphics` (`Title.Font.Name = 'Tahoma'`). Na versão nova, a fonte é a variável `--font-family` de `packages/ui/src/styles/theme.css`.
+**Unificação na versão nova:** os dois verdes de Receitas (`#5CB178` e `#59B35B`) são visualmente quase iguais e têm o mesmo sentido, por isso viraram um único papel, `--color-revenue`. Para manter os dois, crie outro papel em `theme.css`.
 
-Os "botões" são `TPanel` com efeito de hover feito manualmente (`OnMouseEnter`/`OnMouseLeave`/`OnEnter`/`OnExit` → `TFunctions.SetButtonColors`).
+**Botão Ok da mensagem:** o `.dfm` grava `#EADC77` (amarelo) com texto preto, e o `SetColors` não repinta o botão. Mas o `FormShow` dá foco a ele, e o `OnEnter` o pinta de branco; ao sair o mouse, ele fica com `ActionButtonColor`. Assim, o amarelo não chegaria a aparecer. *Deduzido do código, não testado.*
+
+**Cores do `.dfm` que não aparecem:** o `SetColors` sobrescreve `#C4C4C4` (fundo de `fMain`), `#CED5D9` (`pnlRegisterBasic`), `#4B4D1A` (`pnlLogin`), `#BFAA80` (`pnlGeneral` da mensagem), `#59B35B` e `#494B4A` nos botões de cadastro, busca e login, e `clBlack` no fundo do login, da mensagem e no título de `fMovement`. Esses valores não viraram tokens.
+
+#### 3.5.3 Controles nativos
+
+Campos (`TEdit`, `TComboBox`, `TDateTimePicker`), grades, abas (`TPageControl`) e as telas Utilitários e Importar não são pintados pelo tema: usam as cores padrão do Windows.
+
+| Elemento | Cor | Token |
+|---|---|---|
+| Fundo de campo e de grade (`clWindow`) | `#FFFFFF` | `--color-field-bg`, `--color-grid-bg` |
+| Texto de campo e de grade | `#000000` | `--color-field-text`, `--color-grid-text` |
+| Dica do campo (`TextHint`, `clGrayText`) | `#6D6D6D` | `--color-field-placeholder` |
+| Título de coluna e fundo nativo (`clBtnFace`) | `#F0F0F0` | `--color-grid-header-bg`, `--color-native-bg` |
+| Borda de campo | `#A0A0A0` (aproximação) | `--color-field-border` |
+| Linhas da grade | `#C0C0C0` (aproximação) | `--color-grid-border` |
+
+A borda dos campos e as linhas da grade são desenhadas pelo Windows. Os valores da tabela são aproximações, não medidas.
+
+#### 3.5.4 Tipografia
+
+As telas usam **Calibri** (`Font.Name = 'Calibri'` nos `.dfm`). A exceção são os títulos dos gráficos de pizza de `fMovementGraphics` (`TChart.Title.Font.Name = 'Tahoma'`). Na versão nova, a fonte é `--font-family`, com a Carlito (mesmas métricas da Calibri) e a fonte do sistema como alternativas fora do Windows.
+
+| Tamanho no Delphi (`Font.Height`) | Onde | Token (escala) | Papel |
+|---|---|---|---|
+| 11, 12 px | Abas das `TPageControl` (12); crédito no login (11) | `--font-size-2xs` (12 px) | `--font-size-tab` |
+| 13 px | Crédito "Desenvolvido por" na tela principal | `--font-size-xs` (13 px) | — |
+| 16 px | Fonte padrão do `TfrmBase`; filtros e títulos de coluna das listas dos gráficos | `--font-size-sm` (16 px) | `--font-size-base` |
+| 19, 20, 21 px | Rótulos, campos e botões (20 na maioria das telas; 21 em `fMovement`, nos botões do login e nos totais; 19 nos campos do login e nos cabeçalhos das listas dos gráficos) | `--font-size-md` (20 px) | `--font-size-control` |
+| 23, 24 px | Grades de consulta (23); menus grandes da tela principal (24) | `--font-size-lg` (24 px) | `--font-size-grid` |
+| 27 px | Texto da mensagem; "Seja bem vindo(a)" no login | `--font-size-xl` (27 px) | — |
+| 33 px | Faixas de título (sem negrito); nome do sistema na tela principal e no login (negrito) | `--font-size-2xl` (33 px) | `--font-size-title` |
+| 42 px | Tipo da mensagem (Sucesso, Erro…) | `--font-size-3xl` (42 px) | — |
+
+- **Negrito** (`fsBold`) só aparece no nome do sistema, no nome do usuário logado, nos campos do login, nos totais de Gerenciar movimentações e nos cabeçalhos das listas dos gráficos (`--font-weight-bold`). O resto é regular (`--font-weight-regular`), inclusive as faixas de título.
+- A faixa de título (`pnlTitle`) tem o texto **centralizado**, como todo `TPanel` com `Caption`.
+- A altura de linha do Delphi para a fonte de 20 px é 24 px (`TextHeight`), ou seja, 1,2 (`--line-height-tight`).
+
+#### 3.5.5 Espaçamento, tamanhos e bordas
+
+**Espaçamento.** Os `.dfm` posicionam tudo em pixels absolutos, sem uma escala. Os valores mais frequentes foram agrupados na grade de 4 px de `tokens.css`:
+
+| No Delphi | Exemplo | Token |
+|---|---|---|
+| 1–3 px | Rótulo → campo (1 px); margens do `AlignWithMargins` (3 px) | `--space-xs` (4 px) |
+| 5–8 px | Entre botões do login e blocos do menu principal (5–6 px); campo → lupa (6 px); recuo dos campos de cadastro (8 px) | `--space-sm` (8 px) |
+| 10 px | Margens do texto da mensagem e do nome do sistema | `--space-md` (12 px) |
+| 14–16 px | Recuo do menu principal (14 px), da pesquisa e de `fMovement` (16 px); entre linhas de campos em `fMovement` (14 px) | `--space-lg` (16 px) |
+| 15–24 px | Entre colunas de campos (15–23 px); recuo do login (24 px) | `--space-xl` (24 px) |
+
+**Tamanhos.**
+
+| Elemento | No Delphi | Token |
+|---|---|---|
+| Faixa de título (`pnlTitle`) | 60 px de altura (41 px em Utilitários) | `--size-title-bar` (60 px) |
+| Campos | 32 px (31 no login, 34 em `fMovement`, 27 nos filtros dos gráficos) | `--size-control` (32 px) |
+| Botões de ação | 41 px de altura; 147–150 px de largura | `--size-button` (40 px), `--size-button-min-width` (150 px) |
+| Botões grandes | 46 px (Salvar/Cancelar de `fMovement`), 51 px ("Gerar Parcelas"), 57 px (Ok da mensagem) | `--size-button-lg` (48 px) |
+| Barra de botões do cadastro (`pnlMain`) | 150 px de largura | `--size-sidebar` (150 px) |
+| Lupa e limpar ao lado dos campos | 30 × 30 px | `--size-icon-button` (30 px) |
+| Ícones | 24 px (imagens `*_24dp`); 96 px na mensagem | `--size-icon` (24 px), `--size-icon-xl` (96 px) |
+
+**Bordas e formas.**
+
+- Todos os painéis usam `BevelOuter = bvNone` e as grades, `BorderStyle = bsNone`: a interface é plana, **sem cantos arredondados e sem sombras** (`--radius-control: 0`).
+- Os botões têm `BevelKind = bkTile`, que desenha um relevo fino na borda. É ele que separa os botões empilhados da barra lateral. A aparência exata não foi verificada; na versão nova, use `--border-width-thin` (1 px) quando precisar separar botões.
+- O foco dos campos é o nativo do Windows. Na versão nova, o contorno de foco é do tema (`--color-focus-ring`, `--focus-ring-width`), um papel novo, sem equivalente no legado.
+- O cursor de mão (`crHandPoint`) aparece em todos os botões, menus e ícones clicáveis (`cursor: pointer`).
 
 ---
 
@@ -262,6 +354,7 @@ Observações por tela:
 - **Sub-Categorias:** ao alterar, carrega o registro do banco (`GetById`) para mostrar a categoria atual.
 - **Formas de Pagamento:** ao alterar, recarrega o combo de tipos e seleciona o tipo atual pelo ID.
 - **Fornecedores / Clientes:**
+  - E-mail, Endereço, Número, Bairro e Cidade têm `CharCase = ecLowerCase`: o texto vira minúsculas ao digitar.
   - Mesma tela-base. A diferença é o filtro `TYPE_PERSON` fixo na busca (Fornecedor = 0, Cliente = 1).
   - Ao alterar, o campo Cidade mostra o **ID** da cidade, não o nome.
   - Ambas têm um método `GetTypePaymentList` vazio, sobra de cópia da tela de Formas de Pagamento.
@@ -336,6 +429,8 @@ Usa o layout de cadastro, com extras.
 
 Nesta tela, o lookup de pessoa é sempre de **Fornecedores**, inclusive ao editar uma receita.
 
+O campo "R$ Valor" é um `TEdit` comum: não tem o filtro nem a formatação da RN-25, que só existem no "Valor das parcelas" de `fMovement`. Os combos de Situação e Mês não são `csDropDownList`, então o texto deve ser editável (*deduzido do `.dfm`, não testado*); a busca usa só o `ItemIndex`.
+
 ### 5.6 Gráficos de movimentações (`fMovementGraphics`)
 
 Janela maximizada com três abas.
@@ -358,7 +453,7 @@ Janela maximizada com três abas.
 
 | Filtro | Opções | Padrão ao abrir |
 |---|---|---|
-| Situação | Todas · Não Pagos · Pagos | Todas |
+| Situação | Todas · Não Pagos · Pagos (em Gerenciar: "Não Pagas · Pagas") | Todas |
 | Filtrar datas por | Mês · Ano · Período | Mês |
 | Mês/Ano | Mês: Janeiro…Dezembro · Ano: 2020…2030 | mês atual |
 | Data Inicial / Data Final | datas (só no modo Período) | hoje − 30 dias / hoje |

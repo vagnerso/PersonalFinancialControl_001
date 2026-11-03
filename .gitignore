@@ -292,3 +292,9 @@ out/
 dist/
 .eslintcache
 *.log
+
+# Storybook
+storybook-static/
+
+# Cópia do banco para desenvolvimento (dados reais)
+apps/desktop/dev-data/

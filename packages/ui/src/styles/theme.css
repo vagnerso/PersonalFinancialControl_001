@@ -1,17 +1,87 @@
 /*
- * Tema visual do sistema (docs/SCREENS.md §3.5).
- * Os valores do Delphi estão em BGR; aqui, convertidos para RGB.
- * As telas usam sempre estas variáveis, nunca a cor direto.
+ * Tema: os papéis visuais que telas e componentes usam (docs/SCREENS.md §3.5).
+ * É o equivalente ao TLayoutConfiguration do Delphi: cada papel aponta para um token de
+ * tokens.css. Para mudar o visual, troque o valor do papel aqui, não nas telas.
+ *
+ * Nomes: --color-<elemento>-<bg|text|border>[-<estado>]. Os comentários indicam a origem no Delphi.
  */
 :root {
-  --color-title: #40a67d; /* TitleColor */
-  --color-title-font: #ffffff; /* TitleFontColor */
-  --color-action-button: #4b5a63; /* ActionButtonColor */
-  --color-action-button-font: #ffffff; /* ActionButtonFontColor */
-  --color-action-button-hover: #ffffff; /* HoverActionButtonColor */
-  --color-action-button-hover-font: #000000; /* ActionButtonHoverFontColor */
-  --color-background: #242424; /* BackgroundColor, SearchPanelColor, MainPanelColor, MainPanelRegisterColor, RegisterPanelColor, PanelBottomColor */
-  --color-popup-background: #494b4a; /* PopUpBackgroundColor */
+  /* ---------- Superfícies ---------- */
+  /* BackgroundColor, SearchPanelColor, MainPanelColor, MainPanelRegisterColor,
+     RegisterPanelColor e PanelBottomColor (todos com o mesmo valor) */
+  --color-app-bg: var(--palette-gray-900);
+  /* PopUpBackgroundColor: fundo do login e das mensagens */
+  --color-overlay-bg: var(--palette-gray-700);
+  /* painel do logotipo no login (pnlDetail) */
+  --color-surface-light-bg: var(--palette-white);
+  /* clBtnFace: áreas que o tema não pinta (abas, telas Utilitários e Importar) */
+  --color-native-bg: var(--palette-gray-100);
 
-  --font-family: Calibri, 'Segoe UI', sans-serif; /* Font.Name das telas */
+  /* ---------- Texto ---------- */
+  /* rótulos e textos sobre o fundo escuro (Font.Color = clWhite) */
+  --color-text: var(--palette-white);
+  /* textos sobre superfícies claras */
+  --color-text-on-light: var(--palette-black);
+  /* TitleColor nos textos do login (nome do sistema, campos) */
+  --color-text-accent: var(--palette-jade-500);
+
+  /* ---------- Faixa de título ---------- */
+  --color-title-bg: var(--palette-jade-500); /* TitleColor */
+  --color-title-text: var(--palette-white); /* TitleFontColor */
+
+  /* ---------- Botões de ação ---------- */
+  /* Hover e foco usam as mesmas cores (TFunctions.SetButtonColors em OnMouseEnter e OnEnter) */
+  --color-button-bg: var(--palette-slate-600); /* ActionButtonColor */
+  --color-button-text: var(--palette-white); /* ActionButtonFontColor */
+  --color-button-bg-hover: var(--palette-white); /* HoverActionButtonColor */
+  --color-button-text-hover: var(--palette-black); /* ActionButtonHoverFontColor */
+
+  /* ---------- Campos (TEdit, TComboBox, TDateTimePicker) ---------- */
+  /* O Delphi não pinta os campos: são os controles nativos do Windows */
+  --color-field-bg: var(--palette-white); /* clWindow */
+  --color-field-text: var(--palette-black); /* Font.Color = clBlack */
+  --color-field-placeholder: var(--palette-gray-500); /* TextHint */
+  --color-field-border: var(--palette-gray-400); /* borda nativa (aproximação) */
+
+  /* ---------- Grades (TDBGrid) ---------- */
+  --color-grid-bg: var(--palette-white); /* clWindow */
+  --color-grid-text: var(--palette-black);
+  --color-grid-header-bg: var(--palette-gray-100); /* título de coluna nativo */
+  --color-grid-header-text: var(--palette-black);
+  --color-grid-border: var(--palette-gray-300); /* dgColLines e dgRowLines (aproximação) */
+  /* OnDrawColumnCell: a linha selecionada usa TitleColor e TitleFontColor */
+  --color-grid-row-selected-bg: var(--color-title-bg);
+  --color-grid-row-selected-text: var(--color-title-text);
+
+  /* ---------- Foco (novo) ---------- */
+  /* O legado usa o foco nativo do Windows nos campos. Na versão nova, o contorno é do tema */
+  --color-focus-ring: var(--palette-jade-500);
+  --focus-ring-width: var(--border-width-thick);
+
+  /* ---------- Receitas e Despesas ---------- */
+  /* Cores fixas nos .dfm (fora do TLayoutConfiguration), usadas com o mesmo sentido em várias telas:
+     menu "Cadastrar Receitas/Despesas", título do cadastro, totais de Gerenciar movimentações
+     e cabeçalhos das listas "Entradas…"/"Saídas…" dos gráficos */
+  --color-revenue: var(--palette-green-500);
+  --color-expense: var(--palette-red-500);
+  --color-on-revenue: var(--palette-white); /* texto sobre fundo de Receitas */
+  --color-on-expense: var(--palette-white); /* texto sobre fundo de Despesas */
+
+  /* ---------- Menu da tela principal ---------- */
+  /* Tipos e Formas de Pagamento, Categorias, Sub-Categorias, Fornecedores, Clientes, Cidades */
+  --color-menu-register-bg: var(--palette-teal-600);
+  /* Gerenciar, Relatórios e Gráficos de movimentações */
+  --color-menu-movement-bg: var(--palette-amber-600);
+  --color-menu-text: var(--palette-white);
+
+  /* ---------- Tipografia ---------- */
+  --font-family: var(--font-family-base);
+  --font-size-base: var(--font-size-sm); /* fonte padrão do TfrmBase (16px) */
+  --font-size-control: var(--font-size-md); /* rótulos, campos e botões (20px) */
+  --font-size-grid: var(--font-size-lg); /* texto e títulos de coluna das grades (24px) */
+  --font-size-tab: var(--font-size-2xs); /* abas das TPageControl (12px) */
+  --font-size-title: var(--font-size-2xl); /* faixa de título (33px, sem negrito) */
+
+  /* ---------- Formas ---------- */
+  --radius-control: var(--radius-none); /* botões, campos e painéis são retos no legado */
 }

@@ -1,7 +1,9 @@
-import { app, shell, BrowserWindow } from 'electron'
+import { app, dialog, shell, BrowserWindow } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { closeDatabase, openDatabase } from './database'
+import { registerCategoryHandlers } from './category'
 
 function createWindow() {
   // Create the browser window.
@@ -13,7 +15,7 @@ function createWindow() {
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
+      sandbox: true
     }
   })
 
@@ -49,6 +51,20 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
+  try {
+    console.info(`Banco de dados aberto: ${openDatabase()}`)
+  } catch (error) {
+    const hint = is.dev ? '\n\nEm desenvolvimento, crie a cópia com: npm run db:dev-copy' : ''
+    dialog.showErrorBox(
+      'Erro ao conectar no banco de dados',
+      `Não foi possível abrir o banco de dados.\n\n${error.message}${hint}`
+    )
+    app.quit()
+    return
+  }
+
+  registerCategoryHandlers()
+
   createWindow()
 
   app.on('activate', function () {
@@ -66,6 +82,8 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
+
+app.on('will-quit', closeDatabase)
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

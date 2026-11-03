@@ -1,0 +1,39 @@
+/* No Delphi, o rótulo fica de 1 a 8 px acima do campo, com a mesma fonte dele (20px) */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.form-field-label {
+  color: var(--color-text);
+  font-size: var(--font-size-control);
+}
+
+/* Aparência comum dos campos (TextField, Select, DateField). O Delphi não pinta os campos:
+   são TEdit, TComboBox e TDateTimePicker nativos do Windows (SCREENS.md §3.5.3) */
+.form-field-control {
+  width: 100%;
+  min-height: var(--size-control);
+  padding: 0 var(--space-sm);
+  border: var(--border-width-thin) solid var(--color-field-border);
+  border-radius: var(--radius-control);
+  background: var(--color-field-bg);
+  color: var(--color-field-text);
+  font-size: var(--font-size-control);
+}
+
+.form-field-control::placeholder {
+  color: var(--color-field-placeholder);
+  opacity: 1;
+}
+
+/* Foco: o legado usa o nativo do Windows; aqui é o contorno do tema */
+.form-field-control:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: 0;
+}
+
+.form-field-control:disabled {
+  opacity: var(--opacity-disabled);
+}

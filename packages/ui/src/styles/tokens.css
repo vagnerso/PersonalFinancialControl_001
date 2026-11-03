@@ -1,0 +1,79 @@
+/*
+ * Tokens primitivos: os valores brutos do design system (paleta e escalas).
+ * Levantados do sistema Delphi (docs/SCREENS.md §3.5); os .dfm foram desenhados a 96 DPI,
+ * então 1 px do Delphi = 1 px CSS, e Font.Height = -20 corresponde a font-size: 20px.
+ *
+ * Telas e componentes NÃO usam as cores daqui: usam os papéis de theme.css.
+ * As escalas de espaço, tipografia e tamanho podem ser usadas direto quando nenhum papel servir.
+ */
+:root {
+  /* ---------- Paleta ---------- */
+  /* Os valores Delphi estão em BGR ($00BBGGRR); aqui, convertidos para RGB. */
+  --palette-white: #ffffff; /* clWhite */
+  --palette-black: #000000; /* clBlack */
+
+  --palette-gray-100: #f0f0f0; /* clBtnFace: fundo nativo do Windows (cabeçalho de grade, telas sem tema) */
+  --palette-gray-300: #c0c0c0; /* clSilver: linhas de grade. Aproximação do padrão do Windows, não medida */
+  --palette-gray-400: #a0a0a0; /* clBtnShadow: borda de campo. Aproximação do padrão do Windows, não medida */
+  --palette-gray-500: #6d6d6d; /* clGrayText: texto de dica (TextHint) */
+  --palette-gray-700: #494b4a; /* $004A4B49 PopUpBackgroundColor */
+  --palette-gray-900: #242424; /* $00242424 BackgroundColor e painéis */
+
+  --palette-slate-600: #4b5a63; /* $00635A4B ActionButtonColor */
+
+  --palette-jade-500: #40a67d; /* $007DA640 TitleColor */
+  --palette-green-500: #5cb178; /* 7909724: Receitas (menu, título de fMovement, total) */
+  --palette-red-500: #f33838; /* 3684595: Despesas (menu, título de fMovement, total, listas de gráficos) */
+  --palette-teal-600: #0b8893; /* 9668619: menus de cadastros da tela principal */
+  --palette-amber-600: #d39f03; /* 237523: menus de movimentações da tela principal */
+
+  /* ---------- Tipografia ---------- */
+  /* Calibri em todas as telas. Carlito tem as mesmas métricas e substitui a Calibri fora do Windows. */
+  --font-family-base: Calibri, Carlito, 'Segoe UI', system-ui, sans-serif;
+
+  /* Escala em rem (16 px = 1rem). Entre parênteses, os Font.Height do Delphi agrupados em cada passo. */
+  --font-size-2xs: 0.75rem; /* 12px (12, 11): abas das TPageControl */
+  --font-size-xs: 0.8125rem; /* 13px (13): crédito "Desenvolvido por" */
+  --font-size-sm: 1rem; /* 16px (16): fonte padrão do TfrmBase, filtros dos gráficos */
+  --font-size-md: 1.25rem; /* 20px (19, 20, 21): rótulos, campos e botões */
+  --font-size-lg: 1.5rem; /* 24px (23, 24): grades de consulta, menus grandes da tela principal */
+  --font-size-xl: 1.6875rem; /* 27px (27): texto das mensagens, boas-vindas do login */
+  --font-size-2xl: 2.0625rem; /* 33px (33): faixas de título, nome do sistema */
+  --font-size-3xl: 2.625rem; /* 42px (42): tipo da mensagem (Sucesso, Erro…) */
+
+  --font-weight-regular: 400; /* Font.Style = [] */
+  --font-weight-bold: 700; /* Font.Style = [fsBold] */
+
+  --line-height-tight: 1.2; /* TextHeight / Font.Height do Delphi (24 / 20) */
+  --line-height-normal: 1.4; /* textos de várias linhas (mensagens) */
+
+  /* ---------- Espaçamento ---------- */
+  /* Grade de 4 px. Entre parênteses, os valores do Delphi que cada passo substitui. */
+  --space-2xs: 0.125rem; /* 2px */
+  --space-xs: 0.25rem; /* 4px (1–3): rótulo → campo, margens do AlignWithMargins */
+  --space-sm: 0.5rem; /* 8px (5–8): entre botões e blocos do menu, entre campo e lupa, recuo dos cadastros */
+  --space-md: 0.75rem; /* 12px (10–12): margens internas de textos */
+  --space-lg: 1rem; /* 16px (14–16): recuo das telas e da pesquisa, entre linhas de campos */
+  --space-xl: 1.5rem; /* 24px (15–24): entre colunas de campos, recuo do login */
+  --space-2xl: 2rem; /* 32px */
+  --space-3xl: 3rem; /* 48px */
+
+  /* ---------- Tamanhos de componentes ---------- */
+  --size-title-bar: 3.75rem; /* 60px: pnlTitle */
+  --size-control: 2rem; /* 32px (31–34): TEdit, TComboBox, TDateTimePicker */
+  --size-button: 2.5rem; /* 40px (41): botões de ação */
+  --size-button-lg: 3rem; /* 48px (46–51): Salvar/Cancelar e "Gerar Parcelas" em fMovement */
+  --size-button-min-width: 9.375rem; /* 150px (147–150): botões da barra lateral e do rodapé */
+  --size-sidebar: 9.375rem; /* 150px: barra de botões do cadastro (pnlMain) */
+  --size-icon-button: 1.875rem; /* 30px: lupa e limpar ao lado dos campos */
+  --size-icon: 1.5rem; /* 24px: ícones 24dp */
+  --size-icon-xl: 6rem; /* 96px: ícone da mensagem */
+
+  /* ---------- Bordas ---------- */
+  --border-width-thin: 1px;
+  --border-width-thick: 2px;
+  --radius-none: 0; /* o legado não tem cantos arredondados */
+
+  /* ---------- Outros ---------- */
+  --opacity-disabled: 0.5; /* novo: o legado não tem botão desabilitado */
+}

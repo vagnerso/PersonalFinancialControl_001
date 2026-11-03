@@ -13,6 +13,9 @@
   "scripts": {
     "dev:desktop": "npm run dev -w desktop",
     "build:desktop": "npm run build -w desktop",
+    "db:dev-copy": "npm run db:dev-copy -w desktop --",
+    "storybook": "npm run storybook -w @pfc/ui",
+    "build:storybook": "npm run build-storybook -w @pfc/ui",
     "lint": "eslint --cache .",
     "format": "prettier --write apps packages eslint.config.mjs",
     "test": "npm test --workspaces --if-present"

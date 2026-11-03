@@ -11,6 +11,7 @@ export default [
       '**/node_modules',
       '**/dist',
       '**/out',
+      '**/storybook-static',
       // Fora da versão nova: arquivos das skills, experimentos e projeto Delphi
       '.claude/**',
       'sandbox/**',

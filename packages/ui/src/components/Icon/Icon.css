@@ -1,0 +1,6 @@
+/* Imagens *_24dp: 24px (SCREENS.md §3.5.5) */
+.icon {
+  display: block;
+  width: var(--size-icon);
+  height: var(--size-icon);
+}

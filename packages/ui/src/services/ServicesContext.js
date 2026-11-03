@@ -6,6 +6,7 @@ import { createContext, useContext } from 'react'
  * (ex.: `category`), com funções que retornam Promise.
  *
  * @typedef {Object} Services
+ * @property {import('./categoryService.js').CategoryService} category
  */
 
 /** @type {import('react').Context<Services | null>} */

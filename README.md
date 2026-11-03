@@ -87,8 +87,9 @@ A versão nova fica no mesmo repositório, num monorepo com **npm workspaces**. 
 | Linguagem | JavaScript (ES modules) |
 | Interface | React 19, com um arquivo CSS por tela |
 | Desktop | Electron 44 + electron-vite (Vite 8) |
+| Banco no desktop | SQLite com `better-sqlite3` |
 | Testes | Vitest |
-| Web, driver SQLite, gráficos e relatórios | A definir |
+| Web, gráficos e relatórios | A definir |
 
 ```
 packages/domain/   @pfc/domain: regras de negócio em JavaScript puro, com testes
@@ -99,7 +100,7 @@ apps/web/          aplicação web (ainda só a estrutura de pastas)
 
 **Ordem:** primeiro o desktop é construído por inteiro; a web vem depois e reaproveita tudo o que está em `packages/`.
 
-**Situação:** o desktop abre a janela com o `App` de `@pfc/ui` (faixa de título e área vazia, com as cores do sistema). Nenhuma tela ou regra foi migrada até agora. O andamento de cada regra está em [BUSINESS_RULES.md §11](docs/BUSINESS_RULES.md#11-status-da-migração).
+**Situação:** o desktop abre a janela com o `App` de `@pfc/ui` (faixa de título e área vazia, com as cores do sistema) e abre a conexão com o banco, mas as telas ainda não leem dados. Nenhuma tela ou regra foi migrada até agora. O andamento de cada regra está em [BUSINESS_RULES.md §11](docs/BUSINESS_RULES.md#11-status-da-migração).
 
 ### Como executar
 
@@ -107,6 +108,7 @@ Requer Node.js 22 ou superior. Todos os comandos rodam na raiz do repositório:
 
 ```bash
 npm install            # instala as dependências de todos os pacotes
+npm run db:dev-copy    # cria a cópia do banco usada em desenvolvimento (necessária para abrir o app)
 npm run dev:desktop    # abre o app desktop em modo de desenvolvimento
 npm run build:desktop  # gera o build de produção do desktop
 npm run lint           # verifica o código de todo o monorepo (ESLint)

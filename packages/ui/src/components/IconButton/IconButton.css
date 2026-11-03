@@ -1,0 +1,25 @@
+/* TImage 30×30 com Center = True: o ícone de 24px fica centralizado */
+.icon-button {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-icon-button);
+  height: var(--size-icon-button);
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-control);
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Novo: o TImage do Delphi não recebe foco */
+.icon-button:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: 0;
+}
+
+.icon-button:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: default;
+}
